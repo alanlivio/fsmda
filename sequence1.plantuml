@@ -20,60 +20,17 @@ ParentHPE->ParentHPE: Process hipermidia document
 ParentHPE->ParentPM: classAnnouncement(5,"garrinchaUUID","RDF>","Garrincha App")
 ParentPM->ChildPM: classAnnouncement(5,"garrinchaUUID","RDF>","Garrincha App")
 ChildPM->ParentPM: addDeviceToClass(5,"garrinchaUUID","<RDF>")
+ParentPM->ParentHPE: addDeviceToClass(5,"garrinchaUUID","<RDF>")
 ChildPM->ParentPM: getChildIndex(5,"garrinchaUUID","<RDF>")
+ParentPM->ParentHPE: getChildIndex(5,"garrinchaUUID","<RDF>")
+ParentHPE-->ParentPM: return chieldIndex
 ParentPM-->ChildPM: return chieldIndex
-ChildPM->ParentPM: addDeviceToClass(5,"garrinchaUUID","<RDF>")
 
-'====================Paper - Handling classes variables Sequence====================
-'title Paper - Handling classes variables Sequence
-'HPE->PPM: setClassVariableValue("class(5).device(1).var1","value")
-'PPM->CPM: setClassVariableValue("class(5).device(1).var1","value")
-'CPM->HPE2: setClassVariableValue("class(5).device(1).var1","value")
-'HPE->+PPM: getClassVariableValue("class(5).device(1).var2","value")
-'PPM->+HPE2: getClassVariableValue("class(5).device(1).var2","value")
-'HPE2->-PPM: return("value")
-'PPM->-HPE: return("value")
-
-'====================Paper - Control Events of media object in active Sequence====================
-'title Paper - Control Events of media object in active Sequence
-'HPE->PCM: prepare({("height","10%"), ("top","30%")}, {("evt1","selection of a media","selection"), ("evt2","presentation of a media","presentation")},"file://video.mp4","m1")
-'HPE->PCM: addEvent(("evt3","atribution of a segment of a media","atribution"),"m1")
-'HPE->PCM: removeEvent(("evt1","m1")
-'HPE>PCM: postAction("start","evt1","m1")
-'PCM->HPE: notifyEventTransition(""","begins","m1")
-
-'====================Paper - Control Propertys of media object in active Sequence====================
-'title Paper - Control Propertys of media object in active Sequence
-'HPE->PCM: setPropertyValue(("height","50%", 0,"m1")
-'HPE->PCM: requestPropertyValue("top","m1")
-'PCM->HPE: reportPropertyValue("top","30%","m1")
-'
-'====================Propose - Paring Sequence====================
+'====================Propose -  Paring and handling classes variables Sequence====================
 'title Propose - Paring Sequence
 'PPM->CPM: classAnnouncement(5,"garrinchaUUID","<RDF>","Garrincha App")
 'CPM->PPM: addDeviceToClass(5,"garrinchaUUID","<RDF>")
 'CPM->PPM: setChildIndex(5,"garrinchaUUID","<RDF>")
-
-'====================Propose - Set Variable Sequence====================
-'title Propose - Set Variable Sequence
-'PPM->HPE: setClassVariableValue("class(5).device(1).var1","value")
-'PPM->HPE: requestClassVariableValue("class(5).device(1).var2","value")
-'HPE->PPM: notifyClassVariableValue("class(5).device(1).var2","value")
-
-'====================Propose - Control Events of media object in active Sequence====================
-'title Propose - Control Events of media object in active Sequence
-'HPE/PCM->PCM/CCM: prepare("m1","file://video.mp4", {("height","10%"), ("top","30%")}, {("evt1","selection of a segment of a media","selection"), ("evt2","presentation of a segment of a media","presentation")})
-'HPE/PCM->PCM/CCM: addEvent("m1", ("evt3","atribution of a segment of a media","atribution"))
-'HPE/PCM->PCM/CCM: removeEvent(("m1","evt1")
-'HPE/PCM->PCM/CCM: postAction("m1","evt1","start")
-'PCM/CCM->HPE/PCM: notifyEventTransition("m1" ,"evt1","begins")
-
-'====================Propose - Control Propertys of media object in active Sequence====================
-'title Propose - Control Propertys of media object in active Sequence
-'HPE/PCM->PCM/CCM: setPropertyValue(("m1" ,"height","50%", 0)
-'HPE/PCM->PCM/CCM: requestPropertyValue("top","m1")
-'PCM/CCM->HPE/PCM: notifyPropertyValue("top","30%","m1")
-
 
 '====================Ending PLANTUML params====================
 @enduml

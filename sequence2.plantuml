@@ -1,0 +1,31 @@
+'====================Begining PLANTUML params====================
+@startuml
+hide footbox
+skinparam monochrome true
+skinparam sequenceMessageAlign center
+
+participant ParentHPE
+participant ParentPM
+participant ParentCM
+participant ChildPM
+participant ChildCM
+participant ChildHPE
+
+'====================Paper - Handling classes variables Sequence====================
+'title Paper - Handling classes variables Sequence
+'HPE->PPM: setClassVariableValue("class(5).device(1).var1","value")
+'PPM->CPM: setClassVariableValue("class(5).device(1).var1","value")
+'CPM->HPE2: setClassVariableValue("class(5).device(1).var1","value")
+'HPE->+PPM: getClassVariableValue("class(5).device(1).var2","value")
+'PPM->+HPE2: getClassVariableValue("class(5).device(1).var2","value")
+'HPE2->-PPM: return("value")
+'PPM->-HPE: return("value")
+
+'====================Propose - Set Variable Sequence====================
+'title Propose - Set Variable Sequence
+'PPM->HPE: setClassVariableValue("class(5).device(1).var1","value")
+'PPM->HPE: requestClassVariableValue("class(5).device(1).var2","value")
+'HPE->PPM: notifyClassVariableValue("class(5).device(1).var2","value")
+
+'====================Ending PLANTUML params====================
+@enduml

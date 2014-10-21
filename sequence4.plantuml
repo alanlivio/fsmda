@@ -1,0 +1,27 @@
+'====================Begining PLANTUML params====================
+@startuml
+hide footbox
+skinparam monochrome true
+skinparam sequenceMessageAlign center
+
+participant ParentHPE
+participant ParentPM
+participant ParentCM
+participant ChildPM
+participant ChildCM
+participant ChildHPE
+
+'====================Paper - Control Propertys of media object in active Sequence====================
+'title Paper - Control Propertys of media object in active Sequence
+'HPE->PCM: setPropertyValue(("height","50%", 0,"m1")
+'HPE->PCM: requestPropertyValue("top","m1")
+'PCM->HPE: reportPropertyValue("top","30%","m1")
+
+'====================Propose - Control Propertys of media object in active Sequence====================
+'title Propose - Control Propertys of media object in active Sequence
+'HPE/PCM->PCM/CCM: setPropertyValue(("m1" ,"height","50%", 0)
+'HPE/PCM->PCM/CCM: requestPropertyValue("top","m1")
+'PCM/CCM->HPE/PCM: notifyPropertyValue("top","30%","m1")
+
+'====================Ending PLANTUML params====================
+@enduml
