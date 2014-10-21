@@ -15,11 +15,11 @@ participant ChildHPE
 title Paper - Control Events of media object in active Sequence
 activate ParentHPE
 activate ParentCM
-ParentHPE->ParentCM: prepare("m1ID","file://video.mp4",{("height","10%"),("top","30%")},{("evt1ID","media selection","selection"),("evt2ID","media presentation","presentation")})
+ParentHPE->ParentCM: prepare( "m1ID",\n{("height","10%"), ("top","30%")},\n{("evt1ID","media selection","selection"),\n("evt2ID","media presentation","presentation")},\n"file://video.mp4" )
 activate ChildCM
-ParentCM->ChildCM:   prepare("m1ID","file://video.mp4",{("height","10%"),("top","30%")},{("evt1ID","media selection","selection"),("evt2ID","media presentation","presentation")})
+ParentCM->ChildCM:   prepare(..., ..., ...,"m1ID")
 activate ChildHPE
-ChildCM->ChildHPE:   prepare("m1ID","file://video.mp4",{("height","10%"),("top","30%")},{("evt1ID","media selection","selection"),("evt2ID","media presentation","presentation")})
+ChildCM->ChildHPE:   prepare(..., ..., ...)
 ParentHPE->ParentCM: addEvent( ("evt3ID","media atribution","atribution"),)
 ParentCM->ChildCM:   addEvent("m1ID",("evt3ID","media atribution","atribution"))
 ChildCM->ChildHPE:   addEvent("m1ID",("evt3ID","media atribution","atribution"))

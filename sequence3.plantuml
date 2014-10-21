@@ -15,14 +15,14 @@ participant ChildHPE
 title Paper - Control Events of media object in active Sequence
 activate ParentHPE
 activate ParentCM
-ParentHPE->ParentCM: prepare({("height","10%"), ("top","30%")}, {("evt1ID","media selection","selection"), ("evt2ID","media presentation","presentation")},"file://video.mp4","m1ID")
+ParentHPE->ParentCM: prepare( {("height","10%"), ("top","30%")},\n{("evt1ID","media selection","selection"),\n("evt2ID","media presentation","presentation")},\n"file://video.mp4",\n"m1ID" )
 activate ChildCM
-ParentCM->ChildCM:   prepare({("height","10%"), ("top","30%")}, {("evt1ID","media selection","selection"), ("evt2ID","media presentation","presentation")},"file://video.mp4","m1ID")
+ParentCM->ChildCM:   prepare(..., ..., ...,"m1ID")
 activate ChildHPE
-ChildCM->ChildHPE:   prepare({("height","10%"), ("top","30%")}, {("evt1ID","media selection","selection"), ("evt2ID","media presentation","presentation")},"file://video.mp4","m1ID")
+ChildCM->ChildHPE:   prepare(..., ..., ...)
 ParentHPE->ParentCM: addEvent(("evt3ID","media atribution","atribution"),"m1ID")
-ParentCM->ChildCM:   addEvent(("evt3ID","media atribution","atribution"),"m1ID")
-ChildCM->ChildHPE:   addEvent(("evt3ID","media atribution","atribution"),"m1ID")
+ParentCM->ChildCM:   addEvent(...,"m1ID")
+ChildCM->ChildHPE:   addEvent(...)
 ParentHPE->ParentCM: removeEvent(("evt1ID","m1ID")
 ParentCM->ChildCM:   removeEvent(("evt1ID","m1ID")
 ChildCM->ChildHPE:   removeEvent(("evt1ID","m1ID")
