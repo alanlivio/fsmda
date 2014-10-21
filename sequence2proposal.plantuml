@@ -11,8 +11,8 @@ participant ChildPM
 participant ChildCM
 participant ChildHPE
 
-''''''''''''''''''Propose - Set Variable Sequence'''''''''''''''''
-title Propose - Set Variable Sequence
+''''''''''''''''''Proposal - Set Variable Sequence'''''''''''''''''
+title Proposal - Set Variable Sequence
 activate ParentHPE
 activate ParentPM
 activate ChildPM
@@ -21,14 +21,13 @@ ParentHPE->ParentPM: setClassVariableValue("class(5).device(1).var1","value")
 ParentPM->ChildPM: setClassVariableValue("class(5).device(1).var1","value")
 activate ChildHPE
 ChildPM->ChildHPE: setClassVariableValue("class(5).device(1).var1","value")
-ChildPM->ChildHPE: setClassVariableValue("class(5).device(1).var1","value")
 == getClassVariableValue ==
-ChildHPE->ChildPM: requestClassVariableValue("class(5).device(1).var2","value")
-ChildPM->ParentPM: requestClassVariableValue("class(5).device(1).var2","value")
-ParentPM->ParentHPE: requestClassVariableValue("class(5).device(1).var2","value")
-ParentHPE->ParentPM: notifyClassVariableValue("class(5).device(1).var2","value")
-ParentPM->ChildPM: notifyClassVariableValue("class(5).device(1).var2","value")
-ChildPM->ChildHPE: notifyClassVariableValue("class(5).device(1).var2","value")
+ParentHPE->ParentPM: requestClassVariableValue("class(5).device(1).var2","value")
+ParentPM->ChildPM: requestClassVariableValue("class(5).device(1).var2","value")
+ChildPM->ChildHPE: requestClassVariableValue("class(5).device(1).var2","value")
+ChildHPE->ChildPM: notifyClassVariableValue("class(5).device(1).var2","value")
+ChildPM->ParentPM: notifyClassVariableValue("class(5).device(1).var2","value")
+ParentPM->ParentHPE: notifyClassVariableValue("class(5).device(1).var2","value")
 
 ''''''''''''''''''Ending PLANTUML params'''''''''''''''''
 @enduml

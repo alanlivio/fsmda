@@ -4,30 +4,30 @@ hide footbox
 skinparam monochrome true
 skinparam sequenceMessageAlign center
 
-participant ParentHPE
+participant ParentPlayer
 participant ParentPM
 participant ParentCM
 participant ChildPM
 participant ChildCM
-participant ChildHPE
+participant ChildPlayer
 
 ''''''''''''''''''Paper - Control Propertys of media object in active Sequence'''''''''''''''''
 title Paper - Control Propertys of media object in active Sequence
-activate ParentHPE
+activate ParentPlayer
 activate ParentCM
 activate ChildCM
-activate ChildHPE
+activate ChildPlayer
 == setPropertyValue ==
-ParentHPE->ParentCM: setPropertyValue("height","50%","1s","m1ID")
+ParentPlayer->ParentCM: setPropertyValue("height","50%","1s","m1ID")
 ParentCM->ChildCM: setPropertyValue("height","50%","1s","m1ID")
-ChildCM->ChildHPE: setPropertyValue("height","50%","1s","m1ID")
+ChildCM->ChildPlayer: setPropertyValue("height","50%","1s")
 == requestPropertyValue/reportPropertyValue ==
-ParentHPE->ParentCM: requestPropertyValue("top","m1ID")
+ParentPlayer->ParentCM: requestPropertyValue("top","m1ID")
 ParentCM->ChildCM: requestPropertyValue("top","m1ID")
-ChildCM->ChildHPE: requestPropertyValue("top","m1ID")
-ChildHPE->ChildCM: reportPropertyValue("top","30%","m1ID")
+ChildCM->ChildPlayer: requestPropertyValue("top")
+ChildPlayer->ChildCM: reportPropertyValue("top","30%","m1ID")
 ChildCM->ParentCM: reportPropertyValue("top","30%","m1ID")
-ParentCM->ParentHPE: reportPropertyValue("top","30%","m1ID")
+ParentCM->ParentPlayer: reportPropertyValue("top","30%")
 
 ''''''''''''''''''Ending PLANTUML params'''''''''''''''''
 @enduml

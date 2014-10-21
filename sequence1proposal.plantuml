@@ -10,17 +10,17 @@ participant ParentCM
 participant ChildPM
 participant ChildCM
 participant ChildHPE
-'''''''''''''''''Propose -  Paring and handling classes variables Sequence''''''''''''''''
-title Propose - Paring Sequence
+'''''''''''''''''Proposal -  Paring and handling classes variables Sequence''''''''''''''''
+title Proposal - Paring Sequence
 activate ParentHPE
 activate ParentPM
 activate ChildPM
-== classAnnouncement/addDeviceToClass ==
+== classAnnouncement/addDeviceToClass/getChildIndex ==
+ParentHPE->ParentHPE: Process hipermidia document
 ParentHPE->ParentPM: classAnnouncement(5,"garrinchaID","<RDF>","Garrincha App")
 ParentPM->ChildPM: classAnnouncement(5,"garrinchaID","<RDF>","Garrincha App")
-ParentPM->ParentHPE: addDeviceToClass(5,"garrinchaID","<RDF>")
-== getChildIndex ==
 ChildPM->ParentPM: addDeviceToClass(5,"garrinchaID","<RDF>")
+ParentPM->ParentHPE: addDeviceToClass(5,"garrinchaID","<RDF>")
 ParentPM->ChildPM: setChildIndex(5,"garrinchaID","<RDF>")
 
 '''''''''''''''''Ending PLANTUML params''''''''''''''''

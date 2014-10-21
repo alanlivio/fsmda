@@ -4,39 +4,38 @@ hide footbox
 skinparam monochrome true
 skinparam sequenceMessageAlign center
 
-participant ParentHPE
+participant ParentPlayer
 participant ParentPM
 participant ParentCM
 participant ChildPM
 participant ChildCM
-participant ChildHPE
+participant ChildPlayer
 
 ''''''''''''''''''Paper - Control Events of media object in active Sequence'''''''''''''''''
 title Paper - Control Events of media object in active Sequence
-activate ParentHPE
+activate ParentPlayer
 activate ParentCM
 == prepare ==
-ParentHPE->ParentCM: prepare( {("height","10%"), ("top","30%")},\n{("evt1ID","media selection","selection"),\n("evt2ID","media presentation","presentation")},\n"file://video.mp4",\n"m1ID" )
+ParentPlayer->ParentCM: prepare( {("height","10%"), ("top","30%")},\n{("evt1ID","media selection","selection"),\n("evt2ID","media presentation","presentation")},\n"file://video.mp4",\n"m1ID" )
 activate ChildCM
 ParentCM->ChildCM:   prepare(..., ..., ...,"m1ID")
-activate ChildHPE
-ChildCM->ChildHPE:   prepare(..., ..., ...)
+activate ChildPlayer
+ChildCM->ChildPlayer:   prepare(..., ..., ...)
 == addEvent ==
-ParentHPE->ParentCM: addEvent(("evt3ID","media atribution","atribution"),"m1ID")
+ParentPlayer->ParentCM: addEvent(("evt3ID","media atribution","atribution"),"m1ID")
 ParentCM->ChildCM:   addEvent(...,"m1ID")
-ChildCM->ChildHPE:   addEvent(...)
+ChildCM->ChildPlayer:   addEvent(...)
 == removeEvent ==
-ParentHPE->ParentCM: removeEvent(("evt1ID","m1ID")
+ParentPlayer->ParentCM: removeEvent(("evt1ID","m1ID")
 ParentCM->ChildCM:   removeEvent(("evt1ID","m1ID")
-ChildCM->ChildHPE:   removeEvent(("evt1ID","m1ID")
-== postAction ==
-ParentHPE->ParentCM: postAction("start","evt2ID","m1ID")
-ParentCM->ChildCM:   postAction("start","evt2ID","m1ID")
-ChildCM->ChildHPE:   postAction("start","evt2ID","m1ID")
+ChildCM->ChildPlayer:   removeEvent(("evt1ID")
 == postAction/notifyEventTransition ==
-ChildHPE->ChildCM:   notifyEventTransition("evt2ID","begins","m1ID")
+ParentPlayer->ParentCM: postAction("start","evt2ID","m1ID")
+ParentCM->ChildCM:   postAction("start","evt2ID","m1ID")
+ChildCM->ChildPlayer:   postAction("start","evt2ID")
+ChildPlayer->ChildCM:   notifyEventTransition("evt2ID","begins","m1ID")
 ChildCM->ParentCM:   notifyEventTransition("evt2ID","begins","m1ID")
-ParentCM->ParentHPE: notifyEventTransition("evt2ID","begins","m1ID")
+ParentCM->ParentPlayer: notifyEventTransition("evt2ID","begins")
 
 ''''''''''''''''''Ending PLANTUML params'''''''''''''''''
 @enduml
