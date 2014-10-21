@@ -12,20 +12,26 @@ participant ChildCM
 participant ChildHPE
 
 '====================Paper - Control Events of media object in active Sequence====================
-'title Paper - Control Events of media object in active Sequence
-'HPE->PCM: prepare({("height","10%"), ("top","30%")}, {("evt1","selection of a media","selection"), ("evt2","presentation of a media","presentation")},"file://video.mp4","m1")
-'HPE->PCM: addEvent(("evt3","atribution of a segment of a media","atribution"),"m1")
-'HPE->PCM: removeEvent(("evt1","m1")
-'HPE>PCM: postAction("start","evt1","m1")
-'PCM->HPE: notifyEventTransition(""","begins","m1")
-
-'====================Propose - Control Events of media object in active Sequence====================
-'title Propose - Control Events of media object in active Sequence
-'HPE/PCM->PCM/CCM: prepare("m1","file://video.mp4", {("height","10%"), ("top","30%")}, {("evt1","selection of a segment of a media","selection"), ("evt2","presentation of a segment of a media","presentation")})
-'HPE/PCM->PCM/CCM: addEvent("m1", ("evt3","atribution of a segment of a media","atribution"))
-'HPE/PCM->PCM/CCM: removeEvent(("m1","evt1")
-'HPE/PCM->PCM/CCM: postAction("m1","evt1","start")
-'PCM/CCM->HPE/PCM: notifyEventTransition("m1" ,"evt1","begins")
+title Paper - Control Events of media object in active Sequence
+activate ParentHPE
+activate ParentCM
+ParentHPE->ParentCM: prepare({("height","10%"), ("top","30%")}, {("evt1ID","media selection","selection"), ("evt2ID","media presentation","presentation")},"file://video.mp4","m1ID")
+activate ChildCM
+ParentCM->ChildCM:   prepare({("height","10%"), ("top","30%")}, {("evt1ID","media selection","selection"), ("evt2ID","media presentation","presentation")},"file://video.mp4","m1ID")
+activate ChildHPE
+ChildCM->ChildHPE:   prepare({("height","10%"), ("top","30%")}, {("evt1ID","media selection","selection"), ("evt2ID","media presentation","presentation")},"file://video.mp4","m1ID")
+ParentHPE->ParentCM: addEvent(("evt3ID","media atribution","atribution"),"m1ID")
+ParentCM->ChildCM:   addEvent(("evt3ID","media atribution","atribution"),"m1ID")
+ChildCM->ChildHPE:   addEvent(("evt3ID","media atribution","atribution"),"m1ID")
+ParentHPE->ParentCM: removeEvent(("evt1ID","m1ID")
+ParentCM->ChildCM:   removeEvent(("evt1ID","m1ID")
+ChildCM->ChildHPE:   removeEvent(("evt1ID","m1ID")
+ParentHPE->ParentCM: postAction("start","evt2ID","m1ID")
+ParentCM->ChildCM:   postAction("start","evt2ID","m1ID")
+ChildCM->ChildHPE:   postAction("start","evt2ID","m1ID")
+ChildHPE->ChildCM:   notifyEventTransition("evt2ID","begins","m1ID")
+ChildCM->ParentCM:   notifyEventTransition("evt2ID","begins","m1ID")
+ParentCM->ParentHPE: notifyEventTransition("evt2ID","begins","m1ID")
 
 '====================Ending PLANTUML params====================
 @enduml

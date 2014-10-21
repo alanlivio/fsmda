@@ -15,10 +15,10 @@ title Propose - Paring Sequence
 activate ParentHPE
 activate ParentPM
 activate ChildPM
-ParentHPE->ParentPM: classAnnouncement(5,"garrinchaUUID","<RDF>","Garrincha App")
-ParentPM->ChildPM: classAnnouncement(5,"garrinchaUUID","<RDF>","Garrincha App")
-ChildPM->ParentPM: addDeviceToClass(5,"garrinchaUUID","<RDF>")
-ParentPM->ChildPM: setChildIndex(5,"garrinchaUUID","<RDF>")
+ParentHPE->ParentPM: classAnnouncement(5,"garrinchaID","<RDF>","Garrincha App")
+ParentPM->ChildPM: classAnnouncement(5,"garrinchaID","<RDF>","Garrincha App")
+ChildPM->ParentPM: addDeviceToClass(5,"garrinchaID","<RDF>")
+ParentPM->ChildPM: setChildIndex(5,"garrinchaID","<RDF>")
 
 '====================Ending PLANTUML params====================
 @enduml
