@@ -11,15 +11,17 @@ participant ChildPM
 participant ChildCM
 participant ChildHPE
 
-'====================Paper - Handling classes variables Sequence====================
+'====================Paper - Handling classes variables Sequenc''''''''''''''''
 title Paper - Handling classes variables Sequence
 activate ParentHPE
 activate ParentPM
 activate ChildPM
+== setClassVariableValue ==
 ParentHPE->ParentPM: setClassVariableValue("class(5).device(1).var1","value")
 ParentPM->ChildPM: setClassVariableValue("class(5).device(1).var1","value")
 activate ChildHPE
 ChildPM->ChildHPE: setClassVariableValue("class(5).device(1).var1","value")
+== getClassVariableValue ==
 ParentHPE->ParentPM: getClassVariableValue("class(5).device(1).var2","value")
 ParentPM->ChildPM: getClassVariableValue("class(5).device(1).var2","value")
 ChildPM->ChildHPE: getClassVariableValue("class(5).device(1).var2","value")

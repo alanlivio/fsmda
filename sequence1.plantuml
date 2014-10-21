@@ -1,4 +1,4 @@
-'====================Begining PLANTUML params====================
+'''''''''''''''''Begining PLANTUML params''''''''''''''''
 @startuml
 hide footbox
 skinparam monochrome true
@@ -11,20 +11,21 @@ participant ChildPM
 participant ChildCM
 participant ChildHPE
 
-'====================Paper - Paring and handling classes variables Sequence====================
+'''''''''''''''''Paper - Paring and handling classes variables Sequence''''''''''''''''
 title Paper - Paring Sequence
 activate ParentHPE
 activate ParentPM
 activate ChildPM
+== classAnnouncement/addDeviceToClass ==
 ParentHPE->ParentHPE: Process hipermidia document
 ParentHPE->ParentPM: classAnnouncement(5,"garrinchaID","RDF>","Garrincha App")
 ParentPM->ChildPM: classAnnouncement(5,"garrinchaID","RDF>","Garrincha App")
 ChildPM->ParentPM: addDeviceToClass(5,"garrinchaID","<RDF>")
 ParentPM->ParentHPE: addDeviceToClass(5,"garrinchaID","<RDF>")
+== getChildIndex ==
 ChildPM->ParentPM: getChildIndex(5,"garrinchaID","<RDF>")
-ParentPM->ParentHPE: getChildIndex(5,"garrinchaID","<RDF>")
-ParentHPE-->ParentPM: return chieldIndex
+
 ParentPM-->ChildPM: return chieldIndex
 
-'====================Ending PLANTUML params====================
+'''''''''''''''''Ending PLANTUML params''''''''''''''''
 @enduml

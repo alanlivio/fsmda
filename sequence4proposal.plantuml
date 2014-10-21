@@ -1,4 +1,4 @@
-'====================Begining PLANTUML params====================
+''''''''''''''''''Begining PLANTUML params'''''''''''''''''
 @startuml
 hide footbox
 skinparam monochrome true
@@ -11,11 +11,13 @@ participant ChildPM
 participant ChildCM
 participant ChildHPE
 
-'====================Paper - Control Propertys of media object in active Sequence====================
+''''''''''''''''''Paper - Control Propertys of media object in active Sequence'''''''''''''''''
 title Paper - Control Propertys of media object in active Sequence
+== setPropertyValue ==
 ParentHPE->ParentCM: setPropertyValue("m1ID","height","50%", "1s")
 ParentCM->ChildCM: setPropertyValue("m1ID","height","50%", "1s")
 ChildCM->ChildHPE: setPropertyValue("m1ID","height","50%", "1s")
+== requestPropertyValue/reportPropertyValue ==
 ParentHPE->ParentCM: requestPropertyValue("m1ID","top")
 ParentCM->ChildCM: requestPropertyValue("m1ID,"top")
 ChildCM->ChildHPE: requestPropertyValue("m1ID,"top")
@@ -23,5 +25,5 @@ ChildHPE->ChildCM: reportPropertyValue("m1ID,"top","30%")
 ChildCM->ParentCM: reportPropertyValue("m1ID,"top","30%")
 ParentCM->ParentHPE: reportPropertyValue("m1ID,"top","30%")
 
-'====================Ending PLANTUML params====================
+''''''''''''''''''Ending PLANTUML params'''''''''''''''''
 @enduml
