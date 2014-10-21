@@ -26,11 +26,5 @@ ParentPM->ParentHPE: getChildIndex(5,"garrinchaUUID","<RDF>")
 ParentHPE-->ParentPM: return chieldIndex
 ParentPM-->ChildPM: return chieldIndex
 
-'====================Propose -  Paring and handling classes variables Sequence====================
-'title Propose - Paring Sequence
-'PPM->CPM: classAnnouncement(5,"garrinchaUUID","<RDF>","Garrincha App")
-'CPM->PPM: addDeviceToClass(5,"garrinchaUUID","<RDF>")
-'CPM->PPM: setChildIndex(5,"garrinchaUUID","<RDF>")
-
 '====================Ending PLANTUML params====================
 @enduml

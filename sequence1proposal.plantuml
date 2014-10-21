@@ -1,0 +1,24 @@
+'====================Begining PLANTUML params====================
+@startuml
+hide footbox
+skinparam monochrome true
+skinparam sequenceMessageAlign center
+
+participant ParentHPE
+participant ParentPM
+participant ParentCM
+participant ChildPM
+participant ChildCM
+participant ChildHPE
+'====================Propose -  Paring and handling classes variables Sequence====================
+title Propose - Paring Sequence
+activate ParentHPE
+activate ParentPM
+activate ChildPM
+ParentHPE->ParentPM: classAnnouncement(5,"garrinchaUUID","<RDF>","Garrincha App")
+ParentPM->ChildPM: classAnnouncement(5,"garrinchaUUID","<RDF>","Garrincha App")
+ChildPM->ParentPM: addDeviceToClass(5,"garrinchaUUID","<RDF>")
+ParentPM->ChildPM: setChildIndex(5,"garrinchaUUID","<RDF>")
+
+'====================Ending PLANTUML params====================
+@enduml
