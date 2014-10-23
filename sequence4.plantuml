@@ -25,7 +25,7 @@ ChildCM->ChildPlayer: setPropertyValue("height","50%","1s")
 ParentPlayer->ParentCM: requestPropertyValue("top","m1ID")
 ParentCM->ChildCM: requestPropertyValue("top","m1ID")
 ChildCM->ChildPlayer: requestPropertyValue("top")
-ChildPlayer->ChildCM: reportPropertyValue("top","30%","m1ID")
+ChildPlayer->ChildCM: reportPropertyValue("top","30%")
 ChildCM->ParentCM: reportPropertyValue("top","30%","m1ID")
 ParentCM->ParentPlayer: reportPropertyValue("top","30%")
 

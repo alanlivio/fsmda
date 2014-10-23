@@ -16,13 +16,13 @@ title Paper - Control Events of media object in active Sequence
 activate ParentPlayer
 activate ParentCM
 == prepare ==
-ParentPlayer->ParentCM: prepare( {("height","10%"), ("top","30%")},\n{("evt1ID","media selection","selection"),\n("evt2ID","media presentation","presentation")},\n"file://video.mp4",\n"m1ID" )
+ParentPlayer->ParentCM: prepare( {("height","10%"), ("top","30%")},\n{("evt1ID","media selection","selection"),\n("evt3ID","media atribution","atribution")},\n"file://video.mp4",\n"m1ID" )
 activate ChildCM
 ParentCM->ChildCM:   prepare(..., ..., ...,"m1ID")
 activate ChildPlayer
 ChildCM->ChildPlayer:   prepare(..., ..., ...)
 == addEvent ==
-ParentPlayer->ParentCM: addEvent(("evt3ID","media atribution","atribution"),"m1ID")
+ParentPlayer->ParentCM: addEvent(("evt2ID","begin=1s end=10s","presentation"),"m1ID")
 ParentCM->ChildCM:   addEvent(...,"m1ID")
 ChildCM->ChildPlayer:   addEvent(...)
 == removeEvent ==
@@ -33,7 +33,7 @@ ChildCM->ChildPlayer:   removeEvent(("evt1ID")
 ParentPlayer->ParentCM: postAction("start","evt2ID","m1ID")
 ParentCM->ChildCM:   postAction("start","evt2ID","m1ID")
 ChildCM->ChildPlayer:   postAction("start","evt2ID")
-ChildPlayer->ChildCM:   notifyEventTransition("evt2ID","begins","m1ID")
+ChildPlayer->ChildCM:   notifyEventTransition("evt2ID","begins")
 ChildCM->ParentCM:   notifyEventTransition("evt2ID","begins","m1ID")
 ParentCM->ParentPlayer: notifyEventTransition("evt2ID","begins")
 

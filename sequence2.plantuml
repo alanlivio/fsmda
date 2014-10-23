@@ -15,19 +15,11 @@ participant ChildHPE
 title Paper - Handling classes variables Sequence
 activate ParentHPE
 activate ParentPM
-activate ChildPM
 == setClassVariableValue ==
-ParentHPE->ParentPM: setClassVariableValue("class(5).device(1).var1","value")
-ParentPM->ChildPM: setClassVariableValue("class(5).device(1).var1","value")
-activate ChildHPE
-ChildPM->ChildHPE: setClassVariableValue("class(5).device(1).var1","value")
+ParentPM->ParentHPE: setClassVariableValue("class(5).device(1).var1","value")
 == getClassVariableValue ==
-ParentHPE->ParentPM: getClassVariableValue("class(5).device(1).var2","value")
-ParentPM->ChildPM: getClassVariableValue("class(5).device(1).var2","value")
-ChildPM->ChildHPE: getClassVariableValue("class(5).device(1).var2","value")
-ChildHPE-->ChildPM: return("value")
-ChildPM-->ParentPM: return("value")
-ParentPM-->ParentHPE: return("value")
+ParentPM->ParentHPE: getClassVariableValue("class(5).device(1).var2","value")
+ParentHPE-->ParentPM: return("value")
 
 '====================Ending PLANTUML params====================
 @enduml
