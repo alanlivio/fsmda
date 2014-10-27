@@ -1,10 +1,10 @@
 ############################## Initialization ############################
 ### Autoconf initialization
 AC_PREREQ([2.62])
-AC_INIT([Libtemplate],
+AC_INIT([libfsmda],
         0.1,
-        [bugs@libtemplate.or],
-        [libtemplate], [http://www.libtemplate.org])
+        [bugs@libfsmda.or],
+        [libfsmda], [http://www.libfsmda.org])
 AC_CONFIG_MACRO_DIR([build-aux])
 AC_CONFIG_AUX_DIR([build-aux])
 AC_PREFIX_DEFAULT([/usr])
@@ -47,11 +47,10 @@ AC_PROG_LIBTOOL
  
 ############################## Files configuration #######################
 ### Autoconf source configuration
-AC_CONFIG_HEADERS([include/config.h])
+AC_CONFIG_HEADERS([src/config.h])
 AC_CONFIG_FILES(Makefile
                 src/Makefile
-                src/libtemplate.pc
-                include/Makefile
+                src/libfsmda.pc
                 examples/Makefile
                 tests/Makefile)
 ############################## Output ####################################

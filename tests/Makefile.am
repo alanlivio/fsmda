@@ -12,7 +12,7 @@ t0_test_SOURCES = test0.cpp
 t0_test_CPPLAGS = -I$(top_builddir)/include
 
 # Tests linker options
-t0_test_LDADD = $(top_builddir)/src/libtemplate.la
+#t0_test_LDADD = $(top_builddir)/src/libtemplate.la
 
 # Tests clean
 CLEANFILES = *.log *.trs

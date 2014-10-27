@@ -1,4 +1,4 @@
-SUBDIRS=src include examples tests
+SUBDIRS=src examples tests
 
 DISTCLEANFILES =\
   build-aux/libtool.m4\
