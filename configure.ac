@@ -1,0 +1,67 @@
+############################## Initialization ############################
+### Autoconf initialization
+AC_PREREQ([2.62])
+AC_INIT([Libtemplate],
+        0.1,
+        [bugs@libtemplate.or],
+        [libtemplate], [http://www.libtemplate.org])
+AC_CONFIG_MACRO_DIR([build-aux])
+AC_CONFIG_AUX_DIR([build-aux])
+AC_PREFIX_DEFAULT([/usr])
+AC_PREFIX_PROGRAM([/usr])
+
+### Automake initialization
+AM_INIT_AUTOMAKE([-Wall 1.11 foreign gnu no-define subdir-objects])
+AM_SILENT_RULES
+AM_PROG_AR
+
+### Libtool initialization
+LT_PREREQ([2.2])
+LT_INIT([disable-static])
+
+############################## Checks ####################################
+###Autoconf check for programs
+AC_PROG_CC
+AC_PROG_CXX
+AC_PROG_INSTALL
+AC_PROG_LIBTOOL
+
+### Define versions
+#m4_define([gtk_required_version],   [3.4.2])
+#AC_SUBST([GTK_REQUIRED_VERSION], gtk_required_version)
+
+### Checks for libraries
+#PKG_PROG_PKG_CONFIG
+#AS_IF([test -z "$PKG_CONFIG"],
+# [AC_MSG_ERROR([pkg-config >= $PKGCONFIG_REQUIRED required.])])
+#PKG_CHECK_MODULES([GTK],
+# [gtk+-3.0 >= gtk_required_version], [have_gtk=yes], [have_gtk=no])
+#AC_CHECK_LIB([pthread], [pthread_mutex_init], [], [
+#    		echo "pthread library is missing. pthread is required"
+#    		exit -1])
+
+### Configure automake contionals
+#AS_IF([test "$have_gtk" = yes],
+# [AC_DEFINE([HAVE_GTK], [1], [Define to 1 if we have GTK+-3.0.])])
+#AM_CONDITIONAL([HAVE_GTK], [test "$have_gtk" = yes])
+ 
+############################## Files configuration #######################
+### Autoconf source configuration
+AC_CONFIG_HEADERS([include/config.h])
+AC_CONFIG_FILES(Makefile
+                src/Makefile
+                src/libtemplate.pc
+                include/Makefile
+                examples/Makefile
+                tests/Makefile)
+############################## Output ####################################
+AC_OUTPUT
+AC_MSG_NOTICE([summary of main build options:
+
+  Version:            ${VERSION}
+  Host type:          ${host}
+  Install prefix:     ${prefix}
+  Compiler:           cc: ${CC} cflags: ${CFLAGS} cppflags: ${CPPFLAGS}
+  Warning flags:      ${WERROR_CFLAGS} ${WARN_CFLAGS}
+  Library types:      Shared=${enable_shared}, Static=${enable_static}
+])
