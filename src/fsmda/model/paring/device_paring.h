@@ -21,11 +21,11 @@ public:
 		 unsigned int classIndex)=0;
 };
 
-class DeviceParingHPEInterface
+class DeviceParingPCMInterface
 {
 public:
   virtual
-  ~DeviceParingHPEInterface ()
+  ~DeviceParingPCMInterface ()
   {
   }
 
