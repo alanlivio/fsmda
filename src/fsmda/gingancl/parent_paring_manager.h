@@ -9,6 +9,7 @@ class ParentParingManager : public ClassHandlingPPMInterface,
 {
 public:
   ParentParingManager ();
+
   virtual
   ~ParentParingManager ();
 

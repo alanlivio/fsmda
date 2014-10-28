@@ -16,7 +16,8 @@ lib_LTLIBRARIES = libfsmda.la
 
 # Libraries sources
 libfsmda_la_SOURCES = \
-  fsmda/gingancl/parent_paring_manager.cpp
+  fsmda/gingancl/parent_paring_manager.cpp\
+  fsmda/gingancl/child_paring_manager.cpp
 
 # Libraries compiler options
 libfsmda_la_CPPFLAGS = -I./ $(PLATINUMKIT_CFLAGS)
