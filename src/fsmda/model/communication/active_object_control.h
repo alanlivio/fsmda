@@ -2,6 +2,7 @@
 #define FSMDA_ACTIVE_OBJECT_CONTROL_H_
 
 #include <string>
+#include <vector>
 
 using namespace std;
 

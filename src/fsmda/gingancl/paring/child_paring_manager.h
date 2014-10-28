@@ -11,6 +11,7 @@ public:
   virtual
   ~ChildParingManager ();
 
+  //////////////////// DeviceParingPCMInterface functions ////////////////////
   virtual void
   classAnnouncement (string applicationID, unsigned int classIndex,
 		     string classDesc, string classFunction);

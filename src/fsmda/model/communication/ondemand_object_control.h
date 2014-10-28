@@ -5,16 +5,16 @@
 #include <vector>
 using namespace std;
 
-class OnDemandCCMInterface
+class OnDemandPCMInterface
 {
 public:
   virtual
-  ~OnDemandCCMInterface ()
+  ~OnDemandPCMInterface ()
   {
   }
 
   virtual void
-  notifyOnDemandContent (string action, string location);
+  notifyOnDemandContent (string action, string location)=0;
 };
 
 #endif /* FSMDA_ONDEMAND_OBJECT_CONTROL_H_ */
