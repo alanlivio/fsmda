@@ -21,24 +21,25 @@ LT_INIT([disable-static])
 
 ############################## Checks ####################################
 ###Autoconf check for programs
+AC_CANONICAL_HOST
 AC_PROG_CC
 AC_PROG_CXX
 AC_PROG_INSTALL
 AC_PROG_LIBTOOL
 
+PKG_PROG_PKG_CONFIG
+AS_IF([test -z "$PKG_CONFIG"],
+ [AC_MSG_ERROR([pkg-config >= $PKGCONFIG_REQUIRED required.])])
+          
 ### Define versions
 #m4_define([gtk_required_version],   [3.4.2])
 #AC_SUBST([GTK_REQUIRED_VERSION], gtk_required_version)
 
 ### Checks for libraries
-#PKG_PROG_PKG_CONFIG
-#AS_IF([test -z "$PKG_CONFIG"],
-# [AC_MSG_ERROR([pkg-config >= $PKGCONFIG_REQUIRED required.])])
-#PKG_CHECK_MODULES([GTK],
-# [gtk+-3.0 >= gtk_required_version], [have_gtk=yes], [have_gtk=no])
-#AC_CHECK_LIB([pthread], [pthread_mutex_init], [], [
-#    		echo "pthread library is missing. pthread is required"
-#    		exit -1])
+PKG_CHECK_MODULES([PLATINUMKIT], [libplatinumkit], [],
+    		[AC_MSG_ERROR([Platinumlkit library is required. Try in https://github.com/alanlivio/platinumkit-autotools-library.])])
+AC_CHECK_LIB([pthread], [pthread_mutex_init], [], 
+            [AC_MSG_ERROR([pthread library is required])])
 
 ### Configure automake contionals
 #AS_IF([test "$have_gtk" = yes],

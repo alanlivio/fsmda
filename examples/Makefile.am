@@ -5,7 +5,7 @@ bin_PROGRAMS=e0_example
 e0_example_SOURCES= example0.cpp
 
 # Programs compiler options
-e0_example_CPPFLAGS = -I$(top_srcdir)/include
+e0_example_CPPFLAGS = $(PLATINUMKIT_CFLAGS)
 
 # Programs linker options
-#e0_example_LDFLAGS = $(top_srcdir)/src/libtemplate.la
+e0_example_LDFLAGS = $(top_srcdir)/src/libfsmda.la $(PLATINUMKIT_LIBS)
