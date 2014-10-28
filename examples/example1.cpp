@@ -5,3 +5,12 @@
 #include "fsmda/model/communication/mediacapture_object_control.h"
 #include "fsmda/model/paring/class_handling.h"
 #include "fsmda/model/paring/device_paring.h"
+#include "fsmda/gingancl/parent_paring_manager.h"
+#include <cstdlib>
+
+int
+main (int argc, char **argv)
+{
+  ParentParingManager ppm;
+  return EXIT_SUCCESS;
+}
