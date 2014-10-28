@@ -18,7 +18,14 @@ lib_LTLIBRARIES = libfsmda.la
 # Libraries sources
 libfsmda_la_SOURCES = \
   fsmda/gingancl/paring/parent_paring_manager.cpp\
-  fsmda/gingancl/paring/child_paring_manager.cpp
+  fsmda/gingancl/paring/child_paring_manager.cpp\
+  fsmda/gingancl/communication/active_ccm.cpp\
+  fsmda/gingancl/communication/active_pcm.cpp\
+  fsmda/gingancl/communication/passive_ccm.cpp\
+  fsmda/gingancl/communication/passive_pcm.cpp\
+  fsmda/gingancl/communication/mediacapture_pcm.cpp\
+  fsmda/gingancl/communication/mediacapture_ccm.cpp\
+  fsmda/gingancl/communication/ondemand_pcm.cpp
 
 # Libraries compiler options
 libfsmda_la_CPPFLAGS = -I./ $(PLATINUMKIT_CFLAGS)
