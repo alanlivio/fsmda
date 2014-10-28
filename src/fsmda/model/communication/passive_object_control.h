@@ -5,17 +5,31 @@
 #include <vector>
 using namespace std;
 
-class PassiveCCMInterface {
- public:
-  virtual ~PassiveCCMInterface()=0;
-  virtual void prepare(string position)=0;
-  virtual void sendContent(char* content)=0;
+class PassiveCCMInterface
+{
+public:
+  virtual
+  ~PassiveCCMInterface ()
+  {
+  }
+
+  virtual void
+  prepare (string position)=0;
+
+  virtual void
+  sendContent (char* content)=0;
 };
 
-class PassivePCMInterface {
- public:
-  virtual ~PassivePCMInterface()=0;
-  virtual void notifyError(string message, string objectId)=0;
+class PassivePCMInterface
+{
+public:
+  virtual
+  ~PassivePCMInterface ()
+  {
+  }
+
+  virtual void
+  notifyError (string message, string objectId)=0;
 };
 
 #endif /* FSMDA_PASSIVE_OBJECT_CONTROL_H_ */
