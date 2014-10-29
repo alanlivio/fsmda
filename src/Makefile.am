@@ -19,6 +19,8 @@ lib_LTLIBRARIES = libfsmda.la
 libfsmda_la_SOURCES = \
   fsmda/gingancl/paring/parent_paring_manager.cpp\
   fsmda/gingancl/paring/child_paring_manager.cpp\
+  fsmda/gingancl/paring/device_description.cpp\
+  fsmda/gingancl/paring/device_class_description.cpp\
   fsmda/gingancl/communication/active_ccm.cpp\
   fsmda/gingancl/communication/active_pcm.cpp\
   fsmda/gingancl/communication/passive_ccm.cpp\

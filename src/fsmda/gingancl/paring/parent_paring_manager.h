@@ -1,8 +1,9 @@
 #ifndef FSMDA_GINGANCL_PARENTPARINGMANAGER_H_
 #define FSMDA_GINGANCL_PARENTPARINGMANAGER_H_
 
-#include "fsmda/model/paring/class_handling.h"
-#include "fsmda/model/paring/device_paring.h"
+#include <fsmda/model/paring/class_handling.h>
+#include <fsmda/model/paring/device_paring.h>
+#include <string>
 
 class ParentParingManager : public ClassHandlingPPMInterface,
     public DeviceParingPPMInterface

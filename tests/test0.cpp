@@ -1,42 +1,48 @@
-#include <cassert>
-#include <cstring>
+#include <fsmda/gingancl/communication/active_ccm.h>
+#include <fsmda/gingancl/communication/active_pcm.h>
+#include <fsmda/gingancl/communication/mediacapture_ccm.h>
+#include <fsmda/gingancl/communication/mediacapture_pcm.h>
+#include <fsmda/gingancl/communication/ondemand_pcm.h>
+#include <fsmda/gingancl/communication/passive_ccm.h>
+#include <fsmda/gingancl/communication/passive_pcm.h>
+#include <fsmda/gingancl/paring/child_paring_manager.h>
+#include <fsmda/gingancl/paring/device_description.h>
+#include <fsmda/gingancl/paring/parent_paring_manager.h>
 #include <cstdlib>
-
-#include "fsmda/services/upnp_service.h"
-#include "fsmda/model/communication/ondemand_object_control.h"
-#include "fsmda/model/communication/active_object_control.h"
-#include "fsmda/model/communication/passive_object_control.h"
-#include "fsmda/model/communication/mediacapture_object_control.h"
-#include "fsmda/model/paring/class_handling.h"
-#include "fsmda/model/paring/device_paring.h"
-#include "fsmda/gingancl/paring/parent_paring_manager.h"
-#include "fsmda/gingancl/paring/child_paring_manager.h"
-#include "fsmda/gingancl/communication/active_pcm.h"
-#include "fsmda/gingancl/communication/active_ccm.h"
-#include "fsmda/gingancl/communication/mediacapture_pcm.h"
-#include "fsmda/gingancl/communication/mediacapture_ccm.h"
-#include "fsmda/gingancl/communication/ondemand_pcm.h"
-#include "fsmda/gingancl/communication/passive_pcm.h"
-#include "fsmda/gingancl/communication/passive_ccm.h"
+#include <string>
+#include <vector>
+#include <assert.h>
+#include <fsmda/gingancl/paring/device_class_description.h>
 
 int
 main (int argc, char **argv)
 {
+  vector<void*> ptr_vector;
   ParentParingManager * ppm = new ParentParingManager ();
   assert(ppm != NULL);
   ChildParingManager * cpm = new ChildParingManager ();
   assert(cpm != NULL);
-  delete ppm;
-  delete cpm;
-
-  ActivePCM * activePCM = new ActivePCM();
-  ActiveCCM * activeCCM = new ActiveCCM();
-  MediaCapturePCM * mediacapturePCM = new MediaCapturePCM();
-  MediaCaptureCCM * mediacaptureCCM = new MediaCaptureCCM();
-  OnDemandPCM * onDemandPCM = new OnDemandPCM();
-  PassivePCM * passivePCM = new PassivePCM();
-  PassiveCCM * passiveCCM = new PassiveCCM();
-
+  ActivePCM * activePCM = new ActivePCM ();
+  assert(activePCM != NULL);
+  ActiveCCM * activeCCM = new ActiveCCM ();
+  assert(activeCCM != NULL);
+  MediaCapturePCM * mediacapturePCM = new MediaCapturePCM ();
+  assert(mediacapturePCM != NULL);
+  MediaCaptureCCM * mediacaptureCCM = new MediaCaptureCCM ();
+  assert(mediacaptureCCM != NULL);
+  OnDemandPCM * onDemandPCM = new OnDemandPCM ();
+  assert(onDemandPCM != NULL);
+  PassivePCM * passivePCM = new PassivePCM ();
+  assert(passivePCM != NULL);
+  PassiveCCM * passiveCCM = new PassiveCCM ();
+  assert(passiveCCM != NULL);
+  string device_rdf ("./device.rdf");
+  DeviceDescription * device_description = new DeviceDescription (device_rdf);
+  assert(device_description != NULL);
+  string equirements_rdf ("./requiments.rdf");
+  DeviceClassDescription * device_requirements = new DeviceClassDescription (
+      equirements_rdf);
+  assert(device_requirements != NULL);
 
   return EXIT_SUCCESS;
 }

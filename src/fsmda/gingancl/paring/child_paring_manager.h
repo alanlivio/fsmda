@@ -1,7 +1,8 @@
 #ifndef FSMDA_GINGANCL_CHILD_PARING_MANAGER_H_
 #define FSMDA_GINGANCL_CHILD_PARING_MANAGER_H_
 
-#include "fsmda/model/paring/device_paring.h"
+#include <fsmda/model/paring/device_paring.h>
+#include <string>
 
 class ChildParingManager : public DeviceParingPCMInterface
 {
