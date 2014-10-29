@@ -1,11 +1,10 @@
 #ifndef FSMDA_GINGANCL_PARING_DEVICE_CLASS_DESCRIPTION_H_
 #define FSMDA_GINGANCL_PARING_DEVICE_CLASS_DESCRIPTION_H_
 
-#include <map>
+#include <libxml/tree.h>
 #include <string>
-#include <libxml/parser.h>
 
-#include "device_description.h"
+class DeviceDescription;
 
 using namespace std;
 class DeviceClassDescription
@@ -32,7 +31,9 @@ public:
   bool
   device_meets_requirements (DeviceDescription device_desc);
   int
-  parse_rdf_file (const string& rdf_file);
+  initialize_by_default_device_class (DeviceClassType);
+  int
+  initialize_by_parse_rdf_file (const string& rdf_file);
 
 // private fields
 private:
@@ -42,6 +43,7 @@ private:
   string paringMethod_;
   unsigned int min_devices_;
   unsigned int max_devices_;
+  bool is_configured_;
 
 // private methods
 private:

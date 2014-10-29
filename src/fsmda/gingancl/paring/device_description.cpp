@@ -12,7 +12,7 @@ DeviceDescription::~DeviceDescription ()
 }
 
 int
-DeviceDescription::parse_rdf_file (const string& rdf_file)
+DeviceDescription::initialize_by_rdf_file (const string& rdf_file)
 {
   return 0;
 }

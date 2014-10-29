@@ -8,6 +8,7 @@
 #include <cassert>
 #include <cstdlib>
 #include <iostream>
+#include <climits>
 
 using namespace std;
 
@@ -15,17 +16,29 @@ string DeviceClassDescription::deviceClassTypeMap[] =
   { "base", "passive", "active", "html", "ondemand", "mediacapture" };
 
 DeviceClassDescription::DeviceClassDescription () :
-    doc_ (NULL), classType_ (FSDMA_BASE)
+    doc_ (NULL), classType_ (FSDMA_BASE), min_devices_ (0), max_devices_ (0), is_configured_ (
+	false)
 {
 }
 
 DeviceClassDescription::~DeviceClassDescription ()
 {
-  // TODO Auto-generated destructor stub
 }
 
 int
-DeviceClassDescription::parse_rdf_file (const string& rdf_file)
+DeviceClassDescription::initialize_by_default_device_class (
+    DeviceClassType classType)
+{
+  this->classType_ = classType;
+  this->min_devices_ = 1;
+  this->max_devices_ = UINT_MAX;
+  this->paringMethod_ = "UPnP";
+  this->is_configured_ = true;
+  return 0;
+}
+
+int
+DeviceClassDescription::initialize_by_parse_rdf_file (const string& rdf_file)
 {
   int ret;
   xmlXPathContextPtr xpathCtx;
@@ -91,6 +104,7 @@ DeviceClassDescription::parse_rdf_file (const string& rdf_file)
   xmlCleanupParser ();
   xmlMemoryDump ();
 
+  this->is_configured_ = true;
   return 0;
 }
 

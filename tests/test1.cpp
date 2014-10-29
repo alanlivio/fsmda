@@ -9,11 +9,11 @@ main (int argc, char **argv)
 {
   string device_rdf ("device_description000.xml");
   DeviceDescription * device_description = new DeviceDescription ();
-  device_description->parse_rdf_file (device_rdf);
+  device_description->initialize_by_rdf_file (device_rdf);
   assert(device_description != NULL);
   string device_class_description_rdf ("device_class_description000.xml");
   DeviceClassDescription * device_class_description = new DeviceClassDescription();
-  device_class_description->parse_rdf_file (device_class_description_rdf);
+  device_class_description->initialize_by_parse_rdf_file (device_class_description_rdf);
   assert(device_class_description != NULL);
 
   return EXIT_SUCCESS;
