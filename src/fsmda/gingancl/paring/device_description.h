@@ -8,6 +8,11 @@ using namespace std;
 
 class DeviceDescription
 {
+// public fields
+public:
+  DeviceClassDescription::DeviceClassType classType_;
+  string paringMethod_;
+
 // public methods
 public:
   DeviceDescription ();
@@ -19,8 +24,7 @@ public:
 // private fields
 private:
   xmlDocPtr doc_;
-  DeviceClassDescription::DeviceClassType classType_;
-  string paringMethod_;
+  bool initialized_;
 
 // private methods
 private:
