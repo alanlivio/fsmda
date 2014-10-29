@@ -2,12 +2,8 @@
 #define FSMDA_GINGANCL_PARING_DEVICE_DESCRIPTION_H_
 
 #include <string>
-using namespace std;
 
-enum DeviceClassType
-{
-  PASSIVE, ACTIVE, HTML, ONDEMAND, MEDIACAPTURE
-};
+using namespace std;
 
 class DeviceDescription
 {
