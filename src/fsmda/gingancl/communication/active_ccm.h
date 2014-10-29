@@ -13,22 +13,22 @@ public:
 
   //////////////////// ActiveCCMInterface functions ////////////////////
   virtual void
-  prepare (string objectID, string objectSrc, vector<Property> properties,
+  prepare (const string& objectID, const string& objectSrc, vector<Property> properties,
 	   vector<Event> evts);
   virtual void
-  addEvent (string objectID, Event evt);
+  addEvent (const string& objectID, Event evt);
 
   virtual void
-  removeEvent (string objectID, string eventID);
+  removeEvent (const string& objectID, const string& eventID);
 
   virtual void
-  postAction (string objectID, string eventID, string action);
+  postAction (const string& objectID, const string& eventID, const string& action);
 
   virtual void
-  reportPropertyValue (string objectID, string name, string value);
+  reportPropertyValue (const string& objectID, const string& name, const string& value);
 
   virtual void
-  setPropertyValue (string objectID, string name, string value,
+  setPropertyValue (const string& objectID, const string& name, const string& value,
 		    unsigned int duration);
 };
 

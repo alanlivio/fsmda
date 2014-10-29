@@ -4,6 +4,7 @@
 #include <fsmda/model/paring/class_handling.h>
 #include <fsmda/model/paring/device_paring.h>
 #include <string>
+using namespace std;
 
 class ParentParingManager : public ClassHandlingPPMInterface,
     public DeviceParingPPMInterface
@@ -16,25 +17,25 @@ public:
 
   //////////////////// ClassHandlingPPMInterface functions ////////////////////
   virtual void
-  addClass (string applicationId, unsigned int classIndex);
+  addClass (const string& applicationId, unsigned int classIndex);
 
   virtual void
-  removeClass (string applicationId, unsigned int classIndex);
+  removeClass (const string& applicationId, unsigned int classIndex);
 
   virtual void
-  addClassDescription (string applicationId, unsigned int classIndex,
-		       string classType, unsigned int maxDevices,
-		       unsigned int minDevices, string hardwareReq,
-		       string softwareReq, string networkReq);
+  addClassDescription (const string& applicationId, unsigned int classIndex,
+		       const string& classType, unsigned int maxDevices,
+		       unsigned int minDevices, const string& hardwareReq,
+		       const string& softwareReq, const string& networkReq);
 
   //////////////////// DeviceParingPPMInterface functions ////////////////////
 
   virtual void
-  addDeviceToClass (string applicationId, string deviceAddr,
-		    unsigned int classIndex, string deviceDesc);
+  addDeviceToClass (const string& applicationId, const string& deviceAddr,
+		    unsigned int classIndex, const string& deviceDesc);
 
   virtual void
-  getChildIndex (string applicationId, string deviceAddr,
+  getChildIndex (const string& applicationId, const string& deviceAddr,
 		 unsigned int classIndex);
 };
 

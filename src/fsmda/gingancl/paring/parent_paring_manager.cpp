@@ -13,33 +13,33 @@ ParentParingManager::~ParentParingManager ()
 
 //////////////////// ClassHandlingPPMInterface functions ////////////////////
 void
-ParentParingManager::addClass (string applicationId, unsigned int classIndex)
+ParentParingManager::addClass (const string& applicationId, unsigned int classIndex)
 {
 }
 void
-ParentParingManager::removeClass (string applicationId, unsigned int classIndex)
+ParentParingManager::removeClass (const string& applicationId, unsigned int classIndex)
 {
 }
 void
-ParentParingManager::addClassDescription (string applicationId,
+ParentParingManager::addClassDescription (const string& applicationId,
 					  unsigned int classIndex,
-					  string classType,
+					  const string& classType,
 					  unsigned int maxDevices,
 					  unsigned int minDevices,
-					  string hardwareReq,
-					  string softwareReq, string networkReq)
+					  const string& hardwareReq,
+					  const string& softwareReq, const string& networkReq)
 {
 }
 
 //////////////////// DeviceParingPPMInterface functions ////////////////////
 void
-ParentParingManager::addDeviceToClass (string applicationId, string deviceAddr,
+ParentParingManager::addDeviceToClass (const string& applicationId, const string& deviceAddr,
 				       unsigned int classIndex,
-				       string deviceDesc)
+				       const string& deviceDesc)
 {
 }
 void
-ParentParingManager::getChildIndex (string applicationId, string deviceAddr,
+ParentParingManager::getChildIndex (const string& applicationId, const string& deviceAddr,
 				    unsigned int classIndex)
 {
 }

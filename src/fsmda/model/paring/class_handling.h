@@ -13,16 +13,16 @@ public:
   }
   ;
   virtual void
-  addClass (string applicationId, unsigned int classIndex)=0;
+  addClass (const string& applicationId, unsigned int classIndex)=0;
 
   virtual void
-  removeClass (string applicationId, unsigned int classIndex)=0;
+  removeClass (const string& applicationId, unsigned int classIndex)=0;
 
   virtual void
-  addClassDescription (string applicationId, unsigned int classIndex,
-		       string classType, unsigned int maxDevices,
-		       unsigned int minDevices, string hardwareReq,
-		       string softwareReq, string networkReq)=0;
+  addClassDescription (const string& applicationId, unsigned int classIndex,
+		       const string& classType, unsigned int maxDevices,
+		       unsigned int minDevices, const string& hardwareReq,
+		       const string& softwareReq, const string& networkReq)=0;
 };
 
 class ClassHandlingHPEInterface
@@ -34,10 +34,10 @@ public:
   }
 
   virtual void
-  getClassVariableValue (string name, string value);
+  getClassVariableValue (const string& name, const string& value);
 
   virtual void
-  setClassVariableValue (string name, string value);
+  setClassVariableValue (const string& name, const string& value);
 };
 
 #endif /* FSMDA_CLASS_HANDLING_H_ */

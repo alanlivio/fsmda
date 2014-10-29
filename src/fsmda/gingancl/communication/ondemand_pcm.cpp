@@ -12,6 +12,6 @@ OnDemandPCM::~OnDemandPCM ()
 }
 
 void
-OnDemandPCM::notifyOnDemandContent (string action, string location)
+OnDemandPCM::notifyOnDemandContent (const string& action, const string& location)
 {
 }

@@ -12,7 +12,7 @@ public:
 
   //////////////////// OnDemandPCMInterface functions ////////////////////
   virtual void
-  notifyOnDemandContent (string action, string location);
+  notifyOnDemandContent (const string& action, const string& location);
 
 };
 

@@ -14,7 +14,7 @@ public:
   }
 
   virtual void
-  sendContent (char* content, string resourceId, unsigned int childIndex)=0;
+  sendContent (char* content, const string& resourceId, unsigned int childIndex)=0;
 };
 
 class MediaCaptureCCMInterface
@@ -26,6 +26,6 @@ public:
   }
 
   virtual void
-  requestContent (string resourceId, unsigned int deviceIndex)=0;
+  requestContent (const string& resourceId, unsigned int deviceIndex)=0;
 };
 #endif /* FSMDA_MEDIA_CAPTURE_OBJECT_CONTROL_H_ */

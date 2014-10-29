@@ -12,7 +12,7 @@ public:
 
   //////////////////// PassiveCCMInterface functions ////////////////////
   virtual void
-  prepare (string position);
+  prepare (const string& position);
 
   virtual void
   sendContent (char* content);

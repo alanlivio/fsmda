@@ -14,7 +14,7 @@ public:
   }
 
   virtual void
-  notifyOnDemandContent (string action, string location)=0;
+  notifyOnDemandContent (const string& action, const string&location)=0;
 };
 
 #endif /* FSMDA_ONDEMAND_OBJECT_CONTROL_H_ */

@@ -13,7 +13,7 @@ public:
 
   //////////////////// MediaCaptureCCMInterface functions ////////////////////
   virtual void
-  requestContent (string resourceId, unsigned int deviceIndex);
+  requestContent (const string& resourceId, unsigned int deviceIndex);
 };
 
 #endif /* FSMDA_GINGANCL_COMMUNICATION_MEDIA_CAPTURE_CCM_H_ */

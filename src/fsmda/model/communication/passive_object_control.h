@@ -14,7 +14,7 @@ public:
   }
 
   virtual void
-  prepare (string position)=0;
+  prepare (const string& position)=0;
 
   virtual void
   sendContent (char* content)=0;
@@ -29,7 +29,7 @@ public:
   }
 
   virtual void
-  notifyError (string message, string objectId)=0;
+  notifyError (const string& message, const string& objectId)=0;
 };
 
 #endif /* FSMDA_PASSIVE_OBJECT_CONTROL_H_ */

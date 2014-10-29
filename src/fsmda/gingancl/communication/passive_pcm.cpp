@@ -13,6 +13,6 @@ PassivePCM::~PassivePCM ()
 
 //////////////////// PassivePCMInterface functions ////////////////////
 void
-PassivePCM::notifyError (string message, string objectId)
+PassivePCM::notifyError (const string& message, const string& objectId)
 {
 }

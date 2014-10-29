@@ -14,8 +14,8 @@ public:
 
   //////////////////// DeviceParingPCMInterface functions ////////////////////
   virtual void
-  classAnnouncement (string applicationID, unsigned int classIndex,
-		     string classDesc, string classFunction);
+  classAnnouncement (const string& applicationID, unsigned int classIndex,
+		     const string& classDesc, const string& classFunction);
 };
 
 #endif /* FSMDA_GINGANCL_CHILD_PARING_MANAGER_H_ */

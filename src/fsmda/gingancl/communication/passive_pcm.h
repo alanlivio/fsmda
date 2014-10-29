@@ -13,7 +13,7 @@ public:
 
   //////////////////// PassivePCMInterface functions ////////////////////
   virtual void
-  notifyError (string message, string objectId);
+  notifyError (const string& message, const string& objectId);
 };
 
 #endif /* FSMDA_GINGANCL_COMMUNICATION_PASSIVE_PCM_H_ */

@@ -13,13 +13,13 @@ public:
 
   //////////////////// ActivePCMInterface functions ////////////////////
   virtual void
-  requestPropertyValue (string objectID, string name);
+  requestPropertyValue (const string& objectID, const string& name);
 
   virtual void
-  notifyEventTransition (string objectID, string eventID, string transition);
+  notifyEventTransition (const string& objectID, const string& eventID, const string& transition);
 
   virtual void
-  notifyError (string objectID, string message);
+  notifyError (const string& objectID, const string& message);
 };
 
 #endif /* FSMDA_GINGANCL_COMMUNICATION_ACTIVE_PCM_H_ */

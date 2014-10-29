@@ -12,8 +12,8 @@ ChildParingManager::~ChildParingManager ()
 }
 
 void
-ChildParingManager::classAnnouncement (string applicationID,
+ChildParingManager::classAnnouncement (const string& applicationID,
 				       unsigned int classIndex,
-				       string classDesc, string classFunction)
+				       const string& classDesc, const string& classFunction)
 {
 }

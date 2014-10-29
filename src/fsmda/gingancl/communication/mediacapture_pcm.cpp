@@ -13,7 +13,7 @@ MediaCapturePCM::~MediaCapturePCM ()
 
 //////////////////// MediaCapturePCMInterface functions ////////////////////
 void
-MediaCapturePCM::sendContent (char* content, string resourceId,
+MediaCapturePCM::sendContent (char* content, const string& resourceId,
 			      unsigned int childIndex)
 {
 

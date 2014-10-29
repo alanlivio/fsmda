@@ -13,17 +13,17 @@ ActivePCM::~ActivePCM ()
 
 //////////////////// ActivePCMInterface functions ////////////////////
 void
-ActivePCM::requestPropertyValue (string objectID, string name)
+ActivePCM::requestPropertyValue (const string& objectID, const string& name)
 {
 }
 
 void
-ActivePCM::notifyEventTransition (string objectID, string eventID,
-				  string transition)
+ActivePCM::notifyEventTransition (const string& objectID, const string& eventID,
+				  const string& transition)
 {
 }
 
 void
-ActivePCM::notifyError (string objectID, string message)
+ActivePCM::notifyError (const string& objectID, const string& message)
 {
 }

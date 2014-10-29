@@ -13,7 +13,7 @@ public:
 
   //////////////////// MediaCapturePCMInterface functions ////////////////////
   virtual void
-  sendContent (char* content, string resourceId, unsigned int childIndex);
+  sendContent (char* content, const string& resourceId, unsigned int childIndex);
 };
 
 #endif /* FSMDA_GINGANCL_COMMUNICATION_MEDIA_CAPTURE_PCM_H_ */

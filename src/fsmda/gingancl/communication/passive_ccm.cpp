@@ -13,7 +13,7 @@ PassiveCCM::~PassiveCCM ()
 
 //////////////////// PassiveCCMInterface functions ////////////////////
 void
-PassiveCCM::prepare (string position)
+PassiveCCM::prepare (const string& position)
 {
 }
 

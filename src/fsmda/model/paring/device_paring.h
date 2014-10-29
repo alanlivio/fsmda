@@ -14,10 +14,10 @@ public:
   }
 
   virtual void
-  addDeviceToClass (string applicationId, string deviceAddr,
-		    unsigned int classIndex, string deviceDesc)=0;
+  addDeviceToClass (const string& applicationId, const string& deviceAddr,
+		    unsigned int classIndex, const string& deviceDesc)=0;
   virtual void
-  getChildIndex (string applicationId, string deviceAddr,
+  getChildIndex (const string& applicationId, const string& deviceAddr,
 		 unsigned int classIndex)=0;
 };
 
@@ -30,8 +30,8 @@ public:
   }
 
   virtual void
-  classAnnouncement (string applicationID, unsigned int classIndex,
-		     string classDesc, string classFunction)=0;
+  classAnnouncement (const string& applicationID, unsigned int classIndex,
+		     const string& classDesc, const string& classFunction)=0;
 
 };
 

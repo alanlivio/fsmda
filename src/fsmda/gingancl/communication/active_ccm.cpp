@@ -13,32 +13,32 @@ ActiveCCM::~ActiveCCM ()
 
 //////////////////// ActiveCCMInterface functions ////////////////////
 void
-ActiveCCM::prepare (string objectID, string objectSrc,
+ActiveCCM::prepare (const string&  objectID, const string&  objectSrc,
 		    vector<Property> properties, vector<Event> evts)
 {
 }
 void
-ActiveCCM::addEvent (string objectID, Event evt)
+ActiveCCM::addEvent (const string&  objectID, Event evt)
 {
 }
 
 void
-ActiveCCM::removeEvent (string objectID, string eventID)
+ActiveCCM::removeEvent (const string&  objectID, const string&  eventID)
 {
 }
 
 void
-ActiveCCM::postAction (string objectID, string eventID, string action)
+ActiveCCM::postAction (const string&  objectID, const string&  eventID, const string&  action)
 {
 }
 
 void
-ActiveCCM::reportPropertyValue (string objectID, string name, string value)
+ActiveCCM::reportPropertyValue (const string&  objectID, const string&  name, const string&  value)
 {
 }
 
 void
-ActiveCCM::setPropertyValue (string objectID, string name, string value,
+ActiveCCM::setPropertyValue (const string&  objectID, const string&  name, const string&  value,
 			     unsigned int duration)
 {
 }

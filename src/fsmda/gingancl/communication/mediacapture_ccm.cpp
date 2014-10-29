@@ -13,7 +13,7 @@ MediaCaptureCCM::~MediaCaptureCCM ()
 
 //////////////////// MediaCaptureCCMInterface functions ////////////////////
 void
-MediaCaptureCCM::requestContent (string resourceId, unsigned int deviceIndex)
+MediaCaptureCCM::requestContent (const string& resourceId, unsigned int deviceIndex)
 {
 
 }
