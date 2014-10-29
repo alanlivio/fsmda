@@ -26,23 +26,25 @@ public:
 
 // public methods
 public:
-  DeviceClassDescription (DeviceClassType deviceClassType);
-  DeviceClassDescription (const string& rdf_file);
+  DeviceClassDescription ();
   virtual
   ~DeviceClassDescription ();
   bool
   device_meets_requirements (DeviceDescription device_desc);
+  int
+  parse_rdf_file (const string& rdf_file);
 
 // private fields
 private:
-  DeviceClassType classType_;
-  xmlDocPtr doc_;
   static string deviceClassTypeMap[];
+  xmlDocPtr doc_;
+  DeviceClassType classType_;
+  string paringMethod_;
+  unsigned int min_devices_;
+  unsigned int max_devices_;
 
 // private methods
 private:
-  void
-  parse_rdf_file (const string& rdf_file);
 
 };
 

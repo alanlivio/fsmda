@@ -8,10 +8,11 @@ using namespace std;
 class DeviceDescription
 {
 public:
-  DeviceDescription (string rdf_file);
+  DeviceDescription ();
   virtual
   ~DeviceDescription ();
-
+  int
+  parse_rdf_file (const string& rdf_file);
 };
 
 #endif /* FSMDA_GINGANCL_PARING_DEVICE_DESCRIPTION_H_ */

@@ -6,24 +6,17 @@
 #include <libxml/xpath.h>
 #include <libxml/xpathInternals.h>
 #include <cassert>
-#include <cstdio>
+#include <cstdlib>
 #include <iostream>
-#include <string>
 
 using namespace std;
 
 string DeviceClassDescription::deviceClassTypeMap[] =
   { "base", "passive", "active", "html", "ondemand", "mediacapture" };
 
-DeviceClassDescription::DeviceClassDescription (DeviceClassType deviceClassType) :
+DeviceClassDescription::DeviceClassDescription () :
     doc_ (NULL), classType_ (FSDMA_BASE)
 {
-}
-
-DeviceClassDescription::DeviceClassDescription (const string& rdf_file) :
-    doc_ (NULL), classType_ (FSDMA_BASE)
-{
-  this->parse_rdf_file (rdf_file);
 }
 
 DeviceClassDescription::~DeviceClassDescription ()
@@ -31,14 +24,16 @@ DeviceClassDescription::~DeviceClassDescription ()
   // TODO Auto-generated destructor stub
 }
 
-void
+int
 DeviceClassDescription::parse_rdf_file (const string& rdf_file)
 {
   int ret;
   xmlXPathContextPtr xpathCtx;
   xmlXPathObjectPtr xpathObj;
+  xmlNodeSetPtr nodes;
+  const char* aux;
 
-  //release initilize libxml
+  //initilize libxml
   xmlInitParser ();
   doc_ = xmlParseFile (rdf_file.c_str ());
   assert(doc_ != NULL);
@@ -51,18 +46,52 @@ DeviceClassDescription::parse_rdf_file (const string& rdf_file)
   //capture classType
   xpathObj = xmlXPathEvalExpression ((xmlChar*) "//fsmda:classType", xpathCtx);
   assert(xpathObj != NULL);
-  xmlNodeSetPtr nodes = xpathObj->nodesetval;
+  nodes = xpathObj->nodesetval;
   assert(nodes->nodeTab[0]);
-  string aux ((const char*) nodes->nodeTab[0]->children->content);
+  aux = (const char*) nodes->nodeTab[0]->children->content;
   this->classType_ = this->get_device_class_type_by_string (aux);
-  clog << "--->fsmda:classType = " << aux << "(or " << this->classType_ << ")"<< endl;
-
-  //release libxml2
+  clog << "--->fsmda:classType = " << aux << "(or " << this->classType_ << ")"
+      << endl;
   xmlXPathFreeObject (xpathObj);
+
+  //capture min_devices
+  xpathObj = xmlXPathEvalExpression ((xmlChar*) "//fsmda:minDevices", xpathCtx);
+  assert(xpathObj != NULL);
+  nodes = xpathObj->nodesetval;
+  assert(nodes->nodeTab[0]);
+  aux = (const char*) nodes->nodeTab[0]->children->content;
+  this->min_devices_ = atoi (aux);
+  clog << "--->fsmda:minDevices = " << this->min_devices_ << endl;
+  xmlXPathFreeObject (xpathObj);
+
+  //capture max_devices
+  xpathObj = xmlXPathEvalExpression ((xmlChar*) "//fsmda:maxDevices", xpathCtx);
+  assert(xpathObj != NULL);
+  nodes = xpathObj->nodesetval;
+  assert(nodes->nodeTab[0]);
+  aux = (const char*) nodes->nodeTab[0]->children->content;
+  this->max_devices_ = atoi (aux);
+  clog << "--->fsmda:maxDevices = " << this->max_devices_ << endl;
+  xmlXPathFreeObject (xpathObj);
+
+  //capture paringMethod
+  xpathObj = xmlXPathEvalExpression ((xmlChar*) "//fsmda:pairingMethod",
+				     xpathCtx);
+  assert(xpathObj != NULL);
+  nodes = xpathObj->nodesetval;
+  assert(nodes->nodeTab[0]);
+  aux = (const char*) nodes->nodeTab[0]->children->content;
+  this->paringMethod_ = this->get_device_class_type_by_string (aux);
+  clog << "--->fsmda:pairingMethod = " << aux << endl;
+  xmlXPathFreeObject (xpathObj);
+
+  //release libxml
   xmlXPathFreeContext (xpathCtx);
   xmlFreeDoc (doc_);
   xmlCleanupParser ();
   xmlMemoryDump ();
+
+  return 0;
 }
 
 DeviceClassDescription::DeviceClassType

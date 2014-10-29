@@ -1,3 +1,4 @@
+#include <assert.h>
 #include <fsmda/gingancl/communication/active_ccm.h>
 #include <fsmda/gingancl/communication/active_pcm.h>
 #include <fsmda/gingancl/communication/mediacapture_ccm.h>
@@ -6,13 +7,11 @@
 #include <fsmda/gingancl/communication/passive_ccm.h>
 #include <fsmda/gingancl/communication/passive_pcm.h>
 #include <fsmda/gingancl/paring/child_paring_manager.h>
+#include <fsmda/gingancl/paring/device_class_description.h>
 #include <fsmda/gingancl/paring/device_description.h>
 #include <fsmda/gingancl/paring/parent_paring_manager.h>
 #include <cstdlib>
-#include <string>
 #include <vector>
-#include <assert.h>
-#include <fsmda/gingancl/paring/device_class_description.h>
 
 int
 main (int argc, char **argv)
@@ -36,12 +35,9 @@ main (int argc, char **argv)
   assert(passivePCM != NULL);
   PassiveCCM * passiveCCM = new PassiveCCM ();
   assert(passiveCCM != NULL);
-  string device_rdf ("device_class_description000.xml");
-  DeviceDescription * device_description = new DeviceDescription (device_rdf);
+  DeviceDescription * device_description = new DeviceDescription ();
   assert(device_description != NULL);
-  string equirements_rdf ("device_description000.xml");
-  DeviceClassDescription * device_requirements = new DeviceClassDescription (
-      equirements_rdf);
+  DeviceClassDescription * device_requirements = new DeviceClassDescription ();
   assert(device_requirements != NULL);
 
   return EXIT_SUCCESS;
