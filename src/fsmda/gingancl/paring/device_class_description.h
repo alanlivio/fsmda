@@ -9,12 +9,14 @@ class DeviceClassDescription
 {
 public:
   DeviceClassDescription (DeviceClassType deviceClassType);
-  DeviceClassDescription (string rdf_file);
+  DeviceClassDescription (const string&  rdf_file);
   virtual
   ~DeviceClassDescription ();
 
   bool
   device_meets_requirements (DeviceDescription device_desc);
+private:
+  string
+  execute_xpath_expression (const string&  xpathExpr);
 };
-
 #endif /* FSMDA_GINGANCL_PARING_DEVICE_CLASS_DESCRIPTION_H_ */

@@ -36,10 +36,12 @@ AS_IF([test -z "$PKG_CONFIG"],
 #AC_SUBST([GTK_REQUIRED_VERSION], gtk_required_version)
 
 ### Checks for libraries
-PKG_CHECK_MODULES([PLATINUMKIT], [libplatinumkit], [],
-    		[AC_MSG_ERROR([Platinumlkit library is required. Try in https://github.com/alanlivio/platinumkit-autotools-library.])])
 AC_CHECK_LIB([pthread], [pthread_mutex_init], [], 
             [AC_MSG_ERROR([pthread library is required])])
+PKG_CHECK_MODULES([PLATINUMKIT], [libplatinumkit], [],
+    		[AC_MSG_ERROR([The libplatinumkit is required. Try in https://github.com/alanlivio/platinumkit-autotools-library.])])
+PKG_CHECK_MODULES([LIBXML2], [libxml-2.0], [],
+    		[AC_MSG_ERROR([The libxml-2.0 is required.])])
 
 ### Configure automake contionals
 #AS_IF([test "$have_gtk" = yes],

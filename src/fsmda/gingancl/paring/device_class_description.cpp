@@ -1,13 +1,27 @@
-#include <fsmda/gingancl/paring/device_class_description.h>
+#include "device_class_description.h"
+
+#include <libxml/parser.h>
+#include <libxml/tree.h>
+#include <libxml/xmlmemory.h>
+#include <libxml/xpath.h>
+#include <cassert>
 
 DeviceClassDescription::DeviceClassDescription (DeviceClassType deviceClassType)
 {
 }
 
-DeviceClassDescription::DeviceClassDescription (string rdf_file)
+DeviceClassDescription::DeviceClassDescription (const string& rdf_file)
 {
-  // TODO Auto-generated constructor stub
+  xmlInitParser ();
+  xmlDocPtr doc;
+  xmlXPathContextPtr xpathCtx;
+  xmlXPathObjectPtr xpathObj;
+  doc = xmlParseFile (rdf_file.c_str());
+  assert (doc != NULL);
 
+  xmlCleanupParser ();
+
+  xmlMemoryDump ();
 }
 
 DeviceClassDescription::~DeviceClassDescription ()
@@ -15,9 +29,9 @@ DeviceClassDescription::~DeviceClassDescription ()
   // TODO Auto-generated destructor stub
 }
 
-bool
-DeviceClassDescription::device_meets_requirements (
-    DeviceDescription device_desc)
+string
+DeviceClassDescription::execute_xpath_expression (const string& xpathExpr)
 {
-  return true;
+
+  return string("path");
 }

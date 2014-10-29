@@ -30,10 +30,10 @@ libfsmda_la_SOURCES = \
   fsmda/gingancl/communication/ondemand_pcm.cpp
 
 # Libraries compiler options
-libfsmda_la_CPPFLAGS = -I./ $(PLATINUMKIT_CFLAGS)
+libfsmda_la_CPPFLAGS = -I./ $(PLATINUMKIT_CFLAGS) $(LIBXML2_CFLAGS)
 
 # Libraries linker options
-libfsmda_la_LDFLAGS =  $(PLATINUMKIT_LIBS)
+libfsmda_la_LDFLAGS =  $(PLATINUMKIT_LIBS) $(LIBXML2_LIBS)
 
 ############################## pkg-config ####################################
 # Libraries pkg-config file

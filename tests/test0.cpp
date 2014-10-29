@@ -36,10 +36,10 @@ main (int argc, char **argv)
   assert(passivePCM != NULL);
   PassiveCCM * passiveCCM = new PassiveCCM ();
   assert(passiveCCM != NULL);
-  string device_rdf ("./device.rdf");
+  string device_rdf ("device_class_description000.xml");
   DeviceDescription * device_description = new DeviceDescription (device_rdf);
   assert(device_description != NULL);
-  string equirements_rdf ("./requiments.rdf");
+  string equirements_rdf ("device_description000.xml");
   DeviceClassDescription * device_requirements = new DeviceClassDescription (
       equirements_rdf);
   assert(device_requirements != NULL);

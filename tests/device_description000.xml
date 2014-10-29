@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:prf="http://www.wapforum.org/profiles/UAPROF/ccppschema-20010430#">
+	<prf:component>
+		<rdf:Description rdf:ID="SoftwarePlataform">
+			<rdf:type rdf:resource="prf:SoftwarePlataform" />
+			<gncl:supportedNCLProfiles>
+				<rdf:Bag>
+					<rdf:li>NCL3.0/EDTV</rdf:li>
+				</rdf:Bag>
+			</gncl:supportedNCLProfiles>
+			<prf:CcppAccept>
+				<rdf:Bag>
+					<rdf:li>
+						application/xhtml+xml
+					</rdf:li>
+				</rdf:Bag>
+			</prf:CcppAccept>
+			<gncl:deviceServices>
+				<rdf:Bag>
+					<rdf:li>
+						UPnP_MSCP
+					</rdf:li>
+				</rdf:Bag>
+			</gncl:deviceServices>
+		</rdf:Description>
+	</prf:component>
+	<prf:component>
+		<rdf:Description rdf:ID="HardwarePlatform">
+			<rdf:type rdf:resource="prf:HardwarePlatform" />
+		</rdf:Description>
+	</prf:component>
+</rdf:RDF>
