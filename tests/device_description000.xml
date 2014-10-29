@@ -3,4 +3,11 @@
 	xmlns:prf="http://www.wapforum.org/profiles/UAPROF/ccppschema-20010430#"
 	xmlns:fsmda="http://www.ncl.org.br/fsmda">
 	<fsmda:classType>active</fsmda:classType>
+	<fsmda:SoftwareRequirements>
+	</fsmda:SoftwareRequirements>
+	<fsmda:NetworkRequirements>
+		<fsmda:pairingMethod>UPnP</fsmda:pairingMethod>
+	</fsmda:NetworkRequirements>
+	<fsmda:HardwareRequirements>
+	</fsmda:HardwareRequirements>
 </rdf:RDF>

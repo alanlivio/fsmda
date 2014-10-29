@@ -15,6 +15,7 @@ main (int argc, char **argv)
   DeviceClassDescription * device_class_description = new DeviceClassDescription();
   device_class_description->initialize_by_parse_rdf_file (device_class_description_rdf);
   assert(device_class_description != NULL);
-
+  bool ret = device_class_description->device_meets_requirements(device_description);
+  assert(ret);
   return EXIT_SUCCESS;
 }
