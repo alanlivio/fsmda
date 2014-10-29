@@ -1,14 +1,16 @@
 #include "device_class_description.h"
 
-#include <libxml/tree.h>
+#include <libxml/parser.h>
 #include <libxml/xmlmemory.h>
 #include <libxml/xmlstring.h>
 #include <libxml/xpath.h>
 #include <libxml/xpathInternals.h>
 #include <cassert>
+#include <climits>
 #include <cstdlib>
 #include <iostream>
-#include <climits>
+
+#include "device_description.h"
 
 using namespace std;
 
@@ -16,13 +18,35 @@ string DeviceClassDescription::deviceClassTypeMap[] =
   { "base", "passive", "active", "html", "ondemand", "mediacapture" };
 
 DeviceClassDescription::DeviceClassDescription () :
-    doc_ (NULL), classType_ (FSDMA_BASE), min_devices_ (0), max_devices_ (0), is_configured_ (
+    doc_ (NULL), classType_ (FSDMA_BASE), min_devices_ (0), max_devices_ (0), initialized_ (
 	false)
 {
 }
 
 DeviceClassDescription::~DeviceClassDescription ()
 {
+}
+bool
+DeviceClassDescription::device_meets_requirements (
+    DeviceDescription *device_desc)
+{
+  if (!initialized_)
+    {
+      clog << "device_meets_requirements fail: not initialized_" << endl;
+      return false;
+    }
+  else if (this->classType_ != device_desc->classType_)
+    {
+      clog << "device_meets_requirements fail: classType_" << endl;
+      return false;
+    }
+  else if (this->paringMethod_ != device_desc->paringMethod_)
+    {
+      clog << "device_meets_requirements fail: paringMethod_" << endl;
+      return false;
+    }
+  else
+    return true;
 }
 
 int
@@ -33,7 +57,7 @@ DeviceClassDescription::initialize_by_default_device_class (
   this->min_devices_ = 1;
   this->max_devices_ = UINT_MAX;
   this->paringMethod_ = "UPnP";
-  this->is_configured_ = true;
+  this->initialized_ = true;
   return 0;
 }
 
@@ -62,7 +86,8 @@ DeviceClassDescription::initialize_by_parse_rdf_file (const string& rdf_file)
   nodes = xpathObj->nodesetval;
   assert(nodes->nodeTab[0]);
   aux = (const char*) nodes->nodeTab[0]->children->content;
-  this->classType_ = this->get_device_class_type_by_string (aux);
+  this->classType_ = DeviceClassDescription::get_device_class_type_by_string (
+      aux);
   clog << "--->fsmda:classType = " << aux << "(or " << this->classType_ << ")"
       << endl;
   xmlXPathFreeObject (xpathObj);
@@ -93,9 +118,8 @@ DeviceClassDescription::initialize_by_parse_rdf_file (const string& rdf_file)
   assert(xpathObj != NULL);
   nodes = xpathObj->nodesetval;
   assert(nodes->nodeTab[0]);
-  aux = (const char*) nodes->nodeTab[0]->children->content;
-  this->paringMethod_ = this->get_device_class_type_by_string (aux);
-  clog << "--->fsmda:pairingMethod = " << aux << endl;
+  this->paringMethod_ = (const char*) nodes->nodeTab[0]->children->content;
+  clog << "--->fsmda:pairingMethod = " << this->paringMethod_ << endl;
   xmlXPathFreeObject (xpathObj);
 
   //release libxml
@@ -104,7 +128,7 @@ DeviceClassDescription::initialize_by_parse_rdf_file (const string& rdf_file)
   xmlCleanupParser ();
   xmlMemoryDump ();
 
-  this->is_configured_ = true;
+  this->initialized_ = true;
   return 0;
 }
 

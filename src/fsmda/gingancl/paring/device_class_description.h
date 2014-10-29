@@ -23,13 +23,20 @@ public:
   static DeviceClassType
   get_device_class_type_by_string (const string& str);
 
+// public fields
+public:
+  DeviceClassType classType_;
+  string paringMethod_;
+  unsigned int min_devices_;
+  unsigned int max_devices_;
+
 // public methods
 public:
   DeviceClassDescription ();
   virtual
   ~DeviceClassDescription ();
   bool
-  device_meets_requirements (DeviceDescription device_desc);
+  device_meets_requirements (DeviceDescription *device_desc);
   int
   initialize_by_default_device_class (DeviceClassType);
   int
@@ -39,11 +46,7 @@ public:
 private:
   static string deviceClassTypeMap[];
   xmlDocPtr doc_;
-  DeviceClassType classType_;
-  string paringMethod_;
-  unsigned int min_devices_;
-  unsigned int max_devices_;
-  bool is_configured_;
+  bool initialized_;
 
 // private methods
 private:
