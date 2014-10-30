@@ -1,17 +1,23 @@
-#include "mediacapture_pcm.h"
+#include <fsmda/gingancl/communication/mediacapture_pcm.h>
 
+/*----------------------------------------------------------------------
+ |   MediaCapturePCM::MediaCapturePCM
+ +---------------------------------------------------------------------*/
 MediaCapturePCM::MediaCapturePCM ()
 {
-  // TODO Auto-generated constructor stub
 
 }
 
+/*----------------------------------------------------------------------
+ |   MediaCapturePCM::~MediaCapturePCM
+ +---------------------------------------------------------------------*/
 MediaCapturePCM::~MediaCapturePCM ()
 {
-  // TODO Auto-generated destructor stub
 }
 
-//////////////////// MediaCapturePCMInterface functions ////////////////////
+/*----------------------------------------------------------------------
+ |   MediaCapturePCM::sendContent
+ +---------------------------------------------------------------------*/
 void
 MediaCapturePCM::sendContent (char* content, const string& resourceId,
 			      unsigned int childIndex)

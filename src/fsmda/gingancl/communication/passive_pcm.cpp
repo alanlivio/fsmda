@@ -1,17 +1,22 @@
-#include "passive_pcm.h"
+#include <fsmda/gingancl/communication/passive_pcm.h>
 
+/*----------------------------------------------------------------------
+ |   PassivePCM::PassivePCM
+ +---------------------------------------------------------------------*/
 PassivePCM::PassivePCM ()
 {
-  // TODO Auto-generated constructor stub
-
 }
 
+/*----------------------------------------------------------------------
+ |   PassivePCM::PassivePCM
+ +---------------------------------------------------------------------*/
 PassivePCM::~PassivePCM ()
 {
-  // TODO Auto-generated destructor stub
 }
 
-//////////////////// PassivePCMInterface functions ////////////////////
+/*----------------------------------------------------------------------
+ |   PassivePCM::PassivePCM
+ +---------------------------------------------------------------------*/
 void
 PassivePCM::notifyError (const string& message, const string& objectId)
 {

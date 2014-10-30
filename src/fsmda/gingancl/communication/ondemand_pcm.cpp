@@ -1,17 +1,25 @@
-#include "ondemand_pcm.h"
+#include <fsmda/gingancl/communication/ondemand_pcm.h>
 
+/*----------------------------------------------------------------------
+ |   OnDemandPCM::OnDemandPCM
+ +---------------------------------------------------------------------*/
 OnDemandPCM::OnDemandPCM ()
 {
-  // TODO Auto-generated constructor stub
 
 }
 
+/*----------------------------------------------------------------------
+ |   OnDemandPCM::~OnDemandPCM
+ +---------------------------------------------------------------------*/
 OnDemandPCM::~OnDemandPCM ()
 {
-  // TODO Auto-generated destructor stub
 }
 
+/*----------------------------------------------------------------------
+ |   OnDemandPCM::notifyOnDemandContent
+ +---------------------------------------------------------------------*/
 void
-OnDemandPCM::notifyOnDemandContent (const string& action, const string& location)
+OnDemandPCM::notifyOnDemandContent (const string& action,
+				    const string& location)
 {
 }

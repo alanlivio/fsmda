@@ -1,19 +1,25 @@
-#include "mediacapture_ccm.h"
+#include <fsmda/gingancl/communication/mediacapture_ccm.h>
 
+/*----------------------------------------------------------------------
+ |   ActivePCM::~ActivePCM
+ +---------------------------------------------------------------------*/
 MediaCaptureCCM::MediaCaptureCCM ()
 {
-  // TODO Auto-generated constructor stub
-
 }
 
+/*----------------------------------------------------------------------
+ |   ActivePCM::~ActivePCM
+ +---------------------------------------------------------------------*/
 MediaCaptureCCM::~MediaCaptureCCM ()
 {
-  // TODO Auto-generated destructor stub
 }
 
-//////////////////// MediaCaptureCCMInterface functions ////////////////////
+/*----------------------------------------------------------------------
+ |   ActivePCM::~ActivePCM
+ +---------------------------------------------------------------------*/
 void
-MediaCaptureCCM::requestContent (const string& resourceId, unsigned int deviceIndex)
+MediaCaptureCCM::requestContent (const string& resourceId,
+				 unsigned int deviceIndex)
 {
 
 }

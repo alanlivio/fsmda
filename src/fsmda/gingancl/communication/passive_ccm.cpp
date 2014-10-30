@@ -1,22 +1,30 @@
-#include "passive_ccm.h"
+#include <fsmda/gingancl/communication/passive_ccm.h>
 
+/*----------------------------------------------------------------------
+ |   PassiveCCM::PassiveCCM
+ +---------------------------------------------------------------------*/
 PassiveCCM::PassiveCCM ()
 {
-  // TODO Auto-generated constructor stub
-
 }
 
+/*----------------------------------------------------------------------
+ |   PassiveCCM::PassiveCCM
+ +---------------------------------------------------------------------*/
 PassiveCCM::~PassiveCCM ()
 {
-  // TODO Auto-generated destructor stub
 }
 
-//////////////////// PassiveCCMInterface functions ////////////////////
+/*----------------------------------------------------------------------
+ |   PassiveCCM::prepare
+ +---------------------------------------------------------------------*/
 void
 PassiveCCM::prepare (const string& position)
 {
 }
 
+/*----------------------------------------------------------------------
+ |   PassiveCCM::sendContent
+ +---------------------------------------------------------------------*/
 void
 PassiveCCM::sendContent (char* content)
 {

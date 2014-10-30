@@ -1,28 +1,39 @@
-#include "active_pcm.h"
+#include <fsmda/gingancl/communication/active_pcm.h>
 
+/*----------------------------------------------------------------------
+ |   ActivePCM::ActivePCM
+ +---------------------------------------------------------------------*/
 ActivePCM::ActivePCM ()
 {
-  // TODO Auto-generated constructor stub
-
 }
 
+/*----------------------------------------------------------------------
+ |   ActivePCM::~ActivePCM
+ +---------------------------------------------------------------------*/
 ActivePCM::~ActivePCM ()
 {
-  // TODO Auto-generated destructor stub
 }
 
-//////////////////// ActivePCMInterface functions ////////////////////
+/*----------------------------------------------------------------------
+ |   ActivePCM::requestPropertyValue
+ +---------------------------------------------------------------------*/
 void
 ActivePCM::requestPropertyValue (const string& objectID, const string& name)
 {
 }
 
+/*----------------------------------------------------------------------
+ |   ActivePCM::notifyEventTransition
+ +---------------------------------------------------------------------*/
 void
 ActivePCM::notifyEventTransition (const string& objectID, const string& eventID,
 				  const string& transition)
 {
 }
 
+/*----------------------------------------------------------------------
+ |   ActivePCM::notifyError
+ +---------------------------------------------------------------------*/
 void
 ActivePCM::notifyError (const string& objectID, const string& message)
 {
