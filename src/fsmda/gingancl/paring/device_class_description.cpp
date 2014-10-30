@@ -91,11 +91,11 @@ DeviceClassDescription::initialize_by_parse_rdf_file (const string& rdf_file)
   xpathCtx = xmlXPathNewContext (this->doc_);
   assert(xpathCtx != NULL);
   ret = xmlXPathRegisterNs (xpathCtx, (xmlChar*) "fsmda",
-			    (xmlChar*) "http:// www.ncl.org.br/fsmda");
+			    (xmlChar*) "http://www.ncl.org.br/fsmda");
   assert(ret == 0);
 
   // capture classType
-  xpathObj = xmlXPathEvalExpression ((xmlChar*) "// fsmda:classType", xpathCtx);
+  xpathObj = xmlXPathEvalExpression ((xmlChar*) "//fsmda:classType", xpathCtx);
   assert(xpathObj != NULL);
   nodes = xpathObj->nodesetval;
   assert(nodes->nodeTab[0]);
@@ -107,7 +107,7 @@ DeviceClassDescription::initialize_by_parse_rdf_file (const string& rdf_file)
   xmlXPathFreeObject (xpathObj);
 
   // capture min_devices
-  xpathObj = xmlXPathEvalExpression ((xmlChar*) "// fsmda:minDevices",
+  xpathObj = xmlXPathEvalExpression ((xmlChar*) "//fsmda:minDevices",
 				     xpathCtx);
   assert(xpathObj != NULL);
   nodes = xpathObj->nodesetval;
@@ -118,7 +118,7 @@ DeviceClassDescription::initialize_by_parse_rdf_file (const string& rdf_file)
   xmlXPathFreeObject (xpathObj);
 
   // capture max_devices
-  xpathObj = xmlXPathEvalExpression ((xmlChar*) "// fsmda:maxDevices",
+  xpathObj = xmlXPathEvalExpression ((xmlChar*) "//fsmda:maxDevices",
 				     xpathCtx);
   assert(xpathObj != NULL);
   nodes = xpathObj->nodesetval;
@@ -129,7 +129,7 @@ DeviceClassDescription::initialize_by_parse_rdf_file (const string& rdf_file)
   xmlXPathFreeObject (xpathObj);
 
   // capture paringMethod
-  xpathObj = xmlXPathEvalExpression ((xmlChar*) "// fsmda:pairingMethod",
+  xpathObj = xmlXPathEvalExpression ((xmlChar*) "//fsmda:pairingMethod",
 				     xpathCtx);
   assert(xpathObj != NULL);
   nodes = xpathObj->nodesetval;

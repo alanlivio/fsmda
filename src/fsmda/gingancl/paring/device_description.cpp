@@ -42,11 +42,11 @@ DeviceDescription::initialize_by_rdf_file (const string& rdf_file)
   xpathCtx = xmlXPathNewContext (this->doc_);
   assert(xpathCtx != NULL);
   ret = xmlXPathRegisterNs (xpathCtx, (xmlChar*) "fsmda",
-			    (xmlChar*) "http:// www.ncl.org.br/fsmda");
+			    (xmlChar*) "http://www.ncl.org.br/fsmda");
   assert(ret == 0);
 
   // capture classType
-  xpathObj = xmlXPathEvalExpression ((xmlChar*) "// fsmda:classType", xpathCtx);
+  xpathObj = xmlXPathEvalExpression ((xmlChar*) "//fsmda:classType", xpathCtx);
   assert(xpathObj != NULL);
   nodes = xpathObj->nodesetval;
   assert(nodes->nodeTab[0]);
@@ -58,7 +58,7 @@ DeviceDescription::initialize_by_rdf_file (const string& rdf_file)
   xmlXPathFreeObject (xpathObj);
 
   // capture paringMethod
-  xpathObj = xmlXPathEvalExpression ((xmlChar*) "// fsmda:pairingMethod",
+  xpathObj = xmlXPathEvalExpression ((xmlChar*) "//fsmda:pairingMethod",
 				     xpathCtx);
   assert(xpathObj != NULL);
   nodes = xpathObj->nodesetval;
