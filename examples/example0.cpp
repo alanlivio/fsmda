@@ -1,10 +1,16 @@
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-#include "Platinum.h"
-#include "PltMediaConnect.h"
-#include "PltSyncMediaBrowser.h"
+/*----------------------------------------------------------------------
+ |   includes
+ +---------------------------------------------------------------------*/
 
+#include <NptHttp.h>
+#include <NptLogging.h>
+#include <PltCtrlPoint.h>
+#include <PltUPnP.h>
+#include <stdio.h>
+
+/*----------------------------------------------------------------------
+ |   main
+ +---------------------------------------------------------------------*/
 int
 main (void)
 {

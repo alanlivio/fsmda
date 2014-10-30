@@ -1,3 +1,7 @@
+/*----------------------------------------------------------------------
+ |   includes
+ +---------------------------------------------------------------------*/
+
 #include <assert.h>
 #include <fsmda/gingancl/communication/active_ccm.h>
 #include <fsmda/gingancl/communication/active_pcm.h>
@@ -13,6 +17,9 @@
 #include <fsmda/protocol/upnpprotocol.h>
 #include <cstdlib>
 
+/*----------------------------------------------------------------------
+ |   main
+ +---------------------------------------------------------------------*/
 int
 main (int argc, char **argv)
 {

@@ -1,3 +1,7 @@
+/*----------------------------------------------------------------------
+ |   includes
+ +---------------------------------------------------------------------*/
+
 #include <fsmda/gingancl/paring/device_class_description.h>
 #include <fsmda/gingancl/paring/device_description.h>
 #include <libxml/parser.h>
@@ -12,6 +16,9 @@
 
 using namespace std;
 
+/*----------------------------------------------------------------------
+ |   class fields
+ +---------------------------------------------------------------------*/
 string DeviceClassDescription::deviceClassTypeMap[] =
   { "base", "passive", "active", "html", "ondemand", "mediacapture" };
 
@@ -107,8 +114,7 @@ DeviceClassDescription::initialize_by_parse_rdf_file (const string& rdf_file)
   xmlXPathFreeObject (xpathObj);
 
   // capture min_devices
-  xpathObj = xmlXPathEvalExpression ((xmlChar*) "//fsmda:minDevices",
-				     xpathCtx);
+  xpathObj = xmlXPathEvalExpression ((xmlChar*) "//fsmda:minDevices", xpathCtx);
   assert(xpathObj != NULL);
   nodes = xpathObj->nodesetval;
   assert(nodes->nodeTab[0]);
@@ -118,8 +124,7 @@ DeviceClassDescription::initialize_by_parse_rdf_file (const string& rdf_file)
   xmlXPathFreeObject (xpathObj);
 
   // capture max_devices
-  xpathObj = xmlXPathEvalExpression ((xmlChar*) "//fsmda:maxDevices",
-				     xpathCtx);
+  xpathObj = xmlXPathEvalExpression ((xmlChar*) "//fsmda:maxDevices", xpathCtx);
   assert(xpathObj != NULL);
   nodes = xpathObj->nodesetval;
   assert(nodes->nodeTab[0]);

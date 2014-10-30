@@ -1,10 +1,16 @@
+/*----------------------------------------------------------------------
+ |   includes
+ +---------------------------------------------------------------------*/
+
 #include <assert.h>
 #include <fsmda/gingancl/paring/device_class_description.h>
 #include <fsmda/gingancl/paring/device_description.h>
-#include <fsmda/gingancl/paring/device_class_description.h>
-#include <fsmda/gingancl/paring/device_description.h>
 #include <cstdlib>
+#include <string>
 
+/*----------------------------------------------------------------------
+ |   main
+ +---------------------------------------------------------------------*/
 int
 main (int argc, char **argv)
 {
