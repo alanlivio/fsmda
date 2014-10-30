@@ -1,19 +1,24 @@
 # Tests options
-TESTS = t0_test t1_test
+TESTS = t0_test t1_test t2_test
 AM_COLOR_TESTS = always
 
 # Tests programs
-check_PROGRAMS = t0_test t1_test
+check_PROGRAMS = t0_test t1_test t2_test
 
 # t0_test
 t0_test_SOURCES = test0.cpp
 t0_test_CPPFLAGS = $(PLATINUMKIT_CFLAGS) $(LIBXML2_CFLAGS)
-t0_test_LDADD = $(top_srcdir)/src/libfsmda.la $(PLATINUMKIT_LIBS)  $(LIBXML2_LIBS)
+t0_test_LDADD = $(top_srcdir)/src/libfsmda.la $(PLATINUMKIT_LIBS) $(LIBXML2_LIBS)
 
 # t1_test
 t1_test_SOURCES = test1.cpp
 t1_test_CPPFLAGS = $(PLATINUMKIT_CFLAGS) $(LIBXML2_CFLAGS)
-t1_test_LDADD = $(top_srcdir)/src/libfsmda.la $(PLATINUMKIT_LIBS)
+t1_test_LDADD = $(top_srcdir)/src/libfsmda.la $(PLATINUMKIT_LIBS) $(LIBXML2_LIBS)
+
+# t2_test
+t2_test_SOURCES = test2.cpp
+t2_test_CPPFLAGS = $(PLATINUMKIT_CFLAGS) $(LIBXML2_CFLAGS)
+t2_test_LDADD = $(top_srcdir)/src/libfsmda.la $(PLATINUMKIT_LIBS) $(LIBXML2_LIBS)
 
 # Tests clean
 CLEANFILES = *.log *.trs

@@ -15,7 +15,7 @@
 #include <fsmda/gingancl/paring/device_class_description.h>
 #include <fsmda/gingancl/paring/device_description.h>
 #include <fsmda/gingancl/paring/parent_paring_manager.h>
-#include <fsmda/protocol/upnpprotocol.h>
+#include <fsmda/protocol/upnp_manager.h>
 #include <cstdlib>
 
 /*----------------------------------------------------------------------
@@ -64,9 +64,9 @@ main (int argc, char **argv)
   delete dev_class_requirements;
 
   // fsmda/protocol constructor tests
-  UPnPProtocol * upnp = new UPnPProtocol ();
+  UPnPManager * upnp = UPnPManager::getInstance ();
   assert(upnp != NULL);
-  delete upnp;
+  UPnPManager::releaseInstance();
 
   return EXIT_SUCCESS;
 }
