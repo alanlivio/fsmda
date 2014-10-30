@@ -5,7 +5,7 @@
  |   include
  +---------------------------------------------------------------------*/
 
-#include <PltUPnP.h>
+#include "PltUPnP.h"
 #include <map>
 #include <string>
 
@@ -25,30 +25,36 @@ public:
   static const char* UPNP_FSMDA_ONDEMAND_CLASS_MODEL_NAME;
   static const char* UPNP_FSMDA_MANUFACTURER;
   static const char* UPNP_FSMDA_MANUFACTURER_URL;
-  static UPnPManager* getInstance();
+  static UPnPManager*
+  getInstance ();
 
-  // public constructors & destructors
-
-  virtual
-  ~UPnPManager ();
+  static void
+  releaseInstance ();
 
   // public methods
   int
-  offerOnDemandDeviceClassContent (const string& uuid, const string& folder);
+  offerOnDemandContent (const string& uuid, const string& folder);
   int
   removeOfferOnDemandDeviceClassContent (const string& uuid,
 					 const string& folder);
 private:
   // class fields and methods
   static UPnPManager* singleton;
+  // private constructors & destructors
+  UPnPManager ();
+  virtual
+  ~UPnPManager ();
 
   // private fields
-  map<const string, PLT_UPnP> upnp_map_;
-  bool intialized_platinumkit_;
+  map<string, PLT_UPnP> upnp_map_;
+  bool platinumkit_intialized_;
+  PLT_UPnP * upnp_service_;
+
   // private methods
-  UPnPManager ();
   void
   initialize_platinumkit ();
+  void
+  release_platinumkit ();
 
 };
 

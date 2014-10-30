@@ -1,5 +1,5 @@
-#ifndef FSMDA_GINGANCL_COMMUNICATION_ON_DEMAND_PCM_H_
-#define FSMDA_GINGANCL_COMMUNICATION_ON_DEMAND_PCM_H_
+#ifndef FSMDA_GINGANCL_COMMUNICATION_ONDEMAND_PCM_H_
+#define FSMDA_GINGANCL_COMMUNICATION_ONDEMAND_PCM_H_
 
 /*----------------------------------------------------------------------
  |   includes
@@ -26,4 +26,4 @@ public:
   notifyOnDemandContent (const string& action, const string& location);
 };
 
-#endif /* FSMDA_GINGANCL_COMMUNICATION_ON_DEMAND_PCM_H_ */
+#endif /* FSMDA_GINGANCL_COMMUNICATION_ONDEMAND_PCM_H_ */

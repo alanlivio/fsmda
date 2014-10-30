@@ -35,7 +35,7 @@ const char* UPnPManager::UPNP_FSMDA_MANUFACTURER_URL =
  |   UPnPManager::UPnPManager
  +---------------------------------------------------------------------*/
 UPnPManager::UPnPManager () :
-    intialized_platinumkit_ (false)
+    platinumkit_intialized_ (false), upnp_service_ (NULL)
 {
 
 }
@@ -45,22 +45,22 @@ UPnPManager::UPnPManager () :
  +---------------------------------------------------------------------*/
 UPnPManager::~UPnPManager ()
 {
+  if(platinumkit_intialized_)
+    release_platinumkit();
 }
 
 /*----------------------------------------------------------------------
  |   UPnPManager::offerOnDemandDeviceClassContent
  +---------------------------------------------------------------------*/
 int
-UPnPManager::offerOnDemandDeviceClassContent (const string& uuid,
-					      const string& folder)
+UPnPManager::offerOnDemandContent (const string& uuid, const string& folder)
 {
-  if (!this->intialized_platinumkit_)
+  if (this->platinumkit_intialized_ == false)
     this->initialize_platinumkit ();
 
   //Create UPnP server if not exist
   if (upnp_map_.find (uuid) == upnp_map_.end ())
     {
-      PLT_UPnP upnp;
       PLT_DeviceHostReference device (
 	  new PLT_FileMediaServer (folder.c_str (),
 				   UPNP_FSMDA_ONDEMAND_CLASS_FRIENDLY_NAME,
@@ -71,12 +71,9 @@ UPnPManager::offerOnDemandDeviceClassContent (const string& uuid,
       device->m_ModelName = UPNP_FSMDA_ONDEMAND_CLASS_MODEL_NAME;
       device->m_Manufacturer = UPNP_FSMDA_MANUFACTURER;
       device->m_ManufacturerURL = UPNP_FSMDA_MANUFACTURER_URL;
-      upnp.AddDevice (device);
-      upnp_map_[uuid] = upnp;
+      upnp_service_->AddDevice (device);
     }
 
-  //Start FileMediaServer
-  upnp_map_[uuid].Start ();
   return 0;
 }
 
@@ -87,7 +84,6 @@ int
 UPnPManager::removeOfferOnDemandDeviceClassContent (const string& uuid,
 						    const string& folder)
 {
-  upnp_map_[uuid].Stop ();
   return 0;
 }
 
@@ -107,7 +103,22 @@ UPnPManager::initialize_platinumkit ()
   NPT_List<NPT_IpAddress> list;
   PLT_UPnPMessageHelper::GetIPAddresses (list);
 
-  this->intialized_platinumkit_ = true;
+  upnp_service_ = new PLT_UPnP ();
+  upnp_service_->Start ();
+
+  this->platinumkit_intialized_ = true;
+}
+
+/*----------------------------------------------------------------------
+ |   UPnPManager::release_platinumkit
+ +---------------------------------------------------------------------*/
+void
+UPnPManager::release_platinumkit ()
+{
+  upnp_service_->Stop ();
+  delete upnp_service_;
+  upnp_service_ = NULL;
+  this->platinumkit_intialized_ = true;
 }
 
 /*----------------------------------------------------------------------
@@ -119,4 +130,15 @@ UPnPManager::getInstance ()
   if (UPnPManager::singleton == NULL)
     UPnPManager::singleton = new UPnPManager;
   return UPnPManager::singleton;
+}
+
+/*----------------------------------------------------------------------
+ |   UPnPManager::initialize_platinumkit
+ +---------------------------------------------------------------------*/
+void
+UPnPManager::releaseInstance ()
+{
+  delete singleton;
+  singleton = NULL;
+
 }
