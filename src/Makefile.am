@@ -28,6 +28,7 @@ libfsmda_la_SOURCES = \
   fsmda/gingancl/communication/mediacapture_pcm.cpp\
   fsmda/gingancl/communication/mediacapture_ccm.cpp\
   fsmda/gingancl/communication/ondemand_pcm.cpp\
+  fsmda/gingancl/communication/ondemand_ccm.cpp\
   fsmda/protocol/upnpprotocol.cpp
   
 

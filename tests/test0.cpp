@@ -7,6 +7,7 @@
 #include <fsmda/gingancl/communication/active_pcm.h>
 #include <fsmda/gingancl/communication/mediacapture_ccm.h>
 #include <fsmda/gingancl/communication/mediacapture_pcm.h>
+#include <fsmda/gingancl/communication/ondemand_ccm.h>
 #include <fsmda/gingancl/communication/ondemand_pcm.h>
 #include <fsmda/gingancl/communication/passive_ccm.h>
 #include <fsmda/gingancl/communication/passive_pcm.h>
@@ -45,6 +46,9 @@ main (int argc, char **argv)
   OnDemandPCM * onDemandPCM = new OnDemandPCM ();
   assert(onDemandPCM != NULL);
   delete onDemandPCM;
+  OnDemandCCM * onDemandCCM = new OnDemandCCM ();
+  assert(onDemandCCM != NULL);
+  delete onDemandCCM;
   PassivePCM * passivePCM = new PassivePCM ();
   assert(passivePCM != NULL);
   delete passivePCM;
