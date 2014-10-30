@@ -7,9 +7,9 @@ nobase_pkginclude_HEADERS =\
   fsmda/model/communication/mediacapture_object_control.h\
   fsmda/model/paring/class_handling.h\
   fsmda/model/paring/device_paring.h\
-  fsmda/services/upnp_service.h\
   fsmda/gingancl/paring/parent_paring_manager.h\
-  fsmda/gingancl/paring/child_paring_manager.h
+  fsmda/gingancl/paring/child_paring_manager.h\
+  fsmda/protocol/upnp.h
 
 ############################## Libraries ####################################
 # Libraries
@@ -27,7 +27,9 @@ libfsmda_la_SOURCES = \
   fsmda/gingancl/communication/passive_pcm.cpp\
   fsmda/gingancl/communication/mediacapture_pcm.cpp\
   fsmda/gingancl/communication/mediacapture_ccm.cpp\
-  fsmda/gingancl/communication/ondemand_pcm.cpp
+  fsmda/gingancl/communication/ondemand_pcm.cpp\
+  fsmda/protocol/upnp.cpp
+  
 
 # Libraries compiler options
 libfsmda_la_CPPFLAGS = -I./ $(PLATINUMKIT_CFLAGS) $(LIBXML2_CFLAGS)

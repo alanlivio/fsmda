@@ -10,13 +10,15 @@
 #include <fsmda/gingancl/paring/device_class_description.h>
 #include <fsmda/gingancl/paring/device_description.h>
 #include <fsmda/gingancl/paring/parent_paring_manager.h>
+#include <fsmda/protocol/upnp.h>
 #include <cstdlib>
-#include <vector>
 
 int
 main (int argc, char **argv)
 {
-  vector<void*> ptr_vector;
+  /*----------------------------------------------------------------------
+   |   fsmda/model and fsmda/gingancl constructor tests
+   +---------------------------------------------------------------------*/
   ParentParingManager * ppm = new ParentParingManager ();
   assert(ppm != NULL);
   delete ppm;
@@ -57,9 +59,17 @@ main (int argc, char **argv)
   assert(dev_description != NULL);
   delete dev_description;
 
-  DeviceClassDescription * dev_class_requirements = new DeviceClassDescription ();
+  DeviceClassDescription * dev_class_requirements =
+      new DeviceClassDescription ();
   assert(dev_class_requirements != NULL);
   delete dev_class_requirements;
+
+  /*----------------------------------------------------------------------
+   |   fsmda/protocol constructor tests
+   +---------------------------------------------------------------------*/
+  UPNP * upnp = new UPNP ();
+  assert(upnp != NULL);
+  delete upnp;
 
   return EXIT_SUCCESS;
 }
