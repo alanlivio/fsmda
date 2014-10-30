@@ -79,7 +79,8 @@ main (int argc, char **argv)
       device_description);
   assert(ret);
 
-
+  delete device_description;
+  delete device_class_description;
 
   return EXIT_SUCCESS;
 }
