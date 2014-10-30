@@ -30,6 +30,7 @@
 								<option id="gnu.cpp.compiler.option.include.paths.1773054384" name="Include paths (-I)" superClass="gnu.cpp.compiler.option.include.paths" valueType="includePath">
 									<listOptionValue builtIn="false" value="/usr/include/libplatinumkit"/>
 									<listOptionValue builtIn="false" value="/usr/include/libxml2"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/libfsmda/src}&quot;"/>
 								</option>
 								<inputType id="cdt.managedbuild.tool.gnu.cpp.compiler.input.1672760842" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.input"/>
 							</tool>
