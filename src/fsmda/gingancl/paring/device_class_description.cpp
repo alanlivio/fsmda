@@ -1,5 +1,5 @@
-#include "device_class_description.h"
-
+#include <fsmda/gingancl/paring/device_class_description.h>
+#include <fsmda/gingancl/paring/device_description.h>
 #include <libxml/parser.h>
 #include <libxml/xmlmemory.h>
 #include <libxml/xmlstring.h>
@@ -10,22 +10,30 @@
 #include <cstdlib>
 #include <iostream>
 
-#include "device_description.h"
-
 using namespace std;
 
 string DeviceClassDescription::deviceClassTypeMap[] =
   { "base", "passive", "active", "html", "ondemand", "mediacapture" };
 
+/*----------------------------------------------------------------------
+ |   DeviceClassDescription::DeviceClassDescription
+ +---------------------------------------------------------------------*/
 DeviceClassDescription::DeviceClassDescription () :
     doc_ (NULL), classType_ (FSDMA_BASE), min_devices_ (0), max_devices_ (0), initialized_ (
 	false)
 {
 }
 
+/*----------------------------------------------------------------------
+ |   DeviceClassDescription::~DeviceClassDescription
+ +---------------------------------------------------------------------*/
 DeviceClassDescription::~DeviceClassDescription ()
 {
 }
+
+/*----------------------------------------------------------------------
+ |   DeviceClassDescription::device_meets_requirements
+ +---------------------------------------------------------------------*/
 bool
 DeviceClassDescription::device_meets_requirements (
     DeviceDescription *device_desc)
@@ -49,6 +57,9 @@ DeviceClassDescription::device_meets_requirements (
     return true;
 }
 
+/*----------------------------------------------------------------------
+ |   DeviceClassDescription::initialize_by_default_device_class
+ +---------------------------------------------------------------------*/
 int
 DeviceClassDescription::initialize_by_default_device_class (
     DeviceClassType classType)
@@ -61,6 +72,9 @@ DeviceClassDescription::initialize_by_default_device_class (
   return 0;
 }
 
+/*----------------------------------------------------------------------
+ |   DeviceClassDescription::initialize_by_parse_rdf_file
+ +---------------------------------------------------------------------*/
 int
 DeviceClassDescription::initialize_by_parse_rdf_file (const string& rdf_file)
 {
@@ -70,18 +84,18 @@ DeviceClassDescription::initialize_by_parse_rdf_file (const string& rdf_file)
   xmlNodeSetPtr nodes;
   const char* aux;
 
-  //initilize libxml
+  // initilize libxml
   xmlInitParser ();
   doc_ = xmlParseFile (rdf_file.c_str ());
   assert(doc_ != NULL);
   xpathCtx = xmlXPathNewContext (this->doc_);
   assert(xpathCtx != NULL);
   ret = xmlXPathRegisterNs (xpathCtx, (xmlChar*) "fsmda",
-			    (xmlChar*) "http://www.ncl.org.br/fsmda");
+			    (xmlChar*) "http:// www.ncl.org.br/fsmda");
   assert(ret == 0);
 
-  //capture classType
-  xpathObj = xmlXPathEvalExpression ((xmlChar*) "//fsmda:classType", xpathCtx);
+  // capture classType
+  xpathObj = xmlXPathEvalExpression ((xmlChar*) "// fsmda:classType", xpathCtx);
   assert(xpathObj != NULL);
   nodes = xpathObj->nodesetval;
   assert(nodes->nodeTab[0]);
@@ -92,8 +106,9 @@ DeviceClassDescription::initialize_by_parse_rdf_file (const string& rdf_file)
       << endl;
   xmlXPathFreeObject (xpathObj);
 
-  //capture min_devices
-  xpathObj = xmlXPathEvalExpression ((xmlChar*) "//fsmda:minDevices", xpathCtx);
+  // capture min_devices
+  xpathObj = xmlXPathEvalExpression ((xmlChar*) "// fsmda:minDevices",
+				     xpathCtx);
   assert(xpathObj != NULL);
   nodes = xpathObj->nodesetval;
   assert(nodes->nodeTab[0]);
@@ -102,8 +117,9 @@ DeviceClassDescription::initialize_by_parse_rdf_file (const string& rdf_file)
   clog << "--->fsmda:minDevices = " << this->min_devices_ << endl;
   xmlXPathFreeObject (xpathObj);
 
-  //capture max_devices
-  xpathObj = xmlXPathEvalExpression ((xmlChar*) "//fsmda:maxDevices", xpathCtx);
+  // capture max_devices
+  xpathObj = xmlXPathEvalExpression ((xmlChar*) "// fsmda:maxDevices",
+				     xpathCtx);
   assert(xpathObj != NULL);
   nodes = xpathObj->nodesetval;
   assert(nodes->nodeTab[0]);
@@ -112,8 +128,8 @@ DeviceClassDescription::initialize_by_parse_rdf_file (const string& rdf_file)
   clog << "--->fsmda:maxDevices = " << this->max_devices_ << endl;
   xmlXPathFreeObject (xpathObj);
 
-  //capture paringMethod
-  xpathObj = xmlXPathEvalExpression ((xmlChar*) "//fsmda:pairingMethod",
+  // capture paringMethod
+  xpathObj = xmlXPathEvalExpression ((xmlChar*) "// fsmda:pairingMethod",
 				     xpathCtx);
   assert(xpathObj != NULL);
   nodes = xpathObj->nodesetval;
@@ -122,7 +138,7 @@ DeviceClassDescription::initialize_by_parse_rdf_file (const string& rdf_file)
   clog << "--->fsmda:pairingMethod = " << this->paringMethod_ << endl;
   xmlXPathFreeObject (xpathObj);
 
-  //release libxml
+  // release libxml
   xmlXPathFreeContext (xpathCtx);
   xmlFreeDoc (doc_);
   xmlCleanupParser ();
@@ -132,6 +148,9 @@ DeviceClassDescription::initialize_by_parse_rdf_file (const string& rdf_file)
   return 0;
 }
 
+/*----------------------------------------------------------------------
+ |   DeviceClassDescription::get_device_class_type_by_string
+ +---------------------------------------------------------------------*/
 DeviceClassDescription::DeviceClassType
 DeviceClassDescription::get_device_class_type_by_string (const string& str)
 

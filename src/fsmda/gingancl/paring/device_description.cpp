@@ -1,25 +1,31 @@
-#include "device_description.h"
-
+#include <fsmda/gingancl/paring/device_description.h>
 #include <libxml/parser.h>
-#include <libxml/tree.h>
 #include <libxml/xmlmemory.h>
 #include <libxml/xmlstring.h>
 #include <libxml/xpath.h>
 #include <libxml/xpathInternals.h>
-#include <cstdlib>
-#include <iostream>
 #include <cassert>
+#include <iostream>
 
+/*----------------------------------------------------------------------
+ |   DeviceDescription::DeviceDescription
+ +---------------------------------------------------------------------*/
 DeviceDescription::DeviceDescription () :
     doc_ (NULL), classType_ (DeviceClassDescription::FSDMA_BASE), initialized_ (
 	false)
 {
 }
 
+/*----------------------------------------------------------------------
+ |   DeviceDescription::~DeviceDescription
+ +---------------------------------------------------------------------*/
 DeviceDescription::~DeviceDescription ()
 {
 }
 
+/*----------------------------------------------------------------------
+ |   DeviceDescription::get_device_class_type_by_string
+ +---------------------------------------------------------------------*/
 int
 DeviceDescription::initialize_by_rdf_file (const string& rdf_file)
 {
@@ -29,18 +35,18 @@ DeviceDescription::initialize_by_rdf_file (const string& rdf_file)
   xmlNodeSetPtr nodes;
   const char* aux;
 
-  //initilize libxml
+  // initilize libxml
   xmlInitParser ();
   doc_ = xmlParseFile (rdf_file.c_str ());
   assert(doc_ != NULL);
   xpathCtx = xmlXPathNewContext (this->doc_);
   assert(xpathCtx != NULL);
   ret = xmlXPathRegisterNs (xpathCtx, (xmlChar*) "fsmda",
-			    (xmlChar*) "http://www.ncl.org.br/fsmda");
+			    (xmlChar*) "http:// www.ncl.org.br/fsmda");
   assert(ret == 0);
 
-  //capture classType
-  xpathObj = xmlXPathEvalExpression ((xmlChar*) "//fsmda:classType", xpathCtx);
+  // capture classType
+  xpathObj = xmlXPathEvalExpression ((xmlChar*) "// fsmda:classType", xpathCtx);
   assert(xpathObj != NULL);
   nodes = xpathObj->nodesetval;
   assert(nodes->nodeTab[0]);
@@ -51,8 +57,8 @@ DeviceDescription::initialize_by_rdf_file (const string& rdf_file)
       << endl;
   xmlXPathFreeObject (xpathObj);
 
-  //capture paringMethod
-  xpathObj = xmlXPathEvalExpression ((xmlChar*) "//fsmda:pairingMethod",
+  // capture paringMethod
+  xpathObj = xmlXPathEvalExpression ((xmlChar*) "// fsmda:pairingMethod",
 				     xpathCtx);
   assert(xpathObj != NULL);
   nodes = xpathObj->nodesetval;
@@ -61,7 +67,7 @@ DeviceDescription::initialize_by_rdf_file (const string& rdf_file)
   clog << "--->fsmda:pairingMethod = " << this->paringMethod_ << endl;
   xmlXPathFreeObject (xpathObj);
 
-  //release libxml
+  // release libxml
   xmlXPathFreeContext (xpathCtx);
   xmlFreeDoc (doc_);
   xmlCleanupParser ();

@@ -1,33 +1,35 @@
 #ifndef FSMDA_GINGANCL_PARING_DEVICE_DESCRIPTION_H_
 #define FSMDA_GINGANCL_PARING_DEVICE_DESCRIPTION_H_
 
+/*----------------------------------------------------------------------
+ |   includes
+ +---------------------------------------------------------------------*/
+#include <fsmda/gingancl/paring/device_class_description.h>
+#include <libxml/tree.h>
 #include <string>
-#include "device_class_description.h"
 
 using namespace std;
 
 class DeviceDescription
 {
-// public fields
 public:
-  DeviceClassDescription::DeviceClassType classType_;
-  string paringMethod_;
-
-// public methods
-public:
+  // public constructors & destructors
   DeviceDescription ();
   virtual
   ~DeviceDescription ();
+
+  // public fields
+  DeviceClassDescription::DeviceClassType classType_;
+  string paringMethod_;
+
+  // public methods
   int
   initialize_by_rdf_file (const string& rdf_file);
 
-// private fields
 private:
+  // private fields
   xmlDocPtr doc_;
   bool initialized_;
-
-// private methods
-private:
 
 };
 

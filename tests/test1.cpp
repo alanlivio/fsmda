@@ -1,8 +1,9 @@
 #include <assert.h>
 #include <fsmda/gingancl/paring/device_class_description.h>
 #include <fsmda/gingancl/paring/device_description.h>
+#include <fsmda/gingancl/paring/device_class_description.h>
+#include <fsmda/gingancl/paring/device_description.h>
 #include <cstdlib>
-#include <string>
 
 int
 main (int argc, char **argv)
@@ -14,6 +15,9 @@ main (int argc, char **argv)
   DeviceClassDescription * device_class_description =
       new DeviceClassDescription ();
 
+  /*----------------------------------------------------------------------
+   |   passive class description initialize and meet_requirements tests
+   +---------------------------------------------------------------------*/
   device_rdf = "./files/test1_passive_dev_desc00.xml";
   device_description->initialize_by_rdf_file (device_rdf);
   assert(device_description != NULL);
@@ -27,6 +31,9 @@ main (int argc, char **argv)
       device_description);
   assert(ret);
 
+  /*----------------------------------------------------------------------
+   |   active class description initialize and meet_requirements tests
+   +---------------------------------------------------------------------*/
   device_rdf = "./files/test1_active_dev_desc00.xml";
   device_description->initialize_by_rdf_file (device_rdf);
   assert(device_description != NULL);
@@ -40,6 +47,9 @@ main (int argc, char **argv)
       device_description);
   assert(ret);
 
+  /*----------------------------------------------------------------------
+   |   html class description initialize and meet_requirements tests
+   +---------------------------------------------------------------------*/
   device_rdf = "./files/test1_html_dev_desc00.xml";
   device_description->initialize_by_rdf_file (device_rdf);
   assert(device_description != NULL);
@@ -53,6 +63,9 @@ main (int argc, char **argv)
       device_description);
   assert(ret);
 
+  /*----------------------------------------------------------------------
+   |   ondemand class description initialize and meet_requirements tests
+   +---------------------------------------------------------------------*/
   device_rdf = "./files/test1_ondemand_dev_desc00.xml";
   device_description->initialize_by_rdf_file (device_rdf);
   assert(device_description != NULL);
@@ -66,6 +79,9 @@ main (int argc, char **argv)
       device_description);
   assert(ret);
 
+  /*----------------------------------------------------------------------
+   |   mediacapture class description initialize and meet_requirements tests
+   +---------------------------------------------------------------------*/
   device_rdf = "./files/test1_mediacapture_dev_desc00.xml";
   device_description->initialize_by_rdf_file (device_rdf);
   assert(device_description != NULL);

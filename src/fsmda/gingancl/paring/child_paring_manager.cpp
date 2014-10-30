@@ -1,19 +1,27 @@
-#include "child_paring_manager.h"
+#include <fsmda/gingancl/paring/child_paring_manager.h>
 
+/*----------------------------------------------------------------------
+ |   ChildParingManager::ChildParingManager
+ +---------------------------------------------------------------------*/
 ChildParingManager::ChildParingManager ()
 {
-  // TODO Auto-generated constructor stub
 
 }
 
+/*----------------------------------------------------------------------
+ |   ChildParingManager::~ChildParingManager
+ +---------------------------------------------------------------------*/
 ChildParingManager::~ChildParingManager ()
 {
-  // TODO Auto-generated destructor stub
 }
 
+/*----------------------------------------------------------------------
+ |   ChildParingManager::classAnnouncement
+ +---------------------------------------------------------------------*/
 void
 ChildParingManager::classAnnouncement (const string& applicationID,
 				       unsigned int classIndex,
-				       const string& classDesc, const string& classFunction)
+				       const string& classDesc,
+				       const string& classFunction)
 {
 }

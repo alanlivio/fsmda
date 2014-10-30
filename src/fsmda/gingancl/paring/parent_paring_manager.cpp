@@ -1,25 +1,40 @@
-#include "parent_paring_manager.h"
+#include <fsmda/gingancl/paring/parent_paring_manager.h>
 
+/*----------------------------------------------------------------------
+ |   DeviceDescription::ParentParingManager
+ +---------------------------------------------------------------------*/
 ParentParingManager::ParentParingManager ()
 {
-  // TODO Auto-generated constructor stub
 
 }
 
+/*----------------------------------------------------------------------
+ |   DeviceDescription::~ParentParingManage
+ +---------------------------------------------------------------------*/
 ParentParingManager::~ParentParingManager ()
 {
-  // TODO Auto-generated destructor stub
+
 }
 
-//////////////////// ClassHandlingPPMInterface functions ////////////////////
+/*----------------------------------------------------------------------
+ |   DeviceDescription::addClass
+ +---------------------------------------------------------------------*/
 void
-ParentParingManager::addClass (const string& applicationId, unsigned int classIndex)
+ParentParingManager::addClass (const string& applicationId,
+			       unsigned int classIndex)
 {
 }
+/*----------------------------------------------------------------------
+ |   DeviceDescription::removeClass
+ +---------------------------------------------------------------------*/
 void
-ParentParingManager::removeClass (const string& applicationId, unsigned int classIndex)
+ParentParingManager::removeClass (const string& applicationId,
+				  unsigned int classIndex)
 {
 }
+/*----------------------------------------------------------------------
+ |   DeviceDescription::addClassDescription
+ +---------------------------------------------------------------------*/
 void
 ParentParingManager::addClassDescription (const string& applicationId,
 					  unsigned int classIndex,
@@ -27,19 +42,27 @@ ParentParingManager::addClassDescription (const string& applicationId,
 					  unsigned int maxDevices,
 					  unsigned int minDevices,
 					  const string& hardwareReq,
-					  const string& softwareReq, const string& networkReq)
+					  const string& softwareReq,
+					  const string& networkReq)
 {
 }
 
-//////////////////// DeviceParingPPMInterface functions ////////////////////
+/*----------------------------------------------------------------------
+ |   DeviceDescription::addDeviceToClass
+ +---------------------------------------------------------------------*/
 void
-ParentParingManager::addDeviceToClass (const string& applicationId, const string& deviceAddr,
+ParentParingManager::addDeviceToClass (const string& applicationId,
+				       const string& deviceAddr,
 				       unsigned int classIndex,
 				       const string& deviceDesc)
 {
 }
+/*----------------------------------------------------------------------
+ |   DeviceDescription::getChildIndex
+ +---------------------------------------------------------------------*/
 void
-ParentParingManager::getChildIndex (const string& applicationId, const string& deviceAddr,
+ParentParingManager::getChildIndex (const string& applicationId,
+				    const string& deviceAddr,
 				    unsigned int classIndex)
 {
 }

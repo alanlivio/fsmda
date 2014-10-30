@@ -1,16 +1,27 @@
 #ifndef FSMDA_GINGANCL_PARING_DEVICE_CLASS_DESCRIPTION_H_
 #define FSMDA_GINGANCL_PARING_DEVICE_CLASS_DESCRIPTION_H_
 
+/*----------------------------------------------------------------------
+ |   includes
+ +---------------------------------------------------------------------*/
+
 #include <libxml/tree.h>
 #include <string>
 
+using namespace std;
+
+/*----------------------------------------------------------------------
+ |   forward definitions
+ +---------------------------------------------------------------------*/
 class DeviceDescription;
 
-using namespace std;
+/*----------------------------------------------------------------------
+ |   DeviceClassDescription class
+ +---------------------------------------------------------------------*/
 class DeviceClassDescription
 {
 public:
-  // static fields and methods
+  // class fields and methods
   enum DeviceClassType
   {
     FSDMA_BASE = 0,
@@ -23,18 +34,18 @@ public:
   static DeviceClassType
   get_device_class_type_by_string (const string& str);
 
-// public fields
-public:
+  // public constructors & destructors
+  DeviceClassDescription ();
+  virtual
+  ~DeviceClassDescription ();
+
+  // public fields
   DeviceClassType classType_;
   string paringMethod_;
   unsigned int min_devices_;
   unsigned int max_devices_;
 
-// public methods
-public:
-  DeviceClassDescription ();
-  virtual
-  ~DeviceClassDescription ();
+  // public methods
   bool
   device_meets_requirements (DeviceDescription *device_desc);
   int
@@ -42,15 +53,10 @@ public:
   int
   initialize_by_parse_rdf_file (const string& rdf_file);
 
-// private fields
 private:
   static string deviceClassTypeMap[];
   xmlDocPtr doc_;
   bool initialized_;
-
-// private methods
-private:
-
 };
 
 #endif /* FSMDA_GINGANCL_PARING_DEVICE_CLASS_DESCRIPTION_H_ */
