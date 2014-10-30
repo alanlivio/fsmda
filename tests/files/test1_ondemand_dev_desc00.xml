@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:prf="http://www.wapforum.org/profiles/UAPROF/ccppschema-20010430#"
+	xmlns:fsmda="http://www.ncl.org.br/fsmda">
+	<fsmda:classType>ondemand</fsmda:classType>
+	<fsmda:SoftwareRequirements>
+	</fsmda:SoftwareRequirements>
+	<fsmda:NetworkRequirements>
+		<fsmda:pairingMethod>UPnP</fsmda:pairingMethod>
+	</fsmda:NetworkRequirements>
+	<fsmda:HardwareRequirements>
+	</fsmda:HardwareRequirements>
+</rdf:RDF>
