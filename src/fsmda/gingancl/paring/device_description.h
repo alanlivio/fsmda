@@ -4,6 +4,7 @@
 /*----------------------------------------------------------------------
  |   includes
  +---------------------------------------------------------------------*/
+
 #include <fsmda/gingancl/paring/device_class_description.h>
 #include <libxml/tree.h>
 #include <string>

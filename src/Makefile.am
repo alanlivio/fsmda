@@ -9,7 +9,7 @@ nobase_pkginclude_HEADERS =\
   fsmda/model/paring/device_paring.h\
   fsmda/gingancl/paring/parent_paring_manager.h\
   fsmda/gingancl/paring/child_paring_manager.h\
-  fsmda/protocol/upnp.h
+  fsmda/protocol/upnpprotocol.h
 
 ############################## Libraries ####################################
 # Libraries
@@ -28,7 +28,7 @@ libfsmda_la_SOURCES = \
   fsmda/gingancl/communication/mediacapture_pcm.cpp\
   fsmda/gingancl/communication/mediacapture_ccm.cpp\
   fsmda/gingancl/communication/ondemand_pcm.cpp\
-  fsmda/protocol/upnp.cpp
+  fsmda/protocol/upnpprotocol.cpp
   
 
 # Libraries compiler options

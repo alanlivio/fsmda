@@ -4,9 +4,11 @@
 /*----------------------------------------------------------------------
  |   includes
  +---------------------------------------------------------------------*/
+
 #include <fsmda/model/paring/class_handling.h>
 #include <fsmda/model/paring/device_paring.h>
 #include <string>
+
 using namespace std;
 
 /*----------------------------------------------------------------------
