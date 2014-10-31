@@ -1,5 +1,5 @@
-#ifndef FSMDA_ONDEMAND_OBJECT_CONTROL_H_
-#define FSMDA_ONDEMAND_OBJECT_CONTROL_H_
+#ifndef ONDEMAND_OBJECT_CONTROL_H_
+#define ONDEMAND_OBJECT_CONTROL_H_
 
 /*----------------------------------------------------------------------
  |   includes
@@ -10,14 +10,14 @@
 using namespace std;
 
 /*----------------------------------------------------------------------
- |   MediaCapturePCMInterface abstract class
+ |   OnDemandPcmInterface abstract class
  +---------------------------------------------------------------------*/
-class OnDemandPCMInterface
+class OnDemandPcmInterface
 {
 public:
   // public constructors & destructors
   virtual
-  ~OnDemandPCMInterface ()
+  ~OnDemandPcmInterface ()
   {
   }
 
@@ -26,4 +26,4 @@ public:
   notifyOnDemandContent (const string& action, const string&location)=0;
 };
 
-#endif /* FSMDA_ONDEMAND_OBJECT_CONTROL_H_ */
+#endif /* ONDEMAND_OBJECT_CONTROL_H_ */

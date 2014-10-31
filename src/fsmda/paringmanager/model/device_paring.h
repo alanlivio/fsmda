@@ -1,5 +1,5 @@
-#ifndef FSMDA_DEVICE_PARING_H_
-#define FSMDA_DEVICE_PARING_H_
+#ifndef DEVICE_PARING_H_
+#define DEVICE_PARING_H_
 
 /*----------------------------------------------------------------------
  |   includes
@@ -10,14 +10,14 @@
 using namespace std;
 
 /*----------------------------------------------------------------------
- |   DeviceParingPPMInterface abstract class
+ |   DeviceParingPpmInterface abstract class
  +---------------------------------------------------------------------*/
-class DeviceParingPPMInterface
+class DeviceParingPpmInterface
 {
 public:
   // public constructors & destructors
   virtual
-  ~DeviceParingPPMInterface ()
+  ~DeviceParingPpmInterface ()
   {
   }
 
@@ -31,14 +31,14 @@ public:
 };
 
 /*----------------------------------------------------------------------
- |   DeviceParingPCMInterface abstract class
+ |   DeviceParingPcmInterface abstract class
  +---------------------------------------------------------------------*/
-class DeviceParingPCMInterface
+class DeviceParingPcmInterface
 {
 public:
   // public constructors & destructors
   virtual
-  ~DeviceParingPCMInterface ()
+  ~DeviceParingPcmInterface ()
   {
   }
 
@@ -48,4 +48,4 @@ public:
 		     const string& classDesc, const string& classFunction)=0;
 };
 
-#endif /* FSMDA_DEVICE_PARING_H_ */
+#endif /* DEVICE_PARING_H_ */

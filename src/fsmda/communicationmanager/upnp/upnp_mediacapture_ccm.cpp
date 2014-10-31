@@ -2,28 +2,29 @@
  |   includes
  +---------------------------------------------------------------------*/
 
-#include <fsmda/gingancl/communication/mediacapture_ccm.h>
+#include "fsmda/communicationmanager/upnp/upnp_mediacapture_ccm.h"
+#include <string>
 
 /*----------------------------------------------------------------------
- |   ActivePCM::~ActivePCM
+ |   UpnpMediaCaptureCcm::~UpnpMediaCaptureCcm
  +---------------------------------------------------------------------*/
-MediaCaptureCCM::MediaCaptureCCM ()
+UpnpMediaCaptureCcm::UpnpMediaCaptureCcm ()
 {
 }
 
 /*----------------------------------------------------------------------
- |   ActivePCM::~ActivePCM
+ |   UpnpMediaCaptureCcm::~UpnpMediaCaptureCcm
  +---------------------------------------------------------------------*/
-MediaCaptureCCM::~MediaCaptureCCM ()
+UpnpMediaCaptureCcm::~UpnpMediaCaptureCcm ()
 {
 }
 
 /*----------------------------------------------------------------------
- |   ActivePCM::~ActivePCM
+ |   UpnpMediaCaptureCcm::~UpnpMediaCaptureCcm
  +---------------------------------------------------------------------*/
 void
-MediaCaptureCCM::requestContent (const string& resourceId,
-				 unsigned int deviceIndex)
+UpnpMediaCaptureCcm::requestContent (const string& resourceId,
+				     unsigned int deviceIndex)
 {
 
 }

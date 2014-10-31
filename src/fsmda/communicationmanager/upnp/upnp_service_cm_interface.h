@@ -1,18 +1,18 @@
-#ifndef FSMDA_GINGANCL_COMMUNICATION_SERVICE_CM_INTERFACE_H_
-#define FSMDA_GINGANCL_COMMUNICATION_SERVICE_CM_INTERFACE_H_
+#ifndef UPNP_SERVICE_CM_INTERFACE_H_
+#define UPNP_SERVICE_CM_INTERFACE_H_
 /*----------------------------------------------------------------------
  |   includes
  +---------------------------------------------------------------------*/
 
 /*----------------------------------------------------------------------
- |   ServiceCMInterface class
+ |   ServiceCmInterface class
  +---------------------------------------------------------------------*/
-class ServiceCMInterface
+class ServiceCmInterface
 {
 public:
   // public constructors & destructors
   virtual
-  ~ServiceCMInterface ()
+  ~ServiceCmInterface ()
   {
   }
 
@@ -26,4 +26,4 @@ public:
 
 };
 
-#endif /* FSMDA_GINGANCL_COMMUNICATION_SERVICE_CM_INTERFACE_H_ */
+#endif /* UPNP_SERVICE_CM_INTERFACE_H_ */

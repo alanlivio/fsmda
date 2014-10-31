@@ -2,10 +2,9 @@
  |   includes
  +---------------------------------------------------------------------*/
 
-#include <fsmda/gingancl/communication/ondemand_ccm.h>
-#include <cstdlib>
-#include <iostream>
+#include "fsmda/communicationmanager/upnp/upnp_ondemand_ccm.h"
 #include <cassert>
+#include <cstdlib>
 
 using namespace std;
 /*----------------------------------------------------------------------
@@ -15,7 +14,7 @@ int
 main (int argc, char **argv)
 {
   // ondemand class description initialize and meet_requirements tests
-  OnDemandCCM* onDemandCCM = new OnDemandCCM ();
+  UpnpOnDemandCcm* onDemandCCM = new UpnpOnDemandCcm ();
   onDemandCCM->start_communication_service ();
   assert (onDemandCCM->is_service_started () == true);
   onDemandCCM->stop_communication_service ();

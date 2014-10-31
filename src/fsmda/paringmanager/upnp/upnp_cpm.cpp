@@ -2,28 +2,29 @@
  |   includes
  +---------------------------------------------------------------------*/
 
-#include <fsmda/gingancl/paring/child_paring_manager.h>
+#include "fsmda/paringmanager/upnp/upnp_cpm.h"
+#include <string>
 
 /*----------------------------------------------------------------------
- |   ChildParingManager::ChildParingManager
+ |   UpnpCpm::UpnpCpm
  +---------------------------------------------------------------------*/
-ChildParingManager::ChildParingManager ()
+UpnpCpm::UpnpCpm ()
 {
 
 }
 
 /*----------------------------------------------------------------------
- |   ChildParingManager::~ChildParingManager
+ |   UpnpCpm::~UpnpCpm
  +---------------------------------------------------------------------*/
-ChildParingManager::~ChildParingManager ()
+UpnpCpm::~UpnpCpm ()
 {
 }
 
 /*----------------------------------------------------------------------
- |   ChildParingManager::classAnnouncement
+ |   UpnpCpm::UpnpCpm
  +---------------------------------------------------------------------*/
 void
-ChildParingManager::classAnnouncement (const string& applicationID,
+UpnpCpm::classAnnouncement (const string& applicationID,
 				       unsigned int classIndex,
 				       const string& classDesc,
 				       const string& classFunction)

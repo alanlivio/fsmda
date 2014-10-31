@@ -1,5 +1,5 @@
-#ifndef FSMDA_PASSIVE_OBJECT_CONTROL_H_
-#define FSMDA_PASSIVE_OBJECT_CONTROL_H_
+#ifndef PASSIVE_OBJECT_CONTROL_H_
+#define PASSIVE_OBJECT_CONTROL_H_
 
 /*----------------------------------------------------------------------
  |   includes
@@ -10,14 +10,14 @@
 using namespace std;
 
 /*----------------------------------------------------------------------
- |   PassiveCCMInterface abstract class
+ |   PassiveCcmInterface abstract class
  +---------------------------------------------------------------------*/
-class PassiveCCMInterface
+class PassiveCcmInterface
 {
 public:
   virtual
   // public constructors & destructors
-  ~PassiveCCMInterface ()
+  ~PassiveCcmInterface ()
   {
   }
   // public pure virtual methods
@@ -28,14 +28,14 @@ public:
 };
 
 /*----------------------------------------------------------------------
- |   PassivePCMInterface abstract class
+ |   PassivePcmInterface abstract class
  +---------------------------------------------------------------------*/
-class PassivePCMInterface
+class PassivePcmInterface
 {
 public:
   virtual
   // public constructors & destructors
-  ~PassivePCMInterface ()
+  ~PassivePcmInterface ()
   {
   }
 
@@ -44,4 +44,4 @@ public:
   notifyError (const string& message, const string& objectId)=0;
 };
 
-#endif /* FSMDA_PASSIVE_OBJECT_CONTROL_H_ */
+#endif /* PASSIVE_OBJECT_CONTROL_H_ */

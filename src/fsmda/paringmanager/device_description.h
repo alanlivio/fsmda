@@ -1,12 +1,12 @@
-#ifndef FSMDA_GINGANCL_PARING_DEVICE_DESCRIPTION_H_
-#define FSMDA_GINGANCL_PARING_DEVICE_DESCRIPTION_H_
+#ifndef PARING_DEVICE_DESCRIPTION_H_
+#define PARING_DEVICE_DESCRIPTION_H_
 
 /*----------------------------------------------------------------------
  |   includes
  +---------------------------------------------------------------------*/
 
-#include <fsmda/gingancl/paring/device_class_description.h>
-#include <libxml/tree.h>
+#include "fsmda/paringmanager/device_class_description.h"
+#include "libxml/tree.h"
 #include <string>
 
 using namespace std;
@@ -34,4 +34,4 @@ private:
 
 };
 
-#endif /* FSMDA_GINGANCL_PARING_DEVICE_DESCRIPTION_H_ */
+#endif /* PARING_DEVICE_DESCRIPTION_H_ */

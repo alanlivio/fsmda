@@ -1,29 +1,29 @@
-#ifndef FSMDA_GINGANCL_COMMUNICATION_ONDEMAND_PCM_H_
-#define FSMDA_GINGANCL_COMMUNICATION_ONDEMAND_PCM_H_
+#ifndef UPNP_ONDEMAND_PCM_H_
+#define UPNP_ONDEMAND_PCM_H_
 
 /*----------------------------------------------------------------------
  |   includes
  +---------------------------------------------------------------------*/
 
-#include <fsmda/model/communication/ondemand_object_control.h>
+#include "fsmda/communicationmanager/model/ondemand_object_control.h"
 #include <string>
 
 using namespace std;
 
 /*----------------------------------------------------------------------
- |   OnDemandPCM class
+ |   UpnpOnDemandPcm class
  +---------------------------------------------------------------------*/
-class OnDemandPCM : public OnDemandPCMInterface
+class UpnpOnDemandPcm : public OnDemandPcmInterface
 {
 public:
   // public constructors & destructors
-  OnDemandPCM ();
+  UpnpOnDemandPcm ();
   virtual
-  ~OnDemandPCM ();
+  ~UpnpOnDemandPcm ();
 
   // OnDemandPCMInterface overloaded methods
   virtual void
   notifyOnDemandContent (const string& action, const string& location);
 };
 
-#endif /* FSMDA_GINGANCL_COMMUNICATION_ONDEMAND_PCM_H_ */
+#endif /* UPNP_ONDEMAND_PCM_H_ */

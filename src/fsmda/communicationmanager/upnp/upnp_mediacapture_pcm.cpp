@@ -2,28 +2,28 @@
  |   includes
  +---------------------------------------------------------------------*/
 
-#include <fsmda/gingancl/communication/mediacapture_pcm.h>
+#include "fsmda/communicationmanager/upnp/upnp_mediacapture_pcm.h"
 
 /*----------------------------------------------------------------------
- |   MediaCapturePCM::MediaCapturePCM
+ |   UpnpMediaCapturePcm::UpnpMediaCapturePcm
  +---------------------------------------------------------------------*/
-MediaCapturePCM::MediaCapturePCM ()
+UpnpMediaCapturePcm::UpnpMediaCapturePcm ()
 {
 
 }
 
 /*----------------------------------------------------------------------
- |   MediaCapturePCM::~MediaCapturePCM
+ |   UpnpMediaCapturePcm::~UpnpMediaCapturePcm
  +---------------------------------------------------------------------*/
-MediaCapturePCM::~MediaCapturePCM ()
+UpnpMediaCapturePcm::~UpnpMediaCapturePcm ()
 {
 }
 
 /*----------------------------------------------------------------------
- |   MediaCapturePCM::sendContent
+ |   UpnpMediaCapturePcm::sendContent
  +---------------------------------------------------------------------*/
 void
-MediaCapturePCM::sendContent (char* content, const string& resourceId,
+UpnpMediaCapturePcm::sendContent (char* content, const string& resourceId,
 			      unsigned int childIndex)
 {
 

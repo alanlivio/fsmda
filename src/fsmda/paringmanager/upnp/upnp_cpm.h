@@ -1,28 +1,27 @@
-#ifndef FSMDA_GINGANCL_CHILD_PARING_MANAGER_H_
-#define FSMDA_GINGANCL_CHILD_PARING_MANAGER_H_
+#ifndef UPNP_CPMH_
+#define UPNP_CPMH_
 
 /*----------------------------------------------------------------------
  |   includes
  +---------------------------------------------------------------------*/
 
-#include <fsmda/model/paring/device_paring.h>
-#include <string>
+#include "fsmda/paringmanager/model/device_paring.h"
 
 /*----------------------------------------------------------------------
- |   ChildParingManager class
+ |   UpnpCpm class
  +---------------------------------------------------------------------*/
-class ChildParingManager : public DeviceParingPCMInterface
+class UpnpCpm : public DeviceParingPcmInterface
 {
 public:
   // public constructors & destructors
-  ChildParingManager ();
+  UpnpCpm ();
   virtual
-  ~ChildParingManager ();
+  ~UpnpCpm ();
 
-  // DeviceParingPCMInterface overloaded methods
+  // DeviceParingPcmInterface overloaded methods
   virtual void
   classAnnouncement (const string& applicationID, unsigned int classIndex,
 		     const string& classDesc, const string& classFunction);
 };
 
-#endif /* FSMDA_GINGANCL_CHILD_PARING_MANAGER_H_ */
+#endif /* UPNP_CPMH_ */

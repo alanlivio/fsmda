@@ -1,5 +1,5 @@
-#ifndef FSMDA_CLASS_HANDLING_H_
-#define FSMDA_CLASS_HANDLING_H_
+#ifndef CLASS_HANDLING_H_
+#define CLASS_HANDLING_H_
 
 /*----------------------------------------------------------------------
  |   includes
@@ -12,12 +12,12 @@ using namespace std;
 /*----------------------------------------------------------------------
  |   ClassHandlingPPMInterface abstract class
  +---------------------------------------------------------------------*/
-class ClassHandlingPPMInterface
+class ClassHandlingPpmInterface
 {
 public:
   // public constructors & destructors
   virtual
-  ~ClassHandlingPPMInterface ()
+  ~ClassHandlingPpmInterface ()
   {
   }
 
@@ -52,4 +52,4 @@ public:
   setClassVariableValue (const string& name, const string& value);
 };
 
-#endif /* FSMDA_CLASS_HANDLING_H_ */
+#endif /* CLASS_HANDLING_H_ */

@@ -2,45 +2,46 @@
  |   includes
  +---------------------------------------------------------------------*/
 
-#include <fsmda/gingancl/paring/parent_paring_manager.h>
+#include "fsmda/paringmanager/upnp/upnp_ppm.h"
+#include <string>
 
 /*----------------------------------------------------------------------
- |   DeviceDescription::ParentParingManager
+ |   UpnpPpm::UpnpPpm
  +---------------------------------------------------------------------*/
-ParentParingManager::ParentParingManager ()
+UpnpPpm::UpnpPpm ()
 {
 
 }
 
 /*----------------------------------------------------------------------
- |   DeviceDescription::~ParentParingManage
+ |   UpnpPpm::~UpnpPpm
  +---------------------------------------------------------------------*/
-ParentParingManager::~ParentParingManager ()
+UpnpPpm::~UpnpPpm ()
 {
 
 }
 
 /*----------------------------------------------------------------------
- |   DeviceDescription::addClass
+ |   UpnpPpm::addClass
  +---------------------------------------------------------------------*/
 void
-ParentParingManager::addClass (const string& applicationId,
+UpnpPpm::addClass (const string& applicationId,
 			       unsigned int classIndex)
 {
 }
 /*----------------------------------------------------------------------
- |   DeviceDescription::removeClass
+ |   UpnpPpm::removeClass
  +---------------------------------------------------------------------*/
 void
-ParentParingManager::removeClass (const string& applicationId,
+UpnpPpm::removeClass (const string& applicationId,
 				  unsigned int classIndex)
 {
 }
 /*----------------------------------------------------------------------
- |   DeviceDescription::addClassDescription
+ |   UpnpPpm::addClassDescription
  +---------------------------------------------------------------------*/
 void
-ParentParingManager::addClassDescription (const string& applicationId,
+UpnpPpm::addClassDescription (const string& applicationId,
 					  unsigned int classIndex,
 					  const string& classType,
 					  unsigned int maxDevices,
@@ -52,20 +53,20 @@ ParentParingManager::addClassDescription (const string& applicationId,
 }
 
 /*----------------------------------------------------------------------
- |   DeviceDescription::addDeviceToClass
+ |   UpnpPpm::addDeviceToClass
  +---------------------------------------------------------------------*/
 void
-ParentParingManager::addDeviceToClass (const string& applicationId,
+UpnpPpm::addDeviceToClass (const string& applicationId,
 				       const string& deviceAddr,
 				       unsigned int classIndex,
 				       const string& deviceDesc)
 {
 }
 /*----------------------------------------------------------------------
- |   DeviceDescription::getChildIndex
+ |   UpnpPpm::getChildIndex
  +---------------------------------------------------------------------*/
 void
-ParentParingManager::getChildIndex (const string& applicationId,
+UpnpPpm::getChildIndex (const string& applicationId,
 				    const string& deviceAddr,
 				    unsigned int classIndex)
 {

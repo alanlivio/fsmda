@@ -2,43 +2,43 @@
  |   includes
  +---------------------------------------------------------------------*/
 
-#include <fsmda/gingancl/communication/active_pcm.h>
+#include "fsmda/communicationmanager/upnp/upnp_active_pcm.h"
 
 /*----------------------------------------------------------------------
- |   ActivePCM::ActivePCM
+ |   UpnpActivePcm::UpnpActivePcm
  +---------------------------------------------------------------------*/
-ActivePCM::ActivePCM ()
+UpnpActivePcm::UpnpActivePcm ()
 {
 }
 
 /*----------------------------------------------------------------------
- |   ActivePCM::~ActivePCM
+ |   UpnpActivePcm::~UpnpActivePcm
  +---------------------------------------------------------------------*/
-ActivePCM::~ActivePCM ()
+UpnpActivePcm::~UpnpActivePcm ()
 {
 }
 
 /*----------------------------------------------------------------------
- |   ActivePCM::requestPropertyValue
+ |   UpnpActivePcm::requestPropertyValue
  +---------------------------------------------------------------------*/
 void
-ActivePCM::requestPropertyValue (const string& objectID, const string& name)
+UpnpActivePcm::requestPropertyValue (const string& objectID, const string& name)
 {
 }
 
 /*----------------------------------------------------------------------
- |   ActivePCM::notifyEventTransition
+ |   UpnpActivePcm::notifyEventTransition
  +---------------------------------------------------------------------*/
 void
-ActivePCM::notifyEventTransition (const string& objectID, const string& eventID,
+UpnpActivePcm::notifyEventTransition (const string& objectID, const string& eventID,
 				  const string& transition)
 {
 }
 
 /*----------------------------------------------------------------------
- |   ActivePCM::notifyError
+ |   UpnpActivePcm::notifyError
  +---------------------------------------------------------------------*/
 void
-ActivePCM::notifyError (const string& objectID, const string& message)
+UpnpActivePcm::notifyError (const string& objectID, const string& message)
 {
 }

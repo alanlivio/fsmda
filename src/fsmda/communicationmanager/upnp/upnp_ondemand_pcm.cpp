@@ -2,28 +2,29 @@
  |   includes
  +---------------------------------------------------------------------*/
 
-#include <fsmda/gingancl/communication/ondemand_pcm.h>
+#include "fsmda/communicationmanager/upnp/upnp_ondemand_pcm.h"
+#include <string>
 
 /*----------------------------------------------------------------------
- |   OnDemandPCM::OnDemandPCM
+ |   UpnpOnDemandPcm::UPnPOnDemandPCM
  +---------------------------------------------------------------------*/
-OnDemandPCM::OnDemandPCM ()
+UpnpOnDemandPcm::UpnpOnDemandPcm ()
 {
 
 }
 
 /*----------------------------------------------------------------------
- |   OnDemandPCM::~OnDemandPCM
+ |   UpnpOnDemandPcm::~UPnPOnDemandPCM
  +---------------------------------------------------------------------*/
-OnDemandPCM::~OnDemandPCM ()
+UpnpOnDemandPcm::~UpnpOnDemandPcm ()
 {
 }
 
 /*----------------------------------------------------------------------
- |   OnDemandPCM::notifyOnDemandContent
+ |   UPnPOnDemandPCM::notifyOnDemandContent
  +---------------------------------------------------------------------*/
 void
-OnDemandPCM::notifyOnDemandContent (const string& action,
-				    const string& location)
+UpnpOnDemandPcm::notifyOnDemandContent (const string& action,
+					const string& location)
 {
 }

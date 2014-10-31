@@ -2,71 +2,72 @@
  |   includes
  +---------------------------------------------------------------------*/
 
-#include <fsmda/gingancl/communication/active_ccm.h>
+#include "fsmda/communicationmanager/model/active_object_control.h"
+#include "fsmda/communicationmanager/upnp/upnp_active_ccm.h"
 
 /*----------------------------------------------------------------------
- |   ActiveCCM::ActiveCCM
+ |   UpnpActiveCcm::UpnpActiveCcm
  +---------------------------------------------------------------------*/
-ActiveCCM::ActiveCCM ()
+UpnpActiveCcm::UpnpActiveCcm ()
 {
 }
 
 /*----------------------------------------------------------------------
- |   ActiveCCM::~ActiveCCM
+ |   UpnpActiveCcm::~UpnpActiveCcm
  +---------------------------------------------------------------------*/
-ActiveCCM::~ActiveCCM ()
+UpnpActiveCcm::~UpnpActiveCcm ()
 {
 
 }
 
 /*----------------------------------------------------------------------
- |   ActiveCCM::prepare
+ |   UpnpActiveCcm::prepare
  +---------------------------------------------------------------------*/
 void
-ActiveCCM::prepare (const string& objectID, const string& objectSrc,
-		    vector<Property> properties, vector<Event> evts)
+UpnpActiveCcm::prepare (const string& objectID, const string& objectSrc,
+			vector<Property> properties, vector<Event> evts)
 {
 }
 
 /*----------------------------------------------------------------------
- |   ActiveCCM::addEvent
+ |   UpnpActiveCcm::addEvent
  +---------------------------------------------------------------------*/
 void
-ActiveCCM::addEvent (const string& objectID, Event evt)
+UpnpActiveCcm::addEvent (const string& objectID, Event evt)
 {
 }
 
 /*----------------------------------------------------------------------
- |   ActiveCCM::removeEvent
+ |   UpnpActiveCcm::removeEvent
  +---------------------------------------------------------------------*/
 void
-ActiveCCM::removeEvent (const string& objectID, const string& eventID)
+UpnpActiveCcm::removeEvent (const string& objectID, const string& eventID)
 {
 }
 
 /*----------------------------------------------------------------------
- |   ActiveCCM::postAction
+ |   UpnpActiveCcm::postAction
  +---------------------------------------------------------------------*/
 void
-ActiveCCM::postAction (const string& objectID, const string& eventID,
-		       const string& action)
+UpnpActiveCcm::postAction (const string& objectID, const string& eventID,
+			   const string& action)
 {
 }
 
 /*----------------------------------------------------------------------
- |   ActiveCCM::reportPropertyValue
+ |   UpnpActiveCcm::reportPropertyValue
  +---------------------------------------------------------------------*/
 void
-ActiveCCM::reportPropertyValue (const string& objectID, const string& name,
-				const string& value)
+UpnpActiveCcm::reportPropertyValue (const string& objectID, const string& name,
+				    const string& value)
 {
 }
 
 /*----------------------------------------------------------------------
- |   ActiveCCM::setPropertyValue
+ |   UpnpActiveCcm::setPropertyValue
  +---------------------------------------------------------------------*/
 void
-ActiveCCM::setPropertyValue (const string& objectID, const string& name,
-			     const string& value, unsigned int duration)
+UpnpActiveCcm::setPropertyValue (const string& objectID, const string& name,
+				 const string& value, unsigned int duration)
 {
 }

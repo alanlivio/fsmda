@@ -2,13 +2,16 @@
  |   includes
  +---------------------------------------------------------------------*/
 
-#include <fsmda/gingancl/paring/device_description.h>
-#include <libxml/parser.h>
-#include <libxml/xmlmemory.h>
-#include <libxml/xmlstring.h>
-#include <libxml/xpath.h>
-#include <libxml/xpathInternals.h>
+#include "fsmda/paringmanager/device_class_description.h"
+#include "fsmda/paringmanager/device_description.h"
+#include "libxml/parser.h"
+#include "libxml/tree.h"
+#include "libxml/xmlmemory.h"
+#include "libxml/xmlstring.h"
+#include "libxml/xpath.h"
+#include "libxml/xpathInternals.h"
 #include <cassert>
+#include <string>
 #include <iostream>
 
 /*----------------------------------------------------------------------

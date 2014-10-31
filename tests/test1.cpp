@@ -1,10 +1,9 @@
 /*----------------------------------------------------------------------
  |   includes
  +---------------------------------------------------------------------*/
-
-#include <assert.h>
-#include <fsmda/gingancl/paring/device_class_description.h>
-#include <fsmda/gingancl/paring/device_description.h>
+#include "assert.h"
+#include "fsmda/paringmanager/device_class_description.h"
+#include "fsmda/paringmanager/device_description.h"
 #include <cstdlib>
 #include <string>
 

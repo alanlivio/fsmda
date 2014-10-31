@@ -1,5 +1,5 @@
-#ifndef FSMDA_PROTOCOL_UPNP_H_
-#define FSMDA_PROTOCOL_UPNP_H_
+#ifndef UPNP_MANAGER_H_
+#define UPNP_MANAGER_H_
 
 /*----------------------------------------------------------------------
  |   include
@@ -12,9 +12,9 @@
 using namespace std;
 
 /*----------------------------------------------------------------------
- |   UPnPManager class
+ |   UpnpManager class
  +---------------------------------------------------------------------*/
-class UPnPManager
+class UpnpManager
 {
 public:
   // class fields and methods
@@ -25,7 +25,7 @@ public:
   static const char* UPNP_FSMDA_ONDEMAND_CLASS_MODEL_NAME;
   static const char* UPNP_FSMDA_MANUFACTURER;
   static const char* UPNP_FSMDA_MANUFACTURER_URL;
-  static UPnPManager*
+  static UpnpManager*
   getInstance ();
 
   static void
@@ -39,11 +39,11 @@ public:
 					 const string& folder);
 private:
   // class fields and methods
-  static UPnPManager* singleton;
+  static UpnpManager* singleton;
   // private constructors & destructors
-  UPnPManager ();
+  UpnpManager ();
   virtual
-  ~UPnPManager ();
+  ~UpnpManager ();
 
   // private fields
   map<string, PLT_UPnP> upnp_map_;
@@ -58,4 +58,4 @@ private:
 
 };
 
-#endif /* FSMDA_SERVICES_UPNP_SERVICE_H_ */
+#endif /* UPNP_MANAGER_H_ */

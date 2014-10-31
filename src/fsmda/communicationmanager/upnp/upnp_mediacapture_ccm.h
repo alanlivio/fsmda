@@ -1,29 +1,29 @@
-#ifndef FSMDA_GINGANCL_COMMUNICATION_MEDIA_CAPTURE_CCM_H_
-#define FSMDA_GINGANCL_COMMUNICATION_MEDIA_CAPTURE_CCM_H_
+#ifndef UPNP_MEDIA_CAPTURE_CCM_H_
+#define UPNP_MEDIA_CAPTURE_CCM_H_
 
 /*----------------------------------------------------------------------
  |   includes
  +---------------------------------------------------------------------*/
 
-#include <fsmda/model/communication/mediacapture_object_control.h>
+#include "fsmda/communicationmanager/model/mediacapture_object_control.h"
 #include <string>
 
 using namespace std;
 
 /*----------------------------------------------------------------------
- |   MediaCaptureCCM class
+ |   UpnpMediaCaptureCcm class
  +---------------------------------------------------------------------*/
-class MediaCaptureCCM : public MediaCaptureCCMInterface
+class UpnpMediaCaptureCcm : public MediaCaptureCcmInterface
 {
 public:
   // public constructors & destructors
-  MediaCaptureCCM ();
+  UpnpMediaCaptureCcm ();
   virtual
-  ~MediaCaptureCCM ();
+  ~UpnpMediaCaptureCcm ();
 
-  // MediaCaptureCCMInterface overloaded methods
+  // MediaCaptureCcmInterface overloaded methods
   virtual void
   requestContent (const string& resourceId, unsigned int deviceIndex);
 };
 
-#endif /* FSMDA_GINGANCL_COMMUNICATION_MEDIA_CAPTURE_CCM_H_ */
+#endif /* UPNP_MEDIA_CAPTURE_CCM_H_ */

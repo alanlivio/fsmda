@@ -1,5 +1,5 @@
-#ifndef FSMDA_MEDIA_CAPTURE_OBJECT_CONTROL_H_
-#define FSMDA_MEDIA_CAPTURE_OBJECT_CONTROL_H_
+#ifndef MEDIA_CAPTURE_OBJECT_CONTROL_H_
+#define MEDIA_CAPTURE_OBJECT_CONTROL_H_
 
 /*----------------------------------------------------------------------
  |   includes
@@ -10,14 +10,14 @@
 using namespace std;
 
 /*----------------------------------------------------------------------
- |   MediaCapturePCMInterface abstract class
+ |   MediaCapturePcmInterface abstract class
  +---------------------------------------------------------------------*/
-class MediaCapturePCMInterface
+class MediaCapturePcmInterface
 {
 public:
   // public constructors & destructors
   virtual
-  ~MediaCapturePCMInterface ()
+  ~MediaCapturePcmInterface ()
   {
   }
 
@@ -28,14 +28,14 @@ public:
 };
 
 /*----------------------------------------------------------------------
- |   MediaCaptureCCMInterface abstract class
+ |   MediaCaptureCcmInterface abstract class
  +---------------------------------------------------------------------*/
-class MediaCaptureCCMInterface
+class MediaCaptureCcmInterface
 {
 public:
   // public constructors & destructors
   virtual
-  ~MediaCaptureCCMInterface ()
+  ~MediaCaptureCcmInterface ()
   {
   }
 
@@ -43,4 +43,4 @@ public:
   virtual void
   requestContent (const string& resourceId, unsigned int deviceIndex)=0;
 };
-#endif /* FSMDA_MEDIA_CAPTURE_OBJECT_CONTROL_H_ */
+#endif /* MEDIA_CAPTURE_OBJECT_CONTROL_H_ */

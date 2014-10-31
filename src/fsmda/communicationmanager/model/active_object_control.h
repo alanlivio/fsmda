@@ -1,5 +1,5 @@
-#ifndef FSMDA_ACTIVE_OBJECT_CONTROL_H_
-#define FSMDA_ACTIVE_OBJECT_CONTROL_H_
+#ifndef ACTIVE_OBJECT_CONTROL_H_
+#define ACTIVE_OBJECT_CONTROL_H_
 
 /*----------------------------------------------------------------------
  |   includes
@@ -30,14 +30,14 @@ class Event
 };
 
 /*----------------------------------------------------------------------
- |   ActivePCMInterface abstract class
+ |   ActivePcmInterface abstract class
  +---------------------------------------------------------------------*/
-class ActivePCMInterface
+class ActivePcmInterface
 {
 public:
   // public constructors & destructors
   virtual
-  ~ActivePCMInterface ()
+  ~ActivePcmInterface ()
   {
   }
 
@@ -52,14 +52,14 @@ public:
 };
 
 /*----------------------------------------------------------------------
- |   ActiveCCMInterface abstract class
+ |   ActiveCcmInterface abstract class
  +---------------------------------------------------------------------*/
-class ActiveCCMInterface
+class ActiveCcmInterface
 {
 public:
   // public constructors & destructors
   virtual
-  ~ActiveCCMInterface ()
+  ~ActiveCcmInterface ()
   {
   }
 
@@ -82,4 +82,4 @@ public:
 		    const string& value, unsigned int duration)=0;
 };
 
-#endif /* FSMDA_ACTIVE_OBJECT_CONTROL_H_ */
+#endif /* ACTIVE_OBJECT_CONTROL_H_ */

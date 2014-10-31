@@ -1,29 +1,29 @@
-#ifndef FSMDA_GINGANCL_COMMUNICATION_PASSIVE_PCM_H_
-#define FSMDA_GINGANCL_COMMUNICATION_PASSIVE_PCM_H_
+#ifndef UPNP_PASSIVE_PCM_H_
+#define UPNP_PASSIVE_PCM_H_
 
 /*----------------------------------------------------------------------
  |   includes
  +---------------------------------------------------------------------*/
 
-#include <fsmda/model/communication/passive_object_control.h>
+#include "fsmda/communicationmanager/model/passive_object_control.h"
 #include <string>
 
 using namespace std;
 
 /*----------------------------------------------------------------------
- |   PassivePCM  class
+ |   UpnpPassivePcm  class
  +---------------------------------------------------------------------*/
-class PassivePCM : public PassivePCMInterface
+class UpnpPassivePcm : public PassivePcmInterface
 {
 public:
   // public constructors & destructors
-  PassivePCM ();
+  UpnpPassivePcm ();
   virtual
-  ~PassivePCM ();
+  ~UpnpPassivePcm ();
 
   // PassivePCMInterface overloaded methods
   virtual void
   notifyError (const string& message, const string& objectId);
 };
 
-#endif /* FSMDA_GINGANCL_COMMUNICATION_PASSIVE_PCM_H_ */
+#endif /* UPNP_PASSIVE_PCM_H_ */

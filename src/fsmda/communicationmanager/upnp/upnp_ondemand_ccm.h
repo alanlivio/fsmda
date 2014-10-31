@@ -1,24 +1,24 @@
-#ifndef FSMDA_GINGANCL_COMMUNICATION_ONDEMAND_CCM_H_
-#define FSMDA_GINGANCL_COMMUNICATION_ONDEMAND_CCM_H_
+#ifndef UPNP_ONDEMAND_CCM_H_
+#define UPNP_ONDEMAND_CCM_H_
 /*----------------------------------------------------------------------
  |   includes
  +---------------------------------------------------------------------*/
 
-#include <fsmda/gingancl/communication/service_cm_interface.h>
+#include "fsmda/communicationmanager/upnp/upnp_service_cm_interface.h"
 #include <string>
 
 using namespace std;
 
 /*----------------------------------------------------------------------
- |   OnDemandCCM class
+ |   UpnpOnDemandCcm class
  +---------------------------------------------------------------------*/
-class OnDemandCCM : public ServiceCMInterface
+class UpnpOnDemandCcm : public ServiceCmInterface
 {
 public:
   // public constructors & destructors
-  OnDemandCCM ();
+  UpnpOnDemandCcm ();
   virtual
-  ~OnDemandCCM ();
+  ~UpnpOnDemandCcm ();
 
   // ServiceCMInterface overloaded methods
   virtual int
@@ -34,4 +34,4 @@ private:
   bool service_start_;
 };
 
-#endif /* FSMDA_GINGANCL_COMMUNICATION_ONDEMAND_CCM_H_ */
+#endif /* UPNP_ONDEMAND_CCM_H_ */

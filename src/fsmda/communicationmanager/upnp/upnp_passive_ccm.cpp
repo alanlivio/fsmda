@@ -2,34 +2,35 @@
  |   includes
  +---------------------------------------------------------------------*/
 
-#include <fsmda/gingancl/communication/passive_ccm.h>
+#include "fsmda/communicationmanager/upnp/upnp_passive_ccm.h"
+#include <string>
 
 /*----------------------------------------------------------------------
- |   PassiveCCM::PassiveCCM
+ |   UpnpPassiveCcm::UpnpPassiveCcm
  +---------------------------------------------------------------------*/
-PassiveCCM::PassiveCCM ()
+UpnpPassiveCcm::UpnpPassiveCcm ()
 {
 }
 
 /*----------------------------------------------------------------------
- |   PassiveCCM::PassiveCCM
+ |   UpnpPassiveCcm::~UpnpPassiveCcm
  +---------------------------------------------------------------------*/
-PassiveCCM::~PassiveCCM ()
+UpnpPassiveCcm::~UpnpPassiveCcm ()
 {
 }
 
 /*----------------------------------------------------------------------
- |   PassiveCCM::prepare
+ |   UpnpPassiveCcm::prepare
  +---------------------------------------------------------------------*/
 void
-PassiveCCM::prepare (const string& position)
+UpnpPassiveCcm::prepare (const string& position)
 {
 }
 
 /*----------------------------------------------------------------------
- |   PassiveCCM::sendContent
+ |   UpnpPassiveCcm::sendContent
  +---------------------------------------------------------------------*/
 void
-PassiveCCM::sendContent (char* content)
+UpnpPassiveCcm::sendContent (char* content)
 {
 }

@@ -2,58 +2,61 @@
  |   includes
  +---------------------------------------------------------------------*/
 
-#include <fsmda/protocol/upnp_manager.h>
-#include <NptList.h>
-#include <NptLogging.h>
-#include <NptNetwork.h>
-#include <NptStrings.h>
-#include <NptTime.h>
-#include <PltConstants.h>
-#include <PltDeviceHost.h>
-#include <PltFileMediaServer.h>
-#include <PltUtilities.h>
+#include "fsmda/communicationmanager/upnp/upnp_manager.h"
+#include "NptList.h"
+#include "NptLogging.h"
+#include "NptNetwork.h"
+#include "NptStrings.h"
+#include "NptTime.h"
+#include "PltConstants.h"
+#include "PltDeviceHost.h"
+#include "PltFileMediaServer.h"
+#include "PltUPnP.h"
+#include "PltUtilities.h"
+#include <map>
+#include <string>
 
 /*----------------------------------------------------------------------
  |   class fields
  +---------------------------------------------------------------------*/
-UPnPManager* UPnPManager::singleton = NULL;
+UpnpManager* UpnpManager::singleton = NULL;
 
-const char* UPnPManager::UPNP_FSMDA_ONDEMAND_CLASS_MODEL_NAME =
+const char* UpnpManager::UPNP_FSMDA_ONDEMAND_CLASS_MODEL_NAME =
     "fsmda-ondemand-device";
-const char* UPnPManager::UPNP_FSMDA_ONDEMAND_CLASS_FRIENDLY_NAME =
+const char* UpnpManager::UPNP_FSMDA_ONDEMAND_CLASS_FRIENDLY_NAME =
     "FSMDA OndDemand device";
-const char* UPnPManager::UPNP_FSMDA_ONDEMAND_CLASS_MODEL_DESCRIPTION =
+const char* UpnpManager::UPNP_FSMDA_ONDEMAND_CLASS_MODEL_DESCRIPTION =
     "FSMDA OndDemand device description";
-const char* UPnPManager::UPNP_FSMDA_ONDEMAND_CLASS_MODEL_URL =
+const char* UpnpManager::UPNP_FSMDA_ONDEMAND_CLASS_MODEL_URL =
     "http://www.ncl.org.br/fsmda/ondemand";
-const char* UPnPManager::UPNP_FSMDA_ONDEMAND_CLASS_MODEL_NUMBER = "1.0";
-const char* UPnPManager::UPNP_FSMDA_MANUFACTURER = "FSMDA";
-const char* UPnPManager::UPNP_FSMDA_MANUFACTURER_URL =
+const char* UpnpManager::UPNP_FSMDA_ONDEMAND_CLASS_MODEL_NUMBER = "1.0";
+const char* UpnpManager::UPNP_FSMDA_MANUFACTURER = "FSMDA";
+const char* UpnpManager::UPNP_FSMDA_MANUFACTURER_URL =
     "http://www.ncl.org.br/fsmda/ondemand";
 
 /*----------------------------------------------------------------------
- |   UPnPManager::UPnPManager
+ |   UpnpManager::UpnpManager
  +---------------------------------------------------------------------*/
-UPnPManager::UPnPManager () :
+UpnpManager::UpnpManager () :
     platinumkit_intialized_ (false), upnp_service_ (NULL)
 {
 
 }
 
 /*----------------------------------------------------------------------
- |   UPnPManager::~UPnPManager
+ |   UpnpManager::~UpnpManager
  +---------------------------------------------------------------------*/
-UPnPManager::~UPnPManager ()
+UpnpManager::~UpnpManager ()
 {
-  if(platinumkit_intialized_)
-    release_platinumkit();
+  if (platinumkit_intialized_)
+    release_platinumkit ();
 }
 
 /*----------------------------------------------------------------------
- |   UPnPManager::offerOnDemandDeviceClassContent
+ |   UpnpManager::offerOnDemandDeviceClassContent
  +---------------------------------------------------------------------*/
 int
-UPnPManager::offerOnDemandContent (const string& uuid, const string& folder)
+UpnpManager::offerOnDemandContent (const string& uuid, const string& folder)
 {
   if (this->platinumkit_intialized_ == false)
     this->initialize_platinumkit ();
@@ -78,20 +81,20 @@ UPnPManager::offerOnDemandContent (const string& uuid, const string& folder)
 }
 
 /*----------------------------------------------------------------------
- |   UPnPManager::removeOfferOnDemandDeviceClassContent
+ |   UpnpManager::removeOfferOnDemandDeviceClassContent
  +---------------------------------------------------------------------*/
 int
-UPnPManager::removeOfferOnDemandDeviceClassContent (const string& uuid,
+UpnpManager::removeOfferOnDemandDeviceClassContent (const string& uuid,
 						    const string& folder)
 {
   return 0;
 }
 
 /*----------------------------------------------------------------------
- |   UPnPManager::initialize_platinumkit
+ |   UpnpManager::initialize_platinumkit
  +---------------------------------------------------------------------*/
 void
-UPnPManager::initialize_platinumkit ()
+UpnpManager::initialize_platinumkit ()
 {
   // setup Neptune logging
   NPT_LogManager::GetDefault ().Configure (
@@ -110,10 +113,10 @@ UPnPManager::initialize_platinumkit ()
 }
 
 /*----------------------------------------------------------------------
- |   UPnPManager::release_platinumkit
+ |   UpnpManager::release_platinumkit
  +---------------------------------------------------------------------*/
 void
-UPnPManager::release_platinumkit ()
+UpnpManager::release_platinumkit ()
 {
   upnp_service_->Stop ();
   delete upnp_service_;
@@ -122,21 +125,21 @@ UPnPManager::release_platinumkit ()
 }
 
 /*----------------------------------------------------------------------
- |   UPnPManager::initialize_platinumkit
+ |   UpnpManager::initialize_platinumkit
  +---------------------------------------------------------------------*/
-UPnPManager*
-UPnPManager::getInstance ()
+UpnpManager*
+UpnpManager::getInstance ()
 {
-  if (UPnPManager::singleton == NULL)
-    UPnPManager::singleton = new UPnPManager;
-  return UPnPManager::singleton;
+  if (UpnpManager::singleton == NULL)
+    UpnpManager::singleton = new UpnpManager;
+  return UpnpManager::singleton;
 }
 
 /*----------------------------------------------------------------------
- |   UPnPManager::initialize_platinumkit
+ |   UpnpManager::initialize_platinumkit
  +---------------------------------------------------------------------*/
 void
-UPnPManager::releaseInstance ()
+UpnpManager::releaseInstance ()
 {
   delete singleton;
   singleton = NULL;

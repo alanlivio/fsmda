@@ -1,23 +1,22 @@
-#ifndef FSMDA_GINGANCL_COMMUNICATION_PASSIVE_CCM_H_
-#define FSMDA_GINGANCL_COMMUNICATION_PASSIVE_CCM_H_
+#ifndef UPNP_PASSIVE_CCM_H_
+#define UPNP_PASSIVE_CCM_H_
 
 /*----------------------------------------------------------------------
  |   includes
  +---------------------------------------------------------------------*/
 
-#include <fsmda/model/communication/passive_object_control.h>
-#include <string>
+#include "fsmda/communicationmanager/model/passive_object_control.h"
 
 /*----------------------------------------------------------------------
- |   PassiveCCM  class
+ |   UpnpPassiveCcm  class
  +---------------------------------------------------------------------*/
-class PassiveCCM : public PassiveCCMInterface
+class UpnpPassiveCcm : public PassiveCcmInterface
 {
 public:
   // public constructors & destructors
-  PassiveCCM ();
+  UpnpPassiveCcm ();
   virtual
-  ~PassiveCCM ();
+  ~UpnpPassiveCcm ();
 
   // PassiveCCMInterface overloaded methods
   virtual void
@@ -26,4 +25,4 @@ public:
   sendContent (char* content);
 };
 
-#endif /* FSMDA_GINGANCL_COMMUNICATION_PASSIVE_CCM_H_ */
+#endif /* UPNP_PASSIVE_CCM_H_ */

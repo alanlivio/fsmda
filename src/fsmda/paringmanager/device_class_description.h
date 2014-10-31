@@ -1,11 +1,11 @@
-#ifndef FSMDA_GINGANCL_PARING_DEVICE_CLASS_DESCRIPTION_H_
-#define FSMDA_GINGANCL_PARING_DEVICE_CLASS_DESCRIPTION_H_
+#ifndef DEVICE_CLASS_DESCRIPTION_H_
+#define DEVICE_CLASS_DESCRIPTION_H_
 
 /*----------------------------------------------------------------------
  |   includes
  +---------------------------------------------------------------------*/
 
-#include <libxml/tree.h>
+#include "libxml/tree.h"
 #include <string>
 
 using namespace std;
@@ -59,4 +59,4 @@ private:
   bool initialized_;
 };
 
-#endif /* FSMDA_GINGANCL_PARING_DEVICE_CLASS_DESCRIPTION_H_ */
+#endif /* DEVICE_CLASS_DESCRIPTION_H_ */

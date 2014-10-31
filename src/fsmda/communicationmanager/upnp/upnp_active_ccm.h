@@ -1,28 +1,28 @@
-#ifndef FSMDA_GINGANCL_COMMUNICATION_ACTIVE_CCM_H_
-#define FSMDA_GINGANCL_COMMUNICATION_ACTIVE_CCM_H_
+#ifndef UPNP_ACTIVE_CCM_H_
+#define UPNP_ACTIVE_CCM_H_
 
 /*----------------------------------------------------------------------
  |   includes
  +---------------------------------------------------------------------*/
 
-#include <fsmda/model/communication/active_object_control.h>
+#include "fsmda/communicationmanager/model/active_object_control.h"
 #include <string>
 #include <vector>
 
 using namespace std;
 
 /*----------------------------------------------------------------------
- |   ActiveCCM class
+ |   UpnpActiveCcm class
  +---------------------------------------------------------------------*/
-class ActiveCCM : public ActiveCCMInterface
+class UpnpActiveCcm : public ActiveCcmInterface
 {
 public:
   // public constructors & destructors
-  ActiveCCM ();
+  UpnpActiveCcm ();
   virtual
-  ~ActiveCCM ();
+  ~UpnpActiveCcm ();
 
-  // ActiveCCMInterface overloaded methods
+  // ActiveCcmInterface overloaded methods
   virtual void
   prepare (const string& objectID, const string& objectSrc,
 	   vector<Property> properties, vector<Event> evts);
@@ -41,4 +41,4 @@ public:
 		    const string& value, unsigned int duration);
 };
 
-#endif /* FSMDA_GINGANCL_COMMUNICATION_ACTIVE_CCM_H_ */
+#endif /* UPNP_ACTIVE_CCM_H_ */

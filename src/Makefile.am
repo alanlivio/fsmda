@@ -1,15 +1,12 @@
 ############################## Headers ####################################
 # Headers
 nobase_pkginclude_HEADERS =\
-  fsmda/model/communication/ondemand_object_control.h\
-  fsmda/model/communication/active_object_control.h\
-  fsmda/model/communication/passive_object_control.h\
-  fsmda/model/communication/mediacapture_object_control.h\
-  fsmda/model/paring/class_handling.h\
-  fsmda/model/paring/device_paring.h\
-  fsmda/gingancl/paring/parent_paring_manager.h\
-  fsmda/gingancl/paring/child_paring_manager.h\
-  fsmda/protocol/upnp_manager.h
+  fsmda/communicationmanager/model/ondemand_object_control.h\
+  fsmda/communicationmanager/model/active_object_control.h\
+  fsmda/communicationmanager/model/passive_object_control.h\
+  fsmda/communicationmanager/model/mediacapture_object_control.h\
+  fsmda/paringmanager/model/class_handling.h\
+  fsmda/paringmanager/model/device_paring.h
 
 ############################## Libraries ####################################
 # Libraries
@@ -17,19 +14,19 @@ lib_LTLIBRARIES = libfsmda.la
 
 # Libraries sources
 libfsmda_la_SOURCES = \
-  fsmda/gingancl/paring/parent_paring_manager.cpp\
-  fsmda/gingancl/paring/child_paring_manager.cpp\
-  fsmda/gingancl/paring/device_description.cpp\
-  fsmda/gingancl/paring/device_class_description.cpp\
-  fsmda/gingancl/communication/active_ccm.cpp\
-  fsmda/gingancl/communication/active_pcm.cpp\
-  fsmda/gingancl/communication/passive_ccm.cpp\
-  fsmda/gingancl/communication/passive_pcm.cpp\
-  fsmda/gingancl/communication/mediacapture_pcm.cpp\
-  fsmda/gingancl/communication/mediacapture_ccm.cpp\
-  fsmda/gingancl/communication/ondemand_pcm.cpp\
-  fsmda/gingancl/communication/ondemand_ccm.cpp\
-  fsmda/protocol/upnp_manager.cpp
+  fsmda/paringmanager/device_description.cpp\
+  fsmda/paringmanager/device_class_description.cpp\
+  fsmda/paringmanager/upnp/upnp_ppm.cpp\
+  fsmda/paringmanager/upnp/upnp_cpm.cpp\
+  fsmda/communicationmanager/upnp/upnp_active_ccm.cpp\
+  fsmda/communicationmanager/upnp/upnp_active_pcm.cpp\
+  fsmda/communicationmanager/upnp/upnp_passive_ccm.cpp\
+  fsmda/communicationmanager/upnp/upnp_passive_pcm.cpp\
+  fsmda/communicationmanager/upnp/upnp_mediacapture_pcm.cpp\
+  fsmda/communicationmanager/upnp/upnp_mediacapture_ccm.cpp\
+  fsmda/communicationmanager/upnp/upnp_ondemand_pcm.cpp\
+  fsmda/communicationmanager/upnp/upnp_ondemand_ccm.cpp\
+  fsmda/communicationmanager/upnp/upnp_manager.cpp
   
 
 # Libraries compiler options
