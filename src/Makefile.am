@@ -16,6 +16,8 @@ lib_LTLIBRARIES = libfsmda.la
 libfsmda_la_SOURCES = \
   fsmda/paringmanager/device_description.cpp\
   fsmda/paringmanager/device_class_description.cpp\
+  fsmda/paringmanager/parent_paring_manager.cpp\
+  fsmda/paringmanager/child_paring_manager.cpp\
   fsmda/paringmanager/upnp/upnp_ppm.cpp\
   fsmda/paringmanager/upnp/upnp_cpm.cpp\
   fsmda/communicationmanager/upnp/upnp_active_ccm.cpp\

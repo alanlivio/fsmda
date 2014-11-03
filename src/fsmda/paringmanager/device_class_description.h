@@ -31,6 +31,11 @@ public:
     FSDMA_ONDEMAND = 4,
     FSDMA_MEDIACAPTURE = 5
   };
+  enum DeviceCommunicationProtocol
+  {
+    UPNP = 0,
+    ZEROCONF = 1,
+  };
   static DeviceClassType
   get_device_class_type_by_string (const string& str);
 
