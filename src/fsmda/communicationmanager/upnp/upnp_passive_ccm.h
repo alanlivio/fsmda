@@ -6,6 +6,7 @@
  +---------------------------------------------------------------------*/
 
 #include "fsmda/communicationmanager/model/passive_object_control.h"
+#include <string>
 
 /*----------------------------------------------------------------------
  |   UpnpPassiveCcm  class

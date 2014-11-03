@@ -6,8 +6,6 @@
  +---------------------------------------------------------------------*/
 
 #include "PltUPnP.h"
-#include <map>
-#include <string>
 
 using namespace std;
 

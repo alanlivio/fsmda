@@ -9,6 +9,7 @@
 #include "libxml/tree.h"
 #include <string>
 
+
 using namespace std;
 
 class DeviceDescription
