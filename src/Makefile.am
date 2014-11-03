@@ -26,9 +26,8 @@ libfsmda_la_SOURCES = \
   fsmda/communicationmanager/upnp/upnp_mediacapture_ccm.cpp\
   fsmda/communicationmanager/upnp/upnp_ondemand_pcm.cpp\
   fsmda/communicationmanager/upnp/upnp_ondemand_ccm.cpp\
-  fsmda/communicationmanager/upnp/upnp_manager.cpp
+  fsmda/utils/platinumkit.cpp
   
-
 # Libraries compiler options
 libfsmda_la_CPPFLAGS = -I./ $(PLATINUMKIT_CFLAGS) $(LIBXML2_CFLAGS)
 

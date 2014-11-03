@@ -5,7 +5,6 @@
 #include "assert.h"
 #include "fsmda/communicationmanager/upnp/upnp_active_ccm.h"
 #include "fsmda/communicationmanager/upnp/upnp_active_pcm.h"
-#include "fsmda/communicationmanager/upnp/upnp_manager.h"
 #include "fsmda/communicationmanager/upnp/upnp_mediacapture_ccm.h"
 #include "fsmda/communicationmanager/upnp/upnp_mediacapture_pcm.h"
 #include "fsmda/communicationmanager/upnp/upnp_ondemand_ccm.h"
@@ -15,6 +14,7 @@
 #include "fsmda/paringmanager/device_class_description.h"
 #include "fsmda/paringmanager/device_description.h"
 #include "fsmda/paringmanager/upnp/upnp_ppm.h"
+#include "fsmda/utils/platinumkit.h"
 #include <cstdlib>
 
 /*----------------------------------------------------------------------
@@ -63,9 +63,9 @@ main (int argc, char **argv)
   delete dev_class_requirements;
 
   // fsmda/protocol constructor tests
-  UpnpManager * upnp = UpnpManager::getInstance ();
+  PLT_UPnP * upnp = PlatinumKit::requestUpnpReference();
   assert(upnp != NULL);
-  UpnpManager::releaseInstance ();
+  PlatinumKit::releaseUpnpReference();
 
   return EXIT_SUCCESS;
 }
