@@ -2,7 +2,7 @@
  |   includes
  +---------------------------------------------------------------------*/
 
-#include "fsmda/utils/platinumkit.h"
+#include "fsmda/utils/upnp_fsmda_utils.h"
 #include "NptList.h"
 #include "NptLogging.h"
 #include "NptNetwork.h"
@@ -15,17 +15,90 @@
 /*----------------------------------------------------------------------
  |   class fields
  +---------------------------------------------------------------------*/
-PLT_UPnP* PlatinumKit::upnp_singleton_ = NULL;
-unsigned int PlatinumKit::references_count_ = 0;
-bool PlatinumKit::upnp_running_ = false;
+PLT_UPnP* UpnpFsmdaUtils::upnp_singleton_ = NULL;
+unsigned int UpnpFsmdaUtils::references_count_ = 0;
+bool UpnpFsmdaUtils::upnp_running_ = false;
+const char* UpnpFsmdaUtils::UPNP_FSMDA_PPM_DEVICE_TYPE =
+    "urn:schemas-upnp-org:device:fsmda-parent-paring-device:1";
+const char* UpnpFsmdaUtils::UPNP_FSMDA_PPM_MODEL_NAME =
+    "fsmda-parent-paring-device";
+const char* UpnpFsmdaUtils::UPNP_FSMDA_CPM_FRIENDLY_NAME =
+    "fsmda parent paring device";
+const char* UpnpFsmdaUtils::UPNP_FSMDA_PPM_MODEL_DESCRIPTION =
+    "fsmda parent paring device description";
+const char* UpnpFsmdaUtils::UPNP_FSMDA_PPM_MODEL_URL =
+    "http://www.ncl.org.br/fsmda/fsmda-parent-paring-device";
+const char* UpnpFsmdaUtils::UPNP_FSMDA_PPM_MODEL_NUMBER = "1.0";
+
+const char* UpnpFsmdaUtils::UPNP_FSMDA_CPM_DEVICE_TYPE =
+    "urn:schemas-upnp-org:device:smda-child-paring-device:1";
+const char* UpnpFsmdaUtils::UPNP_FSMDA_CPM_MODEL_NAME =
+    "fsmda-child-paring-device";
+const char* UpnpFsmdaUtils::UPNP_FSMDA_PPM_FRIENDLY_NAME =
+    "fsmdachild paring device";
+const char* UpnpFsmdaUtils::UPNP_FSMDA_CPM_MODEL_DESCRIPTION =
+    "fsmda child paring device description";
+const char* UpnpFsmdaUtils::UPNP_FSMDA_CPM_MODEL_URL =
+    "http://www.ncl.org.br/fsmda/ondemand";
+const char* UpnpFsmdaUtils::UPNP_FSMDA_CPM_MODEL_NUMBER = "1.0";
+
+const char* UpnpFsmdaUtils::UPNP_FSMDA_MANUFACTURER = "FSMDA";
+const char* UpnpFsmdaUtils::UPNP_FSMDA_MANUFACTURER_URL =
+    "http://www.ncl.org.br/fsmda/ondemand";
+
+const char* UpnpFsmdaUtils::PARENT_PARING_MANAGER_SCPDXML =
+    "<?xml version=\"1.0\" ?>"
+	"  <scpd xmlns=\"urn:schemas-upnp-org:service-1-0\">"
+	"    <specVersion>"
+	"       <major>1</major>"
+	"	    <minor>0</minor>"
+	"	 </specVersion>"
+	"    <serviceStateTable>"
+	"      <stateVariable sendEvents=\"yes\">"
+	"        <name>LastChange</name>"
+	"        <dataType>string</dataType>"
+	"        <defaultValue></defaultValue>"
+	"      </stateVariable>"
+	"      <stateVariable sendEvents=\"yes\">"
+	"        <name>PresetNameList</name>"
+	"        <dataType>string</dataType>"
+	"        <defaultValue></defaultValue>"
+	"      </stateVariable>"
+	"    </serviceStateTable>"
+	"    <intel_nmpr:X_INTEL_NMPR xmlns:intel_nmpr=\"udn:schemas-intel-com:device-1-0\">2.1</intel_nmpr:X_INTEL_NMPR>"
+	"    <dlna:X_DLNADOC xmlns:dlna=\"udn:schemas-dlna-org:device-1-0\">DMP 1.00</dlna:X_DLNADOC>"
+	"  </scpd>";
+
+const char* UpnpFsmdaUtils::CHILD_PARING_MANAGER_SCPDXML =
+    "<?xml version=\"1.0\" ?>"
+	"  <scpd xmlns=\"urn:schemas-upnp-org:service-1-0\">"
+	"    <specVersion>"
+	"       <major>1</major>"
+	"	    <minor>0</minor>"
+	"	 </specVersion>"
+	"    <serviceStateTable>"
+	"      <stateVariable sendEvents=\"yes\">"
+	"        <name>LastChange</name>"
+	"        <dataType>string</dataType>"
+	"        <defaultValue></defaultValue>"
+	"      </stateVariable>"
+	"      <stateVariable sendEvents=\"yes\">"
+	"        <name>PresetNameList</name>"
+	"        <dataType>string</dataType>"
+	"        <defaultValue></defaultValue>"
+	"      </stateVariable>"
+	"    </serviceStateTable>"
+	"    <intel_nmpr:X_INTEL_NMPR xmlns:intel_nmpr=\"udn:schemas-intel-com:device-1-0\">2.1</intel_nmpr:X_INTEL_NMPR>"
+	"    <dlna:X_DLNADOC xmlns:dlna=\"udn:schemas-dlna-org:device-1-0\">DMP 1.00</dlna:X_DLNADOC>"
+	"  </scpd>";
 
 /*----------------------------------------------------------------------
- |   PlatinumKit::requestUpnpReference
+ |   UpnpUtils::requestUpnpReference
  +---------------------------------------------------------------------*/
 PLT_UPnP*
-PlatinumKit::requestUpnpReference ()
+UpnpFsmdaUtils::requestUpnpReference ()
 {
-  if (PlatinumKit::upnp_singleton_ == NULL)
+  if (UpnpFsmdaUtils::upnp_singleton_ == NULL)
     {
       // setup Neptune logging
       NPT_LogManager::GetDefault ().Configure (
@@ -36,31 +109,31 @@ PlatinumKit::requestUpnpReference ()
 	  NPT_TimeInterval (60.));
       NPT_List<NPT_IpAddress> list;
       PLT_UPnPMessageHelper::GetIPAddresses (list);
-      PlatinumKit::upnp_singleton_ = new PLT_UPnP ();
-      PlatinumKit::upnp_singleton_->Start ();
-      PlatinumKit::references_count_ = 0;
-      PlatinumKit::upnp_running_ = true;
+      UpnpFsmdaUtils::upnp_singleton_ = new PLT_UPnP ();
+      UpnpFsmdaUtils::upnp_singleton_->Start ();
+      UpnpFsmdaUtils::references_count_ = 0;
+      UpnpFsmdaUtils::upnp_running_ = true;
     }
-  return PlatinumKit::upnp_singleton_;
+  return UpnpFsmdaUtils::upnp_singleton_;
 }
 
 /*----------------------------------------------------------------------
- |   PlatinumKit::releaseUpnpReference
+ |   UpnpUtils::releaseUpnpReference
  +---------------------------------------------------------------------*/
 void
-PlatinumKit::releaseUpnpReference ()
+UpnpFsmdaUtils::releaseUpnpReference ()
 {
-  if (PlatinumKit::references_count_ == 0)
+  if (UpnpFsmdaUtils::references_count_ == 0)
     return;
-  else if (PlatinumKit::references_count_ == 1)
+  else if (UpnpFsmdaUtils::references_count_ == 1)
     {
-      PlatinumKit::upnp_singleton_->Stop ();
+      UpnpFsmdaUtils::upnp_singleton_->Stop ();
       delete upnp_singleton_;
-      PlatinumKit::upnp_singleton_ = NULL;
-      PlatinumKit::references_count_ = 0;
-      PlatinumKit::upnp_running_ = false;
+      UpnpFsmdaUtils::upnp_singleton_ = NULL;
+      UpnpFsmdaUtils::references_count_ = 0;
+      UpnpFsmdaUtils::upnp_running_ = false;
     }
   else
-    PlatinumKit::references_count_--;
+    UpnpFsmdaUtils::references_count_--;
 }
 

@@ -3,7 +3,7 @@
  +---------------------------------------------------------------------*/
 
 #include "fsmda/communicationmanager/upnp/upnp_ondemand_ccm.h"
-#include "fsmda/utils/platinumkit.h"
+#include "fsmda/utils/upnp_fsmda_utils.h"
 #include "NptStrings.h"
 #include "PltDeviceHost.h"
 #include "PltFileMediaServer.h"
@@ -43,7 +43,7 @@ UpnpOnDemandCcm::UpnpOnDemandCcm () :
 UpnpOnDemandCcm::~UpnpOnDemandCcm ()
 {
   if (upnp_reference_ != NULL)
-    upnp_reference_ = PlatinumKit::requestUpnpReference ();
+    upnp_reference_ = UpnpFsmdaUtils::requestUpnpReference ();
 }
 
 /*----------------------------------------------------------------------
@@ -53,7 +53,7 @@ int
 UpnpOnDemandCcm::start_communication_service ()
 {
   if (upnp_reference_ == NULL)
-    upnp_reference_ = PlatinumKit::requestUpnpReference ();
+    upnp_reference_ = UpnpFsmdaUtils::requestUpnpReference ();
 
   clog << "OnDemandCCM::start_communication_service" << endl;
   PLT_DeviceHostReference device (
@@ -77,7 +77,7 @@ UpnpOnDemandCcm::start_communication_service ()
 int
 UpnpOnDemandCcm::stop_communication_service ()
 {
-  PlatinumKit::releaseUpnpReference ();
+  UpnpFsmdaUtils::releaseUpnpReference ();
   upnp_reference_ = NULL;
   service_start_ = false;
   return 0;

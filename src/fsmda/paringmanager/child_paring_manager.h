@@ -16,6 +16,7 @@ using namespace std;
 class ChildParingManager : public DeviceParingPcmInterface
 {
 public:
+  // public constructors & destructors
   ChildParingManager ();
   virtual
   ~ChildParingManager ();
