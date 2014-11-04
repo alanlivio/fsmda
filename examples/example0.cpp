@@ -6,27 +6,23 @@
 #include <NptLogging.h>
 #include <PltCtrlPoint.h>
 #include <PltUPnP.h>
-#include <stdio.h>
+#include "fsmda/paringmanager/upnp/upnp_parent_paring.h"
+#include "fsmda/utils/upnp_fsmda_utils.h"
+#include <cassert>
+#include <cstdio>
+#include <iostream>
 
+using namespace std;
 /*----------------------------------------------------------------------
  |   main
  +---------------------------------------------------------------------*/
 int
 main (void)
 {
-  // setup Neptune logging
-  NPT_LogManager::GetDefault ().Configure (
-      "plist:.level=INFO;.handlers=ConsoleHandler;.ConsoleHandler.colors=off;.ConsoleHandler.filter=58");
-
-  PLT_UPnP upnp;
-  PLT_CtrlPointReference ctrlPoint (new PLT_CtrlPoint ());
-  upnp.AddCtrlPoint (ctrlPoint);
-
-  upnp.Start ();
-
-  // extra broadcast discover
-  ctrlPoint->Discover (NPT_HttpUrl ("255.255.255.255", 1900, "*"),
-		       "upnp:rootdevice", 1);
+  // parent paring tests
+  UpnpParentParing* upnpParentParing = new UpnpParentParing ();
+  upnpParentParing->start_service ();
+  assert(upnpParentParing->is_service_started () == true);
 
   char buf[256];
   while (gets (buf))
@@ -34,8 +30,5 @@ main (void)
       if (*buf == 'q')
 	break;
     }
-
-  upnp.Stop ();
-
   return 0;
 }

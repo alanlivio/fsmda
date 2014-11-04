@@ -21,7 +21,8 @@ UpnpParentParing::UpnpParentParing (const char* UUID) :
 	false), upnp_reference_ (NULL)
 
 {
-  this->m_ModelDescription = UpnpFsmdaUtils::UPNP_FSMDA_PPM_DEVICE_MODEL_DESCRIPTION;
+  this->m_ModelDescription =
+      UpnpFsmdaUtils::UPNP_FSMDA_PPM_DEVICE_MODEL_DESCRIPTION;
   this->m_ModelURL = UpnpFsmdaUtils::UPNP_FSMDA_PPM_DEVICE_MODEL_URL;
   this->m_ModelNumber = UpnpFsmdaUtils::UPNP_FSMDA_PPM_DEVICE_MODEL_NUMBER;
   this->m_ModelName = UpnpFsmdaUtils::UPNP_FSMDA_PPM_DEVICE_MODEL_NAME;
@@ -46,30 +47,33 @@ NPT_Result
 UpnpParentParing::SetupServices ()
 {
   NPT_Result res;
-  PLT_Service* service = new PLT_Service (this,
-					  "urn:schemas-upnp-org:service:Test:1",
-					  "urn:upnp-org:serviceId:Test.001",
-					  "Test");
-
+  PLT_Service* service = new PLT_Service (
+      this, UpnpFsmdaUtils::UPNP_FSMDA_PPM_SERVICE_TYPE,
+      UpnpFsmdaUtils::UPNP_FSMDA_PPM_SERVICE_ID,
+      UpnpFsmdaUtils::UPNP_FSMDA_PPM_SERVICE_NAME);
   res = service->SetSCPDXML (
       (const char*) UpnpFsmdaUtils::UPNP_FSMDA_PPM_SERVICE_SCPDXML);
   res = AddService (service);
-
-  service->SetStateVariable ("Status", "True");
-
-  return NPT_SUCCESS;
+  return res;
 }
 
 int
 UpnpParentParing::start_service ()
 {
+  if (service_start_)
+    return 0;
   if (upnp_reference_ == NULL)
     upnp_reference_ = UpnpFsmdaUtils::requestUpnpReference ();
-  clog << "OnDemandCCM::start_service" << endl;
+  clog << "UpnpParentParing::start_service" << endl;
   PLT_DeviceHostReference device_reference (this);
-  upnp_reference_->AddDevice (device_reference);
-  service_start_ = true;
-  return 0;
+  NPT_Result res = upnp_reference_->AddDevice (device_reference);
+  if (res != NPT_SUCCESS)
+    return -1;
+  else
+    {
+      service_start_ = true;
+      return 0;
+    }
 }
 
 /*----------------------------------------------------------------------

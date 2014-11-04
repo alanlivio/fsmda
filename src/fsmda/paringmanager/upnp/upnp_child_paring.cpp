@@ -45,26 +45,31 @@ UpnpChildParing::SetupServices ()
   NPT_Result res;
   PLT_Service* service = new PLT_Service (
       this, UpnpFsmdaUtils::UPNP_FSMDA_CPM_SERVICE_TYPE,
-      UpnpFsmdaUtils::UPNP_FSMDA_CPM_SERVICE_ID, "Test");
+      UpnpFsmdaUtils::UPNP_FSMDA_CPM_SERVICE_ID,
+      UpnpFsmdaUtils::UPNP_FSMDA_CPM_SERVICE_NAME);
   res = service->SetSCPDXML (
-      (const char*) UpnpFsmdaUtils::UPNP_FSMDA_PPM_SERVICE_SCPDXML);
+      (const char*) UpnpFsmdaUtils::UPNP_FSMDA_CPM_SERVICE_SCPDXML);
   res = AddService (service);
-
-  service->SetStateVariable ("Status", "True");
-
-  return NPT_SUCCESS;
+  return res;
 }
 
 int
 UpnpChildParing::start_service ()
 {
+  if (service_start_)
+    return 0;
   if (upnp_reference_ == NULL)
     upnp_reference_ = UpnpFsmdaUtils::requestUpnpReference ();
-  clog << "OnDemandCCM::start_service" << endl;
+  clog << "UpnpParentParing::start_service" << endl;
   PLT_DeviceHostReference device_reference (this);
-  upnp_reference_->AddDevice (device_reference);
-  service_start_ = true;
-  return 0;
+  NPT_Result res = upnp_reference_->AddDevice (device_reference);
+  if (res != NPT_SUCCESS)
+    return -1;
+  else
+    {
+      service_start_ = true;
+      return 0;
+    }
 }
 
 /*----------------------------------------------------------------------
