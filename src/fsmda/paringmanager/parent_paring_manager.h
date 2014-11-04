@@ -1,13 +1,13 @@
 #ifndef PARENT_PARING_MANAGER_H_
 #define PARENT_PARING_MANAGER_H_
 
-#include "fsmda/communicationmanager/model/active_object_control.h"
-#include "fsmda/communicationmanager/model/mediacapture_object_control.h"
-#include "fsmda/communicationmanager/model/ondemand_object_control.h"
-#include "fsmda/communicationmanager/model/passive_object_control.h"
+#include "fsmda/communicationmanager/model/active_object_interfaces.h"
+#include "fsmda/communicationmanager/model/mediacapture_object_interfaces.h"
+#include "fsmda/communicationmanager/model/ondemand_object_interfaces.h"
+#include "fsmda/communicationmanager/model/passive_object_interfaces.h"
 #include "fsmda/paringmanager/device_class_description.h"
-#include "fsmda/paringmanager/model/class_handling.h"
-#include "fsmda/paringmanager/model/device_paring.h"
+#include "fsmda/paringmanager/model/class_handling_interfaces.h"
+#include "fsmda/paringmanager/model/device_paring_interfaces.h"
 #include <map>
 #include <string>
 

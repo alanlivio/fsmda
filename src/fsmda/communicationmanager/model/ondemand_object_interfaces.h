@@ -1,5 +1,5 @@
-#ifndef ONDEMAND_OBJECT_CONTROL_H_
-#define ONDEMAND_OBJECT_CONTROL_H_
+#ifndef ONDEMAND_OBJECT_INTERFACES_H_
+#define ONDEMAND_OBJECT_INTERFACES_H_
 
 /*----------------------------------------------------------------------
  |   includes
@@ -26,4 +26,4 @@ public:
   notifyOnDemandContent (const string& action, const string&location)=0;
 };
 
-#endif /* ONDEMAND_OBJECT_CONTROL_H_ */
+#endif /* ONDEMAND_OBJECT_INTERFACES_H_ */

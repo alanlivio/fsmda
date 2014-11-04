@@ -1,4 +1,4 @@
-#include "fsmda/communicationmanager/model/passive_object_control.h"
+#include "fsmda/communicationmanager/model/passive_object_interfaces.h"
 #include "fsmda/communicationmanager/upnp/upnp_active_pcm.h"
 #include "fsmda/communicationmanager/upnp/upnp_mediacapture_pcm.h"
 #include "fsmda/communicationmanager/upnp/upnp_ondemand_pcm.h"

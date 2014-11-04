@@ -1,12 +1,12 @@
 ############################## Headers ####################################
 # Headers
 nobase_pkginclude_HEADERS =\
-  fsmda/communicationmanager/model/ondemand_object_control.h\
-  fsmda/communicationmanager/model/active_object_control.h\
-  fsmda/communicationmanager/model/passive_object_control.h\
-  fsmda/communicationmanager/model/mediacapture_object_control.h\
-  fsmda/paringmanager/model/class_handling.h\
-  fsmda/paringmanager/model/device_paring.h
+  fsmda/communicationmanager/model/ondemand_object_interfaces.h\
+  fsmda/communicationmanager/model/active_object_interfaces.h\
+  fsmda/communicationmanager/model/passive_object_interfaces.h\
+  fsmda/communicationmanager/model/mediacapture_object_interfaces.h\
+  fsmda/paringmanager/model/class_handling_interfaces.h\
+  fsmda/paringmanager/model/device_paring_interfaces.h
 
 ############################## Libraries ####################################
 # Libraries

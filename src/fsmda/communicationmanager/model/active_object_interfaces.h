@@ -1,5 +1,5 @@
-#ifndef ACTIVE_OBJECT_CONTROL_H_
-#define ACTIVE_OBJECT_CONTROL_H_
+#ifndef ACTIVE_OBJECT_INTERFACES_H_
+#define ACTIVE_OBJECT_INTERFACES_H_
 
 /*----------------------------------------------------------------------
  |   includes
@@ -82,4 +82,4 @@ public:
 		    const string& value, unsigned int duration)=0;
 };
 
-#endif /* ACTIVE_OBJECT_CONTROL_H_ */
+#endif /* ACTIVE_OBJECT_INTERFACES_H_ */

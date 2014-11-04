@@ -1,5 +1,5 @@
-#ifndef CLASS_HANDLING_H_
-#define CLASS_HANDLING_H_
+#ifndef CLASS_HANDLING_INTERFACES_H_
+#define CLASS_HANDLING_INTERFACES_H_
 
 /*----------------------------------------------------------------------
  |   includes
@@ -52,4 +52,4 @@ public:
   setClassVariableValue (const string& name, const string& value);
 };
 
-#endif /* CLASS_HANDLING_H_ */
+#endif /* CLASS_HANDLING_INTERFACES_H_ */

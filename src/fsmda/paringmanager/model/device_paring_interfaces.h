@@ -1,5 +1,5 @@
-#ifndef DEVICE_PARING_H_
-#define DEVICE_PARING_H_
+#ifndef DEVICE_PARING_INTERFACES_H_
+#define DEVICE_PARING_INTERFACES_H_
 
 /*----------------------------------------------------------------------
  |   includes
@@ -48,4 +48,4 @@ public:
 		     const string& classDesc, const string& classFunction)=0;
 };
 
-#endif /* DEVICE_PARING_H_ */
+#endif /* DEVICE_PARING_INTERFACES_H_ */

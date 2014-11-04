@@ -5,7 +5,7 @@
  |   includes
  +---------------------------------------------------------------------*/
 
-#include "fsmda/paringmanager/model/device_paring.h"
+#include "fsmda/paringmanager/model/device_paring_interfaces.h"
 #include "NptTypes.h"
 #include "PltDeviceHost.h"
 #include "PltUPnP.h"

@@ -1,5 +1,5 @@
-#ifndef PASSIVE_OBJECT_CONTROL_H_
-#define PASSIVE_OBJECT_CONTROL_H_
+#ifndef PASSIVE_OBJECT_INTERFACES_H_
+#define PASSIVE_OBJECT_INTERFACES_H_
 
 /*----------------------------------------------------------------------
  |   includes
@@ -44,4 +44,4 @@ public:
   notifyError (const string& message, const string& objectId)=0;
 };
 
-#endif /* PASSIVE_OBJECT_CONTROL_H_ */
+#endif /* PASSIVE_OBJECT_INTERFACES_H_ */
