@@ -6,22 +6,33 @@
  +---------------------------------------------------------------------*/
 
 #include "fsmda/paringmanager/model/device_paring.h"
+#include "NptTypes.h"
+#include "PltDeviceHost.h"
+#include "PltUPnP.h"
 
 /*----------------------------------------------------------------------
- |   UpnpCpm class
+ |   UpnpChildParing class
  +---------------------------------------------------------------------*/
-class UpnpCpm : public DeviceParingPcmInterface
+class UpnpChildParing : public PLT_DeviceHost
 {
 public:
   // public constructors & destructors
-  UpnpCpm ();
+  UpnpChildParing (const char* UUID = "");
   virtual
-  ~UpnpCpm ();
+  ~UpnpChildParing ();
 
-  // DeviceParingPcmInterface overloaded methods
-  virtual void
-  classAnnouncement (const string& applicationID, unsigned int classIndex,
-		     const string& classDesc, const string& classFunction);
+  // PLT_DeviceHost methods
+  virtual NPT_Result
+  SetupServices ();
+
+  // public methods
+  int start_service ();
+  int stop_service ();
+  bool is_service_started ();
+
+private:
+  bool service_start_;
+  PLT_UPnP* upnp_reference_;
 };
 
 #endif /* UPNP_CPMH_ */

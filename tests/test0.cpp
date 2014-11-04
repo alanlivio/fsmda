@@ -13,8 +13,10 @@
 #include "fsmda/communicationmanager/upnp/upnp_passive_pcm.h"
 #include "fsmda/paringmanager/device_class_description.h"
 #include "fsmda/paringmanager/device_description.h"
-#include "fsmda/paringmanager/upnp/upnp_ppm.h"
-#include "fsmda/utils/platinumkit.h"
+#include "fsmda/paringmanager/upnp/upnp_child_paring.h"
+#include "fsmda/paringmanager/upnp/upnp_parent_paring.h"
+#include "fsmda/utils/upnp_fsmda_utils.h"
+#include "PltUPnP.h"
 #include <cstdlib>
 
 /*----------------------------------------------------------------------
@@ -24,10 +26,10 @@ int
 main (int argc, char **argv)
 {
   // fsmda/model and fsmda/gingancl constructor tests
-  UpnpPpm * ppm = new UpnpPpm ();
+  UpnpParentParing * ppm = new UpnpParentParing ();
   assert(ppm != NULL);
   delete ppm;
-  UpnpPpm * cpm = new UpnpPpm ();
+  UpnpChildParing * cpm = new UpnpChildParing ();
   assert(cpm != NULL);
   delete cpm;
   UpnpActivePcm * activePcm = new UpnpActivePcm ();
@@ -63,9 +65,9 @@ main (int argc, char **argv)
   delete dev_class_requirements;
 
   // fsmda/protocol constructor tests
-  PLT_UPnP * upnp = PlatinumKit::requestUpnpReference();
+  PLT_UPnP * upnp = UpnpFsmdaUtils::requestUpnpReference();
   assert(upnp != NULL);
-  PlatinumKit::releaseUpnpReference();
+  UpnpFsmdaUtils::releaseUpnpReference();
 
   return EXIT_SUCCESS;
 }

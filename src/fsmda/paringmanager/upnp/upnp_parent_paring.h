@@ -7,6 +7,9 @@
 
 #include "fsmda/paringmanager/model/class_handling.h"
 #include "fsmda/paringmanager/model/device_paring.h"
+#include "NptTypes.h"
+#include "PltDeviceHost.h"
+#include "PltUPnP.h"
 #include <string>
 
 using namespace std;
@@ -14,33 +17,27 @@ using namespace std;
 /*----------------------------------------------------------------------
  |   UpnpPpm class
  +---------------------------------------------------------------------*/
-class UpnpPpm : public ClassHandlingPpmInterface,
-    public DeviceParingPpmInterface
+class UpnpParentParing : public PLT_DeviceHost
 {
 public:
   // public constructors & destructors
-  UpnpPpm ();
+
+  UpnpParentParing (const char* UUID = "");
   virtual
-  ~UpnpPpm ();
+  ~UpnpParentParing ();
 
-  // ClassHandlingPpmInterface overloaded methods
-  virtual void
-  addClass (const string& applicationId, unsigned int classIndex);
-  virtual void
-  removeClass (const string& applicationId, unsigned int classIndex);
-  virtual void
-  addClassDescription (const string& applicationId, unsigned int classIndex,
-		       const string& classType, unsigned int maxDevices,
-		       unsigned int minDevices, const string& hardwareReq,
-		       const string& softwareReq, const string& networkReq);
+  // PLT_DeviceHost methods
+  virtual NPT_Result
+  SetupServices ();
 
-  // DeviceParingPpmInterface overloaded methods
-  virtual void
-  addDeviceToClass (const string& applicationId, const string& deviceAddr,
-		    unsigned int classIndex, const string& deviceDesc);
-  virtual void
-  getChildIndex (const string& applicationId, const string& deviceAddr,
-		 unsigned int classIndex);
+  // public methods
+  int start_service ();
+  int stop_service ();
+  bool is_service_started ();
+
+private:
+  bool service_start_;
+  PLT_UPnP* upnp_reference_;
 };
 
 #endif /* UPNP_PPMH_ */
