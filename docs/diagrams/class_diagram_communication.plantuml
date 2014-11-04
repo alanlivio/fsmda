@@ -1,0 +1,35 @@
+@startuml
+skinparam monochrome true
+
+class HyperMediaEngine
+interface ClassHandlingHPEInterface
+ClassHandlingHPEInterface <|--  HyperMediaEngine 
+
+class ParentParingManager
+interface DeviceParingParentParingManagerInterface
+ClassHandlingParentParingManagerInterface <|--  ParentParingManager
+DeviceParingParentParingManagerInterface  <|--  ParentParingManager
+
+class ChildParingManager
+interface DeviceParingPcmInterface
+DeviceParingPcmInterface  <|--  ChildParingManager
+
+
+interface ActivePcmInterface
+interface ActiveCcmInterface
+interface MediaCapturePcmInterface
+interface MediaCaptureCcmInterface
+interface OnDemandPcmInterface
+interface PassiveCcmInterface
+interface PassivePcmInterface
+
+
+ActivePcmInterface <|--  UpnpActivePcm
+ActiveCcmInterface <|--  UpnpActiveCcm
+MediaCapturePcmInterface <|--  UpnpMediaCapturePcm
+MediaCaptureCcmInterface <|--  UpnpMediaCaptureCcm
+OnDemandPcmInterface <|--  UpnpOnDemandPcm
+PassivePcmInterface <|--  UpnpPassivePcm
+PassiveCcmInterface <|--  UpnpPassiveCcm
+
+@enduml

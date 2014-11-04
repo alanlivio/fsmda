@@ -1,0 +1,35 @@
+@startuml
+skinparam monochrome true
+
+start
+:HyperMediaEngine Create a ParentParingManager;
+:HyperMediaEngine set himself as ClassHandlingHyperMediaEngineInterface in ParentParingManager;
+:HyperMediaEngine call addClassDescription in ParentParingManager;
+:ParentParingManager parse ClassDescription;
+if (paringType == Upnp?) then (Yes)
+  :ParentParingManager Create a UpnpParentParing;
+  :ParentParingManager set himself as ClassHandlingPpmInterface in UpnpParentParing;
+  :UpnpParentParing oferr paring service;
+  :UpnpParentParing receive upnp messages and call ClassHandlingPpmInterface;
+  :ParentParingManager set setClassVariableValue in ClassHandlingHyperMediaEngineInterface;
+  if (classType == Active?) then (Yes)
+    :HyperMediaEngine call createActiveCm(classIndex) in ParentParingManager;
+    :ParentParingManager create a createActiveCm for class messagesType
+      if (classType == Active?) then (Yes)
+    
+  	:HyperMediaEngine set a Player for ActivePcmInterface in created Cm; 
+  	:HyperMediaEngine call start_communication_service in created Cm;
+  	:HyperMediaEngine set a Player for ActivePcmInterface in created Cm; 
+  	
+  else (No)
+  	:Behavior for another classType;
+  	:...;
+  endif
+else (No)
+  :Behavior for another paringType;
+  :...;
+endif
+
+stop
+
+@enduml
