@@ -13,7 +13,7 @@
 
 using namespace std;
 
-class ChildParingManager : public DeviceParingPcmInterface
+class ChildParingManager : public DeviceParingCpmInterface
 {
 public:
   // public constructors & destructors
@@ -29,8 +29,7 @@ public:
   PassiveCcmInterface*
   createPassiveCcm (unsigned int classIntex);
 
-  // ClassHandlingChildParingManagerInterface overloaded methods
-  // public pure virtual methods
+  // DeviceParingCpmInterface overloaded methods
   virtual void
   classAnnouncement (const string& applicationID, unsigned int classIndex,
 		     const string& classDesc, const string& classFunction);

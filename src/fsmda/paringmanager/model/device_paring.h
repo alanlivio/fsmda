@@ -10,7 +10,7 @@
 using namespace std;
 
 /*----------------------------------------------------------------------
- |   DeviceParingPpmInterface abstract class
+ |   DeviceParingCpmInterface abstract class
  +---------------------------------------------------------------------*/
 class DeviceParingPpmInterface
 {
@@ -31,14 +31,14 @@ public:
 };
 
 /*----------------------------------------------------------------------
- |   DeviceParingPcmInterface abstract class
+ |   DeviceParingCpmInterface abstract class
  +---------------------------------------------------------------------*/
-class DeviceParingPcmInterface
+class DeviceParingCpmInterface
 {
 public:
   // public constructors & destructors
   virtual
-  ~DeviceParingPcmInterface ()
+  ~DeviceParingCpmInterface ()
   {
   }
 
