@@ -17,12 +17,14 @@
  +---------------------------------------------------------------------*/
 UpnpChildParing::UpnpChildParing (const char* UUID) :
     PLT_DeviceHost ("/", UUID, UpnpFsmdaUtils::UPNP_FSMDA_PPM_DEVICE_TYPE,
-		    UpnpFsmdaUtils::UPNP_FSMDA_CPM_FRIENDLY_NAME), service_start_(false), upnp_reference_(NULL)
+		    UpnpFsmdaUtils::UPNP_FSMDA_CPM_DEVICE_FRIENDLY_NAME), service_start_ (
+	false), upnp_reference_ (NULL)
 {
-  this->m_ModelDescription = UpnpFsmdaUtils::UPNP_FSMDA_CPM_MODEL_DESCRIPTION;
-  this->m_ModelURL = UpnpFsmdaUtils::UPNP_FSMDA_CPM_MODEL_URL;
-  this->m_ModelNumber = UpnpFsmdaUtils::UPNP_FSMDA_CPM_MODEL_NUMBER;
-  this->m_ModelName = UpnpFsmdaUtils::UPNP_FSMDA_CPM_MODEL_NAME;
+  this->m_ModelDescription =
+      UpnpFsmdaUtils::UPNP_FSMDA_CPM_DEVICE_MODEL_DESCRIPTION;
+  this->m_ModelURL = UpnpFsmdaUtils::UPNP_FSMDA_CPM_DEVICE_MODEL_URL;
+  this->m_ModelNumber = UpnpFsmdaUtils::UPNP_FSMDA_CPM_DEVICE_MODEL_NUMBER;
+  this->m_ModelName = UpnpFsmdaUtils::UPNP_FSMDA_CPM_DEVICE_MODEL_NAME;
   this->m_Manufacturer = UpnpFsmdaUtils::UPNP_FSMDA_MANUFACTURER;
   this->m_ManufacturerURL = UpnpFsmdaUtils::UPNP_FSMDA_MANUFACTURER_URL;
 }
@@ -41,12 +43,11 @@ NPT_Result
 UpnpChildParing::SetupServices ()
 {
   NPT_Result res;
-  PLT_Service* service = new PLT_Service (this,
-					  "urn:schemas-upnp-org:service:Test:1",
-					  "urn:upnp-org:serviceId:Test.001",
-					  "Test");
+  PLT_Service* service = new PLT_Service (
+      this, UpnpFsmdaUtils::UPNP_FSMDA_CPM_SERVICE_TYPE,
+      UpnpFsmdaUtils::UPNP_FSMDA_CPM_SERVICE_ID, "Test");
   res = service->SetSCPDXML (
-      (const char*) UpnpFsmdaUtils::PARENT_PARING_MANAGER_SCPDXML);
+      (const char*) UpnpFsmdaUtils::UPNP_FSMDA_PPM_SERVICE_SCPDXML);
   res = AddService (service);
 
   service->SetStateVariable ("Status", "True");
@@ -60,7 +61,7 @@ UpnpChildParing::start_service ()
   if (upnp_reference_ == NULL)
     upnp_reference_ = UpnpFsmdaUtils::requestUpnpReference ();
   clog << "OnDemandCCM::start_service" << endl;
-  PLT_DeviceHostReference device_reference(this);
+  PLT_DeviceHostReference device_reference (this);
   upnp_reference_->AddDevice (device_reference);
   service_start_ = true;
   return 0;

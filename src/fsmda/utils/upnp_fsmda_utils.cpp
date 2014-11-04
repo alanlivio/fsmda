@@ -15,82 +15,97 @@
 /*----------------------------------------------------------------------
  |   class fields
  +---------------------------------------------------------------------*/
+// singleton fields
 PLT_UPnP* UpnpFsmdaUtils::upnp_singleton_ = NULL;
 unsigned int UpnpFsmdaUtils::references_count_ = 0;
 bool UpnpFsmdaUtils::upnp_running_ = false;
+
+//PPM UPNP constant strings
 const char* UpnpFsmdaUtils::UPNP_FSMDA_PPM_DEVICE_TYPE =
     "urn:schemas-upnp-org:device:fsmda-parent-paring-device:1";
-const char* UpnpFsmdaUtils::UPNP_FSMDA_PPM_MODEL_NAME =
-    "fsmda-parent-paring-device";
-const char* UpnpFsmdaUtils::UPNP_FSMDA_CPM_FRIENDLY_NAME =
-    "fsmda parent paring device";
-const char* UpnpFsmdaUtils::UPNP_FSMDA_PPM_MODEL_DESCRIPTION =
-    "fsmda parent paring device description";
-const char* UpnpFsmdaUtils::UPNP_FSMDA_PPM_MODEL_URL =
+const char* UpnpFsmdaUtils::UPNP_FSMDA_PPM_DEVICE_FRIENDLY_NAME =
+    "fsmda parent paring device friendly name";
+const char* UpnpFsmdaUtils::UPNP_FSMDA_PPM_DEVICE_MODEL_NAME =
+    "fsmda-parent-paring-device model name";
+const char* UpnpFsmdaUtils::UPNP_FSMDA_PPM_DEVICE_MODEL_DESCRIPTION =
+    "fsmda parent paring model description";
+const char* UpnpFsmdaUtils::UPNP_FSMDA_PPM_DEVICE_MODEL_URL =
     "http://www.ncl.org.br/fsmda/fsmda-parent-paring-device";
-const char* UpnpFsmdaUtils::UPNP_FSMDA_PPM_MODEL_NUMBER = "1.0";
+const char* UpnpFsmdaUtils::UPNP_FSMDA_PPM_DEVICE_MODEL_NUMBER = "1.0";
+const char* UpnpFsmdaUtils::UPNP_FSMDA_PPM_SERVICE_TYPE =
+    "urn:schemas-upnp-org:service:fsmda-parent-paring-service:1";
+const char* UpnpFsmdaUtils::UPNP_FSMDA_PPM_SERVICE_ID =
+    "urn:upnp-org:serviceId:parent-paring-service001";
+const char* UpnpFsmdaUtils::UPNP_FSMDA_PPM_SERVICE_NAME =
+    "urn:upnp-org:serviceId:parent-paring-service001 name";
+const char* UpnpFsmdaUtils::UPNP_FSMDA_PPM_SERVICE_SCPDXML =
+    "<?xml version=\"1.0\" ?>"
+	"  <scpd xmlns=\"urn:schemas-upnp-org:service-1-0\">"
+	"    <specVersion>"
+	"       <major>1</major>"
+	"	    <minor>0</minor>"
+	"	 </specVersion>"
+	"    <serviceStateTable>"
+	"      <stateVariable sendEvents=\"yes\">"
+	"        <name>LastChange</name>"
+	"        <dataType>string</dataType>"
+	"        <defaultValue></defaultValue>"
+	"      </stateVariable>"
+	"      <stateVariable sendEvents=\"yes\">"
+	"        <name>PresetNameList</name>"
+	"        <dataType>string</dataType>"
+	"        <defaultValue></defaultValue>"
+	"      </stateVariable>"
+	"    </serviceStateTable>"
+	"    <intel_nmpr:X_INTEL_NMPR xmlns:intel_nmpr=\"udn:schemas-intel-com:device-1-0\">2.1</intel_nmpr:X_INTEL_NMPR>"
+	"    <dlna:X_DLNADOC xmlns:dlna=\"udn:schemas-dlna-org:device-1-0\">DMP 1.00</dlna:X_DLNADOC>"
+	"  </scpd>";
 
+//CPM UPNP constant strings
 const char* UpnpFsmdaUtils::UPNP_FSMDA_CPM_DEVICE_TYPE =
     "urn:schemas-upnp-org:device:smda-child-paring-device:1";
-const char* UpnpFsmdaUtils::UPNP_FSMDA_CPM_MODEL_NAME =
-    "fsmda-child-paring-device";
-const char* UpnpFsmdaUtils::UPNP_FSMDA_PPM_FRIENDLY_NAME =
-    "fsmdachild paring device";
-const char* UpnpFsmdaUtils::UPNP_FSMDA_CPM_MODEL_DESCRIPTION =
-    "fsmda child paring device description";
-const char* UpnpFsmdaUtils::UPNP_FSMDA_CPM_MODEL_URL =
+const char* UpnpFsmdaUtils::UPNP_FSMDA_CPM_DEVICE_FRIENDLY_NAME =
+    "fsmda child paring device  friendly name";
+const char* UpnpFsmdaUtils::UPNP_FSMDA_CPM_DEVICE_MODEL_NAME =
+    "fsmda-child-paring-device model name";
+const char* UpnpFsmdaUtils::UPNP_FSMDA_CPM_DEVICE_MODEL_DESCRIPTION =
+    "fsmda child paring model description";
+const char* UpnpFsmdaUtils::UPNP_FSMDA_CPM_DEVICE_MODEL_URL =
     "http://www.ncl.org.br/fsmda/ondemand";
-const char* UpnpFsmdaUtils::UPNP_FSMDA_CPM_MODEL_NUMBER = "1.0";
+const char* UpnpFsmdaUtils::UPNP_FSMDA_CPM_DEVICE_MODEL_NUMBER = "1.0";
+const char* UpnpFsmdaUtils::UPNP_FSMDA_CPM_SERVICE_TYPE =
+    "urn:schemas-upnp-org:service:fsmda-child-paring-service:1";
+const char* UpnpFsmdaUtils::UPNP_FSMDA_CPM_SERVICE_ID =
+    "urn:upnp-org:serviceId:child-paring-service001";
+const char* UpnpFsmdaUtils::UPNP_FSMDA_CPM_SERVICE_NAME =
+    "urn:upnp-org:serviceId:child-paring-service001 name";
+const char* UpnpFsmdaUtils::UPNP_FSMDA_CPM_SERVICE_SCPDXML =
+    "<?xml version=\"1.0\" ?>"
+	"  <scpd xmlns=\"urn:schemas-upnp-org:service-1-0\">"
+	"    <specVersion>"
+	"       <major>1</major>"
+	"	    <minor>0</minor>"
+	"	 </specVersion>"
+	"    <serviceStateTable>"
+	"      <stateVariable sendEvents=\"yes\">"
+	"        <name>LastChange</name>"
+	"        <dataType>string</dataType>"
+	"        <defaultValue></defaultValue>"
+	"      </stateVariable>"
+	"      <stateVariable sendEvents=\"yes\">"
+	"        <name>PresetNameList</name>"
+	"        <dataType>string</dataType>"
+	"        <defaultValue></defaultValue>"
+	"      </stateVariable>"
+	"    </serviceStateTable>"
+	"    <intel_nmpr:X_INTEL_NMPR xmlns:intel_nmpr=\"udn:schemas-intel-com:device-1-0\">2.1</intel_nmpr:X_INTEL_NMPR>"
+	"    <dlna:X_DLNADOC xmlns:dlna=\"udn:schemas-dlna-org:device-1-0\">DMP 1.00</dlna:X_DLNADOC>"
+	"  </scpd>";
 
+//UPNP FSMDA Manufacturer constant strings
 const char* UpnpFsmdaUtils::UPNP_FSMDA_MANUFACTURER = "FSMDA";
 const char* UpnpFsmdaUtils::UPNP_FSMDA_MANUFACTURER_URL =
     "http://www.ncl.org.br/fsmda/ondemand";
-
-const char* UpnpFsmdaUtils::PARENT_PARING_MANAGER_SCPDXML =
-    "<?xml version=\"1.0\" ?>"
-	"  <scpd xmlns=\"urn:schemas-upnp-org:service-1-0\">"
-	"    <specVersion>"
-	"       <major>1</major>"
-	"	    <minor>0</minor>"
-	"	 </specVersion>"
-	"    <serviceStateTable>"
-	"      <stateVariable sendEvents=\"yes\">"
-	"        <name>LastChange</name>"
-	"        <dataType>string</dataType>"
-	"        <defaultValue></defaultValue>"
-	"      </stateVariable>"
-	"      <stateVariable sendEvents=\"yes\">"
-	"        <name>PresetNameList</name>"
-	"        <dataType>string</dataType>"
-	"        <defaultValue></defaultValue>"
-	"      </stateVariable>"
-	"    </serviceStateTable>"
-	"    <intel_nmpr:X_INTEL_NMPR xmlns:intel_nmpr=\"udn:schemas-intel-com:device-1-0\">2.1</intel_nmpr:X_INTEL_NMPR>"
-	"    <dlna:X_DLNADOC xmlns:dlna=\"udn:schemas-dlna-org:device-1-0\">DMP 1.00</dlna:X_DLNADOC>"
-	"  </scpd>";
-
-const char* UpnpFsmdaUtils::CHILD_PARING_MANAGER_SCPDXML =
-    "<?xml version=\"1.0\" ?>"
-	"  <scpd xmlns=\"urn:schemas-upnp-org:service-1-0\">"
-	"    <specVersion>"
-	"       <major>1</major>"
-	"	    <minor>0</minor>"
-	"	 </specVersion>"
-	"    <serviceStateTable>"
-	"      <stateVariable sendEvents=\"yes\">"
-	"        <name>LastChange</name>"
-	"        <dataType>string</dataType>"
-	"        <defaultValue></defaultValue>"
-	"      </stateVariable>"
-	"      <stateVariable sendEvents=\"yes\">"
-	"        <name>PresetNameList</name>"
-	"        <dataType>string</dataType>"
-	"        <defaultValue></defaultValue>"
-	"      </stateVariable>"
-	"    </serviceStateTable>"
-	"    <intel_nmpr:X_INTEL_NMPR xmlns:intel_nmpr=\"udn:schemas-intel-com:device-1-0\">2.1</intel_nmpr:X_INTEL_NMPR>"
-	"    <dlna:X_DLNADOC xmlns:dlna=\"udn:schemas-dlna-org:device-1-0\">DMP 1.00</dlna:X_DLNADOC>"
-	"  </scpd>";
 
 /*----------------------------------------------------------------------
  |   UpnpUtils::requestUpnpReference

@@ -17,14 +17,14 @@
  +---------------------------------------------------------------------*/
 UpnpParentParing::UpnpParentParing (const char* UUID) :
     PLT_DeviceHost ("/", UUID, UpnpFsmdaUtils::UPNP_FSMDA_PPM_DEVICE_TYPE,
-		    UpnpFsmdaUtils::UPNP_FSMDA_PPM_FRIENDLY_NAME), service_start_ (
+		    UpnpFsmdaUtils::UPNP_FSMDA_PPM_DEVICE_FRIENDLY_NAME), service_start_ (
 	false), upnp_reference_ (NULL)
 
 {
-  this->m_ModelDescription = UpnpFsmdaUtils::UPNP_FSMDA_PPM_MODEL_DESCRIPTION;
-  this->m_ModelURL = UpnpFsmdaUtils::UPNP_FSMDA_PPM_MODEL_URL;
-  this->m_ModelNumber = UpnpFsmdaUtils::UPNP_FSMDA_PPM_MODEL_NUMBER;
-  this->m_ModelName = UpnpFsmdaUtils::UPNP_FSMDA_PPM_MODEL_NAME;
+  this->m_ModelDescription = UpnpFsmdaUtils::UPNP_FSMDA_PPM_DEVICE_MODEL_DESCRIPTION;
+  this->m_ModelURL = UpnpFsmdaUtils::UPNP_FSMDA_PPM_DEVICE_MODEL_URL;
+  this->m_ModelNumber = UpnpFsmdaUtils::UPNP_FSMDA_PPM_DEVICE_MODEL_NUMBER;
+  this->m_ModelName = UpnpFsmdaUtils::UPNP_FSMDA_PPM_DEVICE_MODEL_NAME;
   this->m_Manufacturer = UpnpFsmdaUtils::UPNP_FSMDA_MANUFACTURER;
   this->m_ManufacturerURL = UpnpFsmdaUtils::UPNP_FSMDA_MANUFACTURER_URL;
   this->upnp_reference_ = UpnpFsmdaUtils::requestUpnpReference ();
@@ -52,7 +52,7 @@ UpnpParentParing::SetupServices ()
 					  "Test");
 
   res = service->SetSCPDXML (
-      (const char*) UpnpFsmdaUtils::PARENT_PARING_MANAGER_SCPDXML);
+      (const char*) UpnpFsmdaUtils::UPNP_FSMDA_PPM_SERVICE_SCPDXML);
   res = AddService (service);
 
   service->SetStateVariable ("Status", "True");

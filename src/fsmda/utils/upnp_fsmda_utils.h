@@ -15,23 +15,31 @@ using namespace std;
 class UpnpFsmdaUtils
 {
 public:
-  // class fields and methods
+  // class fields
   static const char* UPNP_FSMDA_PPM_DEVICE_TYPE;
-  static const char* UPNP_FSMDA_PPM_MODEL_DESCRIPTION;
-  static const char* UPNP_FSMDA_PPM_MODEL_URL;
-  static const char* UPNP_FSMDA_PPM_MODEL_NUMBER;
-  static const char* UPNP_FSMDA_PPM_MODEL_NAME;
+  static const char* UPNP_FSMDA_PPM_DEVICE_FRIENDLY_NAME;
+  static const char* UPNP_FSMDA_PPM_DEVICE_MODEL_DESCRIPTION;
+  static const char* UPNP_FSMDA_PPM_DEVICE_MODEL_URL;
+  static const char* UPNP_FSMDA_PPM_DEVICE_MODEL_NUMBER;
+  static const char* UPNP_FSMDA_PPM_DEVICE_MODEL_NAME;
+  static const char* UPNP_FSMDA_PPM_SERVICE_TYPE;
+  static const char* UPNP_FSMDA_PPM_SERVICE_ID;
+  static const char* UPNP_FSMDA_PPM_SERVICE_NAME;
+  static const char* UPNP_FSMDA_PPM_SERVICE_SCPDXML;
   static const char* UPNP_FSMDA_CPM_DEVICE_TYPE;
-  static const char* UPNP_FSMDA_CPM_FRIENDLY_NAME;
-  static const char* UPNP_FSMDA_CPM_MODEL_DESCRIPTION;
-  static const char* UPNP_FSMDA_CPM_MODEL_URL;
-  static const char* UPNP_FSMDA_CPM_MODEL_NUMBER;
-  static const char* UPNP_FSMDA_CPM_MODEL_NAME;
-  static const char* UPNP_FSMDA_PPM_FRIENDLY_NAME;
+  static const char* UPNP_FSMDA_CPM_DEVICE_FRIENDLY_NAME;
+  static const char* UPNP_FSMDA_CPM_DEVICE_MODEL_DESCRIPTION;
+  static const char* UPNP_FSMDA_CPM_DEVICE_MODEL_URL;
+  static const char* UPNP_FSMDA_CPM_DEVICE_MODEL_NUMBER;
+  static const char* UPNP_FSMDA_CPM_DEVICE_MODEL_NAME;
+  static const char* UPNP_FSMDA_CPM_SERVICE_TYPE;
+  static const char* UPNP_FSMDA_CPM_SERVICE_ID;
+  static const char* UPNP_FSMDA_CPM_SERVICE_NAME;
+  static const char* UPNP_FSMDA_CPM_SERVICE_SCPDXML;
   static const char* UPNP_FSMDA_MANUFACTURER;
   static const char* UPNP_FSMDA_MANUFACTURER_URL;
-  static const char* PARENT_PARING_MANAGER_SCPDXML;
-  static const char* CHILD_PARING_MANAGER_SCPDXML;
+
+  // class methods
   static PLT_UPnP*
   requestUpnpReference ();
   static void
@@ -39,8 +47,12 @@ public:
 
 private:
   // private constructors & destructors
-  UpnpFsmdaUtils (){}
-  ~UpnpFsmdaUtils (){}
+  UpnpFsmdaUtils ()
+  {
+  }
+  ~UpnpFsmdaUtils ()
+  {
+  }
 
   // private fields
   static PLT_UPnP * upnp_singleton_;
