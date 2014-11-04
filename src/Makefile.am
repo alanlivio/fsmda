@@ -18,8 +18,8 @@ libfsmda_la_SOURCES = \
   fsmda/paringmanager/device_class_description.cpp\
   fsmda/paringmanager/parent_paring_manager.cpp\
   fsmda/paringmanager/child_paring_manager.cpp\
-  fsmda/paringmanager/upnp/upnp_ppm.cpp\
-  fsmda/paringmanager/upnp/upnp_cpm.cpp\
+  fsmda/paringmanager/upnp/upnp_parent_paring.cpp\
+  fsmda/paringmanager/upnp/upnp_child_paring.cpp\
   fsmda/communicationmanager/upnp/upnp_active_ccm.cpp\
   fsmda/communicationmanager/upnp/upnp_active_pcm.cpp\
   fsmda/communicationmanager/upnp/upnp_passive_ccm.cpp\
@@ -28,7 +28,7 @@ libfsmda_la_SOURCES = \
   fsmda/communicationmanager/upnp/upnp_mediacapture_ccm.cpp\
   fsmda/communicationmanager/upnp/upnp_ondemand_pcm.cpp\
   fsmda/communicationmanager/upnp/upnp_ondemand_ccm.cpp\
-  fsmda/utils/platinumkit.cpp
+  fsmda/utils/upnp_fsmda_utils.cpp
   
 # Libraries compiler options
 libfsmda_la_CPPFLAGS = -I./ $(PLATINUMKIT_CFLAGS) $(LIBXML2_CFLAGS)
