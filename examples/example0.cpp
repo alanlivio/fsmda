@@ -6,6 +6,7 @@
 #include <NptLogging.h>
 #include <PltCtrlPoint.h>
 #include <PltUPnP.h>
+#include "fsmda/paringmanager/upnp/upnp_child_paring.h"
 #include "fsmda/paringmanager/upnp/upnp_parent_paring.h"
 #include "fsmda/utils/upnp_fsmda_utils.h"
 #include <cassert>
@@ -19,11 +20,11 @@ using namespace std;
 int
 main (void)
 {
-  // parent paring tests
   UpnpParentParing* upnpParentParing = new UpnpParentParing ();
   upnpParentParing->start_service ();
-  assert(upnpParentParing->is_service_started () == true);
 
+  UpnpChildParing* upnpChildParing = new UpnpChildParing ();
+  upnpChildParing->start_service ();
   char buf[256];
   while (gets (buf))
     {

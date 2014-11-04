@@ -5,10 +5,12 @@
 #include "fsmda/paringmanager/upnp/upnp_child_paring.h"
 #include "fsmda/paringmanager/upnp/upnp_parent_paring.h"
 #include "fsmda/utils/upnp_fsmda_utils.h"
+#include "NptConfig.h"
 #include "NptResults.h"
 #include "NptStrings.h"
 #include "PltFileMediaServer.h"
 #include "PltService.h"
+#include "PltStateVariable.h"
 #include <iostream>
 #include <string>
 
@@ -53,6 +55,37 @@ UpnpChildParing::SetupServices ()
   return res;
 }
 
+/*----------------------------------------------------------------------
+ |   UpnpChildParing::OnAction
+ +---------------------------------------------------------------------*/
+NPT_Result
+UpnpChildParing::OnAction (PLT_ActionReference& action,
+			   const PLT_HttpRequestContext& context)
+{
+  NPT_String name = action->GetActionDesc ().GetName ();
+  if (name.Compare ("classAnnouncement") == 0)
+    {
+      NPT_String applicationId;
+      action->GetArgumentValue ("applicationId", applicationId);
+      NPT_Int32 classIndex;
+      action->GetArgumentValue ("classIndex", classIndex);
+      NPT_String classDesc;
+      action->GetArgumentValue ("classDesc", classDesc);
+      NPT_String classFunction;
+      action->GetArgumentValue ("classFunction", classFunction);
+      clog << "--->UpnpChildParing::OnAction receive classAnnouncement("
+	  << applicationId.GetChars () << "," << classIndex << ","
+	  << classDesc.GetChars () << "," << classFunction.GetChars () << ")"
+	  << endl;
+      return NPT_SUCCESS;
+    }
+  action->SetError (501, "Action Failed");
+  return NPT_FAILURE;
+}
+
+/*----------------------------------------------------------------------
+ |   UpnpChildParing::start_service
+ +---------------------------------------------------------------------*/
 int
 UpnpChildParing::start_service ()
 {

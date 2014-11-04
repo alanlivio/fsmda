@@ -8,7 +8,10 @@
 #include "NptResults.h"
 #include "NptStrings.h"
 #include "NptTypes.h"
+#include "PltAction.h"
+#include "PltHttp.h"
 #include "PltService.h"
+#include "PltStateVariable.h"
 #include <iostream>
 #include <string>
 
@@ -57,6 +60,50 @@ UpnpParentParing::SetupServices ()
   return res;
 }
 
+/*----------------------------------------------------------------------
+ |   UpnpParentParing::OnAction
+ +---------------------------------------------------------------------*/
+NPT_Result
+UpnpParentParing::OnAction (PLT_ActionReference& action,
+			    const PLT_HttpRequestContext& context)
+{
+  NPT_String name = action->GetActionDesc ().GetName ();
+  if (name.Compare ("addDeviceToClass") == 0)
+    {
+      NPT_String applicationId;
+      action->GetArgumentValue ("applicationId", applicationId);
+      NPT_String deviceAddr;
+      action->GetArgumentValue ("deviceAddr", deviceAddr);
+      NPT_Int32 classIndex;
+      action->GetArgumentValue ("classIndex", classIndex);
+      NPT_String deviceDesc;
+      action->GetArgumentValue ("deviceDesc", deviceDesc);
+      clog << "--->UpnpParentParing::OnAction receive addDeviceToClass("
+	  << applicationId.GetChars () << "," << deviceAddr.GetChars () << ","
+	  << classIndex << "," << deviceDesc.GetChars () << ")" << endl;
+      return NPT_SUCCESS;
+    }
+  else if (name.Compare ("getChildIndex") == 0)
+    {
+      NPT_String applicationId;
+      action->GetArgumentValue ("applicationId", applicationId);
+      NPT_String deviceAddr;
+      action->GetArgumentValue ("deviceAddr", deviceAddr);
+      NPT_Int32 classIndex;
+      action->GetArgumentValue ("classIndex", classIndex);
+      clog << "--->UpnpParentParing::OnAction receive getChildIndex("
+	  << applicationId.GetChars () << "," << deviceAddr.GetChars () << ","
+	  << classIndex << ")" << endl;
+      action->SetArgumentValue ("ret", "100");
+      return NPT_SUCCESS;
+    }
+  action->SetError (501, "Action Failed");
+  return NPT_FAILURE;
+}
+
+/*----------------------------------------------------------------------
+ |   UpnpParentParing::start_service
+ +---------------------------------------------------------------------*/
 int
 UpnpParentParing::start_service ()
 {
