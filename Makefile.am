@@ -1,5 +1,13 @@
+############################## Global flags ###################################
+AM_CPPFLAGS = \
+  -I$(top_srcdir)/src
+
+# AM_LDFLAGS = 
+
+############################## Subdirs ########################################
 SUBDIRS=src examples tests
 
+############################## distclean files ################################
 DISTCLEANFILES =\
   build-aux/libtool.m4\
   build-aux/ltmain.sh\
@@ -30,5 +38,6 @@ DISTCLEANFILES =\
   depcomp\
   install-sh\
   ltmain.sh\
-  missing\
-  $(NULL)
+  missing
+
+include ./maint.mk 
