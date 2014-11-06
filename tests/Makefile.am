@@ -18,60 +18,41 @@ GMOCKGTEST_CPPFLAGS =\
 AM_COLOR_TESTS = always
 AM_TESTS_FD_REDIRECT = 
 CLEANFILES = *.log *.trs
-TESTS = t0_test t1_test t2_test
+TESTS = testsuit_gtest
 
-############################## Tests libraries #################################
-#### Tests libraries
-#check_LTLIBRARIES = \
-#  libgmockgtest.la 
-#  
-#### Tests libraries sources
-#libgmockgtest_la_SOURCES = \
-#  gtest/src/gtest-all.cc
-#
-#### Tests libraries compiler options
-#libgmockgtest_la_CPPFLAGS =\
-#  $(GMOCKGTEST_CPPFLAGS)\
-#  $(GTEST_EXTRA_CPPFLAGS)
-#
-#libgmockgtest_la_LDFLAGS =\
-#  $(GTEST_EXTRA_LDFLAGS)
+############################# Tests libraries #################################
+### Tests libraries
+check_LTLIBRARIES = \
+  libgmockgtest.la 
+  
+### Tests libraries sources
+libgmockgtest_la_SOURCES = \
+  gtest/src/gtest-all.cc
 
-############################## Tests scripts #################################
-#check_SCRIPTS = \
-#  helloworld_script_test.sh
+### Tests libraries compiler options
+libgmockgtest_la_CPPFLAGS =\
+  $(GMOCKGTEST_CPPFLAGS)\
+  $(GTEST_EXTRA_CPPFLAGS)
 
-############################## Tests programs #################################
+libgmockgtest_la_LDFLAGS =\
+  $(GTEST_EXTRA_LDFLAGS)
+  
+############################# Testes gtests-based ###########################
 ### Tests programs
-check_PROGRAMS = t0_test t1_test t2_test
+check_PROGRAMS = testsuit_gtest 
 
 ### Tests programs sources
-t0_test_SOURCES = test0.cpp
-t1_test_SOURCES = test1.cpp
-t2_test_SOURCES = test2.cpp
+testsuit_gtest_SOURCES = testsuit_gtest.cc test0.cpp test1.cpp test2.cpp
 
 ### Tests programs compiler options
-t0_test_CPPFLAGS = $(PLATINUMKIT_CFLAGS) $(LIBXML2_CFLAGS)
-t1_test_CPPFLAGS = $(PLATINUMKIT_CFLAGS) $(LIBXML2_CFLAGS)
-t2_test_CPPFLAGS = $(PLATINUMKIT_CFLAGS) $(LIBXML2_CFLAGS)
+testsuit_gtest_CPPFLAGS = \
+  $(PLATINUMKIT_CFLAGS)\
+  $(LIBXML2_CFLAGS)\
+  $(GMOCKGTEST_CPPFLAGS)
 
 ### Tests programs linker options
-t0_test_LDADD = $(top_srcdir)/src/libfsmda.la $(PLATINUMKIT_LIBS) $(LIBXML2_LIBS)
-t1_test_LDADD = $(top_srcdir)/src/libfsmda.la $(PLATINUMKIT_LIBS) $(LIBXML2_LIBS)
-t2_test_LDADD = $(top_srcdir)/src/libfsmda.la $(PLATINUMKIT_LIBS) $(LIBXML2_LIBS)
-  
-############################## Testes gtests-based ###########################
-#### Tests programs
-#check_PROGRAMS += helloworld_gtest
-#
-#### Tests programs sources
-#helloworld_gtest_SOURCES = helloworld_gtest.cc
-#
-#### Tests programs compiler options
-#helloworld_gtest_CPPFLAGS = \
-#  $(GMOCKGTEST_CPPFLAGS)
-#
-#### Tests programs linker options
-#helloworld_gtest_LDADD = \
-#  $(top_builddir)/src/libtemplate.la\
-#  libgmockgtest.la
+testsuit_gtest_LDADD = \
+  $(top_srcdir)/src/libfsmda.la\
+  $(PLATINUMKIT_LIBS)\
+  $(LIBXML2_LIBS)\
+  libgmockgtest.la

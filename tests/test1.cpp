@@ -1,26 +1,23 @@
 /*----------------------------------------------------------------------
  |   includes
  +---------------------------------------------------------------------*/
-#include "assert.h"
+
 #include "fsmda/paringmanager/device_class_description.h"
 #include "fsmda/paringmanager/device_description.h"
+#include "gtest/gtest.h"
 #include <cstdlib>
 #include <string>
 
-/*----------------------------------------------------------------------
- |   main
- +---------------------------------------------------------------------*/
-int
-main (int argc, char **argv)
+TEST(ParingManager, device_meets_requirements)
 {
   string device_rdf;
   string device_class_description_rdf;
   bool ret;
   DeviceDescription * device_description = new DeviceDescription ();
-  assert(device_description != NULL);
+  EXPECT_TRUE(device_description != NULL);
   DeviceClassDescription * device_class_description =
       new DeviceClassDescription ();
-  assert(device_class_description != NULL);
+  EXPECT_TRUE(device_class_description != NULL);
 
   // passive class description initialize and meet_requirements tests
   device_rdf = "./files/test1_passive_dev_desc00.xml";
@@ -31,7 +28,7 @@ main (int argc, char **argv)
 
   ret = device_class_description->device_meets_requirements (
       device_description);
-  assert(ret);
+  EXPECT_TRUE(ret);
 
   // active class description initialize and meet_requirements tests
   device_rdf = "./files/test1_active_dev_desc00.xml";
@@ -41,7 +38,7 @@ main (int argc, char **argv)
       device_class_description_rdf);
   ret = device_class_description->device_meets_requirements (
       device_description);
-  assert(ret);
+  EXPECT_TRUE(ret);
 
   // html class description initialize and meet_requirements tests
   device_rdf = "./files/test1_html_dev_desc00.xml";
@@ -51,7 +48,7 @@ main (int argc, char **argv)
       device_class_description_rdf);
   ret = device_class_description->device_meets_requirements (
       device_description);
-  assert(ret);
+  EXPECT_TRUE(ret);
 
   // ondemand class description initialize and meet_requirements tests
   device_rdf = "./files/test1_ondemand_dev_desc00.xml";
@@ -61,7 +58,7 @@ main (int argc, char **argv)
       device_class_description_rdf);
   ret = device_class_description->device_meets_requirements (
       device_description);
-  assert(ret);
+  EXPECT_TRUE(ret);
 
   // mediacapture class description initialize and meet_requirements tests
   device_rdf = "./files/test1_mediacapture_dev_desc00.xml";
@@ -71,10 +68,8 @@ main (int argc, char **argv)
       device_class_description_rdf);
   ret = device_class_description->device_meets_requirements (
       device_description);
-  assert(ret);
+  EXPECT_TRUE(ret);
 
   delete device_description;
   delete device_class_description;
-
-  return EXIT_SUCCESS;
 }
