@@ -1,7 +1,9 @@
 .deps
 .libs
 .dirstamp
-/build-aux/
+/build-aux/*
+!/build-aux/cpplint.py
+!/build-aux/acx_pthread.m4
 config.*
 /INSTALL
 /TAGS
@@ -11,8 +13,9 @@ config.*
 stamp-h1
 *.trs
 *.pc
-/tests/*_test
-/examples/*_example
+*_test
+*_gtest
+*_program
 
 # Created by https://www.gitignore.io
 
