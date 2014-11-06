@@ -64,7 +64,7 @@ AC_CONFIG_HEADERS([src/config.h])
 AC_CONFIG_FILES(Makefile
                 src/Makefile
                 src/libfsmda.pc
-                examples/Makefile
+                programs/Makefile
                 tests/Makefile)
 
 ############################## Output #########################################

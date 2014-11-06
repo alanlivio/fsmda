@@ -5,7 +5,7 @@ AM_CPPFLAGS = \
 # AM_LDFLAGS = 
 
 ############################## Subdirs ########################################
-SUBDIRS=src examples tests
+SUBDIRS=src programs tests
 
 ############################## distclean files ################################
 DISTCLEANFILES =\
