@@ -24,7 +24,7 @@
  |   main
  +---------------------------------------------------------------------*/
 
-TEST(ParingManager, Constructors)
+TEST(Paring, Constructors)
 {
   UpnpParentParing * ppm = new UpnpParentParing ();
   EXPECT_TRUE(ppm != NULL);
@@ -41,7 +41,7 @@ TEST(ParingManager, Constructors)
   delete dev_class_requirements;
 }
 
-TEST(CommunicationManager, Constructors)
+TEST(Communication, Constructors)
 {
   UpnpActivePcm * activePcm = new UpnpActivePcm ();
   EXPECT_TRUE(activePcm != NULL);
@@ -68,9 +68,15 @@ TEST(CommunicationManager, Constructors)
   EXPECT_TRUE(passiveCcm != NULL);
   delete passiveCcm;
 }
-TEST(UpnpFsmdaUtil, RequestUpnpReference)
+
+TEST(Utils, Upnp)
 {
+  EXPECT_EQ(0, UpnpFsmdaUtils::references_count_);
   PLT_UPnP * upnp = UpnpFsmdaUtils::requestUpnpReference ();
   EXPECT_TRUE(upnp != NULL);
+  EXPECT_EQ(1, UpnpFsmdaUtils::references_count_);
   UpnpFsmdaUtils::releaseUpnpReference ();
+  EXPECT_EQ(0, UpnpFsmdaUtils::references_count_);
+  UpnpFsmdaUtils::releaseUpnpReference ();
+  EXPECT_EQ(0, UpnpFsmdaUtils::references_count_);
 }

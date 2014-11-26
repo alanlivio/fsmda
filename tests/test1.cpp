@@ -8,7 +8,7 @@
 #include <cstdlib>
 #include <string>
 
-TEST(ParingManager, device_meets_requirements)
+TEST(Paring, DeviceMeetRequirements)
 {
   string device_rdf;
   string device_class_description_rdf;

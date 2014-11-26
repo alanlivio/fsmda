@@ -43,6 +43,7 @@ check_PROGRAMS = testsuit_gtest
 
 ### Tests programs sources
 testsuit_gtest_SOURCES = testsuit_gtest.cc test0.cpp test1.cpp test2.cpp
+#testsuit_gtest_SOURCES = testsuit_gtest.cc test2.cpp
 
 ### Tests programs compiler options
 testsuit_gtest_CPPFLAGS = \
