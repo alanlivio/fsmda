@@ -237,6 +237,7 @@ UpnpFsmdaUtils::requestUpnpReference ()
       UpnpFsmdaUtils::references_count_ = 0;
       UpnpFsmdaUtils::upnp_running_ = true;
     }
+  UpnpFsmdaUtils::references_count_++;
   return UpnpFsmdaUtils::upnp_singleton_;
 }
 
@@ -258,5 +259,14 @@ UpnpFsmdaUtils::releaseUpnpReference ()
     }
   else
     UpnpFsmdaUtils::references_count_--;
+}
+
+/*----------------------------------------------------------------------
+ |   UpnpUtils::references_count
+ +---------------------------------------------------------------------*/
+const unsigned int
+UpnpFsmdaUtils::get_references_count()
+{
+  return UpnpFsmdaUtils::references_count_;
 }
 

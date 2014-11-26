@@ -43,6 +43,7 @@ public:
 private:
   bool service_start_;
   PLT_UPnP* upnp_reference_;
+  PLT_DeviceHostReference * device_reference_;
 };
 
 #endif /* UPNP_PPMH_ */

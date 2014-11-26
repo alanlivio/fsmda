@@ -44,6 +44,9 @@ public:
   requestUpnpReference ();
   static void
   releaseUpnpReference ();
+  static const unsigned int
+  get_references_count ();
+  static unsigned int references_count_;
 
 private:
   // private constructors & destructors
@@ -54,10 +57,9 @@ private:
   {
   }
 
-  // private fields
+  // private class fields
   static PLT_UPnP * upnp_singleton_;
   static bool upnp_running_;
-  static unsigned int references_count_;
 };
 
 #endif /* UPNP_FSMDA_UTILS_H */

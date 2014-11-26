@@ -31,7 +31,7 @@ UpnpParentParing::UpnpParentParing (const char* UUID) :
   this->m_ModelName = UpnpFsmdaUtils::UPNP_FSMDA_PPM_DEVICE_MODEL_NAME;
   this->m_Manufacturer = UpnpFsmdaUtils::UPNP_FSMDA_MANUFACTURER;
   this->m_ManufacturerURL = UpnpFsmdaUtils::UPNP_FSMDA_MANUFACTURER_URL;
-  this->upnp_reference_ = UpnpFsmdaUtils::requestUpnpReference ();
+  this->device_reference_ = new PLT_DeviceHostReference (this);
 }
 
 /*----------------------------------------------------------------------
@@ -39,8 +39,7 @@ UpnpParentParing::UpnpParentParing (const char* UUID) :
  +---------------------------------------------------------------------*/
 UpnpParentParing::~UpnpParentParing ()
 {
-  if (this->upnp_reference_ != NULL)
-    UpnpFsmdaUtils::releaseUpnpReference ();
+  this->stop_service ();
 }
 
 /*----------------------------------------------------------------------
@@ -112,8 +111,7 @@ UpnpParentParing::start_service ()
   if (upnp_reference_ == NULL)
     upnp_reference_ = UpnpFsmdaUtils::requestUpnpReference ();
   clog << "UpnpParentParing::start_service" << endl;
-  PLT_DeviceHostReference device_reference (this);
-  NPT_Result res = upnp_reference_->AddDevice (device_reference);
+  NPT_Result res = upnp_reference_->AddDevice (*device_reference_);
   if (res != NPT_SUCCESS)
     return -1;
   else
@@ -129,10 +127,16 @@ UpnpParentParing::start_service ()
 int
 UpnpParentParing::stop_service ()
 {
+  if (service_start_ == false)
+    return 0;
+
   if (upnp_reference_ != NULL)
-    UpnpFsmdaUtils::releaseUpnpReference ();
-  upnp_reference_ = NULL;
-  service_start_ = false;
+    {
+      upnp_reference_->RemoveDevice (*device_reference_);
+      UpnpFsmdaUtils::releaseUpnpReference ();
+      upnp_reference_ = NULL;
+      service_start_ = false;
+    }
   return 0;
 }
 /*----------------------------------------------------------------------
