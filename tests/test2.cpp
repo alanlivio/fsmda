@@ -2,9 +2,9 @@
  |   includes
  +---------------------------------------------------------------------*/
 
-#include "fsmda/communicationmanager/upnp/upnp_ondemand_ccm.h"
-#include "fsmda/paringmanager/upnp/upnp_child_paring.h"
-#include "fsmda/paringmanager/upnp/upnp_parent_paring.h"
+#include "fsmda/communication/upnp/upnp_ondemand_ccm.h"
+#include "fsmda/paring/upnp/upnp_child_paring.h"
+#include "fsmda/paring/upnp/upnp_parent_paring.h"
 #include "gtest/gtest.h"
 #include "unistd.h"
 #include <cstdlib>

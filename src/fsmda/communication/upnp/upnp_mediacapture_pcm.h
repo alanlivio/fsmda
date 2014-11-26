@@ -5,7 +5,7 @@
  |   include
  +---------------------------------------------------------------------*/
 
-#include "fsmda/communicationmanager/model/mediacapture_object_interfaces.h"
+#include "fsmda/communication/model/mediacapture_object_interfaces.h"
 #include <string>
 
 using namespace std;

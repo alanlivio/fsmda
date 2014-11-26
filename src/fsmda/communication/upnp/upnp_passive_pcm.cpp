@@ -2,26 +2,23 @@
  |   includes
  +---------------------------------------------------------------------*/
 
-#include "fsmda/communicationmanager/upnp/upnp_mediacapture_ccm.h"
-#include <string>
+#include "fsmda/communication/upnp/upnp_passive_pcm.h"
 
 /*----------------------------------------------------------------------
- |   UpnpMediaCaptureCcm::~UpnpMediaCaptureCcm
+ |   UPnPPassivePCM::UPnPPassivePCM
  +---------------------------------------------------------------------*/
-UpnpMediaCaptureCcm::UpnpMediaCaptureCcm() {
+UpnpPassivePcm::UpnpPassivePcm() {
 }
 
 /*----------------------------------------------------------------------
- |   UpnpMediaCaptureCcm::~UpnpMediaCaptureCcm
+ |   UPnPPassivePCM::~UPnPPassivePCM
  +---------------------------------------------------------------------*/
-UpnpMediaCaptureCcm::~UpnpMediaCaptureCcm() {
+UpnpPassivePcm::~UpnpPassivePcm() {
 }
 
 /*----------------------------------------------------------------------
- |   UpnpMediaCaptureCcm::~UpnpMediaCaptureCcm
+ |   UPnPPassivePCM::notifyError
  +---------------------------------------------------------------------*/
-void UpnpMediaCaptureCcm::requestContent(const string& resourceId,
-                                         unsigned int deviceIndex) {
-
+void UpnpPassivePcm::notifyError(const string& message,
+                                 const string& objectId) {
 }
-

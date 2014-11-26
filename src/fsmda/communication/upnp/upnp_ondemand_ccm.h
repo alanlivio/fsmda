@@ -4,7 +4,7 @@
  |   includes
  +---------------------------------------------------------------------*/
 
-#include "fsmda/communicationmanager/upnp/upnp_service_cm_interface.h"
+#include "fsmda/communication/upnp/upnp_service_cm_interface.h"
 #include <string>
 
 class PLT_UPnP;

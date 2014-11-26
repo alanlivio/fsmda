@@ -2,25 +2,25 @@
  |   includes
  +---------------------------------------------------------------------*/
 
-#include "fsmda/communicationmanager/upnp/upnp_mediacapture_pcm.h"
+#include "fsmda/communication/upnp/upnp_ondemand_pcm.h"
+#include <string>
 
 /*----------------------------------------------------------------------
- |   UpnpMediaCapturePcm::UpnpMediaCapturePcm
+ |   UpnpOnDemandPcm::UPnPOnDemandPCM
  +---------------------------------------------------------------------*/
-UpnpMediaCapturePcm::UpnpMediaCapturePcm() {
+UpnpOnDemandPcm::UpnpOnDemandPcm() {
 
 }
 
 /*----------------------------------------------------------------------
- |   UpnpMediaCapturePcm::~UpnpMediaCapturePcm
+ |   UpnpOnDemandPcm::~UPnPOnDemandPCM
  +---------------------------------------------------------------------*/
-UpnpMediaCapturePcm::~UpnpMediaCapturePcm() {
+UpnpOnDemandPcm::~UpnpOnDemandPcm() {
 }
 
 /*----------------------------------------------------------------------
- |   UpnpMediaCapturePcm::sendContent
+ |   UPnPOnDemandPCM::notifyOnDemandContent
  +---------------------------------------------------------------------*/
-void UpnpMediaCapturePcm::sendContent(char* content, const string& resourceId,
-                                      unsigned int childIndex) {
-
+void UpnpOnDemandPcm::notifyOnDemandContent(const string& action,
+                                            const string& location) {
 }

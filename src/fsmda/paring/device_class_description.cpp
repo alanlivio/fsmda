@@ -2,8 +2,8 @@
  |   includes
  +---------------------------------------------------------------------*/
 
-#include "fsmda/paringmanager/device_class_description.h"
-#include "fsmda/paringmanager/device_description.h"
+#include "fsmda/paring/device_class_description.h"
+#include "fsmda/paring/device_description.h"
 #include "libxml/parser.h"
 #include "libxml/tree.h"
 #include "libxml/xmlmemory.h"

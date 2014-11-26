@@ -2,8 +2,8 @@
  |   includes
  +---------------------------------------------------------------------*/
 
-#include "fsmda/communicationmanager/model/active_object_interfaces.h"
-#include "fsmda/communicationmanager/upnp/upnp_active_ccm.h"
+#include "fsmda/communication/model/active_object_interfaces.h"
+#include "fsmda/communication/upnp/upnp_active_ccm.h"
 
 /*----------------------------------------------------------------------
  |   UpnpActiveCcm::UpnpActiveCcm

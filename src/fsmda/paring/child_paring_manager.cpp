@@ -1,10 +1,10 @@
-#include "fsmda/communicationmanager/model/passive_object_interfaces.h"
-#include "fsmda/communicationmanager/upnp/upnp_active_ccm.h"
-#include "fsmda/communicationmanager/upnp/upnp_mediacapture_ccm.h"
-#include "fsmda/communicationmanager/upnp/upnp_ondemand_ccm.h"
-#include "fsmda/communicationmanager/upnp/upnp_passive_ccm.h"
-#include "fsmda/paringmanager/child_paring_manager.h"
-#include "fsmda/paringmanager/device_class_description.h"
+#include "fsmda/communication/model/passive_object_interfaces.h"
+#include "fsmda/communication/upnp/upnp_active_ccm.h"
+#include "fsmda/communication/upnp/upnp_mediacapture_ccm.h"
+#include "fsmda/communication/upnp/upnp_ondemand_ccm.h"
+#include "fsmda/communication/upnp/upnp_passive_ccm.h"
+#include "fsmda/paring/child_paring_manager.h"
+#include "fsmda/paring/device_class_description.h"
 #include <string>
 
 ChildParingManager::ChildParingManager() {

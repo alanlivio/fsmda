@@ -2,29 +2,25 @@
  |   includes
  +---------------------------------------------------------------------*/
 
-#include "fsmda/communicationmanager/upnp/upnp_passive_ccm.h"
-#include <string>
+#include "fsmda/communication/upnp/upnp_mediacapture_pcm.h"
 
 /*----------------------------------------------------------------------
- |   UpnpPassiveCcm::UpnpPassiveCcm
+ |   UpnpMediaCapturePcm::UpnpMediaCapturePcm
  +---------------------------------------------------------------------*/
-UpnpPassiveCcm::UpnpPassiveCcm() {
+UpnpMediaCapturePcm::UpnpMediaCapturePcm() {
+
 }
 
 /*----------------------------------------------------------------------
- |   UpnpPassiveCcm::~UpnpPassiveCcm
+ |   UpnpMediaCapturePcm::~UpnpMediaCapturePcm
  +---------------------------------------------------------------------*/
-UpnpPassiveCcm::~UpnpPassiveCcm() {
+UpnpMediaCapturePcm::~UpnpMediaCapturePcm() {
 }
 
 /*----------------------------------------------------------------------
- |   UpnpPassiveCcm::prepare
+ |   UpnpMediaCapturePcm::sendContent
  +---------------------------------------------------------------------*/
-void UpnpPassiveCcm::prepare(const string& position) {
-}
+void UpnpMediaCapturePcm::sendContent(char* content, const string& resourceId,
+                                      unsigned int childIndex) {
 
-/*----------------------------------------------------------------------
- |   UpnpPassiveCcm::sendContent
- +---------------------------------------------------------------------*/
-void UpnpPassiveCcm::sendContent(char* content) {
 }

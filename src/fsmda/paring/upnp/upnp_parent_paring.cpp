@@ -2,8 +2,8 @@
  |   includes
  +---------------------------------------------------------------------*/
 
-#include "fsmda/paringmanager/upnp/upnp_child_paring.h"
-#include "fsmda/paringmanager/upnp/upnp_parent_paring.h"
+#include "fsmda/paring/upnp/upnp_child_paring.h"
+#include "fsmda/paring/upnp/upnp_parent_paring.h"
 #include "fsmda/utils/upnp_fsmda_utils.h"
 #include "NptResults.h"
 #include "NptStrings.h"

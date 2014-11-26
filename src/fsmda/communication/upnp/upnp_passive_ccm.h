@@ -5,7 +5,7 @@
  |   includes
  +---------------------------------------------------------------------*/
 
-#include "fsmda/communicationmanager/model/passive_object_interfaces.h"
+#include "fsmda/communication/model/passive_object_interfaces.h"
 #include <string>
 
 /*----------------------------------------------------------------------

@@ -5,7 +5,7 @@
  |   includes
  +---------------------------------------------------------------------*/
 
-#include "fsmda/paringmanager/device_class_description.h"
+#include "fsmda/paring/device_class_description.h"
 #include "libxml/tree.h"
 #include <string>
 

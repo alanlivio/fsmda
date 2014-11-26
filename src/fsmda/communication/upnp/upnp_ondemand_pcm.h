@@ -1,28 +1,28 @@
-#ifndef UPNP_PASSIVE_PCM_H_
-#define UPNP_PASSIVE_PCM_H_
+#ifndef UPNP_ONDEMAND_PCM_H_
+#define UPNP_ONDEMAND_PCM_H_
 
 /*----------------------------------------------------------------------
  |   includes
  +---------------------------------------------------------------------*/
 
-#include "fsmda/communicationmanager/model/passive_object_interfaces.h"
+#include "fsmda/communication/model/ondemand_object_interfaces.h"
 #include <string>
 
 using namespace std;
 
 /*----------------------------------------------------------------------
- |   UpnpPassivePcm  class
+ |   UpnpOnDemandPcm class
  +---------------------------------------------------------------------*/
-class UpnpPassivePcm : public PassivePcmInterface {
+class UpnpOnDemandPcm : public OnDemandPcmInterface {
  public:
   // public constructors & destructors
-  UpnpPassivePcm();
+  UpnpOnDemandPcm();
   virtual
-  ~UpnpPassivePcm();
+  ~UpnpOnDemandPcm();
 
-  // PassivePCMInterface overloaded methods
+  // OnDemandPCMInterface overloaded methods
   virtual void
-  notifyError(const string& message, const string& objectId);
+  notifyOnDemandContent(const string& action, const string& location);
 };
 
-#endif /* UPNP_PASSIVE_PCM_H_ */
+#endif /* UPNP_ONDEMAND_PCM_H_ */

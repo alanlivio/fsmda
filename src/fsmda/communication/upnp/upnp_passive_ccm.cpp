@@ -2,23 +2,29 @@
  |   includes
  +---------------------------------------------------------------------*/
 
-#include "fsmda/communicationmanager/upnp/upnp_passive_pcm.h"
+#include "fsmda/communication/upnp/upnp_passive_ccm.h"
+#include <string>
 
 /*----------------------------------------------------------------------
- |   UPnPPassivePCM::UPnPPassivePCM
+ |   UpnpPassiveCcm::UpnpPassiveCcm
  +---------------------------------------------------------------------*/
-UpnpPassivePcm::UpnpPassivePcm() {
+UpnpPassiveCcm::UpnpPassiveCcm() {
 }
 
 /*----------------------------------------------------------------------
- |   UPnPPassivePCM::~UPnPPassivePCM
+ |   UpnpPassiveCcm::~UpnpPassiveCcm
  +---------------------------------------------------------------------*/
-UpnpPassivePcm::~UpnpPassivePcm() {
+UpnpPassiveCcm::~UpnpPassiveCcm() {
 }
 
 /*----------------------------------------------------------------------
- |   UPnPPassivePCM::notifyError
+ |   UpnpPassiveCcm::prepare
  +---------------------------------------------------------------------*/
-void UpnpPassivePcm::notifyError(const string& message,
-                                 const string& objectId) {
+void UpnpPassiveCcm::prepare(const string& position) {
+}
+
+/*----------------------------------------------------------------------
+ |   UpnpPassiveCcm::sendContent
+ +---------------------------------------------------------------------*/
+void UpnpPassiveCcm::sendContent(char* content) {
 }
