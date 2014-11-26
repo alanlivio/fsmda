@@ -19,19 +19,19 @@
  |   UpnpParentParing::UpnpParentParing
  +---------------------------------------------------------------------*/
 UpnpParentParing::UpnpParentParing(const char* UUID)
-    : PLT_DeviceHost("/", UUID, UpnpFsmdaUtils::UPNP_FSMDA_PPM_DEVICE_TYPE,
-                     UpnpFsmdaUtils::UPNP_FSMDA_PPM_DEVICE_FRIENDLY_NAME),
+    : PLT_DeviceHost("/", UUID, UpnpFsmdaUtils::kPpmDeviceType,
+                     UpnpFsmdaUtils::kPpmDeviceFriendlyName),
       service_start_(false),
       upnp_reference_(NULL)
 
 {
   this->m_ModelDescription =
-      UpnpFsmdaUtils::UPNP_FSMDA_PPM_DEVICE_MODEL_DESCRIPTION;
-  this->m_ModelURL = UpnpFsmdaUtils::UPNP_FSMDA_PPM_DEVICE_MODEL_URL;
-  this->m_ModelNumber = UpnpFsmdaUtils::UPNP_FSMDA_PPM_DEVICE_MODEL_NUMBER;
-  this->m_ModelName = UpnpFsmdaUtils::UPNP_FSMDA_PPM_DEVICE_MODEL_NAME;
-  this->m_Manufacturer = UpnpFsmdaUtils::UPNP_FSMDA_MANUFACTURER;
-  this->m_ManufacturerURL = UpnpFsmdaUtils::UPNP_FSMDA_MANUFACTURER_URL;
+      UpnpFsmdaUtils::kPpmDeviceModelDescription;
+  this->m_ModelURL = UpnpFsmdaUtils::kPpmDeviceModelUrl;
+  this->m_ModelNumber = UpnpFsmdaUtils::kPpmDeviceNumber;
+  this->m_ModelName = UpnpFsmdaUtils::kPpmDeviceModelName;
+  this->m_Manufacturer = UpnpFsmdaUtils::kFsmdaManufacturer;
+  this->m_ManufacturerURL = UpnpFsmdaUtils::kFsmdaManufacturerUrl;
   this->device_reference_ = new PLT_DeviceHostReference(this);
 }
 
@@ -48,11 +48,11 @@ UpnpParentParing::~UpnpParentParing() {
 NPT_Result UpnpParentParing::SetupServices() {
   NPT_Result res;
   PLT_Service* service = new PLT_Service(
-      this, UpnpFsmdaUtils::UPNP_FSMDA_PPM_SERVICE_TYPE,
-      UpnpFsmdaUtils::UPNP_FSMDA_PPM_SERVICE_ID,
-      UpnpFsmdaUtils::UPNP_FSMDA_PPM_SERVICE_NAME);
+      this, UpnpFsmdaUtils::kPpmServiceType,
+      UpnpFsmdaUtils::kPpmServiceId,
+      UpnpFsmdaUtils::kPpmServiceName);
   res = service->SetSCPDXML(
-      (const char*) UpnpFsmdaUtils::UPNP_FSMDA_PPM_SERVICE_SCPDXML);
+      (const char*) UpnpFsmdaUtils::kPpmServiceScpdXml);
   res = AddService(service);
   return res;
 }

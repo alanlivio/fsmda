@@ -16,7 +16,7 @@ ChildParingManager::~ChildParingManager() {
 ActiveCcmInterface*
 ChildParingManager::createActiveCcm(unsigned int classIndex) {
   if (map_classDescription_[classIndex]->classType_
-      == DeviceClassDescription::FSDMA_ACTIVE)
+      == DeviceClassDescription::kFsmdaActiveDevice)
     return new UpnpActiveCcm();
   else
     return NULL;
@@ -24,7 +24,7 @@ ChildParingManager::createActiveCcm(unsigned int classIndex) {
 MediaCaptureCcmInterface*
 ChildParingManager::createMediaCaptureCcm(unsigned int classIndex) {
   if (map_classDescription_[classIndex]->classType_
-      == DeviceClassDescription::FSDMA_MEDIACAPTURE)
+      == DeviceClassDescription::kFsmdaMediaCaptureDevice)
     return new UpnpMediaCaptureCcm();
   else
     return NULL;
@@ -33,7 +33,7 @@ ChildParingManager::createMediaCaptureCcm(unsigned int classIndex) {
 PassiveCcmInterface*
 ChildParingManager::createPassiveCcm(unsigned int classIndex) {
   if (map_classDescription_[classIndex]->classType_
-      == DeviceClassDescription::FSDMA_PASSIVE)
+      == DeviceClassDescription::kFsmdaPassiveDevice)
     return new UpnpPassiveCcm();
   else
     return NULL;

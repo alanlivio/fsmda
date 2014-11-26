@@ -29,7 +29,7 @@ string DeviceClassDescription::deviceClassTypeMap[] = { "base", "passive",
  +---------------------------------------------------------------------*/
 DeviceClassDescription::DeviceClassDescription()
     : doc_(NULL),
-      classType_(FSDMA_BASE),
+      classType_(kFsmdaBaseDevice),
       min_devices_(0),
       max_devices_(0),
       initialized_(false) {
@@ -153,20 +153,20 @@ DeviceClassDescription::DeviceClassType DeviceClassDescription::get_device_class
 
     {
   if (!str.compare(
-      DeviceClassDescription::deviceClassTypeMap[DeviceClassDescription::FSDMA_PASSIVE]))
-    return DeviceClassDescription::FSDMA_PASSIVE;
+      DeviceClassDescription::deviceClassTypeMap[DeviceClassDescription::kFsmdaPassiveDevice]))
+    return DeviceClassDescription::kFsmdaPassiveDevice;
   else if (!str.compare(
-      DeviceClassDescription::deviceClassTypeMap[DeviceClassDescription::FSDMA_ACTIVE]))
-    return DeviceClassDescription::FSDMA_ACTIVE;
+      DeviceClassDescription::deviceClassTypeMap[DeviceClassDescription::kFsmdaActiveDevice]))
+    return DeviceClassDescription::kFsmdaActiveDevice;
   else if (!str.compare(
-      DeviceClassDescription::deviceClassTypeMap[DeviceClassDescription::FSDMA_HTML]))
-    return DeviceClassDescription::FSDMA_HTML;
+      DeviceClassDescription::deviceClassTypeMap[DeviceClassDescription::kFsmdaHtmlDevice]))
+    return DeviceClassDescription::kFsmdaHtmlDevice;
   else if (!str.compare(
-      DeviceClassDescription::deviceClassTypeMap[DeviceClassDescription::FSDMA_ONDEMAND]))
-    return DeviceClassDescription::FSDMA_ONDEMAND;
+      DeviceClassDescription::deviceClassTypeMap[DeviceClassDescription::kFsmdaOnDemandDevice]))
+    return DeviceClassDescription::kFsmdaOnDemandDevice;
   else if (!str.compare(
-      DeviceClassDescription::deviceClassTypeMap[DeviceClassDescription::FSDMA_MEDIACAPTURE]))
-    return DeviceClassDescription::FSDMA_MEDIACAPTURE;
+      DeviceClassDescription::deviceClassTypeMap[DeviceClassDescription::kFsmdaMediaCaptureDevice]))
+    return DeviceClassDescription::kFsmdaMediaCaptureDevice;
   else
-    return DeviceClassDescription::FSDMA_BASE;
+    return DeviceClassDescription::kFsmdaBaseDevice;
 }

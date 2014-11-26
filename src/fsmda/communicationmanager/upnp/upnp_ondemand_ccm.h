@@ -17,13 +17,7 @@ using namespace std;
 class UpnpOnDemandCcm : public ServiceCmInterface {
  public:
   // class fields and methods
-  static const char* UPNP_FSMDA_ONDEMAND_CLASS_FRIENDLY_NAME;
-  static const char* UPNP_FSMDA_ONDEMAND_CLASS_MODEL_DESCRIPTION;
-  static const char* UPNP_FSMDA_ONDEMAND_CLASS_MODEL_URL;
-  static const char* UPNP_FSMDA_ONDEMAND_CLASS_MODEL_NUMBER;
-  static const char* UPNP_FSMDA_ONDEMAND_CLASS_MODEL_NAME;
-  static const char* UPNP_FSMDA_MANUFACTURER;
-  static const char* UPNP_FSMDA_MANUFACTURER_URL;
+
   // public constructors & destructors
   UpnpOnDemandCcm();
   virtual

@@ -18,17 +18,17 @@
  |   UpnpChildParing::UpnpChildParing
  +---------------------------------------------------------------------*/
 UpnpChildParing::UpnpChildParing(const char* UUID)
-    : PLT_DeviceHost("/", UUID, UpnpFsmdaUtils::UPNP_FSMDA_PPM_DEVICE_TYPE,
-                     UpnpFsmdaUtils::UPNP_FSMDA_CPM_DEVICE_FRIENDLY_NAME),
+    : PLT_DeviceHost("/", UUID, UpnpFsmdaUtils::kPpmDeviceType,
+                     UpnpFsmdaUtils::kCpmDeviceFriendlyName),
       service_start_(false),
       upnp_reference_(NULL) {
   this->m_ModelDescription =
-      UpnpFsmdaUtils::UPNP_FSMDA_CPM_DEVICE_MODEL_DESCRIPTION;
-  this->m_ModelURL = UpnpFsmdaUtils::UPNP_FSMDA_CPM_DEVICE_MODEL_URL;
-  this->m_ModelNumber = UpnpFsmdaUtils::UPNP_FSMDA_CPM_DEVICE_MODEL_NUMBER;
-  this->m_ModelName = UpnpFsmdaUtils::UPNP_FSMDA_CPM_DEVICE_MODEL_NAME;
-  this->m_Manufacturer = UpnpFsmdaUtils::UPNP_FSMDA_MANUFACTURER;
-  this->m_ManufacturerURL = UpnpFsmdaUtils::UPNP_FSMDA_MANUFACTURER_URL;
+      UpnpFsmdaUtils::kCpmDeviceModelDescription;
+  this->m_ModelURL = UpnpFsmdaUtils::kCpmDeviceModelUrl;
+  this->m_ModelNumber = UpnpFsmdaUtils::kCpmDeviceModelNumber;
+  this->m_ModelName = UpnpFsmdaUtils::kCpmDeviceModelName;
+  this->m_Manufacturer = UpnpFsmdaUtils::kFsmdaManufacturer;
+  this->m_ManufacturerURL = UpnpFsmdaUtils::kFsmdaManufacturerUrl;
 }
 
 /*----------------------------------------------------------------------
@@ -43,11 +43,11 @@ UpnpChildParing::~UpnpChildParing() {
 NPT_Result UpnpChildParing::SetupServices() {
   NPT_Result res;
   PLT_Service* service = new PLT_Service(
-      this, UpnpFsmdaUtils::UPNP_FSMDA_CPM_SERVICE_TYPE,
-      UpnpFsmdaUtils::UPNP_FSMDA_CPM_SERVICE_ID,
-      UpnpFsmdaUtils::UPNP_FSMDA_CPM_SERVICE_NAME);
+      this, UpnpFsmdaUtils::kCpmServiceType,
+      UpnpFsmdaUtils::kCpmServiceId,
+      UpnpFsmdaUtils::kCpmServiceName);
   res = service->SetSCPDXML(
-      (const char*) UpnpFsmdaUtils::UPNP_FSMDA_CPM_SERVICE_SCPDXML);
+      (const char*) UpnpFsmdaUtils::kCpmServiceScpdXml);
   res = AddService(service);
   return res;
 }

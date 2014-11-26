@@ -19,7 +19,7 @@
  +---------------------------------------------------------------------*/
 DeviceDescription::DeviceDescription()
     : doc_(NULL),
-      classType_(DeviceClassDescription::FSDMA_BASE),
+      classType_(DeviceClassDescription::kFsmdaBaseDevice),
       initialized_(false) {
 }
 

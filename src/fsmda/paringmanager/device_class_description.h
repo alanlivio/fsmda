@@ -22,16 +22,16 @@ class DeviceClassDescription {
  public:
   // class fields and methods
   enum DeviceClassType {
-    FSDMA_BASE = 0,
-    FSDMA_PASSIVE = 1,
-    FSDMA_ACTIVE = 2,
-    FSDMA_HTML = 3,
-    FSDMA_ONDEMAND = 4,
-    FSDMA_MEDIACAPTURE = 5
+    kFsmdaBaseDevice = 0,
+    kFsmdaPassiveDevice = 1,
+    kFsmdaActiveDevice = 2,
+    kFsmdaHtmlDevice = 3,
+    kFsmdaOnDemandDevice = 4,
+    kFsmdaMediaCaptureDevice = 5
   };
-  enum DeviceCommunicationProtocol {
-    UPNP = 0,
-    ZEROCONF = 1,
+  enum DeviceProtocol {
+    kFsmaUpnpProtocol = 0,
+    kFsmdaZeroconfProtocol = 1,
   };
   static DeviceClassType
   get_device_class_type_by_string(const string& str);
