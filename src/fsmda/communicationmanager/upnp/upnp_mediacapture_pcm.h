@@ -13,18 +13,16 @@ using namespace std;
 /*----------------------------------------------------------------------
  |   UpnpMediaCapturePcm class
  +---------------------------------------------------------------------*/
-class UpnpMediaCapturePcm : public MediaCapturePcmInterface
-{
-public:
+class UpnpMediaCapturePcm : public MediaCapturePcmInterface {
+ public:
   // public constructors & destructors
-  UpnpMediaCapturePcm ();
+  UpnpMediaCapturePcm();
   virtual
-  ~UpnpMediaCapturePcm ();
+  ~UpnpMediaCapturePcm();
 
   // MediaCapturePcmInterface overloaded methods
   virtual void
-  sendContent (char* content, const string& resourceId,
-	       unsigned int childIndex);
+  sendContent(char* content, const string& resourceId, unsigned int childIndex);
 };
 
 #endif /* MEDIA_CAPTURE_PCM_H_ */

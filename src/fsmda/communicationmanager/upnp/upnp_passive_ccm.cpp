@@ -8,29 +8,23 @@
 /*----------------------------------------------------------------------
  |   UpnpPassiveCcm::UpnpPassiveCcm
  +---------------------------------------------------------------------*/
-UpnpPassiveCcm::UpnpPassiveCcm ()
-{
+UpnpPassiveCcm::UpnpPassiveCcm() {
 }
 
 /*----------------------------------------------------------------------
  |   UpnpPassiveCcm::~UpnpPassiveCcm
  +---------------------------------------------------------------------*/
-UpnpPassiveCcm::~UpnpPassiveCcm ()
-{
+UpnpPassiveCcm::~UpnpPassiveCcm() {
 }
 
 /*----------------------------------------------------------------------
  |   UpnpPassiveCcm::prepare
  +---------------------------------------------------------------------*/
-void
-UpnpPassiveCcm::prepare (const string& position)
-{
+void UpnpPassiveCcm::prepare(const string& position) {
 }
 
 /*----------------------------------------------------------------------
  |   UpnpPassiveCcm::sendContent
  +---------------------------------------------------------------------*/
-void
-UpnpPassiveCcm::sendContent (char* content)
-{
+void UpnpPassiveCcm::sendContent(char* content) {
 }

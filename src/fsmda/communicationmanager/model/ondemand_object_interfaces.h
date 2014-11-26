@@ -12,18 +12,15 @@ using namespace std;
 /*----------------------------------------------------------------------
  |   OnDemandPcmInterface abstract class
  +---------------------------------------------------------------------*/
-class OnDemandPcmInterface
-{
-public:
+class OnDemandPcmInterface {
+ public:
   // public constructors & destructors
-  virtual
-  ~OnDemandPcmInterface ()
-  {
+  virtual ~OnDemandPcmInterface() {
   }
 
   // public pure virtual methods
   virtual void
-  notifyOnDemandContent (const string& action, const string&location)=0;
+  notifyOnDemandContent(const string& action, const string&location)=0;
 };
 
 #endif /* ONDEMAND_OBJECT_INTERFACES_H_ */

@@ -13,17 +13,16 @@ using namespace std;
 /*----------------------------------------------------------------------
  |   UpnpPassivePcm  class
  +---------------------------------------------------------------------*/
-class UpnpPassivePcm : public PassivePcmInterface
-{
-public:
+class UpnpPassivePcm : public PassivePcmInterface {
+ public:
   // public constructors & destructors
-  UpnpPassivePcm ();
+  UpnpPassivePcm();
   virtual
-  ~UpnpPassivePcm ();
+  ~UpnpPassivePcm();
 
   // PassivePCMInterface overloaded methods
   virtual void
-  notifyError (const string& message, const string& objectId);
+  notifyError(const string& message, const string& objectId);
 };
 
 #endif /* UPNP_PASSIVE_PCM_H_ */

@@ -17,30 +17,29 @@ using namespace std;
 /*----------------------------------------------------------------------
  |   UpnpPpm class
  +---------------------------------------------------------------------*/
-class UpnpParentParing : public PLT_DeviceHost
-{
-public:
+class UpnpParentParing : public PLT_DeviceHost {
+ public:
   // public constructors & destructors
 
-  UpnpParentParing (const char* UUID = "");
+  UpnpParentParing(const char* UUID = "");
   virtual
-  ~UpnpParentParing ();
+  ~UpnpParentParing();
 
   // PLT_DeviceHost overloaded methods
   virtual NPT_Result
-  SetupServices ();
+  SetupServices();
   virtual NPT_Result
-  OnAction (PLT_ActionReference& action, const PLT_HttpRequestContext& context);
+  OnAction(PLT_ActionReference& action, const PLT_HttpRequestContext& context);
 
   // public methods
   int
-  start_service ();
+  start_service();
   int
-  stop_service ();
+  stop_service();
   bool
-  is_service_started ();
+  is_service_started();
 
-private:
+ private:
   bool service_start_;
   PLT_UPnP* upnp_reference_;
   PLT_DeviceHostReference * device_reference_;

@@ -8,24 +8,20 @@
 /*----------------------------------------------------------------------
  |   UpnpMediaCaptureCcm::~UpnpMediaCaptureCcm
  +---------------------------------------------------------------------*/
-UpnpMediaCaptureCcm::UpnpMediaCaptureCcm ()
-{
+UpnpMediaCaptureCcm::UpnpMediaCaptureCcm() {
 }
 
 /*----------------------------------------------------------------------
  |   UpnpMediaCaptureCcm::~UpnpMediaCaptureCcm
  +---------------------------------------------------------------------*/
-UpnpMediaCaptureCcm::~UpnpMediaCaptureCcm ()
-{
+UpnpMediaCaptureCcm::~UpnpMediaCaptureCcm() {
 }
 
 /*----------------------------------------------------------------------
  |   UpnpMediaCaptureCcm::~UpnpMediaCaptureCcm
  +---------------------------------------------------------------------*/
-void
-UpnpMediaCaptureCcm::requestContent (const string& resourceId,
-				     unsigned int deviceIndex)
-{
+void UpnpMediaCaptureCcm::requestContent(const string& resourceId,
+                                         unsigned int deviceIndex) {
 
 }
 

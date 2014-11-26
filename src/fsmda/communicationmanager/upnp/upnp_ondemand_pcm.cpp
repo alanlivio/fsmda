@@ -8,23 +8,19 @@
 /*----------------------------------------------------------------------
  |   UpnpOnDemandPcm::UPnPOnDemandPCM
  +---------------------------------------------------------------------*/
-UpnpOnDemandPcm::UpnpOnDemandPcm ()
-{
+UpnpOnDemandPcm::UpnpOnDemandPcm() {
 
 }
 
 /*----------------------------------------------------------------------
  |   UpnpOnDemandPcm::~UPnPOnDemandPCM
  +---------------------------------------------------------------------*/
-UpnpOnDemandPcm::~UpnpOnDemandPcm ()
-{
+UpnpOnDemandPcm::~UpnpOnDemandPcm() {
 }
 
 /*----------------------------------------------------------------------
  |   UPnPOnDemandPCM::notifyOnDemandContent
  +---------------------------------------------------------------------*/
-void
-UpnpOnDemandPcm::notifyOnDemandContent (const string& action,
-					const string& location)
-{
+void UpnpOnDemandPcm::notifyOnDemandContent(const string& action,
+                                            const string& location) {
 }

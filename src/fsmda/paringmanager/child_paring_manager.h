@@ -13,27 +13,26 @@
 
 using namespace std;
 
-class ChildParingManager : public DeviceParingCpmInterface
-{
-public:
+class ChildParingManager : public DeviceParingCpmInterface {
+ public:
   // public constructors & destructors
-  ChildParingManager ();
+  ChildParingManager();
   virtual
-  ~ChildParingManager ();
+  ~ChildParingManager();
 
   // Method for factory child communication managers
   ActiveCcmInterface*
-  createActiveCcm (unsigned int classIntex);
+  createActiveCcm(unsigned int classIntex);
   MediaCaptureCcmInterface*
-  createMediaCaptureCcm (unsigned int classIntex);
+  createMediaCaptureCcm(unsigned int classIntex);
   PassiveCcmInterface*
-  createPassiveCcm (unsigned int classIntex);
+  createPassiveCcm(unsigned int classIntex);
 
   // DeviceParingCpmInterface overloaded methods
   virtual void
-  classAnnouncement (const string& applicationID, unsigned int classIndex,
-		     const string& classDesc, const string& classFunction);
-private:
+  classAnnouncement(const string& applicationID, unsigned int classIndex,
+                    const string& classDesc, const string& classFunction);
+ private:
   map<unsigned int, DeviceClassDescription*> map_classDescription_;
 
 };

@@ -15,29 +15,28 @@
 /*----------------------------------------------------------------------
  |   UpnpChildParing class
  +---------------------------------------------------------------------*/
-class UpnpChildParing : public PLT_DeviceHost
-{
-public:
+class UpnpChildParing : public PLT_DeviceHost {
+ public:
   // public constructors & destructors
-  UpnpChildParing (const char* UUID = "");
+  UpnpChildParing(const char* UUID = "");
   virtual
-  ~UpnpChildParing ();
+  ~UpnpChildParing();
 
   // PLT_DeviceHost overloaded methods
   virtual NPT_Result
-  SetupServices ();
+  SetupServices();
   virtual NPT_Result
-  OnAction (PLT_ActionReference& action, const PLT_HttpRequestContext& context);
+  OnAction(PLT_ActionReference& action, const PLT_HttpRequestContext& context);
 
   // public methods
   int
-  start_service ();
+  start_service();
   int
-  stop_service ();
+  stop_service();
   bool
-  is_service_started ();
+  is_service_started();
 
-private:
+ private:
   bool service_start_;
   PLT_UPnP* upnp_reference_;
 };

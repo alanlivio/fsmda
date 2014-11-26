@@ -9,16 +9,14 @@
 #include "libxml/tree.h"
 #include <string>
 
-
 using namespace std;
 
-class DeviceDescription
-{
-public:
+class DeviceDescription {
+ public:
   // public constructors & destructors
-  DeviceDescription ();
+  DeviceDescription();
   virtual
-  ~DeviceDescription ();
+  ~DeviceDescription();
 
   // public fields
   DeviceClassDescription::DeviceClassType classType_;
@@ -26,9 +24,9 @@ public:
 
   // public methods
   int
-  initialize_by_rdf_file (const string& rdf_file);
+  initialize_by_rdf_file(const string& rdf_file);
 
-private:
+ private:
   // private fields
   xmlDocPtr doc_;
   bool initialized_;

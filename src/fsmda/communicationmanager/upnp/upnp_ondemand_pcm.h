@@ -13,17 +13,16 @@ using namespace std;
 /*----------------------------------------------------------------------
  |   UpnpOnDemandPcm class
  +---------------------------------------------------------------------*/
-class UpnpOnDemandPcm : public OnDemandPcmInterface
-{
-public:
+class UpnpOnDemandPcm : public OnDemandPcmInterface {
+ public:
   // public constructors & destructors
-  UpnpOnDemandPcm ();
+  UpnpOnDemandPcm();
   virtual
-  ~UpnpOnDemandPcm ();
+  ~UpnpOnDemandPcm();
 
   // OnDemandPCMInterface overloaded methods
   virtual void
-  notifyOnDemandContent (const string& action, const string& location);
+  notifyOnDemandContent(const string& action, const string& location);
 };
 
 #endif /* UPNP_ONDEMAND_PCM_H_ */

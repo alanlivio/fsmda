@@ -13,22 +13,21 @@ using namespace std;
 /*----------------------------------------------------------------------
  |   UpnpActivePcm class
  +---------------------------------------------------------------------*/
-class UpnpActivePcm : public ActivePcmInterface
-{
-public:
+class UpnpActivePcm : public ActivePcmInterface {
+ public:
   // public constructors & destructors
-  UpnpActivePcm ();
+  UpnpActivePcm();
   virtual
-  ~UpnpActivePcm ();
+  ~UpnpActivePcm();
 
   // ActivePcmInterface overloaded methods
   virtual void
-  requestPropertyValue (const string& objectID, const string& name);
+  requestPropertyValue(const string& objectID, const string& name);
   virtual void
-  notifyEventTransition (const string& objectID, const string& eventID,
-			 const string& transition);
+  notifyEventTransition(const string& objectID, const string& eventID,
+                        const string& transition);
   virtual void
-  notifyError (const string& objectID, const string& message);
+  notifyError(const string& objectID, const string& message);
 };
 
 #endif /* UPNP_ACTIVE_PCM_H_ */

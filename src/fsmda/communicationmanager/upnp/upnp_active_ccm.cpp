@@ -8,66 +8,54 @@
 /*----------------------------------------------------------------------
  |   UpnpActiveCcm::UpnpActiveCcm
  +---------------------------------------------------------------------*/
-UpnpActiveCcm::UpnpActiveCcm ()
-{
+UpnpActiveCcm::UpnpActiveCcm() {
 }
 
 /*----------------------------------------------------------------------
  |   UpnpActiveCcm::~UpnpActiveCcm
  +---------------------------------------------------------------------*/
-UpnpActiveCcm::~UpnpActiveCcm ()
-{
+UpnpActiveCcm::~UpnpActiveCcm() {
 
 }
 
 /*----------------------------------------------------------------------
  |   UpnpActiveCcm::prepare
  +---------------------------------------------------------------------*/
-void
-UpnpActiveCcm::prepare (const string& objectID, const string& objectSrc,
-			vector<Property> properties, vector<Event> evts)
-{
+void UpnpActiveCcm::prepare(const string& objectID, const string& objectSrc,
+                            vector<Property> properties, vector<Event> evts) {
 }
 
 /*----------------------------------------------------------------------
  |   UpnpActiveCcm::addEvent
  +---------------------------------------------------------------------*/
-void
-UpnpActiveCcm::addEvent (const string& objectID, Event evt)
-{
+void UpnpActiveCcm::addEvent(const string& objectID, Event evt) {
 }
 
 /*----------------------------------------------------------------------
  |   UpnpActiveCcm::removeEvent
  +---------------------------------------------------------------------*/
-void
-UpnpActiveCcm::removeEvent (const string& objectID, const string& eventID)
-{
+void UpnpActiveCcm::removeEvent(const string& objectID, const string& eventID) {
 }
 
 /*----------------------------------------------------------------------
  |   UpnpActiveCcm::postAction
  +---------------------------------------------------------------------*/
-void
-UpnpActiveCcm::postAction (const string& objectID, const string& eventID,
-			   const string& action)
-{
+void UpnpActiveCcm::postAction(const string& objectID, const string& eventID,
+                               const string& action) {
 }
 
 /*----------------------------------------------------------------------
  |   UpnpActiveCcm::reportPropertyValue
  +---------------------------------------------------------------------*/
-void
-UpnpActiveCcm::reportPropertyValue (const string& objectID, const string& name,
-				    const string& value)
-{
+void UpnpActiveCcm::reportPropertyValue(const string& objectID,
+                                        const string& name,
+                                        const string& value) {
 }
 
 /*----------------------------------------------------------------------
  |   UpnpActiveCcm::setPropertyValue
  +---------------------------------------------------------------------*/
-void
-UpnpActiveCcm::setPropertyValue (const string& objectID, const string& name,
-				 const string& value, unsigned int duration)
-{
+void UpnpActiveCcm::setPropertyValue(const string& objectID, const string& name,
+                                     const string& value,
+                                     unsigned int duration) {
 }

@@ -11,19 +11,18 @@
 /*----------------------------------------------------------------------
  |   UpnpPassiveCcm  class
  +---------------------------------------------------------------------*/
-class UpnpPassiveCcm : public PassiveCcmInterface
-{
-public:
+class UpnpPassiveCcm : public PassiveCcmInterface {
+ public:
   // public constructors & destructors
-  UpnpPassiveCcm ();
+  UpnpPassiveCcm();
   virtual
-  ~UpnpPassiveCcm ();
+  ~UpnpPassiveCcm();
 
   // PassiveCCMInterface overloaded methods
   virtual void
-  prepare (const string& position);
+  prepare(const string& position);
   virtual void
-  sendContent (char* content);
+  sendContent(char* content);
 };
 
 #endif /* UPNP_PASSIVE_CCM_H_ */

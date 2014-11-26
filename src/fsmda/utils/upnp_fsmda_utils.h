@@ -12,9 +12,8 @@ using namespace std;
 /*----------------------------------------------------------------------
  |   UpnpFsmdaUtils class
  +---------------------------------------------------------------------*/
-class UpnpFsmdaUtils
-{
-public:
+class UpnpFsmdaUtils {
+ public:
   // class fields
   static const char* UPNP_FSMDA_PPM_DEVICE_TYPE;
   static const char* UPNP_FSMDA_PPM_DEVICE_FRIENDLY_NAME;
@@ -41,20 +40,18 @@ public:
 
   // class methods
   static PLT_UPnP*
-  requestUpnpReference ();
+  requestUpnpReference();
   static void
-  releaseUpnpReference ();
+  releaseUpnpReference();
   static const unsigned int
-  get_references_count ();
+  get_references_count();
   static unsigned int references_count_;
 
-private:
+ private:
   // private constructors & destructors
-  UpnpFsmdaUtils ()
-  {
+  UpnpFsmdaUtils() {
   }
-  ~UpnpFsmdaUtils ()
-  {
+  ~UpnpFsmdaUtils() {
   }
 
   // private class fields

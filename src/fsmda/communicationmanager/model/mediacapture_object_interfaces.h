@@ -12,35 +12,29 @@ using namespace std;
 /*----------------------------------------------------------------------
  |   MediaCapturePcmInterface abstract class
  +---------------------------------------------------------------------*/
-class MediaCapturePcmInterface
-{
-public:
+class MediaCapturePcmInterface {
+ public:
   // public constructors & destructors
-  virtual
-  ~MediaCapturePcmInterface ()
-  {
+  virtual ~MediaCapturePcmInterface() {
   }
 
   // public pure virtual methods
   virtual void
-  sendContent (char* content, const string& resourceId,
-	       unsigned int childIndex)=0;
+  sendContent(char* content, const string& resourceId,
+              unsigned int childIndex)=0;
 };
 
 /*----------------------------------------------------------------------
  |   MediaCaptureCcmInterface abstract class
  +---------------------------------------------------------------------*/
-class MediaCaptureCcmInterface
-{
-public:
+class MediaCaptureCcmInterface {
+ public:
   // public constructors & destructors
-  virtual
-  ~MediaCaptureCcmInterface ()
-  {
+  virtual ~MediaCaptureCcmInterface() {
   }
 
   // public pure virtual methods
   virtual void
-  requestContent (const string& resourceId, unsigned int deviceIndex)=0;
+  requestContent(const string& resourceId, unsigned int deviceIndex)=0;
 };
 #endif /* MEDIA_CAPTURE_OBJECT_CONTROL_H_ */

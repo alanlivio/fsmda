@@ -12,36 +12,32 @@ using namespace std;
 /*----------------------------------------------------------------------
  |   PassiveCcmInterface abstract class
  +---------------------------------------------------------------------*/
-class PassiveCcmInterface
-{
-public:
+class PassiveCcmInterface {
+ public:
   virtual
   // public constructors & destructors
-  ~PassiveCcmInterface ()
-  {
+  ~PassiveCcmInterface() {
   }
   // public pure virtual methods
   virtual void
-  prepare (const string& position)=0;
+  prepare(const string& position)=0;
   virtual void
-  sendContent (char* content)=0;
+  sendContent(char* content)=0;
 };
 
 /*----------------------------------------------------------------------
  |   PassivePcmInterface abstract class
  +---------------------------------------------------------------------*/
-class PassivePcmInterface
-{
-public:
+class PassivePcmInterface {
+ public:
   virtual
   // public constructors & destructors
-  ~PassivePcmInterface ()
-  {
+  ~PassivePcmInterface() {
   }
 
   // public pure virtual methods
   virtual void
-  notifyError (const string& message, const string& objectId)=0;
+  notifyError(const string& message, const string& objectId)=0;
 };
 
 #endif /* PASSIVE_OBJECT_INTERFACES_H_ */

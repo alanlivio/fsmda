@@ -18,12 +18,10 @@ class DeviceDescription;
 /*----------------------------------------------------------------------
  |   DeviceClassDescription class
  +---------------------------------------------------------------------*/
-class DeviceClassDescription
-{
-public:
+class DeviceClassDescription {
+ public:
   // class fields and methods
-  enum DeviceClassType
-  {
+  enum DeviceClassType {
     FSDMA_BASE = 0,
     FSDMA_PASSIVE = 1,
     FSDMA_ACTIVE = 2,
@@ -31,18 +29,17 @@ public:
     FSDMA_ONDEMAND = 4,
     FSDMA_MEDIACAPTURE = 5
   };
-  enum DeviceCommunicationProtocol
-  {
+  enum DeviceCommunicationProtocol {
     UPNP = 0,
     ZEROCONF = 1,
   };
   static DeviceClassType
-  get_device_class_type_by_string (const string& str);
+  get_device_class_type_by_string(const string& str);
 
   // public constructors & destructors
-  DeviceClassDescription ();
+  DeviceClassDescription();
   virtual
-  ~DeviceClassDescription ();
+  ~DeviceClassDescription();
 
   // public fields
   DeviceClassType classType_;
@@ -52,13 +49,13 @@ public:
 
   // public methods
   bool
-  device_meets_requirements (DeviceDescription *device_desc);
+  device_meets_requirements(DeviceDescription *device_desc);
   int
-  initialize_by_default_device_class (DeviceClassType);
+  initialize_by_default_device_class(DeviceClassType);
   int
-  initialize_by_parse_rdf_file (const string& rdf_file);
+  initialize_by_parse_rdf_file(const string& rdf_file);
 
-private:
+ private:
   static string deviceClassTypeMap[];
   xmlDocPtr doc_;
   bool initialized_;

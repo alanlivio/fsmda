@@ -7,24 +7,20 @@
 /*----------------------------------------------------------------------
  |   UpnpMediaCapturePcm::UpnpMediaCapturePcm
  +---------------------------------------------------------------------*/
-UpnpMediaCapturePcm::UpnpMediaCapturePcm ()
-{
+UpnpMediaCapturePcm::UpnpMediaCapturePcm() {
 
 }
 
 /*----------------------------------------------------------------------
  |   UpnpMediaCapturePcm::~UpnpMediaCapturePcm
  +---------------------------------------------------------------------*/
-UpnpMediaCapturePcm::~UpnpMediaCapturePcm ()
-{
+UpnpMediaCapturePcm::~UpnpMediaCapturePcm() {
 }
 
 /*----------------------------------------------------------------------
  |   UpnpMediaCapturePcm::sendContent
  +---------------------------------------------------------------------*/
-void
-UpnpMediaCapturePcm::sendContent (char* content, const string& resourceId,
-			      unsigned int childIndex)
-{
+void UpnpMediaCapturePcm::sendContent(char* content, const string& resourceId,
+                                      unsigned int childIndex) {
 
 }
