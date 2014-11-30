@@ -18,16 +18,16 @@ libfsmda_la_SOURCES = \
   fsmda/paring/device_class_description.cpp\
   fsmda/paring/parent_paring_manager.cpp\
   fsmda/paring/child_paring_manager.cpp\
-  fsmda/paring/upnp/upnp_parent_paring.cpp\
-  fsmda/paring/upnp/upnp_child_paring.cpp\
-  fsmda/communication/upnp/upnp_active_ccm.cpp\
-  fsmda/communication/upnp/upnp_active_pcm.cpp\
-  fsmda/communication/upnp/upnp_passive_ccm.cpp\
-  fsmda/communication/upnp/upnp_passive_pcm.cpp\
-  fsmda/communication/upnp/upnp_mediacapture_pcm.cpp\
-  fsmda/communication/upnp/upnp_mediacapture_ccm.cpp\
-  fsmda/communication/upnp/upnp_ondemand_pcm.cpp\
-  fsmda/communication/upnp/upnp_ondemand_ccm.cpp\
+  fsmda/paring/upnp_parent_paring.cpp\
+  fsmda/paring/upnp_child_paring.cpp\
+  fsmda/communication/upnp_active_ccm.cpp\
+  fsmda/communication/upnp_active_pcm.cpp\
+  fsmda/communication/upnp_passive_ccm.cpp\
+  fsmda/communication/upnp_passive_pcm.cpp\
+  fsmda/communication/upnp_mediacapture_pcm.cpp\
+  fsmda/communication/upnp_mediacapture_ccm.cpp\
+  fsmda/communication/upnp_ondemand_pcm.cpp\
+  fsmda/communication/upnp_ondemand_ccm.cpp\
   fsmda/utils/upnp_fsmda_utils.cpp
   
 # Libraries compiler options
