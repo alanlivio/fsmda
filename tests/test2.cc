@@ -12,27 +12,7 @@
 using std::cout;
 using std::endl;
 
-TEST(Paring, Services) {
-  // parent paring tests
-  cout << "----------------------------------------------------" << endl;
-  UpnpParentParing* upnpParentParing = new UpnpParentParing();
-  EXPECT_EQ(upnpParentParing->start_service(), 0);
-  sleep(2);
-  EXPECT_TRUE(upnpParentParing->is_service_started());
-  upnpParentParing->stop_service();
-  EXPECT_FALSE(upnpParentParing->is_service_started());
-
-  // child paring tests
-  cout << "----------------------------------------------------" << endl;
-  UpnpChildParing* upnpChildParing = new UpnpChildParing();
-  EXPECT_EQ(upnpChildParing->start_service(), 0);
-  sleep(1);
-  EXPECT_TRUE(upnpChildParing->is_service_started());
-  upnpChildParing->stop_service();
-  EXPECT_FALSE(upnpChildParing->is_service_started());
-}
-
-TEST(Communication, Services) {
+TEST(Communication, UpnpOnDemandCcm) {
   // ondemand class description initialize and meet_requirements tests
   cout << "----------------------------------------------------" << endl;
   UpnpOnDemandCcm* onDemandCCM = new UpnpOnDemandCcm();
@@ -42,3 +22,26 @@ TEST(Communication, Services) {
   EXPECT_FALSE(onDemandCCM->is_service_started());
 }
 
+TEST(Paring, UpnpParentParing) {
+  // parent paring tests
+  cout << "----------------------------------------------------" << endl;
+  UpnpParentParing* upnpParentParing = new UpnpParentParing();
+  EXPECT_EQ(upnpParentParing->start_service(), 0);
+  sleep(2);
+  EXPECT_TRUE(upnpParentParing->is_service_started());
+  upnpParentParing->stop_service();
+  sleep(2);
+  EXPECT_FALSE(upnpParentParing->is_service_started());
+}
+
+TEST(Paring, UpnpChildParing) {
+  // child paring tests
+  cout << "----------------------------------------------------" << endl;
+  UpnpChildParing* upnpChildParing = new UpnpChildParing();
+  EXPECT_EQ(upnpChildParing->start_service(), 0);
+  sleep(2);
+  EXPECT_TRUE(upnpChildParing->is_service_started());
+  sleep(2);
+  upnpChildParing->stop_service();
+  EXPECT_FALSE(upnpChildParing->is_service_started());
+}

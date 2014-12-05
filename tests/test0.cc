@@ -67,7 +67,7 @@ TEST(Communication, Constructors) {
   delete passiveCcm;
 }
 
-TEST(Utils, Upnp) {
+TEST(Utils, UpnpReference) {
   EXPECT_EQ(0, UpnpFsmdaUtils::references_count_);
   PLT_UPnP * upnp = UpnpFsmdaUtils::requestUpnpReference();
   EXPECT_TRUE(upnp != NULL);

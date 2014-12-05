@@ -23,7 +23,7 @@ using std::endl;
 UpnpParentParing::UpnpParentParing(const char* UUID)
     : PLT_DeviceHost("/", UUID, UpnpFsmdaUtils::kPpmDeviceType,
                      UpnpFsmdaUtils::kPpmDeviceFriendlyName),
-      service_start_(false),
+      upnp_device_service_(NULL),
       upnp_reference_(NULL) {
   this->m_ModelDescription = UpnpFsmdaUtils::kPpmDeviceModelDescription;
   this->m_ModelURL = UpnpFsmdaUtils::kPpmDeviceModelUrl;
@@ -46,11 +46,12 @@ UpnpParentParing::~UpnpParentParing() {
  +---------------------------------------------------------------------*/
 NPT_Result UpnpParentParing::SetupServices() {
   NPT_Result res;
-  PLT_Service* service = new PLT_Service(this, UpnpFsmdaUtils::kPpmServiceType,
+  upnp_device_service_ = new PLT_Service(this, UpnpFsmdaUtils::kPpmServiceType,
                                          UpnpFsmdaUtils::kPpmServiceId,
                                          UpnpFsmdaUtils::kPpmServiceName);
-  res = service->SetSCPDXML((const char*) UpnpFsmdaUtils::kPpmServiceScpdXml);
-  res = AddService(service);
+  res = upnp_device_service_->SetSCPDXML(
+      (const char*) UpnpFsmdaUtils::kPpmServiceScpdXml);
+  res = AddService(upnp_device_service_);
   return res;
 }
 
@@ -94,32 +95,29 @@ NPT_Result UpnpParentParing::OnAction(PLT_ActionReference& action,
  |   UpnpParentParing::start_service
  +---------------------------------------------------------------------*/
 int UpnpParentParing::start_service() {
-  if (service_start_)
+  if (upnp_device_service_ != NULL && upnp_device_service_->IsValid()) {
     return 0;
-  if (upnp_reference_ == NULL)
+  }
+  if (upnp_reference_ == NULL) {
     upnp_reference_ = UpnpFsmdaUtils::requestUpnpReference();
+  }
   clog << "UpnpParentParing::start_service" << endl;
   NPT_Result res = upnp_reference_->AddDevice(*device_reference_);
   if (res != NPT_SUCCESS) {
     return -1;
   } else {
-    service_start_ = true;
+    return 0;
   }
-  return 0;
 }
 
 /*----------------------------------------------------------------------
  |   UpnpParentParing::stop_service
  +---------------------------------------------------------------------*/
 int UpnpParentParing::stop_service() {
-  if (service_start_ == false)
-    return 0;
-
   if (upnp_reference_ != NULL) {
     upnp_reference_->RemoveDevice(*device_reference_);
     UpnpFsmdaUtils::releaseUpnpReference();
     upnp_reference_ = NULL;
-    service_start_ = false;
   }
   return 0;
 }
@@ -127,5 +125,5 @@ int UpnpParentParing::stop_service() {
  |   UpnpParentParing::is_service_started
  +---------------------------------------------------------------------*/
 bool UpnpParentParing::is_service_started() {
-  return service_start_;
+  return upnp_device_service_->IsValid();
 }

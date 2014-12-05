@@ -41,9 +41,9 @@ class UpnpParentParing : public PLT_DeviceHost {
   is_service_started();
 
  private:
-  bool service_start_;
   PLT_UPnP* upnp_reference_;
   PLT_DeviceHostReference * device_reference_;
+  PLT_Service* upnp_device_service_;
 };
 
 #endif  // FSMDA_PARING_UPNP_PARENT_PARING_H_

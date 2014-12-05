@@ -257,7 +257,7 @@ void UpnpFsmdaUtils::releaseUpnpReference() {
     return;
   } else if (UpnpFsmdaUtils::references_count_ == 1) {
     UpnpFsmdaUtils::upnp_singleton_->Stop();
-    delete upnp_singleton_;
+//    delete upnp_singleton_;
     UpnpFsmdaUtils::upnp_singleton_ = NULL;
     UpnpFsmdaUtils::references_count_ = 0;
     UpnpFsmdaUtils::upnp_running_ = false;
