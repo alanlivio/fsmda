@@ -15,17 +15,17 @@ using std::vector;
  |   Property class
  +---------------------------------------------------------------------*/
 class Property {
-  const string propertyName;
-  const string propertyValue;
+  const string property_name_;
+  const string property_value_;
 };
 
 /*----------------------------------------------------------------------
  |   Event class
  +---------------------------------------------------------------------*/
 class Event {
-  const string eventId;
-  const string eventType;
-  const string eventDesc;
+  const string event_id_;
+  const string event_type_;
+  const string event_desc_;
 };
 
 /*----------------------------------------------------------------------
@@ -38,13 +38,12 @@ class ActivePcmInterface {
   }
 
   // public pure virtual methods
-  virtual void
-  requestPropertyValue(const string& objectID, const string& name)=0;
-  virtual void
-  notifyEventTransition(const string& objectID, const string& eventID,
-                        const string& transition)=0;
-  virtual void
-  notifyError(const string& objectID, const string& message)=0;
+  virtual void RequestPropertyValue(const string& object_id,
+                                    const string& name)=0;
+  virtual void NotifyEventTransition(const string& object_id,
+                                     const string& eventID,
+                                     const string& transition)=0;
+  virtual void NotifyError(const string& object_id, const string& message)=0;
 };
 
 /*----------------------------------------------------------------------
@@ -57,22 +56,16 @@ class ActiveCcmInterface {
   }
 
   // public pure virtual methods
-  virtual void
-  prepare(const string& objectID, const string& objectSrc,
-          vector<Property> properties, vector<Event> evts)=0;
-  virtual void
-  addEvent(const string& objectID, Event evt)=0;
-  virtual void
-  removeEvent(const string& objectID, const string& eventID)=0;
-  virtual void
-  postAction(const string& objectID, const string& eventID,
-             const string& action)=0;
-  virtual void
-  reportPropertyValue(const string& objectID, const string& name,
-                      const string& value)=0;
-  virtual void
-  setPropertyValue(const string& objectID, const string& name,
-                   const string& value, unsigned int duration)=0;
+  virtual void Prepare(const string& object_id, const string& object_src,
+                       vector<Property> properties, vector<Event> evts)=0;
+  virtual void AddEvent(const string& object_id, Event evt)=0;
+  virtual void RemoveEvent(const string& object_id, const string& eventID)=0;
+  virtual void PostAction(const string& object_id, const string& eventID,
+                          const string& action)=0;
+  virtual void ReportPropertyValue(const string& object_id, const string& name,
+                                   const string& value)=0;
+  virtual void SetPropertyValue(const string& object_id, const string& name,
+                                const string& value, unsigned int duration)=0;
 };
 
 #endif  // FSMDA_COMMUNICATION_MODEL_ACTIVE_OBJECT_INTERFACES_H_

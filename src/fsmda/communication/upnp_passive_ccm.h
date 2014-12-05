@@ -15,14 +15,11 @@ class UpnpPassiveCcm : public PassiveCcmInterface {
  public:
   // public constructors & destructors
   UpnpPassiveCcm();
-  virtual
-  ~UpnpPassiveCcm();
+  virtual ~UpnpPassiveCcm();
 
   // PassiveCCMInterface overloaded methods
-  virtual void
-  prepare(const string& position);
-  virtual void
-  sendContent(char* content);
+  virtual void Prepare(const string& position);
+  virtual void SendContent(char* content);
 };
 
 #endif  // FSMDA_COMMUNICATION_UPNP_PASSIVE_CCM_H_

@@ -17,12 +17,11 @@ class UpnpMediaCaptureCcm : public MediaCaptureCcmInterface {
  public:
   // public constructors & destructors
   UpnpMediaCaptureCcm();
-  virtual
-  ~UpnpMediaCaptureCcm();
+  virtual ~UpnpMediaCaptureCcm();
 
   // MediaCaptureCcmInterface overloaded methods
-  virtual void
-  requestContent(const string& resourceId, unsigned int deviceIndex);
+  virtual void RequestContent(const string& resource_id,
+                              unsigned int device_index);
 };
 
 #endif  // FSMDA_COMMUNICATION_UPNP_MEDIACAPTURE_CCM_H_

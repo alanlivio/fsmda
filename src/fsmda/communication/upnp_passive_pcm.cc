@@ -17,8 +17,8 @@ UpnpPassivePcm::~UpnpPassivePcm() {
 }
 
 /*----------------------------------------------------------------------
- |   UPnPPassivePCM::notifyError
+ |   UPnPPassivePCM::NotifyError
  +---------------------------------------------------------------------*/
-void UpnpPassivePcm::notifyError(const string& message,
-                                 const string& objectId) {
+void UpnpPassivePcm::NotifyError(const string& message,
+                                 const string& object_id) {
 }

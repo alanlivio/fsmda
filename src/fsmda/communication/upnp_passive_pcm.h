@@ -17,12 +17,10 @@ class UpnpPassivePcm : public PassivePcmInterface {
  public:
   // public constructors & destructors
   UpnpPassivePcm();
-  virtual
-  ~UpnpPassivePcm();
+  virtual ~UpnpPassivePcm();
 
   // PassivePCMInterface overloaded methods
-  virtual void
-  notifyError(const string& message, const string& objectId);
+  virtual void NotifyError(const string& message, const string& object_id);
 };
 
 #endif  // FSMDA_COMMUNICATION_UPNP_PASSIVE_PCM_H_

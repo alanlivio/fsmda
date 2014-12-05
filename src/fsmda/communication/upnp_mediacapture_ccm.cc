@@ -18,8 +18,8 @@ UpnpMediaCaptureCcm::~UpnpMediaCaptureCcm() {
 }
 
 /*----------------------------------------------------------------------
- |   UpnpMediaCaptureCcm::~UpnpMediaCaptureCcm
+ |   UpnpMediaCaptureCcm::~RequestContent
  +---------------------------------------------------------------------*/
-void UpnpMediaCaptureCcm::requestContent(const string& resourceId,
-                                         unsigned int deviceIndex) {
+void UpnpMediaCaptureCcm::RequestContent(const string& resource_id,
+                                         unsigned int device_index) {
 }

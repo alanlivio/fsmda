@@ -19,12 +19,13 @@ class DeviceParingPpmInterface {
   }
 
   // public pure virtual methods
-  virtual void
-  addDeviceToClass(const string& applicationId, const string& deviceAddr,
-                   unsigned int classIndex, const string& deviceDesc)=0;
-  virtual void
-  getChildIndex(const string& applicationId, const string& deviceAddr,
-                unsigned int classIndex)=0;
+  virtual void AddDeviceToClass(const string& application_id,
+                                const string& device_address,
+                                unsigned int class_index,
+                                const string& device_desc)=0;
+  virtual void GetChildIndex(const string& application_id,
+                             const string& device_address,
+                             unsigned int class_index)=0;
 };
 
 /*----------------------------------------------------------------------
@@ -37,9 +38,10 @@ class DeviceParingCpmInterface {
   }
 
   // public pure virtual methods
-  virtual void
-  classAnnouncement(const string& applicationID, unsigned int classIndex,
-                    const string& classDesc, const string& classFunction)=0;
+  virtual void ClassAnnouncement(const string& application_id,
+                                 unsigned int class_index,
+                                 const string& class_desc,
+                                 const string& class_function)=0;
 };
 
 #endif  // FSMDA_PARING_MODEL_DEVICE_PARING_INTERFACES_H_

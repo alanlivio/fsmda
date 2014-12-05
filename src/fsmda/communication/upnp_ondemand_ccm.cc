@@ -29,15 +29,15 @@ UpnpOnDemandCcm::UpnpOnDemandCcm()
  +---------------------------------------------------------------------*/
 UpnpOnDemandCcm::~UpnpOnDemandCcm() {
   if (upnp_reference_ != NULL)
-    upnp_reference_ = UpnpFsmdaUtils::requestUpnpReference();
+    upnp_reference_ = UpnpFsmdaUtils::RequestUpnpReference();
 }
 
 /*----------------------------------------------------------------------
- |   UpnpOnDemandCcm::start_communication_service
+ |   UpnpOnDemandCcm::StartCommunicationService
  +---------------------------------------------------------------------*/
-int UpnpOnDemandCcm::start_communication_service() {
+int UpnpOnDemandCcm::StartCommunicationService() {
   if (upnp_reference_ == NULL)
-    upnp_reference_ = UpnpFsmdaUtils::requestUpnpReference();
+    upnp_reference_ = UpnpFsmdaUtils::RequestUpnpReference();
 
   clog << "OnDemandCCM::start_communication_service" << endl;
   PLT_DeviceHostReference device(
@@ -57,17 +57,17 @@ int UpnpOnDemandCcm::start_communication_service() {
 }
 
 /*----------------------------------------------------------------------
- |   UpnpOnDemandCcm::stop_communication_service
+ |   UpnpOnDemandCcm::StopCommunicationService
  +---------------------------------------------------------------------*/
-int UpnpOnDemandCcm::stop_communication_service() {
-  UpnpFsmdaUtils::releaseUpnpReference();
+int UpnpOnDemandCcm::StopCommunicationService() {
+  UpnpFsmdaUtils::ReleaseUpnpReference();
   upnp_reference_ = NULL;
   service_start_ = false;
   return 0;
 }
 /*----------------------------------------------------------------------
- |   UpnpOnDemandCcm::is_service_started
+ |   UpnpOnDemandCcm::IsServiceStartd
  +---------------------------------------------------------------------*/
-bool UpnpOnDemandCcm::is_service_started() {
+bool UpnpOnDemandCcm::IsServiceStartd() {
   return service_start_;
 }

@@ -15,8 +15,7 @@ class DeviceDescription {
  public:
   // public constructors & destructors
   DeviceDescription();
-  virtual
-  ~DeviceDescription();
+  virtual ~DeviceDescription();
 
   // public fields
   DeviceClassDescription::DeviceClassType classType_;
@@ -24,7 +23,7 @@ class DeviceDescription {
 
   // public methods
   int
-  initialize_by_rdf_file(const string& rdf_file);
+  InitializeByRdfFile(const string& rdf_file);
 
  private:
   // private fields

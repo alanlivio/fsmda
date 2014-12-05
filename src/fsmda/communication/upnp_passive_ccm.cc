@@ -18,13 +18,13 @@ UpnpPassiveCcm::~UpnpPassiveCcm() {
 }
 
 /*----------------------------------------------------------------------
- |   UpnpPassiveCcm::prepare
+ |   UpnpPassiveCcm::Prepare
  +---------------------------------------------------------------------*/
-void UpnpPassiveCcm::prepare(const string& position) {
+void UpnpPassiveCcm::Prepare(const string& position) {
 }
 
 /*----------------------------------------------------------------------
- |   UpnpPassiveCcm::sendContent
+ |   UpnpPassiveCcm::SendContent
  +---------------------------------------------------------------------*/
-void UpnpPassiveCcm::sendContent(char* content) {
+void UpnpPassiveCcm::SendContent(char* content) {
 }

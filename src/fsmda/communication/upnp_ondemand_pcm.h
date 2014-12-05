@@ -17,12 +17,11 @@ class UpnpOnDemandPcm : public OnDemandPcmInterface {
  public:
   // public constructors & destructors
   UpnpOnDemandPcm();
-  virtual
-  ~UpnpOnDemandPcm();
+  virtual ~UpnpOnDemandPcm();
 
   // OnDemandPCMInterface overloaded methods
-  virtual void
-  notifyOnDemandContent(const string& action, const string& location);
+  virtual void NotifyOnDemandContent(const string& action,
+                                     const string& location);
 };
 
 #endif  // FSMDA_COMMUNICATION_UPNP_ONDEMAND_PCM_H_

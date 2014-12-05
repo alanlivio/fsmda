@@ -69,11 +69,11 @@ TEST(Communication, Constructors) {
 
 TEST(Utils, UpnpReference) {
   EXPECT_EQ(0, UpnpFsmdaUtils::references_count_);
-  PLT_UPnP * upnp = UpnpFsmdaUtils::requestUpnpReference();
+  PLT_UPnP * upnp = UpnpFsmdaUtils::RequestUpnpReference();
   EXPECT_TRUE(upnp != NULL);
   EXPECT_EQ(1, UpnpFsmdaUtils::references_count_);
-  UpnpFsmdaUtils::releaseUpnpReference();
+  UpnpFsmdaUtils::ReleaseUpnpReference();
   EXPECT_EQ(0, UpnpFsmdaUtils::references_count_);
-  UpnpFsmdaUtils::releaseUpnpReference();
+  UpnpFsmdaUtils::ReleaseUpnpReference();
   EXPECT_EQ(0, UpnpFsmdaUtils::references_count_);
 }

@@ -14,73 +14,85 @@ ParentParingManager::~ParentParingManager() {
 }
 
 /*----------------------------------------------------------------------
- |   ParentParingManager::addClass
+ |   ParentParingManager::AddClass
  +---------------------------------------------------------------------*/
-void ParentParingManager::addClass(const string& applicationId,
-                                   unsigned int classIndex) {
+void ParentParingManager::AddClass(const string& application_id,
+                                   unsigned int class_index) {
 }
 /*----------------------------------------------------------------------
- |   ParentParingManager::removeClass
+ |   ParentParingManager::RemoveClass
  +---------------------------------------------------------------------*/
-void ParentParingManager::removeClass(const string& applicationId,
-                                      unsigned int classIndex) {
+void ParentParingManager::RemoveClass(const string& application_id,
+                                      unsigned int class_index) {
 }
 /*----------------------------------------------------------------------
- |   ParentParingManager::addClassDescription
+ |   ParentParingManager::AddClassDescription
  +---------------------------------------------------------------------*/
-void ParentParingManager::addClassDescription(const string& applicationId,
-                                              unsigned int classIndex,
-                                              const string& classType,
-                                              unsigned int maxDevices,
-                                              unsigned int minDevices,
-                                              const string& hardwareReq,
-                                              const string& softwareReq,
-                                              const string& networkReq) {
+void ParentParingManager::AddClassDescription(
+    const string& application_id, unsigned int class_index,
+    const string& classType, unsigned int maxDevices, unsigned int minDevices,
+    const string& hardware_requirements, const string& software_requirements,
+    const string& network_requirements) {
 }
 
 /*----------------------------------------------------------------------
- |   ParentParingManager::addDeviceToClass
+ |   ParentParingManager::AddDeviceToClass
  +---------------------------------------------------------------------*/
-void ParentParingManager::addDeviceToClass(const string& applicationId,
-                                           const string& deviceAddr,
-                                           unsigned int classIndex,
-                                           const string& deviceDesc) {
+void ParentParingManager::AddDeviceToClass(const string& application_id,
+                                           const string& device_address,
+                                           unsigned int class_index,
+                                           const string& device_desc) {
 }
 /*----------------------------------------------------------------------
- |   ParentParingManager::getChildIndex
+ |   ParentParingManager::GetChildIndex
  +---------------------------------------------------------------------*/
-void ParentParingManager::getChildIndex(const string& applicationId,
-                                        const string& deviceAddr,
-                                        unsigned int classIndex) {
+void ParentParingManager::GetChildIndex(const string& application_id,
+                                        const string& device_address,
+                                        unsigned int class_index) {
 }
 
-ActivePcmInterface*
-ParentParingManager::createActivePcm(unsigned int classIndex) {
-  if (map_classDescription_[classIndex]->classType_
+/*----------------------------------------------------------------------
+ |   ParentParingManager::CreateActivePcm
+ +---------------------------------------------------------------------*/
+ActivePcmInterface* ParentParingManager::CreateActivePcm(
+    unsigned int class_index) {
+  if (map_classDescription_[class_index]->classType_
       == DeviceClassDescription::kFsmdaActiveDevice)
     return new UpnpActivePcm();
   else
     return NULL;
 }
-MediaCapturePcmInterface*
-ParentParingManager::createMediaCapturePcm(unsigned int classIndex) {
-  if (map_classDescription_[classIndex]->classType_
+
+/*----------------------------------------------------------------------
+ |   ParentParingManager::CreateActivePcm
+ +---------------------------------------------------------------------*/
+MediaCapturePcmInterface* ParentParingManager::CreateMediaCapturePcm(
+    unsigned int class_index) {
+  if (map_classDescription_[class_index]->classType_
       == DeviceClassDescription::kFsmdaMediaCaptureDevice)
     return new UpnpMediaCapturePcm();
   else
     return NULL;
 }
-OnDemandPcmInterface*
-ParentParingManager::createOnDemandPcm(unsigned int classIndex) {
-  if (map_classDescription_[classIndex]->classType_
+
+/*----------------------------------------------------------------------
+ |   ParentParingManager::CreateOnDemandPcm
+ +---------------------------------------------------------------------*/
+OnDemandPcmInterface* ParentParingManager::CreateOnDemandPcm(
+    unsigned int class_index) {
+  if (map_classDescription_[class_index]->classType_
       == DeviceClassDescription::kFsmdaOnDemandDevice)
     return new UpnpOnDemandPcm();
   else
     return NULL;
 }
-PassivePcmInterface*
-ParentParingManager::createPassivePcm(unsigned int classIndex) {
-  if (map_classDescription_[classIndex]->classType_
+
+/*----------------------------------------------------------------------
+ |   ParentParingManager::CreatePassivePcm
+ +---------------------------------------------------------------------*/
+PassivePcmInterface* ParentParingManager::CreatePassivePcm(
+    unsigned int class_index) {
+  if (map_classDescription_[class_index]->classType_
       == DeviceClassDescription::kFsmdaPassiveDevice)
     return new UpnpPassivePcm();
   else

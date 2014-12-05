@@ -19,37 +19,35 @@ class ParentParingManager : public ClassHandlingPpmInterface,
  public:
   // public constructors & destructors
   ParentParingManager();
-  virtual
-  ~ParentParingManager();
+  virtual ~ParentParingManager();
 
   // Method for factory parent communication managers
-  ActivePcmInterface*
-  createActivePcm(unsigned int classIntex);
-  MediaCapturePcmInterface*
-  createMediaCapturePcm(unsigned int classIntex);
-  OnDemandPcmInterface*
-  createOnDemandPcm(unsigned int classIntex);
-  PassivePcmInterface*
-  createPassivePcm(unsigned int classIntex);
+  ActivePcmInterface* CreateActivePcm(unsigned int class_index);
+  MediaCapturePcmInterface* CreateMediaCapturePcm(unsigned int class_index);
+  OnDemandPcmInterface* CreateOnDemandPcm(unsigned int class_index);
+  PassivePcmInterface* CreatePassivePcm(unsigned int class_index);
 
   // ClassHandlingPpmInterface overloaded methods
-  virtual void
-  addClass(const string& applicationId, unsigned int classIndex);
-  virtual void
-  removeClass(const string& applicationId, unsigned int classIndex);
-  virtual void
-  addClassDescription(const string& applicationId, unsigned int classIndex,
-                      const string& classType, unsigned int maxDevices,
-                      unsigned int minDevices, const string& hardwareReq,
-                      const string& softwareReq, const string& networkReq);
+  virtual void AddClass(const string& application_id, unsigned int class_index);
+  virtual void RemoveClass(const string& application_id,
+                           unsigned int class_index);
+  virtual void AddClassDescription(const string& application_id,
+                                   unsigned int class_index,
+                                   const string& class_type,
+                                   unsigned int max_devices,
+                                   unsigned int min_devices,
+                                   const string& hardware_requirements,
+                                   const string& software_requirements,
+                                   const string& network_requirements);
 
   // DeviceParingPpmInterface overloaded methods
-  virtual void
-  addDeviceToClass(const string& applicationId, const string& deviceAddr,
-                   unsigned int classIndex, const string& deviceDesc);
-  virtual void
-  getChildIndex(const string& applicationId, const string& deviceAddr,
-                unsigned int classIndex);
+  virtual void AddDeviceToClass(const string& application_id,
+                                const string& device_address,
+                                unsigned int class_index,
+                                const string& device_desc);
+  virtual void GetChildIndex(const string& application_id,
+                             const string& device_address,
+                             unsigned int class_index);
 
  private:
   map<unsigned int, DeviceClassDescription*> map_classDescription_;

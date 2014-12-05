@@ -17,22 +17,22 @@ UpnpActivePcm::~UpnpActivePcm() {
 }
 
 /*----------------------------------------------------------------------
- |   UpnpActivePcm::requestPropertyValue
+ |   UpnpActivePcm::RequestPropertyValue
  +---------------------------------------------------------------------*/
-void UpnpActivePcm::requestPropertyValue(const string& objectID,
+void UpnpActivePcm::RequestPropertyValue(const string& object_id,
                                          const string& name) {
 }
 
 /*----------------------------------------------------------------------
- |   UpnpActivePcm::notifyEventTransition
+ |   UpnpActivePcm::NotifyEventTransition
  +---------------------------------------------------------------------*/
-void UpnpActivePcm::notifyEventTransition(const string& objectID,
-                                          const string& eventID,
+void UpnpActivePcm::NotifyEventTransition(const string& object_id,
+                                          const string& event_id,
                                           const string& transition) {
 }
 
 /*----------------------------------------------------------------------
- |   UpnpActivePcm::notifyError
+ |   UpnpActivePcm::NotifyError
  +---------------------------------------------------------------------*/
-void UpnpActivePcm::notifyError(const string& objectID, const string& message) {
+void UpnpActivePcm::NotifyError(const string& object_id, const string& message) {
 }

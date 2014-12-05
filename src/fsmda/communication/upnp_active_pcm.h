@@ -17,17 +17,15 @@ class UpnpActivePcm : public ActivePcmInterface {
  public:
   // public constructors & destructors
   UpnpActivePcm();
-  virtual
-  ~UpnpActivePcm();
+  virtual ~UpnpActivePcm();
 
   // ActivePcmInterface overloaded methods
-  virtual void
-  requestPropertyValue(const string& objectID, const string& name);
-  virtual void
-  notifyEventTransition(const string& objectID, const string& eventID,
-                        const string& transition);
-  virtual void
-  notifyError(const string& objectID, const string& message);
+  virtual void RequestPropertyValue(const string& object_id,
+                                    const string& name);
+  virtual void NotifyEventTransition(const string& object_id,
+                                     const string& event_id,
+                                     const string& transition);
+  virtual void NotifyError(const string& object_id, const string& message);
 };
 
 #endif  // FSMDA_COMMUNICATION_UPNP_ACTIVE_PCM_H_

@@ -227,10 +227,10 @@ const char* UpnpFsmdaUtils::kFsmdaManufacturerUrl =
     "http://www.ncl.org.br/fsmda/ondemand";
 
 /*----------------------------------------------------------------------
- |   UpnpUtils::requestUpnpReference
+ |   UpnpUtils::RequestUpnpReference
  +---------------------------------------------------------------------*/
 PLT_UPnP*
-UpnpFsmdaUtils::requestUpnpReference() {
+UpnpFsmdaUtils::RequestUpnpReference() {
   if (UpnpFsmdaUtils::upnp_singleton_ == NULL) {
     // setup Neptune logging
     NPT_LogManager::GetDefault().Configure(
@@ -250,9 +250,9 @@ UpnpFsmdaUtils::requestUpnpReference() {
 }
 
 /*----------------------------------------------------------------------
- |   UpnpUtils::releaseUpnpReference
+ |   UpnpUtils::ReleaseUpnpReference
  +---------------------------------------------------------------------*/
-void UpnpFsmdaUtils::releaseUpnpReference() {
+void UpnpFsmdaUtils::ReleaseUpnpReference() {
   if (UpnpFsmdaUtils::references_count_ == 0) {
     return;
   } else if (UpnpFsmdaUtils::references_count_ == 1) {

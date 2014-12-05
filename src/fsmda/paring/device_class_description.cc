@@ -22,7 +22,7 @@ using std::endl;
 /*----------------------------------------------------------------------
  |   class fields
  +---------------------------------------------------------------------*/
-const char* DeviceClassDescription::deviceClassTypeMap[] = { "base", "passive",
+const char* DeviceClassDescription::deviceClassTypeMap_[] = { "base", "passive",
     "active", "html", "ondemand", "mediacapture" };
 
 /*----------------------------------------------------------------------
@@ -43,9 +43,9 @@ DeviceClassDescription::~DeviceClassDescription() {
 }
 
 /*----------------------------------------------------------------------
- |   DeviceClassDescription::device_meets_requirements
+ |   DeviceClassDescription::DeviceMeetRequirements
  +---------------------------------------------------------------------*/
-bool DeviceClassDescription::device_meets_requirements(
+bool DeviceClassDescription::DeviceMeetRequirements(
     DeviceDescription *device_desc) {
   if (!initialized_) {
     clog << "device_meets_requirements fail: not initialized_" << endl;
@@ -62,11 +62,11 @@ bool DeviceClassDescription::device_meets_requirements(
 }
 
 /*----------------------------------------------------------------------
- |   DeviceClassDescription::initialize_by_default_device_class
+ |   DeviceClassDescription::InitializeByDefaultDeviceClass
  +---------------------------------------------------------------------*/
-int DeviceClassDescription::initialize_by_default_device_class(
-    DeviceClassType classType) {
-  this->classType_ = classType;
+int DeviceClassDescription::InitializeByDefaultDeviceClass(
+    DeviceClassType type) {
+  this->classType_ = type;
   this->min_devices_ = 1;
   this->max_devices_ = UINT_MAX;
   this->paringMethod_ = "UPnP";
@@ -75,10 +75,9 @@ int DeviceClassDescription::initialize_by_default_device_class(
 }
 
 /*----------------------------------------------------------------------
- |   DeviceClassDescription::initialize_by_parse_rdf_file
+ |   DeviceClassDescription::InitializeByParseRdfFile
  +---------------------------------------------------------------------*/
-int DeviceClassDescription::initialize_by_parse_rdf_file(
-    const string& rdf_file) {
+int DeviceClassDescription::InitializeByParseRdfFile(const string& rdf_file) {
   int ret;
   xmlXPathContextPtr xpathCtx;
   xmlXPathObjectPtr xpathObj;
@@ -103,8 +102,7 @@ int DeviceClassDescription::initialize_by_parse_rdf_file(
   nodes = xpathObj->nodesetval;
   assert(nodes->nodeTab[0]);
   aux = (const char*) nodes->nodeTab[0]->children->content;
-  this->classType_ = DeviceClassDescription::get_device_class_type_by_string(
-      aux);
+  this->classType_ = DeviceClassDescription::GetDeviceClassTypeByString(aux);
   clog << "--->fsmda:classType = " << aux << "(or " << this->classType_ << ")"
        << endl;
   xmlXPathFreeObject(xpathObj);
@@ -152,24 +150,19 @@ int DeviceClassDescription::initialize_by_parse_rdf_file(
 }
 
 /*----------------------------------------------------------------------
- |   DeviceClassDescription::get_device_class_type_by_string
+ |   DeviceClassDescription::GetDeviceClassTypeByString
  +---------------------------------------------------------------------*/
-DeviceClassDescription::DeviceClassType DeviceClassDescription::get_device_class_type_by_string(
+DeviceClassDescription::DeviceClassType DeviceClassDescription::GetDeviceClassTypeByString(
     const string& str) {
-  if (!str.compare(
-      deviceClassTypeMap[kFsmdaPassiveDevice]))
+  if (!str.compare(deviceClassTypeMap_[kFsmdaPassiveDevice]))
     return kFsmdaPassiveDevice;
-  else if (!str.compare(
-      deviceClassTypeMap[kFsmdaActiveDevice]))
+  else if (!str.compare(deviceClassTypeMap_[kFsmdaActiveDevice]))
     return kFsmdaActiveDevice;
-  else if (!str.compare(
-      deviceClassTypeMap[kFsmdaHtmlDevice]))
+  else if (!str.compare(deviceClassTypeMap_[kFsmdaHtmlDevice]))
     return kFsmdaHtmlDevice;
-  else if (!str.compare(
-      deviceClassTypeMap[kFsmdaOnDemandDevice]))
+  else if (!str.compare(deviceClassTypeMap_[kFsmdaOnDemandDevice]))
     return kFsmdaOnDemandDevice;
-  else if (!str.compare(
-      deviceClassTypeMap[kFsmdaMediaCaptureDevice]))
+  else if (!str.compare(deviceClassTypeMap_[kFsmdaMediaCaptureDevice]))
     return kFsmdaMediaCaptureDevice;
   else
     return kFsmdaBaseDevice;

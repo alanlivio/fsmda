@@ -18,8 +18,8 @@ UpnpOnDemandPcm::~UpnpOnDemandPcm() {
 }
 
 /*----------------------------------------------------------------------
- |   UPnPOnDemandPCM::notifyOnDemandContent
+ |   UPnPOnDemandPCM::NotifyOnDemandContent
  +---------------------------------------------------------------------*/
-void UpnpOnDemandPcm::notifyOnDemandContent(const string& action,
+void UpnpOnDemandPcm::NotifyOnDemandContent(const string& action,
                                             const string& location) {
 }

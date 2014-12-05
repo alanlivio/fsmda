@@ -22,23 +22,17 @@ class UpnpParentParing : public PLT_DeviceHost {
   // public constructors & destructors
 
   explicit UpnpParentParing(const char* UUID = "");
-  virtual
-  ~UpnpParentParing();
+  virtual ~UpnpParentParing();
 
   // PLT_DeviceHost overloaded methods
-  virtual NPT_Result
-  SetupServices();
-  virtual NPT_Result
-  OnAction(PLT_ActionReference& action,
-           const PLT_HttpRequestContext& context);
+  virtual NPT_Result SetupServices();
+  virtual NPT_Result OnAction(PLT_ActionReference& action,
+                              const PLT_HttpRequestContext& context);
 
   // public methods
-  int
-  start_service();
-  int
-  stop_service();
-  bool
-  is_service_started();
+  int StartService();
+  int StopService();
+  bool IsServiceStarted();
 
  private:
   PLT_UPnP* upnp_reference_;

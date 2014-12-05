@@ -46,10 +46,8 @@ class UpnpFsmdaUtils {
   static const char* kOnDemandCcmDeviceModelName;
 
   // class methods
-  static PLT_UPnP*
-  requestUpnpReference();
-  static void
-  releaseUpnpReference();
+  static PLT_UPnP* RequestUpnpReference();
+  static void ReleaseUpnpReference();
   static unsigned int references_count_;
 
  private:

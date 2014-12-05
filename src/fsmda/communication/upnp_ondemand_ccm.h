@@ -20,16 +20,12 @@ class UpnpOnDemandCcm : public ServiceCmInterface {
 
   // public constructors & destructors
   UpnpOnDemandCcm();
-  virtual
-  ~UpnpOnDemandCcm();
+  virtual ~UpnpOnDemandCcm();
 
   // ServiceCMInterface overloaded methods
-  virtual int
-  start_communication_service();
-  virtual int
-  stop_communication_service();
-  virtual bool
-  is_service_started();
+  virtual int StartCommunicationService();
+  virtual int StopCommunicationService();
+  virtual bool IsServiceStartd();
 
  private:
   string ondemand_folder_;

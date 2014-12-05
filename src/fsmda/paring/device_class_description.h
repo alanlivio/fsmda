@@ -33,13 +33,11 @@ class DeviceClassDescription {
     kFsmaUpnpProtocol = 0,
     kFsmdaZeroconfProtocol = 1,
   };
-  static DeviceClassType
-  get_device_class_type_by_string(const string& str);
+  static DeviceClassType GetDeviceClassTypeByString(const string& str);
 
   // public constructors & destructors
   DeviceClassDescription();
-  virtual
-  ~DeviceClassDescription();
+  virtual ~DeviceClassDescription();
 
   // public fields
   DeviceClassType classType_;
@@ -48,15 +46,12 @@ class DeviceClassDescription {
   unsigned int max_devices_;
 
   // public methods
-  bool
-  device_meets_requirements(DeviceDescription *device_desc);
-  int
-  initialize_by_default_device_class(DeviceClassType);
-  int
-  initialize_by_parse_rdf_file(const string& rdf_file);
+  bool DeviceMeetRequirements(DeviceDescription *device_desc);
+  int InitializeByDefaultDeviceClass(DeviceClassType type);
+  int InitializeByParseRdfFile(const string& rdf_file);
 
  private:
-  static const char* deviceClassTypeMap[];
+  static const char* deviceClassTypeMap_[];
   xmlDocPtr doc_;
   bool initialized_;
 };

@@ -19,9 +19,8 @@ class MediaCapturePcmInterface {
   }
 
   // public pure virtual methods
-  virtual void
-  sendContent(char* content, const string& resourceId,
-              unsigned int childIndex)=0;
+  virtual void SendContent(char* content, const string& resource_id,
+                           unsigned int child_index)=0;
 };
 
 /*----------------------------------------------------------------------
@@ -34,7 +33,7 @@ class MediaCaptureCcmInterface {
   }
 
   // public pure virtual methods
-  virtual void
-  requestContent(const string& resourceId, unsigned int deviceIndex)=0;
+  virtual void RequestContent(const string& resource_id,
+                              unsigned int device_index)=0;
 };
 #endif  // FSMDA_COMMUNICATION_MODEL_MEDIACAPTURE_OBJECT_INTERFACES_H_

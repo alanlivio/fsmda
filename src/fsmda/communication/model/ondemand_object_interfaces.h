@@ -19,8 +19,8 @@ class OnDemandPcmInterface {
   }
 
   // public pure virtual methods
-  virtual void
-  notifyOnDemandContent(const string& action, const string&location)=0;
+  virtual void NotifyOnDemandContent(const string& action,
+                                     const string& location)=0;
 };
 
 #endif  // FSMDA_COMMUNICATION_MODEL_ONDEMAND_OBJECT_INTERFACES_H_

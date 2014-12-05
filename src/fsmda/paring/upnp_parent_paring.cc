@@ -38,7 +38,7 @@ UpnpParentParing::UpnpParentParing(const char* UUID)
  |   UpnpParentParing::~UpnpParentParing
  +---------------------------------------------------------------------*/
 UpnpParentParing::~UpnpParentParing() {
-  this->stop_service();
+  this->StopService();
 }
 
 /*----------------------------------------------------------------------
@@ -92,14 +92,14 @@ NPT_Result UpnpParentParing::OnAction(PLT_ActionReference& action,
 }
 
 /*----------------------------------------------------------------------
- |   UpnpParentParing::start_service
+ |   UpnpParentParing::StartService
  +---------------------------------------------------------------------*/
-int UpnpParentParing::start_service() {
+int UpnpParentParing::StartService() {
   if (upnp_device_service_ != NULL && upnp_device_service_->IsValid()) {
     return 0;
   }
   if (upnp_reference_ == NULL) {
-    upnp_reference_ = UpnpFsmdaUtils::requestUpnpReference();
+    upnp_reference_ = UpnpFsmdaUtils::RequestUpnpReference();
   }
   clog << "UpnpParentParing::start_service" << endl;
   NPT_Result res = upnp_reference_->AddDevice(*device_reference_);
@@ -111,19 +111,19 @@ int UpnpParentParing::start_service() {
 }
 
 /*----------------------------------------------------------------------
- |   UpnpParentParing::stop_service
+ |   UpnpParentParing::StopService
  +---------------------------------------------------------------------*/
-int UpnpParentParing::stop_service() {
+int UpnpParentParing::StopService() {
   if (upnp_reference_ != NULL) {
     upnp_reference_->RemoveDevice(*device_reference_);
-    UpnpFsmdaUtils::releaseUpnpReference();
+    UpnpFsmdaUtils::ReleaseUpnpReference();
     upnp_reference_ = NULL;
   }
   return 0;
 }
 /*----------------------------------------------------------------------
- |   UpnpParentParing::is_service_started
+ |   UpnpParentParing::IsServiceStarted
  +---------------------------------------------------------------------*/
-bool UpnpParentParing::is_service_started() {
+bool UpnpParentParing::IsServiceStarted() {
   return upnp_device_service_->IsValid();
 }

@@ -16,32 +16,32 @@ TEST(Communication, UpnpOnDemandCcm) {
   // ondemand class description initialize and meet_requirements tests
   cout << "----------------------------------------------------" << endl;
   UpnpOnDemandCcm* onDemandCCM = new UpnpOnDemandCcm();
-  onDemandCCM->start_communication_service();
-  EXPECT_TRUE(onDemandCCM->is_service_started());
-  onDemandCCM->stop_communication_service();
-  EXPECT_FALSE(onDemandCCM->is_service_started());
+  onDemandCCM->StartCommunicationService();
+  EXPECT_TRUE(onDemandCCM->IsServiceStartd());
+  onDemandCCM->StopCommunicationService();
+  EXPECT_FALSE(onDemandCCM->IsServiceStartd());
 }
 
 TEST(Paring, UpnpParentParing) {
   // parent paring tests
   cout << "----------------------------------------------------" << endl;
   UpnpParentParing* upnpParentParing = new UpnpParentParing();
-  EXPECT_EQ(upnpParentParing->start_service(), 0);
+  EXPECT_EQ(upnpParentParing->StartService(), 0);
   sleep(2);
-  EXPECT_TRUE(upnpParentParing->is_service_started());
-  upnpParentParing->stop_service();
+  EXPECT_TRUE(upnpParentParing->IsServiceStarted());
+  upnpParentParing->StopService();
   sleep(2);
-  EXPECT_FALSE(upnpParentParing->is_service_started());
+  EXPECT_FALSE(upnpParentParing->IsServiceStarted());
 }
 
 TEST(Paring, UpnpChildParing) {
   // child paring tests
   cout << "----------------------------------------------------" << endl;
   UpnpChildParing* upnpChildParing = new UpnpChildParing();
-  EXPECT_EQ(upnpChildParing->start_service(), 0);
+  EXPECT_EQ(upnpChildParing->StartService(), 0);
   sleep(2);
-  EXPECT_TRUE(upnpChildParing->is_service_started());
+  EXPECT_TRUE(upnpChildParing->IsServiceStarted());
   sleep(2);
-  upnpChildParing->stop_service();
-  EXPECT_FALSE(upnpChildParing->is_service_started());
+  upnpChildParing->StopService();
+  EXPECT_FALSE(upnpChildParing->IsServiceStarted());
 }

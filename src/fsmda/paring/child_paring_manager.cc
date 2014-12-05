@@ -12,34 +12,44 @@ ChildParingManager::ChildParingManager() {
 ChildParingManager::~ChildParingManager() {
 }
 
-ActiveCcmInterface*
-ChildParingManager::createActiveCcm(unsigned int classIndex) {
-  if (map_classDescription_[classIndex]->classType_
+/*----------------------------------------------------------------------
+ |   ChildParingManager::CreateActiveCc
+ +---------------------------------------------------------------------*/
+ActiveCcmInterface* ChildParingManager::CreateActiveCcm(
+    unsigned int class_index) {
+  if (map_classDescription_[class_index]->classType_
       == DeviceClassDescription::kFsmdaActiveDevice)
     return new UpnpActiveCcm();
   else
     return NULL;
 }
-MediaCaptureCcmInterface*
-ChildParingManager::createMediaCaptureCcm(unsigned int classIndex) {
-  if (map_classDescription_[classIndex]->classType_
+
+/*----------------------------------------------------------------------
+ |   ChildParingManager::CreateMediaCaptureCcm
+ +---------------------------------------------------------------------*/
+MediaCaptureCcmInterface* ChildParingManager::CreateMediaCaptureCcm(
+    unsigned int class_index) {
+  if (map_classDescription_[class_index]->classType_
       == DeviceClassDescription::kFsmdaMediaCaptureDevice)
     return new UpnpMediaCaptureCcm();
   else
     return NULL;
 }
 
-PassiveCcmInterface*
-ChildParingManager::createPassiveCcm(unsigned int classIndex) {
-  if (map_classDescription_[classIndex]->classType_
+/*----------------------------------------------------------------------
+ |  ChildParingManager::CreatePassiveCcm
+ +---------------------------------------------------------------------*/
+PassiveCcmInterface* ChildParingManager::CreatePassiveCcm(
+    unsigned int class_index) {
+  if (map_classDescription_[class_index]->classType_
       == DeviceClassDescription::kFsmdaPassiveDevice)
     return new UpnpPassiveCcm();
   else
     return NULL;
 }
 
-void ChildParingManager::classAnnouncement(const string& applicationID,
-                                           unsigned int classIndex,
-                                           const string& classDesc,
-                                           const string& classFunction) {
+void ChildParingManager::ClassAnnouncement(const string& application_id,
+                                           unsigned int class_index,
+                                           const string& class_desc,
+                                           const string& class_function) {
 }

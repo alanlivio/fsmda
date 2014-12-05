@@ -33,9 +33,9 @@ DeviceDescription::~DeviceDescription() {
 }
 
 /*----------------------------------------------------------------------
- |   DeviceDescription::get_device_class_type_by_string
+ |   DeviceDescription::InitializeByRdfFile
  +---------------------------------------------------------------------*/
-int DeviceDescription::initialize_by_rdf_file(const string& rdf_file) {
+int DeviceDescription::InitializeByRdfFile(const string& rdf_file) {
   int ret;
   xmlXPathContextPtr xpathCtx;
   xmlXPathObjectPtr xpathObj;
@@ -60,8 +60,7 @@ int DeviceDescription::initialize_by_rdf_file(const string& rdf_file) {
   nodes = xpathObj->nodesetval;
   assert(nodes->nodeTab[0]);
   aux = (const char*) nodes->nodeTab[0]->children->content;
-  this->classType_ = DeviceClassDescription::get_device_class_type_by_string(
-      aux);
+  this->classType_ = DeviceClassDescription::GetDeviceClassTypeByString(aux);
   clog << "--->fsmda:classType = " << aux << "(or " << this->classType_ << ")"
        << endl;
   xmlXPathFreeObject(xpathObj);

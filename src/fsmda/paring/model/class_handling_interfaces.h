@@ -19,15 +19,18 @@ class ClassHandlingPpmInterface {
   }
 
   // public pure virtual methods
-  virtual void
-  addClass(const string& applicationId, unsigned int classIndex)=0;
-  virtual void
-  removeClass(const string& applicationId, unsigned int classIndex)=0;
-  virtual void
-  addClassDescription(const string& applicationId, unsigned int classIndex,
-                      const string& classType, unsigned int maxDevices,
-                      unsigned int minDevices, const string& hardwareReq,
-                      const string& softwareReq, const string& networkReq)=0;
+  virtual void AddClass(const string& application_id,
+                        unsigned int class_index)=0;
+  virtual void RemoveClass(const string& applicationId,
+                           unsigned int classIndex)=0;
+  virtual void AddClassDescription(const string& application_id,
+                                   unsigned int class_index,
+                                   const string& class_type,
+                                   unsigned int max_devices,
+                                   unsigned int min_devices,
+                                   const string& hardware_requirements,
+                                   const string& software_requirements,
+                                   const string& network_requirements)=0;
 };
 
 /*----------------------------------------------------------------------
@@ -40,10 +43,8 @@ class ClassHandlingHPEInterface {
   }
 
   // public pure virtual methods
-  virtual void
-  getClassVariableValue(const string& name, const string& value);
-  virtual void
-  setClassVariableValue(const string& name, const string& value);
+  virtual void getClassVariableValue(const string& name, const string& value);
+  virtual void setClassVariableValue(const string& name, const string& value);
 };
 
 #endif  // FSMDA_PARING_MODEL_CLASS_HANDLING_INTERFACES_H_
