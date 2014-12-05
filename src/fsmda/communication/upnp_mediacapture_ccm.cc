@@ -22,6 +22,4 @@ UpnpMediaCaptureCcm::~UpnpMediaCaptureCcm() {
  +---------------------------------------------------------------------*/
 void UpnpMediaCaptureCcm::requestContent(const string& resourceId,
                                          unsigned int deviceIndex) {
-
 }
-

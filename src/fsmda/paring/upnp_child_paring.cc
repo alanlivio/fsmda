@@ -24,8 +24,7 @@ UpnpChildParing::UpnpChildParing(const char* UUID)
                      UpnpFsmdaUtils::kCpmDeviceFriendlyName),
       service_start_(false),
       upnp_reference_(NULL) {
-  this->m_ModelDescription =
-      UpnpFsmdaUtils::kCpmDeviceModelDescription;
+  this->m_ModelDescription = UpnpFsmdaUtils::kCpmDeviceModelDescription;
   this->m_ModelURL = UpnpFsmdaUtils::kCpmDeviceModelUrl;
   this->m_ModelNumber = UpnpFsmdaUtils::kCpmDeviceModelNumber;
   this->m_ModelName = UpnpFsmdaUtils::kCpmDeviceModelName;
@@ -44,12 +43,10 @@ UpnpChildParing::~UpnpChildParing() {
  +---------------------------------------------------------------------*/
 NPT_Result UpnpChildParing::SetupServices() {
   NPT_Result res;
-  PLT_Service* service = new PLT_Service(
-      this, UpnpFsmdaUtils::kCpmServiceType,
-      UpnpFsmdaUtils::kCpmServiceId,
-      UpnpFsmdaUtils::kCpmServiceName);
-  res = service->SetSCPDXML(
-      (const char*) UpnpFsmdaUtils::kCpmServiceScpdXml);
+  PLT_Service* service = new PLT_Service(this, UpnpFsmdaUtils::kCpmServiceType,
+                                         UpnpFsmdaUtils::kCpmServiceId,
+                                         UpnpFsmdaUtils::kCpmServiceName);
+  res = service->SetSCPDXML((const char*) UpnpFsmdaUtils::kCpmServiceScpdXml);
   res = AddService(service);
   return res;
 }
@@ -90,9 +87,9 @@ int UpnpChildParing::start_service() {
   clog << "UpnpParentParing::start_service" << endl;
   PLT_DeviceHostReference device_reference(this);
   NPT_Result res = upnp_reference_->AddDevice(device_reference);
-  if (res != NPT_SUCCESS)
+  if (res != NPT_SUCCESS) {
     return -1;
-  else {
+  } else {
     service_start_ = true;
     return 0;
   }

@@ -42,6 +42,4 @@ void ChildParingManager::classAnnouncement(const string& applicationID,
                                            unsigned int classIndex,
                                            const string& classDesc,
                                            const string& classFunction) {
-
 }
-

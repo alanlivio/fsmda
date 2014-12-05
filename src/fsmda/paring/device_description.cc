@@ -11,8 +11,8 @@
 #include "libxml/xpath.h"
 #include "libxml/xpathInternals.h"
 #include <cassert>
-#include <string>
 #include <iostream>
+#include <string>
 
 using std::clog;
 using std::endl;
@@ -48,12 +48,14 @@ int DeviceDescription::initialize_by_rdf_file(const string& rdf_file) {
   assert(doc_ != NULL);
   xpathCtx = xmlXPathNewContext(this->doc_);
   assert(xpathCtx != NULL);
-  ret = xmlXPathRegisterNs(xpathCtx, (xmlChar*) "fsmda",
-                           (xmlChar*) "http://www.ncl.org.br/fsmda");
+  ret = xmlXPathRegisterNs(
+      xpathCtx, reinterpret_cast<const xmlChar*>("fsmda"),
+      reinterpret_cast<const xmlChar*>("http://www.ncl.org.br/fsmda"));
   assert(ret == 0);
 
   // capture classType
-  xpathObj = xmlXPathEvalExpression((xmlChar*) "//fsmda:classType", xpathCtx);
+  xpathObj = xmlXPathEvalExpression(
+      reinterpret_cast<const xmlChar*>("//fsmda:classType"), xpathCtx);
   assert(xpathObj != NULL);
   nodes = xpathObj->nodesetval;
   assert(nodes->nodeTab[0]);
@@ -65,8 +67,8 @@ int DeviceDescription::initialize_by_rdf_file(const string& rdf_file) {
   xmlXPathFreeObject(xpathObj);
 
   // capture paringMethod
-  xpathObj = xmlXPathEvalExpression((xmlChar*) "//fsmda:pairingMethod",
-                                    xpathCtx);
+  xpathObj = xmlXPathEvalExpression(
+      reinterpret_cast<const xmlChar*>("//fsmda:pairingMethod"), xpathCtx);
   assert(xpathObj != NULL);
   nodes = xpathObj->nodesetval;
   assert(nodes->nodeTab[0]);

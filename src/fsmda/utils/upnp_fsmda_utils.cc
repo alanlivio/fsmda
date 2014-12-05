@@ -20,7 +20,7 @@ PLT_UPnP* UpnpFsmdaUtils::upnp_singleton_ = NULL;
 unsigned int UpnpFsmdaUtils::references_count_ = 0;
 bool UpnpFsmdaUtils::upnp_running_ = false;
 
-//PPM UPNP constant strings
+// PPM UPNP constant strings
 const char* UpnpFsmdaUtils::kPpmDeviceType =
     "urn:schemas-upnp-org:device:fsmda-parent-paring-device:1";
 const char* UpnpFsmdaUtils::kPpmDeviceFriendlyName =
@@ -128,7 +128,7 @@ const char* UpnpFsmdaUtils::kPpmServiceScpdXml =
         "   <dlna:X_DLNADOC xmlns:dlna=\"udn:schemas-dlna-org:device-1-0\">DMP 1.00</dlna:X_DLNADOC>"
         "  </scpd>";
 
-//CPM UPNP constant strings
+// CPM UPNP constant strings
 const char* UpnpFsmdaUtils::kCpmDeviceType =
     "urn:schemas-upnp-org:device:smda-child-paring-device:1";
 const char* UpnpFsmdaUtils::kCpmDeviceFriendlyName =
@@ -210,8 +210,7 @@ const char* UpnpFsmdaUtils::kCpmServiceScpdXml =
         "   <dlna:X_DLNADOC xmlns:dlna=\"udn:schemas-dlna-org:device-1-0\">DMP 1.00</dlna:X_DLNADOC>"
         "  </scpd>";
 
-
-//UPNP UpnpOnDemandCcm constant strings
+// UPNP UpnpOnDemandCcm constant strings
 const char* UpnpFsmdaUtils::kOnDemandCcmDeviceModelName =
     "fsmda-ondemand-device";
 const char* UpnpFsmdaUtils::kOnDemandCcmDeviceFriendlyName =
@@ -222,7 +221,7 @@ const char* UpnpFsmdaUtils::kOnDemandCcmDeviceModelUrl =
     "http://www.ncl.org.br/fsmda/ondemand";
 const char* UpnpFsmdaUtils::kOnDemandCcmDeviceModelNumber = "1.0";
 
-//UPNP FSMDA Manufacturer constant strings
+// UPNP FSMDA Manufacturer constant strings
 const char* UpnpFsmdaUtils::kFsmdaManufacturer = "FSMDA";
 const char* UpnpFsmdaUtils::kFsmdaManufacturerUrl =
     "http://www.ncl.org.br/fsmda/ondemand";
@@ -254,14 +253,15 @@ UpnpFsmdaUtils::requestUpnpReference() {
  |   UpnpUtils::releaseUpnpReference
  +---------------------------------------------------------------------*/
 void UpnpFsmdaUtils::releaseUpnpReference() {
-  if (UpnpFsmdaUtils::references_count_ == 0)
+  if (UpnpFsmdaUtils::references_count_ == 0) {
     return;
-  else if (UpnpFsmdaUtils::references_count_ == 1) {
+  } else if (UpnpFsmdaUtils::references_count_ == 1) {
     UpnpFsmdaUtils::upnp_singleton_->Stop();
     delete upnp_singleton_;
     UpnpFsmdaUtils::upnp_singleton_ = NULL;
     UpnpFsmdaUtils::references_count_ = 0;
     UpnpFsmdaUtils::upnp_running_ = false;
-  } else
+  } else {
     UpnpFsmdaUtils::references_count_--;
+  }
 }

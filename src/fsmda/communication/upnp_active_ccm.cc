@@ -15,7 +15,6 @@ UpnpActiveCcm::UpnpActiveCcm() {
  |   UpnpActiveCcm::~UpnpActiveCcm
  +---------------------------------------------------------------------*/
 UpnpActiveCcm::~UpnpActiveCcm() {
-
 }
 
 /*----------------------------------------------------------------------

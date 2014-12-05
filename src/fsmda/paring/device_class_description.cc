@@ -16,12 +16,13 @@
 #include <iostream>
 #include <string>
 
-using namespace std;
+using std::clog;
+using std::endl;
 
 /*----------------------------------------------------------------------
  |   class fields
  +---------------------------------------------------------------------*/
-string DeviceClassDescription::deviceClassTypeMap[] = { "base", "passive",
+const char* DeviceClassDescription::deviceClassTypeMap[] = { "base", "passive",
     "active", "html", "ondemand", "mediacapture" };
 
 /*----------------------------------------------------------------------
@@ -55,8 +56,9 @@ bool DeviceClassDescription::device_meets_requirements(
   } else if (this->paringMethod_ != device_desc->paringMethod_) {
     clog << "device_meets_requirements fail: paringMethod_" << endl;
     return false;
-  } else
+  } else {
     return true;
+  }
 }
 
 /*----------------------------------------------------------------------
@@ -89,12 +91,14 @@ int DeviceClassDescription::initialize_by_parse_rdf_file(
   assert(doc_ != NULL);
   xpathCtx = xmlXPathNewContext(this->doc_);
   assert(xpathCtx != NULL);
-  ret = xmlXPathRegisterNs(xpathCtx, (xmlChar*) "fsmda",
-                           (xmlChar*) "http://www.ncl.org.br/fsmda");
+  ret = xmlXPathRegisterNs(
+      xpathCtx, reinterpret_cast<const xmlChar*>("fsmda"),
+      reinterpret_cast<const xmlChar*>("http://www.ncl.org.br/fsmda"));
   assert(ret == 0);
 
   // capture classType
-  xpathObj = xmlXPathEvalExpression((xmlChar*) "//fsmda:classType", xpathCtx);
+  xpathObj = xmlXPathEvalExpression(
+      reinterpret_cast<const xmlChar*>("//fsmda:classType"), xpathCtx);
   assert(xpathObj != NULL);
   nodes = xpathObj->nodesetval;
   assert(nodes->nodeTab[0]);
@@ -106,7 +110,8 @@ int DeviceClassDescription::initialize_by_parse_rdf_file(
   xmlXPathFreeObject(xpathObj);
 
   // capture min_devices
-  xpathObj = xmlXPathEvalExpression((xmlChar*) "//fsmda:minDevices", xpathCtx);
+  xpathObj = xmlXPathEvalExpression(
+      reinterpret_cast<const xmlChar*>("//fsmda:minDevices"), xpathCtx);
   assert(xpathObj != NULL);
   nodes = xpathObj->nodesetval;
   assert(nodes->nodeTab[0]);
@@ -116,7 +121,8 @@ int DeviceClassDescription::initialize_by_parse_rdf_file(
   xmlXPathFreeObject(xpathObj);
 
   // capture max_devices
-  xpathObj = xmlXPathEvalExpression((xmlChar*) "//fsmda:maxDevices", xpathCtx);
+  xpathObj = xmlXPathEvalExpression(
+      reinterpret_cast<const xmlChar*>("//fsmda:maxDevices"), xpathCtx);
   assert(xpathObj != NULL);
   nodes = xpathObj->nodesetval;
   assert(nodes->nodeTab[0]);
@@ -126,8 +132,8 @@ int DeviceClassDescription::initialize_by_parse_rdf_file(
   xmlXPathFreeObject(xpathObj);
 
   // capture paringMethod
-  xpathObj = xmlXPathEvalExpression((xmlChar*) "//fsmda:pairingMethod",
-                                    xpathCtx);
+  xpathObj = xmlXPathEvalExpression(
+      reinterpret_cast<const xmlChar*>("//fsmda:pairingMethod"), xpathCtx);
   assert(xpathObj != NULL);
   nodes = xpathObj->nodesetval;
   assert(nodes->nodeTab[0]);
@@ -149,24 +155,22 @@ int DeviceClassDescription::initialize_by_parse_rdf_file(
  |   DeviceClassDescription::get_device_class_type_by_string
  +---------------------------------------------------------------------*/
 DeviceClassDescription::DeviceClassType DeviceClassDescription::get_device_class_type_by_string(
-    const string& str)
-
-    {
+    const string& str) {
   if (!str.compare(
-      DeviceClassDescription::deviceClassTypeMap[DeviceClassDescription::kFsmdaPassiveDevice]))
-    return DeviceClassDescription::kFsmdaPassiveDevice;
+      deviceClassTypeMap[kFsmdaPassiveDevice]))
+    return kFsmdaPassiveDevice;
   else if (!str.compare(
-      DeviceClassDescription::deviceClassTypeMap[DeviceClassDescription::kFsmdaActiveDevice]))
-    return DeviceClassDescription::kFsmdaActiveDevice;
+      deviceClassTypeMap[kFsmdaActiveDevice]))
+    return kFsmdaActiveDevice;
   else if (!str.compare(
-      DeviceClassDescription::deviceClassTypeMap[DeviceClassDescription::kFsmdaHtmlDevice]))
-    return DeviceClassDescription::kFsmdaHtmlDevice;
+      deviceClassTypeMap[kFsmdaHtmlDevice]))
+    return kFsmdaHtmlDevice;
   else if (!str.compare(
-      DeviceClassDescription::deviceClassTypeMap[DeviceClassDescription::kFsmdaOnDemandDevice]))
-    return DeviceClassDescription::kFsmdaOnDemandDevice;
+      deviceClassTypeMap[kFsmdaOnDemandDevice]))
+    return kFsmdaOnDemandDevice;
   else if (!str.compare(
-      DeviceClassDescription::deviceClassTypeMap[DeviceClassDescription::kFsmdaMediaCaptureDevice]))
-    return DeviceClassDescription::kFsmdaMediaCaptureDevice;
+      deviceClassTypeMap[kFsmdaMediaCaptureDevice]))
+    return kFsmdaMediaCaptureDevice;
   else
-    return DeviceClassDescription::kFsmdaBaseDevice;
+    return kFsmdaBaseDevice;
 }

@@ -11,7 +11,8 @@
 #include <iostream>
 #include <string>
 
-using namespace std;
+using std::clog;
+using std::endl;
 
 /*----------------------------------------------------------------------
  |   UpnpOnDemandCcm::UpnpOnDemandCcm
@@ -41,9 +42,10 @@ int UpnpOnDemandCcm::start_communication_service() {
   clog << "OnDemandCCM::start_communication_service" << endl;
   PLT_DeviceHostReference device(
       new PLT_FileMediaServer(this->ondemand_folder_.c_str(),
-                              UpnpFsmdaUtils::kOnDemandCcmDeviceFriendlyName, true,
-                              this->uuid_.c_str()));
-  device->m_ModelDescription = UpnpFsmdaUtils::kOnDemandCcmDeviceModelDescription;
+                              UpnpFsmdaUtils::kOnDemandCcmDeviceFriendlyName,
+                              true, this->uuid_.c_str()));
+  device->m_ModelDescription =
+      UpnpFsmdaUtils::kOnDemandCcmDeviceModelDescription;
   device->m_ModelURL = UpnpFsmdaUtils::kOnDemandCcmDeviceModelUrl;
   device->m_ModelNumber = UpnpFsmdaUtils::kOnDemandCcmDeviceModelNumber;
   device->m_ModelName = UpnpFsmdaUtils::kOnDemandCcmDeviceModelName;

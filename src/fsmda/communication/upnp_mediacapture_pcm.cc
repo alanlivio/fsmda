@@ -8,7 +8,6 @@
  |   UpnpMediaCapturePcm::UpnpMediaCapturePcm
  +---------------------------------------------------------------------*/
 UpnpMediaCapturePcm::UpnpMediaCapturePcm() {
-
 }
 
 /*----------------------------------------------------------------------
@@ -22,5 +21,4 @@ UpnpMediaCapturePcm::~UpnpMediaCapturePcm() {
  +---------------------------------------------------------------------*/
 void UpnpMediaCapturePcm::sendContent(char* content, const string& resourceId,
                                       unsigned int childIndex) {
-
 }

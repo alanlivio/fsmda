@@ -56,7 +56,7 @@ class DeviceClassDescription {
   initialize_by_parse_rdf_file(const string& rdf_file);
 
  private:
-  static string deviceClassTypeMap[];
+  static const char* deviceClassTypeMap[];
   xmlDocPtr doc_;
   bool initialized_;
 };
