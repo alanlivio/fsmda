@@ -1,5 +1,5 @@
-#ifndef UPNP_MEDIA_CAPTURE_CCM_H_
-#define UPNP_MEDIA_CAPTURE_CCM_H_
+#ifndef FSMDA_COMMUNICATION_UPNP_MEDIACAPTURE_CCM_H_
+#define FSMDA_COMMUNICATION_UPNP_MEDIACAPTURE_CCM_H_
 
 /*----------------------------------------------------------------------
  |   includes
@@ -8,7 +8,7 @@
 #include "fsmda/communication/model/mediacapture_object_interfaces.h"
 #include <string>
 
-using namespace std;
+using std::string;
 
 /*----------------------------------------------------------------------
  |   UpnpMediaCaptureCcm class
@@ -25,4 +25,4 @@ class UpnpMediaCaptureCcm : public MediaCaptureCcmInterface {
   requestContent(const string& resourceId, unsigned int deviceIndex);
 };
 
-#endif /* UPNP_MEDIA_CAPTURE_CCM_H_ */
+#endif  // FSMDA_COMMUNICATION_UPNP_MEDIACAPTURE_CCM_H_

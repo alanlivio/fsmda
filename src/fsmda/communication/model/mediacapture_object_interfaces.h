@@ -1,5 +1,5 @@
-#ifndef MEDIA_CAPTURE_OBJECT_CONTROL_H_
-#define MEDIA_CAPTURE_OBJECT_CONTROL_H_
+#ifndef FSMDA_COMMUNICATION_MODEL_MEDIACAPTURE_OBJECT_INTERFACES_H_
+#define FSMDA_COMMUNICATION_MODEL_MEDIACAPTURE_OBJECT_INTERFACES_H_
 
 /*----------------------------------------------------------------------
  |   includes
@@ -7,7 +7,7 @@
 
 #include <string>
 
-using namespace std;
+using std::string;
 
 /*----------------------------------------------------------------------
  |   MediaCapturePcmInterface abstract class
@@ -37,4 +37,4 @@ class MediaCaptureCcmInterface {
   virtual void
   requestContent(const string& resourceId, unsigned int deviceIndex)=0;
 };
-#endif /* MEDIA_CAPTURE_OBJECT_CONTROL_H_ */
+#endif  // FSMDA_COMMUNICATION_MODEL_MEDIACAPTURE_OBJECT_INTERFACES_H_

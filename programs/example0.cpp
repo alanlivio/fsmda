@@ -6,8 +6,8 @@
 #include <NptLogging.h>
 #include <PltCtrlPoint.h>
 #include <PltUPnP.h>
-#include "fsmda/paring/upnp/upnp_child_paring.h"
-#include "fsmda/paring/upnp/upnp_parent_paring.h"
+#include "fsmda/paring/upnp_child_paring.h"
+#include "fsmda/paring/upnp_parent_paring.h"
 #include "fsmda/utils/upnp_fsmda_utils.h"
 #include <cassert>
 #include <cstdio>

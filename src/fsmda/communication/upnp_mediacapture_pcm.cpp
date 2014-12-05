@@ -2,7 +2,7 @@
  |   includes
  +---------------------------------------------------------------------*/
 
-#include "fsmda/communication/upnp/upnp_mediacapture_pcm.h"
+#include "fsmda/communication/upnp_mediacapture_pcm.h"
 
 /*----------------------------------------------------------------------
  |   UpnpMediaCapturePcm::UpnpMediaCapturePcm

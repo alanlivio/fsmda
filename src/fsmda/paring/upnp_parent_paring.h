@@ -1,5 +1,5 @@
-#ifndef UPNP_PPMH_
-#define UPNP_PPMH_
+#ifndef FSMDA_PARING_UPNP_PARENT_PARING_H_
+#define FSMDA_PARING_UPNP_PARENT_PARING_H_
 
 /*----------------------------------------------------------------------
  |   includes
@@ -12,7 +12,7 @@
 #include "PltUPnP.h"
 #include <string>
 
-using namespace std;
+using std::string;
 
 /*----------------------------------------------------------------------
  |   UpnpPpm class
@@ -21,7 +21,7 @@ class UpnpParentParing : public PLT_DeviceHost {
  public:
   // public constructors & destructors
 
-  UpnpParentParing(const char* UUID = "");
+  explicit UpnpParentParing(const char* UUID = "");
   virtual
   ~UpnpParentParing();
 
@@ -29,7 +29,8 @@ class UpnpParentParing : public PLT_DeviceHost {
   virtual NPT_Result
   SetupServices();
   virtual NPT_Result
-  OnAction(PLT_ActionReference& action, const PLT_HttpRequestContext& context);
+  OnAction(PLT_ActionReference& action,
+           const PLT_HttpRequestContext& context);
 
   // public methods
   int
@@ -45,4 +46,4 @@ class UpnpParentParing : public PLT_DeviceHost {
   PLT_DeviceHostReference * device_reference_;
 };
 
-#endif /* UPNP_PPMH_ */
+#endif  // FSMDA_PARING_UPNP_PARENT_PARING_H_

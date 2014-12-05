@@ -1,5 +1,5 @@
-#ifndef UPNP_SERVICE_CM_INTERFACE_H_
-#define UPNP_SERVICE_CM_INTERFACE_H_
+#ifndef FSMDA_COMMUNICATION_UPNP_SERVICE_CM_INTERFACE_H_
+#define FSMDA_COMMUNICATION_UPNP_SERVICE_CM_INTERFACE_H_
 /*----------------------------------------------------------------------
  |   includes
  +---------------------------------------------------------------------*/
@@ -20,7 +20,6 @@ class ServiceCmInterface {
   stop_communication_service()=0;
   virtual bool
   is_service_started()=0;
-
 };
 
-#endif /* UPNP_SERVICE_CM_INTERFACE_H_ */
+#endif  // FSMDA_COMMUNICATION_UPNP_SERVICE_CM_INTERFACE_H_

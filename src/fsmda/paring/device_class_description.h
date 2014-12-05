@@ -1,5 +1,5 @@
-#ifndef DEVICE_CLASS_DESCRIPTION_H_
-#define DEVICE_CLASS_DESCRIPTION_H_
+#ifndef FSMDA_PARING_DEVICE_CLASS_DESCRIPTION_H_
+#define FSMDA_PARING_DEVICE_CLASS_DESCRIPTION_H_
 
 /*----------------------------------------------------------------------
  |   includes
@@ -8,7 +8,7 @@
 #include "libxml/tree.h"
 #include <string>
 
-using namespace std;
+using std::string;
 
 /*----------------------------------------------------------------------
  |   forward definitions
@@ -61,4 +61,4 @@ class DeviceClassDescription {
   bool initialized_;
 };
 
-#endif /* DEVICE_CLASS_DESCRIPTION_H_ */
+#endif  // FSMDA_PARING_DEVICE_CLASS_DESCRIPTION_H_

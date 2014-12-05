@@ -2,7 +2,7 @@
  |   includes
  +---------------------------------------------------------------------*/
 
-#include "fsmda/communication/upnp/upnp_passive_pcm.h"
+#include "fsmda/communication/upnp_passive_pcm.h"
 
 /*----------------------------------------------------------------------
  |   UPnPPassivePCM::UPnPPassivePCM

@@ -1,5 +1,5 @@
-#ifndef DEVICE_PARING_INTERFACES_H_
-#define DEVICE_PARING_INTERFACES_H_
+#ifndef FSMDA_PARING_MODEL_DEVICE_PARING_INTERFACES_H_
+#define FSMDA_PARING_MODEL_DEVICE_PARING_INTERFACES_H_
 
 /*----------------------------------------------------------------------
  |   includes
@@ -7,7 +7,7 @@
 
 #include <string>
 
-using namespace std;
+using std::string;
 
 /*----------------------------------------------------------------------
  |   DeviceParingCpmInterface abstract class
@@ -42,4 +42,4 @@ class DeviceParingCpmInterface {
                     const string& classDesc, const string& classFunction)=0;
 };
 
-#endif /* DEVICE_PARING_INTERFACES_H_ */
+#endif  // FSMDA_PARING_MODEL_DEVICE_PARING_INTERFACES_H_

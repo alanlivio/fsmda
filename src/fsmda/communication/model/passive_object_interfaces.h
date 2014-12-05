@@ -1,5 +1,5 @@
-#ifndef PASSIVE_OBJECT_INTERFACES_H_
-#define PASSIVE_OBJECT_INTERFACES_H_
+#ifndef FSMDA_COMMUNICATION_MODEL_PASSIVE_OBJECT_INTERFACES_H_
+#define FSMDA_COMMUNICATION_MODEL_PASSIVE_OBJECT_INTERFACES_H_
 
 /*----------------------------------------------------------------------
  |   includes
@@ -7,7 +7,7 @@
 
 #include <string>
 
-using namespace std;
+using std::string;
 
 /*----------------------------------------------------------------------
  |   PassiveCcmInterface abstract class
@@ -40,4 +40,4 @@ class PassivePcmInterface {
   notifyError(const string& message, const string& objectId)=0;
 };
 
-#endif /* PASSIVE_OBJECT_INTERFACES_H_ */
+#endif  // FSMDA_COMMUNICATION_MODEL_PASSIVE_OBJECT_INTERFACES_H_

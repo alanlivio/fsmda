@@ -1,5 +1,5 @@
-#ifndef PARING_DEVICE_DESCRIPTION_H_
-#define PARING_DEVICE_DESCRIPTION_H_
+#ifndef FSMDA_PARING_DEVICE_DESCRIPTION_H_
+#define FSMDA_PARING_DEVICE_DESCRIPTION_H_
 
 /*----------------------------------------------------------------------
  |   includes
@@ -9,7 +9,7 @@
 #include "libxml/tree.h"
 #include <string>
 
-using namespace std;
+using std::string;
 
 class DeviceDescription {
  public:
@@ -30,7 +30,6 @@ class DeviceDescription {
   // private fields
   xmlDocPtr doc_;
   bool initialized_;
-
 };
 
-#endif /* PARING_DEVICE_DESCRIPTION_H_ */
+#endif  // FSMDA_PARING_DEVICE_DESCRIPTION_H_

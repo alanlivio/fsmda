@@ -1,15 +1,15 @@
-#ifndef UPNP_ONDEMAND_CCM_H_
-#define UPNP_ONDEMAND_CCM_H_
+#ifndef FSMDA_COMMUNICATION_UPNP_ONDEMAND_CCM_H_
+#define FSMDA_COMMUNICATION_UPNP_ONDEMAND_CCM_H_
 /*----------------------------------------------------------------------
  |   includes
  +---------------------------------------------------------------------*/
 
-#include "fsmda/communication/upnp/upnp_service_cm_interface.h"
+#include "fsmda/communication/upnp_service_cm_interface.h"
 #include <string>
 
 class PLT_UPnP;
 
-using namespace std;
+using std::string;
 
 /*----------------------------------------------------------------------
  |   UpnpOnDemandCcm class
@@ -38,4 +38,4 @@ class UpnpOnDemandCcm : public ServiceCmInterface {
   PLT_UPnP* upnp_reference_;
 };
 
-#endif /* UPNP_ONDEMAND_CCM_H_ */
+#endif  // FSMDA_COMMUNICATION_UPNP_ONDEMAND_CCM_H_

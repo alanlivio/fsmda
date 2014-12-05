@@ -1,5 +1,5 @@
-#ifndef ONDEMAND_OBJECT_INTERFACES_H_
-#define ONDEMAND_OBJECT_INTERFACES_H_
+#ifndef FSMDA_COMMUNICATION_MODEL_ONDEMAND_OBJECT_INTERFACES_H_
+#define FSMDA_COMMUNICATION_MODEL_ONDEMAND_OBJECT_INTERFACES_H_
 
 /*----------------------------------------------------------------------
  |   includes
@@ -7,7 +7,7 @@
 
 #include <string>
 
-using namespace std;
+using std::string;
 
 /*----------------------------------------------------------------------
  |   OnDemandPcmInterface abstract class
@@ -23,4 +23,4 @@ class OnDemandPcmInterface {
   notifyOnDemandContent(const string& action, const string&location)=0;
 };
 
-#endif /* ONDEMAND_OBJECT_INTERFACES_H_ */
+#endif  // FSMDA_COMMUNICATION_MODEL_ONDEMAND_OBJECT_INTERFACES_H_

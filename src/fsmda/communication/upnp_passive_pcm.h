@@ -1,5 +1,5 @@
-#ifndef UPNP_PASSIVE_PCM_H_
-#define UPNP_PASSIVE_PCM_H_
+#ifndef FSMDA_COMMUNICATION_UPNP_PASSIVE_PCM_H_
+#define FSMDA_COMMUNICATION_UPNP_PASSIVE_PCM_H_
 
 /*----------------------------------------------------------------------
  |   includes
@@ -8,7 +8,7 @@
 #include "fsmda/communication/model/passive_object_interfaces.h"
 #include <string>
 
-using namespace std;
+using std::string;
 
 /*----------------------------------------------------------------------
  |   UpnpPassivePcm  class
@@ -25,4 +25,4 @@ class UpnpPassivePcm : public PassivePcmInterface {
   notifyError(const string& message, const string& objectId);
 };
 
-#endif /* UPNP_PASSIVE_PCM_H_ */
+#endif  // FSMDA_COMMUNICATION_UPNP_PASSIVE_PCM_H_

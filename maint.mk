@@ -96,6 +96,6 @@ fetch-gtest-gmock:
 	true
 	
 cpplint:	
-	@find src/ -name "*.cc"  -o -name "*.h" | grep -v config.h|  xargs -r python ./build-aux/cpplint.py  --root=src --filter=-readability/streams,-build/include_order ;\
-	find tests/ -name "*.cc"  -o -name "*.h" | grep -v gtest| grep -v gmock| xargs -r python ./build-aux/cpplint.py  --root=src --filter=-readability/streams,-build/include_order;\
-	find programs/ -name "*.cc"  -o -name "*.h" | xargs -r python ./build-aux/cpplint.py  --root=programs --filter=-readability/streams,-build/include_order;
+	@find src/ -name "*.cc"  -o -name "*.h" | grep -v config.h|  xargs -r python ./build-aux/cpplint.py  --root=src --filter=-readability/streams,-build/include_order,-legal/copyright ;\
+	find tests/ -name "*.cc"  -o -name "*.h" | grep -v gtest| grep -v gmock| xargs -r python ./build-aux/cpplint.py  --root=tests --filter=-readability/streams,-build/include_order,-legal/copyright;\
+	find programs/ -name "*.cc"  -o -name "*.h" | xargs -r python ./build-aux/cpplint.py  --root=programs --filter=-readability/streams,-build/include_order,-legal/copyright;

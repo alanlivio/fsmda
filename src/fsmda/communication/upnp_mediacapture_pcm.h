@@ -1,5 +1,5 @@
-#ifndef MEDIA_CAPTURE_PCM_H_
-#define MEDIA_CAPTURE_PCM_H_
+#ifndef FSMDA_COMMUNICATION_UPNP_MEDIACAPTURE_PCM_H_
+#define FSMDA_COMMUNICATION_UPNP_MEDIACAPTURE_PCM_H_
 
 /*----------------------------------------------------------------------
  |   include
@@ -8,7 +8,7 @@
 #include "fsmda/communication/model/mediacapture_object_interfaces.h"
 #include <string>
 
-using namespace std;
+using std::string;
 
 /*----------------------------------------------------------------------
  |   UpnpMediaCapturePcm class
@@ -25,4 +25,4 @@ class UpnpMediaCapturePcm : public MediaCapturePcmInterface {
   sendContent(char* content, const string& resourceId, unsigned int childIndex);
 };
 
-#endif /* MEDIA_CAPTURE_PCM_H_ */
+#endif  // FSMDA_COMMUNICATION_UPNP_MEDIACAPTURE_PCM_H_

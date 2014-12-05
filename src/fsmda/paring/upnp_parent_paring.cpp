@@ -2,8 +2,7 @@
  |   includes
  +---------------------------------------------------------------------*/
 
-#include "fsmda/paring/upnp/upnp_child_paring.h"
-#include "fsmda/paring/upnp/upnp_parent_paring.h"
+#include "fsmda/paring/upnp_parent_paring.h"
 #include "fsmda/utils/upnp_fsmda_utils.h"
 #include "NptResults.h"
 #include "NptStrings.h"
@@ -14,6 +13,9 @@
 #include "PltStateVariable.h"
 #include <iostream>
 #include <string>
+
+using std::clog;
+using std::endl;
 
 /*----------------------------------------------------------------------
  |   UpnpParentParing::UpnpParentParing

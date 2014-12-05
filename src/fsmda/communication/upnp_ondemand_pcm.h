@@ -1,5 +1,5 @@
-#ifndef UPNP_ONDEMAND_PCM_H_
-#define UPNP_ONDEMAND_PCM_H_
+#ifndef FSMDA_COMMUNICATION_UPNP_ONDEMAND_PCM_H_
+#define FSMDA_COMMUNICATION_UPNP_ONDEMAND_PCM_H_
 
 /*----------------------------------------------------------------------
  |   includes
@@ -8,7 +8,7 @@
 #include "fsmda/communication/model/ondemand_object_interfaces.h"
 #include <string>
 
-using namespace std;
+using std::string;
 
 /*----------------------------------------------------------------------
  |   UpnpOnDemandPcm class
@@ -25,4 +25,4 @@ class UpnpOnDemandPcm : public OnDemandPcmInterface {
   notifyOnDemandContent(const string& action, const string& location);
 };
 
-#endif /* UPNP_ONDEMAND_PCM_H_ */
+#endif  // FSMDA_COMMUNICATION_UPNP_ONDEMAND_PCM_H_

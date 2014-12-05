@@ -1,5 +1,5 @@
-#ifndef CLASS_HANDLING_INTERFACES_H_
-#define CLASS_HANDLING_INTERFACES_H_
+#ifndef FSMDA_PARING_MODEL_CLASS_HANDLING_INTERFACES_H_
+#define FSMDA_PARING_MODEL_CLASS_HANDLING_INTERFACES_H_
 
 /*----------------------------------------------------------------------
  |   includes
@@ -7,7 +7,7 @@
 
 #include <string>
 
-using namespace std;
+using std::string;
 
 /*----------------------------------------------------------------------
  |   ClassHandlingPPMInterface abstract class
@@ -46,4 +46,4 @@ class ClassHandlingHPEInterface {
   setClassVariableValue(const string& name, const string& value);
 };
 
-#endif /* CLASS_HANDLING_INTERFACES_H_ */
+#endif  // FSMDA_PARING_MODEL_CLASS_HANDLING_INTERFACES_H_

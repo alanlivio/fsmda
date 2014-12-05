@@ -1,5 +1,5 @@
-#ifndef PARENT_PARING_MANAGER_H_
-#define PARENT_PARING_MANAGER_H_
+#ifndef FSMDA_PARING_CHILD_PARING_MANAGER_H_
+#define FSMDA_PARING_CHILD_PARING_MANAGER_H_
 
 #include "fsmda/communication/model/active_object_interfaces.h"
 #include "fsmda/communication/model/mediacapture_object_interfaces.h"
@@ -11,7 +11,8 @@
 #include <map>
 #include <string>
 
-using namespace std;
+using std::string;
+using std::map;
 
 class ChildParingManager : public DeviceParingCpmInterface {
  public:
@@ -34,7 +35,6 @@ class ChildParingManager : public DeviceParingCpmInterface {
                     const string& classDesc, const string& classFunction);
  private:
   map<unsigned int, DeviceClassDescription*> map_classDescription_;
-
 };
 
-#endif /* PARENT_PARING_MANAGER_H_ */
+#endif  // FSMDA_PARING_CHILD_PARING_MANAGER_H_

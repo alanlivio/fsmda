@@ -1,5 +1,5 @@
-#ifndef UPNP_ACTIVE_PCM_H_
-#define UPNP_ACTIVE_PCM_H_
+#ifndef FSMDA_COMMUNICATION_UPNP_ACTIVE_PCM_H_
+#define FSMDA_COMMUNICATION_UPNP_ACTIVE_PCM_H_
 
 /*----------------------------------------------------------------------
  |   includes
@@ -8,7 +8,7 @@
 #include "fsmda/communication/model/active_object_interfaces.h"
 #include <string>
 
-using namespace std;
+using std::string;
 
 /*----------------------------------------------------------------------
  |   UpnpActivePcm class
@@ -30,4 +30,4 @@ class UpnpActivePcm : public ActivePcmInterface {
   notifyError(const string& objectID, const string& message);
 };
 
-#endif /* UPNP_ACTIVE_PCM_H_ */
+#endif  // FSMDA_COMMUNICATION_UPNP_ACTIVE_PCM_H_

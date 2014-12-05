@@ -1,5 +1,5 @@
-#ifndef ACTIVE_OBJECT_INTERFACES_H_
-#define ACTIVE_OBJECT_INTERFACES_H_
+#ifndef FSMDA_COMMUNICATION_MODEL_ACTIVE_OBJECT_INTERFACES_H_
+#define FSMDA_COMMUNICATION_MODEL_ACTIVE_OBJECT_INTERFACES_H_
 
 /*----------------------------------------------------------------------
  |   includes
@@ -8,7 +8,8 @@
 #include <string>
 #include <vector>
 
-using namespace std;
+using std::string;
+using std::vector;
 
 /*----------------------------------------------------------------------
  |   Property class
@@ -74,4 +75,4 @@ class ActiveCcmInterface {
                    const string& value, unsigned int duration)=0;
 };
 
-#endif /* ACTIVE_OBJECT_INTERFACES_H_ */
+#endif  // FSMDA_COMMUNICATION_MODEL_ACTIVE_OBJECT_INTERFACES_H_

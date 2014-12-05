@@ -14,6 +14,9 @@
 #include <string>
 #include <iostream>
 
+using std::clog;
+using std::endl;
+
 /*----------------------------------------------------------------------
  |   DeviceDescription::DeviceDescription
  +---------------------------------------------------------------------*/

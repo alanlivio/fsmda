@@ -1,8 +1,8 @@
 #include "fsmda/communication/model/passive_object_interfaces.h"
-#include "fsmda/communication/upnp/upnp_active_pcm.h"
-#include "fsmda/communication/upnp/upnp_mediacapture_pcm.h"
-#include "fsmda/communication/upnp/upnp_ondemand_pcm.h"
-#include "fsmda/communication/upnp/upnp_passive_pcm.h"
+#include "fsmda/communication/upnp_active_pcm.h"
+#include "fsmda/communication/upnp_mediacapture_pcm.h"
+#include "fsmda/communication/upnp_ondemand_pcm.h"
+#include "fsmda/communication/upnp_passive_pcm.h"
 #include "fsmda/paring/device_class_description.h"
 #include "fsmda/paring/parent_paring_manager.h"
 #include <string>

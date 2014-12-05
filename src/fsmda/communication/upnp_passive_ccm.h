@@ -1,5 +1,5 @@
-#ifndef UPNP_PASSIVE_CCM_H_
-#define UPNP_PASSIVE_CCM_H_
+#ifndef FSMDA_COMMUNICATION_UPNP_PASSIVE_CCM_H_
+#define FSMDA_COMMUNICATION_UPNP_PASSIVE_CCM_H_
 
 /*----------------------------------------------------------------------
  |   includes
@@ -25,4 +25,4 @@ class UpnpPassiveCcm : public PassiveCcmInterface {
   sendContent(char* content);
 };
 
-#endif /* UPNP_PASSIVE_CCM_H_ */
+#endif  // FSMDA_COMMUNICATION_UPNP_PASSIVE_CCM_H_

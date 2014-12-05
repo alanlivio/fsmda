@@ -1,13 +1,13 @@
-#ifndef UPNP_FSMDA_UTILS_H
-#define UPNP_FSMDA_UTILS_H
+#ifndef FSMDA_UTILS_UPNP_FSMDA_UTILS_H_
+#define FSMDA_UTILS_UPNP_FSMDA_UTILS_H_
 
 /*----------------------------------------------------------------------
  |   include
  +---------------------------------------------------------------------*/
 
 #include "PltUPnP.h"
-
-using namespace std;
+#include <string>
+using std::string;
 
 /*----------------------------------------------------------------------
  |   UpnpFsmdaUtils class
@@ -64,4 +64,4 @@ class UpnpFsmdaUtils {
   static bool upnp_running_;
 };
 
-#endif /* UPNP_FSMDA_UTILS_H */
+#endif  // FSMDA_UTILS_UPNP_FSMDA_UTILS_H_

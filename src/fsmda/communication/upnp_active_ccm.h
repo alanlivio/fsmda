@@ -1,5 +1,5 @@
-#ifndef UPNP_ACTIVE_CCM_H_
-#define UPNP_ACTIVE_CCM_H_
+#ifndef FSMDA_COMMUNICATION_UPNP_ACTIVE_CCM_H_
+#define FSMDA_COMMUNICATION_UPNP_ACTIVE_CCM_H_
 
 /*----------------------------------------------------------------------
  |   includes
@@ -9,7 +9,7 @@
 #include <string>
 #include <vector>
 
-using namespace std;
+using std::string;
 
 /*----------------------------------------------------------------------
  |   UpnpActiveCcm class
@@ -40,4 +40,4 @@ class UpnpActiveCcm : public ActiveCcmInterface {
                    const string& value, unsigned int duration);
 };
 
-#endif /* UPNP_ACTIVE_CCM_H_ */
+#endif  // FSMDA_COMMUNICATION_UPNP_ACTIVE_CCM_H_

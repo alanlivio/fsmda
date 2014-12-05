@@ -1,5 +1,5 @@
-#ifndef UPNP_CPMH_
-#define UPNP_CPMH_
+#ifndef FSMDA_PARING_UPNP_CHILD_PARING_H_
+#define FSMDA_PARING_UPNP_CHILD_PARING_H_
 
 /*----------------------------------------------------------------------
  |   includes
@@ -18,7 +18,7 @@
 class UpnpChildParing : public PLT_DeviceHost {
  public:
   // public constructors & destructors
-  UpnpChildParing(const char* UUID = "");
+  explicit UpnpChildParing(const char* UUID = "");
   virtual
   ~UpnpChildParing();
 
@@ -26,7 +26,8 @@ class UpnpChildParing : public PLT_DeviceHost {
   virtual NPT_Result
   SetupServices();
   virtual NPT_Result
-  OnAction(PLT_ActionReference& action, const PLT_HttpRequestContext& context);
+  OnAction(PLT_ActionReference& action,
+           const PLT_HttpRequestContext& context);
 
   // public methods
   int
@@ -41,4 +42,4 @@ class UpnpChildParing : public PLT_DeviceHost {
   PLT_UPnP* upnp_reference_;
 };
 
-#endif /* UPNP_CPMH_ */
+#endif  // FSMDA_PARING_UPNP_CHILD_PARING_H_
