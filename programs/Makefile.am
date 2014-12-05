@@ -2,7 +2,7 @@
 bin_PROGRAMS=p0_program
 
 # Programs sources 
-p0_program_SOURCES= example0.cpp 
+p0_program_SOURCES= example0.cc 
 
 # Programs compiler options
 p0_program_CPPFLAGS = $(PLATINUMKIT_CFLAGS)
