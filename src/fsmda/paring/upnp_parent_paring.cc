@@ -37,9 +37,7 @@ UpnpParentParing::UpnpParentParing(const char* UUID)
 /*----------------------------------------------------------------------
  |   UpnpParentParing::~UpnpParentParing
  +---------------------------------------------------------------------*/
-UpnpParentParing::~UpnpParentParing() {
-  this->StopService();
-}
+UpnpParentParing::~UpnpParentParing() { this->StopService(); }
 
 /*----------------------------------------------------------------------
  |   UpnpParentParing::SetupServices
@@ -50,7 +48,7 @@ NPT_Result UpnpParentParing::SetupServices() {
                                          UpnpFsmdaUtils::kPpmServiceId,
                                          UpnpFsmdaUtils::kPpmServiceName);
   res = upnp_device_service_->SetSCPDXML(
-      (const char*) UpnpFsmdaUtils::kPpmServiceScpdXml);
+      (const char*)UpnpFsmdaUtils::kPpmServiceScpdXml);
   res = AddService(upnp_device_service_);
   return res;
 }

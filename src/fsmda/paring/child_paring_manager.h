@@ -30,6 +30,7 @@ class ChildParingManager : public DeviceParingCpmInterface {
                                  unsigned int class_index,
                                  const string& class_desc,
                                  const string& class_function);
+
  private:
   map<unsigned int, DeviceClassDescription*> map_classDescription_;
 };

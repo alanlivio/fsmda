@@ -36,7 +36,7 @@ class UpnpParentParing : public PLT_DeviceHost {
 
  private:
   PLT_UPnP* upnp_reference_;
-  PLT_DeviceHostReference * device_reference_;
+  PLT_DeviceHostReference* device_reference_;
   PLT_Service* upnp_device_service_;
 };
 

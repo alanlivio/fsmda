@@ -15,12 +15,11 @@ using std::string;
 class PassiveCcmInterface {
  public:
   virtual
-  // public constructors & destructors
-  ~PassiveCcmInterface() {
-  }
+      // public constructors & destructors
+      ~PassiveCcmInterface() {}
   // public pure virtual methods
-  virtual void Prepare(const string& position)=0;
-  virtual void SendContent(char* content)=0;
+  virtual void Prepare(const string& position) = 0;
+  virtual void SendContent(char* content) = 0;
 };
 
 /*----------------------------------------------------------------------
@@ -29,12 +28,11 @@ class PassiveCcmInterface {
 class PassivePcmInterface {
  public:
   virtual
-  // public constructors & destructors
-  ~PassivePcmInterface() {
-  }
+      // public constructors & destructors
+      ~PassivePcmInterface() {}
 
   // public pure virtual methods
-  virtual void NotifyError(const string& message, const string& object_id)=0;
+  virtual void NotifyError(const string& message, const string& object_id) = 0;
 };
 
 #endif  // FSMDA_COMMUNICATION_MODEL_PASSIVE_OBJECT_INTERFACES_H_

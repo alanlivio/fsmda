@@ -29,10 +29,7 @@ class DeviceClassDescription {
     kFsmdaOnDemandDevice = 4,
     kFsmdaMediaCaptureDevice = 5
   };
-  enum DeviceProtocol {
-    kFsmaUpnpProtocol = 0,
-    kFsmdaZeroconfProtocol = 1,
-  };
+  enum DeviceProtocol { kFsmaUpnpProtocol = 0, kFsmdaZeroconfProtocol = 1, };
   static DeviceClassType GetDeviceClassTypeByString(const string& str);
 
   // public constructors & destructors
@@ -46,7 +43,7 @@ class DeviceClassDescription {
   unsigned int max_devices_;
 
   // public methods
-  bool DeviceMeetRequirements(DeviceDescription *device_desc);
+  bool DeviceMeetRequirements(DeviceDescription* device_desc);
   int InitializeByDefaultDeviceClass(DeviceClassType type);
   int InitializeByParseRdfFile(const string& rdf_file);
 

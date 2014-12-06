@@ -15,7 +15,7 @@ using std::string;
 using std::map;
 
 class ParentParingManager : public ClassHandlingPpmInterface,
-    public DeviceParingPpmInterface {
+                            public DeviceParingPpmInterface {
  public:
   // public constructors & destructors
   ParentParingManager();
@@ -31,14 +31,11 @@ class ParentParingManager : public ClassHandlingPpmInterface,
   virtual void AddClass(const string& application_id, unsigned int class_index);
   virtual void RemoveClass(const string& application_id,
                            unsigned int class_index);
-  virtual void AddClassDescription(const string& application_id,
-                                   unsigned int class_index,
-                                   const string& class_type,
-                                   unsigned int max_devices,
-                                   unsigned int min_devices,
-                                   const string& hardware_requirements,
-                                   const string& software_requirements,
-                                   const string& network_requirements);
+  virtual void AddClassDescription(
+      const string& application_id, unsigned int class_index,
+      const string& class_type, unsigned int max_devices,
+      unsigned int min_devices, const string& hardware_requirements,
+      const string& software_requirements, const string& network_requirements);
 
   // DeviceParingPpmInterface overloaded methods
   virtual void AddDeviceToClass(const string& application_id,

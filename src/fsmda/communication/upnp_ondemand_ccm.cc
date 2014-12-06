@@ -21,8 +21,7 @@ UpnpOnDemandCcm::UpnpOnDemandCcm()
     : ondemand_folder_("/tmp/fsmda/ondemand/"),
       uuid_("fsmda-0000"),
       service_start_(false),
-      upnp_reference_(NULL) {
-}
+      upnp_reference_(NULL) {}
 
 /*----------------------------------------------------------------------
  |   UpnpOnDemandCcm::~UpnpOnDemandCcm
@@ -68,6 +67,4 @@ int UpnpOnDemandCcm::StopCommunicationService() {
 /*----------------------------------------------------------------------
  |   UpnpOnDemandCcm::IsServiceStartd
  +---------------------------------------------------------------------*/
-bool UpnpOnDemandCcm::IsServiceStartd() {
-  return service_start_;
-}
+bool UpnpOnDemandCcm::IsServiceStartd() { return service_start_; }

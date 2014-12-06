@@ -46,7 +46,7 @@ DeviceClassDescription::~DeviceClassDescription() {
  |   DeviceClassDescription::DeviceMeetRequirements
  +---------------------------------------------------------------------*/
 bool DeviceClassDescription::DeviceMeetRequirements(
-    DeviceDescription *device_desc) {
+    DeviceDescription* device_desc) {
   if (!initialized_) {
     clog << "device_meets_requirements fail: not initialized_" << endl;
     return false;

@@ -25,8 +25,7 @@ int main(void) {
   upnpChildParing->StartService();
   char buf[256];
   while (gets(buf)) {
-    if (*buf == 'q')
-      break;
+    if (*buf == 'q') break;
   }
   return 0;
 }

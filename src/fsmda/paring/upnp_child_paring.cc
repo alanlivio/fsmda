@@ -35,8 +35,7 @@ UpnpChildParing::UpnpChildParing(const char* uuid)
 /*----------------------------------------------------------------------
  |   UpnpChildParing::~UpnpChildParing
  +---------------------------------------------------------------------*/
-UpnpChildParing::~UpnpChildParing() {
-}
+UpnpChildParing::~UpnpChildParing() {}
 
 /*----------------------------------------------------------------------
  |   UpnpChildParing::SetupServices
@@ -47,7 +46,7 @@ NPT_Result UpnpChildParing::SetupServices() {
                                          UpnpFsmdaUtils::kCpmServiceId,
                                          UpnpFsmdaUtils::kCpmServiceName);
   res = upnp_device_service_->SetSCPDXML(
-      (const char*) UpnpFsmdaUtils::kCpmServiceScpdXml);
+      (const char*)UpnpFsmdaUtils::kCpmServiceScpdXml);
   res = AddService(upnp_device_service_);
   return res;
 }
@@ -100,8 +99,7 @@ int UpnpChildParing::StartService() {
  |   UpnpChildParing::StopService
  +---------------------------------------------------------------------*/
 int UpnpChildParing::StopService() {
-  if (upnp_reference_ != NULL)
-    UpnpFsmdaUtils::ReleaseUpnpReference();
+  if (upnp_reference_ != NULL) UpnpFsmdaUtils::ReleaseUpnpReference();
   upnp_reference_ = NULL;
   return 0;
 }
@@ -111,4 +109,3 @@ int UpnpChildParing::StopService() {
 bool UpnpChildParing::IsServiceStarted() {
   return upnp_device_service_->IsValid();
 }
-

@@ -23,14 +23,12 @@ using std::endl;
 DeviceDescription::DeviceDescription()
     : doc_(NULL),
       classType_(DeviceClassDescription::kFsmdaBaseDevice),
-      initialized_(false) {
-}
+      initialized_(false) {}
 
 /*----------------------------------------------------------------------
  |   DeviceDescription::~DeviceDescription
  +---------------------------------------------------------------------*/
-DeviceDescription::~DeviceDescription() {
-}
+DeviceDescription::~DeviceDescription() {}
 
 /*----------------------------------------------------------------------
  |   DeviceDescription::InitializeByRdfFile
@@ -59,7 +57,7 @@ int DeviceDescription::InitializeByRdfFile(const string& rdf_file) {
   assert(xpathObj != NULL);
   nodes = xpathObj->nodesetval;
   assert(nodes->nodeTab[0]);
-  aux = (const char*) nodes->nodeTab[0]->children->content;
+  aux = (const char*)nodes->nodeTab[0]->children->content;
   this->classType_ = DeviceClassDescription::GetDeviceClassTypeByString(aux);
   clog << "--->fsmda:classType = " << aux << "(or " << this->classType_ << ")"
        << endl;
@@ -71,7 +69,7 @@ int DeviceDescription::InitializeByRdfFile(const string& rdf_file) {
   assert(xpathObj != NULL);
   nodes = xpathObj->nodesetval;
   assert(nodes->nodeTab[0]);
-  this->paringMethod_ = (const char*) nodes->nodeTab[0]->children->content;
+  this->paringMethod_ = (const char*)nodes->nodeTab[0]->children->content;
   clog << "--->fsmda:pairingMethod = " << this->paringMethod_ << endl;
   xmlXPathFreeObject(xpathObj);
 
@@ -84,4 +82,3 @@ int DeviceDescription::InitializeByRdfFile(const string& rdf_file) {
   this->initialized_ = true;
   return 0;
 }
-

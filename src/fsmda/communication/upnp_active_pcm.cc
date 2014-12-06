@@ -7,32 +7,28 @@
 /*----------------------------------------------------------------------
  |   UpnpActivePcm::UpnpActivePcm
  +---------------------------------------------------------------------*/
-UpnpActivePcm::UpnpActivePcm() {
-}
+UpnpActivePcm::UpnpActivePcm() {}
 
 /*----------------------------------------------------------------------
  |   UpnpActivePcm::~UpnpActivePcm
  +---------------------------------------------------------------------*/
-UpnpActivePcm::~UpnpActivePcm() {
-}
+UpnpActivePcm::~UpnpActivePcm() {}
 
 /*----------------------------------------------------------------------
  |   UpnpActivePcm::RequestPropertyValue
  +---------------------------------------------------------------------*/
 void UpnpActivePcm::RequestPropertyValue(const string& object_id,
-                                         const string& name) {
-}
+                                         const string& name) {}
 
 /*----------------------------------------------------------------------
  |   UpnpActivePcm::NotifyEventTransition
  +---------------------------------------------------------------------*/
 void UpnpActivePcm::NotifyEventTransition(const string& object_id,
                                           const string& event_id,
-                                          const string& transition) {
-}
+                                          const string& transition) {}
 
 /*----------------------------------------------------------------------
  |   UpnpActivePcm::NotifyError
  +---------------------------------------------------------------------*/
-void UpnpActivePcm::NotifyError(const string& object_id, const string& message) {
-}
+void UpnpActivePcm::NotifyError(const string& object_id,
+                                const string& message) {}

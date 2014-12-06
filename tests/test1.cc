@@ -12,9 +12,9 @@ TEST(Paring, DeviceMeetRequirements) {
   string device_rdf;
   string device_class_description_rdf;
   bool ret;
-  DeviceDescription * device_description = new DeviceDescription();
+  DeviceDescription* device_description = new DeviceDescription();
   EXPECT_TRUE(device_description != NULL);
-  DeviceClassDescription * device_class_description =
+  DeviceClassDescription* device_class_description =
       new DeviceClassDescription();
   EXPECT_TRUE(device_class_description != NULL);
 

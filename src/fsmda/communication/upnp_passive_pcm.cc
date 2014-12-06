@@ -7,18 +7,15 @@
 /*----------------------------------------------------------------------
  |   UPnPPassivePCM::UPnPPassivePCM
  +---------------------------------------------------------------------*/
-UpnpPassivePcm::UpnpPassivePcm() {
-}
+UpnpPassivePcm::UpnpPassivePcm() {}
 
 /*----------------------------------------------------------------------
  |   UPnPPassivePCM::~UPnPPassivePCM
  +---------------------------------------------------------------------*/
-UpnpPassivePcm::~UpnpPassivePcm() {
-}
+UpnpPassivePcm::~UpnpPassivePcm() {}
 
 /*----------------------------------------------------------------------
  |   UPnPPassivePCM::NotifyError
  +---------------------------------------------------------------------*/
 void UpnpPassivePcm::NotifyError(const string& message,
-                                 const string& object_id) {
-}
+                                 const string& object_id) {}

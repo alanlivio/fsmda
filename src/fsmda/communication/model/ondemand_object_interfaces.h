@@ -15,12 +15,11 @@ using std::string;
 class OnDemandPcmInterface {
  public:
   // public constructors & destructors
-  virtual ~OnDemandPcmInterface() {
-  }
+  virtual ~OnDemandPcmInterface() {}
 
   // public pure virtual methods
   virtual void NotifyOnDemandContent(const string& action,
-                                     const string& location)=0;
+                                     const string& location) = 0;
 };
 
 #endif  // FSMDA_COMMUNICATION_MODEL_ONDEMAND_OBJECT_INTERFACES_H_

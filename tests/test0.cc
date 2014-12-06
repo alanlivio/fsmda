@@ -25,51 +25,50 @@
  +---------------------------------------------------------------------*/
 
 TEST(Paring, Constructors) {
-  UpnpParentParing * ppm = new UpnpParentParing();
+  UpnpParentParing* ppm = new UpnpParentParing();
   EXPECT_TRUE(ppm != NULL);
   delete ppm;
-  UpnpChildParing * cpm = new UpnpChildParing();
+  UpnpChildParing* cpm = new UpnpChildParing();
   EXPECT_TRUE(cpm != NULL);
   delete cpm;
-  DeviceDescription * dev_description = new DeviceDescription();
+  DeviceDescription* dev_description = new DeviceDescription();
   EXPECT_TRUE(dev_description != NULL);
   delete dev_description;
-  DeviceClassDescription * dev_class_requirements =
-      new DeviceClassDescription();
+  DeviceClassDescription* dev_class_requirements = new DeviceClassDescription();
   EXPECT_TRUE(dev_class_requirements != NULL);
   delete dev_class_requirements;
 }
 
 TEST(Communication, Constructors) {
-  UpnpActivePcm * activePcm = new UpnpActivePcm();
+  UpnpActivePcm* activePcm = new UpnpActivePcm();
   EXPECT_TRUE(activePcm != NULL);
   delete activePcm;
-  UpnpActiveCcm * activeCcm = new UpnpActiveCcm();
+  UpnpActiveCcm* activeCcm = new UpnpActiveCcm();
   EXPECT_TRUE(activeCcm != NULL);
   delete activeCcm;
-  UpnpMediaCapturePcm * mediacapturePcm = new UpnpMediaCapturePcm();
+  UpnpMediaCapturePcm* mediacapturePcm = new UpnpMediaCapturePcm();
   EXPECT_TRUE(mediacapturePcm != NULL);
   delete mediacapturePcm;
-  UpnpMediaCaptureCcm * mediacaptureCcm = new UpnpMediaCaptureCcm();
+  UpnpMediaCaptureCcm* mediacaptureCcm = new UpnpMediaCaptureCcm();
   EXPECT_TRUE(mediacaptureCcm != NULL);
   delete mediacapturePcm;
-  UpnpOnDemandPcm * onDemandPcm = new UpnpOnDemandPcm();
+  UpnpOnDemandPcm* onDemandPcm = new UpnpOnDemandPcm();
   EXPECT_TRUE(onDemandPcm != NULL);
   delete onDemandPcm;
-  UpnpOnDemandCcm * onDemandCcm = new UpnpOnDemandCcm();
+  UpnpOnDemandCcm* onDemandCcm = new UpnpOnDemandCcm();
   EXPECT_TRUE(onDemandCcm != NULL);
   delete onDemandCcm;
-  UpnpPassivePcm * passivePcm = new UpnpPassivePcm();
+  UpnpPassivePcm* passivePcm = new UpnpPassivePcm();
   EXPECT_TRUE(passivePcm != NULL);
   delete passivePcm;
-  UpnpPassiveCcm * passiveCcm = new UpnpPassiveCcm();
+  UpnpPassiveCcm* passiveCcm = new UpnpPassiveCcm();
   EXPECT_TRUE(passiveCcm != NULL);
   delete passiveCcm;
 }
 
 TEST(Utils, UpnpReference) {
   EXPECT_EQ(0, UpnpFsmdaUtils::references_count_);
-  PLT_UPnP * upnp = UpnpFsmdaUtils::RequestUpnpReference();
+  PLT_UPnP* upnp = UpnpFsmdaUtils::RequestUpnpReference();
   EXPECT_TRUE(upnp != NULL);
   EXPECT_EQ(1, UpnpFsmdaUtils::references_count_);
   UpnpFsmdaUtils::ReleaseUpnpReference();

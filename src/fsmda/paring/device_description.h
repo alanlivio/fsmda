@@ -22,8 +22,7 @@ class DeviceDescription {
   string paringMethod_;
 
   // public methods
-  int
-  InitializeByRdfFile(const string& rdf_file);
+  int InitializeByRdfFile(const string& rdf_file);
 
  private:
   // private fields
