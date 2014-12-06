@@ -1,7 +1,20 @@
-all-distclean-reconfigure:
-	make distclean 
-	./autogen.sh 
+############################## build aux rules  ###############################
+autogen-configure:
+	@./autogen.sh
 	./configure
+
+############################## code quality rules  ############################
+cpplint:
+	@find src/ -name "*.cc"  -o -name "*.h" | grep -v config.h|  xargs -r python ./build-aux/cpplint.py  --root=src --filter=-readability/streams,-build/include_order,-legal/copyright ;\
+	find tests/ -name "*.cc"  -o -name "*.h" | grep -v gtest| grep -v gmock| xargs -r python ./build-aux/cpplint.py  --root=tests --filter=-readability/streams,-build/include_order,-legal/copyright;\
+	find programs/ -name "*.cc"  -o -name "*.h" | xargs -r python ./build-aux/cpplint.py  --root=programs --filter=-readability/streams,-build/include_order,-legal/copyright;
+
+clang-format:
+	@find src/ -name "*.cc"  -o -name "*.h" | grep -v config.h|   xargs clang-format-3.5 -i -style=google ;\
+	find tests/ -name "*.cc"  -o -name "*.h" | grep -v gtest| grep -v gmock| xargs clang-format-3.5 -i -style=google ;\
+	find programs/ -name "*.cc"  -o -name "*.h" | xargs clang-format-3.5 -i -style=google;
+
+############################## fech rules  ####################################
 
 libtemplate_remote  = https://github.com/alanlivio/libtemplate-autotools-cpp/raw/master/
 google_style_remote = http://google-styleguide.googlecode.com/svn/trunk
@@ -94,8 +107,3 @@ fetch-gtest-gmock:
 	fetch $(google_mock_remote)/include/gmock/internal/gmock-generated-internal-utils.h.pump ./tests/gmock/include/gmock/internal/;\
 	fetch $(google_mock_remote)/include/gmock/internal/gmock-port.h  ./tests/gmock/include/gmock/internal/;\
 	true
-	
-cpplint:	
-	@find src/ -name "*.cc"  -o -name "*.h" | grep -v config.h|  xargs -r python ./build-aux/cpplint.py  --root=src --filter=-readability/streams,-build/include_order,-legal/copyright ;\
-	find tests/ -name "*.cc"  -o -name "*.h" | grep -v gtest| grep -v gmock| xargs -r python ./build-aux/cpplint.py  --root=tests --filter=-readability/streams,-build/include_order,-legal/copyright;\
-	find programs/ -name "*.cc"  -o -name "*.h" | xargs -r python ./build-aux/cpplint.py  --root=programs --filter=-readability/streams,-build/include_order,-legal/copyright;
