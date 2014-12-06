@@ -32,7 +32,7 @@ class ChildParingManager : public DeviceParingCpmInterface {
                                  const string& class_function);
 
  private:
-  map<unsigned int, DeviceClassDescription*> map_classDescription_;
+  map<unsigned int, DeviceClassDescription*> device_class_description_map_;
 };
 
 #endif  // FSMDA_PARING_CHILD_PARING_MANAGER_H_

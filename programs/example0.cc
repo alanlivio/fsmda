@@ -18,11 +18,12 @@ using std::clog;
  |   main
  +---------------------------------------------------------------------*/
 int main(void) {
-  UpnpParentParing* upnpParentParing = new UpnpParentParing();
-  upnpParentParing->StartService();
+  UpnpParentParing* upnp_parent_paring = new UpnpParentParing();
+  upnp_parent_paring->StartService();
 
-  UpnpChildParing* upnpChildParing = new UpnpChildParing();
-  upnpChildParing->StartService();
+  //  UpnpChildParing* upnp_child_paring = new
+  // UpnpChildParing("UpnpChildParing");
+  //  upnp_child_paring->StartService();
   char buf[256];
   while (gets(buf)) {
     if (*buf == 'q') break;

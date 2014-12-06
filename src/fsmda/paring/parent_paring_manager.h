@@ -21,7 +21,7 @@ class ParentParingManager : public ClassHandlingPpmInterface,
   ParentParingManager();
   virtual ~ParentParingManager();
 
-  // Method for factory parent communication managers
+  // Methods for factory parent communication managers
   ActivePcmInterface* CreateActivePcm(unsigned int class_index);
   MediaCapturePcmInterface* CreateMediaCapturePcm(unsigned int class_index);
   OnDemandPcmInterface* CreateOnDemandPcm(unsigned int class_index);
@@ -47,7 +47,7 @@ class ParentParingManager : public ClassHandlingPpmInterface,
                              unsigned int class_index);
 
  private:
-  map<unsigned int, DeviceClassDescription*> map_classDescription_;
+  map<unsigned int, DeviceClassDescription*> device_class_description_map_;
 };
 
 #endif  // FSMDA_PARING_PARENT_PARING_MANAGER_H_

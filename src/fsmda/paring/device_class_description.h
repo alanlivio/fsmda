@@ -37,8 +37,8 @@ class DeviceClassDescription {
   virtual ~DeviceClassDescription();
 
   // public fields
-  DeviceClassType classType_;
-  string paringMethod_;
+  DeviceClassType device_class_type_;
+  string paring_method_;
   unsigned int min_devices_;
   unsigned int max_devices_;
 
@@ -48,7 +48,7 @@ class DeviceClassDescription {
   int InitializeByParseRdfFile(const string& rdf_file);
 
  private:
-  static const char* deviceClassTypeMap_[];
+  static const char* device_class_type_strings_[];
   xmlDocPtr doc_;
   bool initialized_;
 };

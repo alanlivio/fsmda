@@ -40,39 +40,41 @@ TEST(Paring, Constructors) {
 }
 
 TEST(Communication, Constructors) {
-  UpnpActivePcm* activePcm = new UpnpActivePcm();
-  EXPECT_TRUE(activePcm != NULL);
-  delete activePcm;
+  UpnpActivePcm* active_pcm = new UpnpActivePcm();
+  EXPECT_TRUE(active_pcm != NULL);
+  delete active_pcm;
   UpnpActiveCcm* activeCcm = new UpnpActiveCcm();
   EXPECT_TRUE(activeCcm != NULL);
   delete activeCcm;
-  UpnpMediaCapturePcm* mediacapturePcm = new UpnpMediaCapturePcm();
-  EXPECT_TRUE(mediacapturePcm != NULL);
-  delete mediacapturePcm;
-  UpnpMediaCaptureCcm* mediacaptureCcm = new UpnpMediaCaptureCcm();
-  EXPECT_TRUE(mediacaptureCcm != NULL);
-  delete mediacapturePcm;
-  UpnpOnDemandPcm* onDemandPcm = new UpnpOnDemandPcm();
-  EXPECT_TRUE(onDemandPcm != NULL);
-  delete onDemandPcm;
-  UpnpOnDemandCcm* onDemandCcm = new UpnpOnDemandCcm();
-  EXPECT_TRUE(onDemandCcm != NULL);
-  delete onDemandCcm;
-  UpnpPassivePcm* passivePcm = new UpnpPassivePcm();
-  EXPECT_TRUE(passivePcm != NULL);
-  delete passivePcm;
-  UpnpPassiveCcm* passiveCcm = new UpnpPassiveCcm();
-  EXPECT_TRUE(passiveCcm != NULL);
-  delete passiveCcm;
+  UpnpMediaCapturePcm* mediacapture_pcm = new UpnpMediaCapturePcm();
+  EXPECT_TRUE(mediacapture_pcm != NULL);
+  delete mediacapture_pcm;
+  UpnpMediaCaptureCcm* mediacapture_ccm = new UpnpMediaCaptureCcm();
+  EXPECT_TRUE(mediacapture_ccm != NULL);
+  delete mediacapture_pcm;
+  UpnpOnDemandPcm* ondemand_pcm = new UpnpOnDemandPcm();
+  EXPECT_TRUE(ondemand_pcm != NULL);
+  delete ondemand_pcm;
+  UpnpOnDemandCcm* ondemand_ccm = new UpnpOnDemandCcm();
+  EXPECT_TRUE(ondemand_ccm != NULL);
+  delete ondemand_ccm;
+  UpnpPassivePcm* passive_pcm = new UpnpPassivePcm();
+  EXPECT_TRUE(passive_pcm != NULL);
+  delete passive_pcm;
+  UpnpPassiveCcm* passive_ccm = new UpnpPassiveCcm();
+  EXPECT_TRUE(passive_ccm != NULL);
+  delete passive_ccm;
 }
 
 TEST(Utils, UpnpReference) {
-  EXPECT_EQ(0, UpnpFsmdaUtils::references_count_);
-  PLT_UPnP* upnp = UpnpFsmdaUtils::RequestUpnpReference();
+  EXPECT_EQ(0, UpnpFsmdaUtils::upnp_references_count());
+  PLT_UPnP* upnp = UpnpFsmdaUtils::GetRunningUpnpInstance();
   EXPECT_TRUE(upnp != NULL);
-  EXPECT_EQ(1, UpnpFsmdaUtils::references_count_);
-  UpnpFsmdaUtils::ReleaseUpnpReference();
-  EXPECT_EQ(0, UpnpFsmdaUtils::references_count_);
-  UpnpFsmdaUtils::ReleaseUpnpReference();
-  EXPECT_EQ(0, UpnpFsmdaUtils::references_count_);
+  EXPECT_EQ(1, UpnpFsmdaUtils::upnp_references_count());
+  EXPECT_TRUE(upnp->IsRunning());
+  UpnpFsmdaUtils::ReleaseUpnpInstance();
+  EXPECT_EQ(0, UpnpFsmdaUtils::upnp_references_count());
+  UpnpFsmdaUtils::ReleaseUpnpInstance();
+  EXPECT_EQ(0, UpnpFsmdaUtils::upnp_references_count());
+  EXPECT_FALSE(upnp->IsRunning());
 }

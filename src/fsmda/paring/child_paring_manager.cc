@@ -6,19 +6,17 @@
 #include "fsmda/paring/device_class_description.h"
 #include <string>
 
-ChildParingManager::ChildParingManager() {
-}
+ChildParingManager::ChildParingManager() {}
 
-ChildParingManager::~ChildParingManager() {
-}
+ChildParingManager::~ChildParingManager() {}
 
 /*----------------------------------------------------------------------
  |   ChildParingManager::CreateActiveCc
  +---------------------------------------------------------------------*/
 ActiveCcmInterface* ChildParingManager::CreateActiveCcm(
     unsigned int class_index) {
-  if (map_classDescription_[class_index]->classType_
-      == DeviceClassDescription::kFsmdaActiveDevice)
+  if (device_class_description_map_[class_index]->device_class_type_ ==
+      DeviceClassDescription::kFsmdaActiveDevice)
     return new UpnpActiveCcm();
   else
     return NULL;
@@ -29,8 +27,8 @@ ActiveCcmInterface* ChildParingManager::CreateActiveCcm(
  +---------------------------------------------------------------------*/
 MediaCaptureCcmInterface* ChildParingManager::CreateMediaCaptureCcm(
     unsigned int class_index) {
-  if (map_classDescription_[class_index]->classType_
-      == DeviceClassDescription::kFsmdaMediaCaptureDevice)
+  if (device_class_description_map_[class_index]->device_class_type_ ==
+      DeviceClassDescription::kFsmdaMediaCaptureDevice)
     return new UpnpMediaCaptureCcm();
   else
     return NULL;
@@ -41,8 +39,8 @@ MediaCaptureCcmInterface* ChildParingManager::CreateMediaCaptureCcm(
  +---------------------------------------------------------------------*/
 PassiveCcmInterface* ChildParingManager::CreatePassiveCcm(
     unsigned int class_index) {
-  if (map_classDescription_[class_index]->classType_
-      == DeviceClassDescription::kFsmdaPassiveDevice)
+  if (device_class_description_map_[class_index]->device_class_type_ ==
+      DeviceClassDescription::kFsmdaPassiveDevice)
     return new UpnpPassiveCcm();
   else
     return NULL;
@@ -51,5 +49,4 @@ PassiveCcmInterface* ChildParingManager::CreatePassiveCcm(
 void ChildParingManager::ClassAnnouncement(const string& application_id,
                                            unsigned int class_index,
                                            const string& class_desc,
-                                           const string& class_function) {
-}
+                                           const string& class_function) {}

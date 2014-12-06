@@ -15,33 +15,33 @@ using std::endl;
 TEST(Communication, UpnpOnDemandCcm) {
   // ondemand class description initialize and meet_requirements tests
   cout << "----------------------------------------------------" << endl;
-  UpnpOnDemandCcm* onDemandCCM = new UpnpOnDemandCcm();
-  onDemandCCM->StartCommunicationService();
-  EXPECT_TRUE(onDemandCCM->IsServiceStartd());
-  onDemandCCM->StopCommunicationService();
-  EXPECT_FALSE(onDemandCCM->IsServiceStartd());
+  UpnpOnDemandCcm* ondemand_ccm = new UpnpOnDemandCcm();
+  ondemand_ccm->StartCommunicationService();
+  EXPECT_TRUE(ondemand_ccm->IsServiceStartd());
+  ondemand_ccm->StopCommunicationService();
+  EXPECT_FALSE(ondemand_ccm->IsServiceStartd());
 }
 
 TEST(Paring, UpnpParentParing) {
   // parent paring tests
   cout << "----------------------------------------------------" << endl;
-  UpnpParentParing* upnpParentParing = new UpnpParentParing();
-  EXPECT_EQ(upnpParentParing->StartService(), 0);
+  UpnpParentParing* upnp_parent_paring = new UpnpParentParing();
+  EXPECT_EQ(upnp_parent_paring->StartService(), 0);
   sleep(2);
-  EXPECT_TRUE(upnpParentParing->IsServiceStarted());
-  upnpParentParing->StopService();
+  EXPECT_TRUE(upnp_parent_paring->IsServiceStarted());
+  upnp_parent_paring->StopService();
   sleep(2);
-  EXPECT_FALSE(upnpParentParing->IsServiceStarted());
+  EXPECT_FALSE(upnp_parent_paring->IsServiceStarted());
 }
 
 TEST(Paring, UpnpChildParing) {
   // child paring tests
   cout << "----------------------------------------------------" << endl;
-  UpnpChildParing* upnpChildParing = new UpnpChildParing();
-  EXPECT_EQ(upnpChildParing->StartService(), 0);
+  UpnpChildParing* upnp_child_paring = new UpnpChildParing();
+  EXPECT_EQ(upnp_child_paring->StartService(), 0);
   sleep(2);
-  EXPECT_TRUE(upnpChildParing->IsServiceStarted());
+  EXPECT_TRUE(upnp_child_paring->IsServiceStarted());
   sleep(2);
-  upnpChildParing->StopService();
-  EXPECT_FALSE(upnpChildParing->IsServiceStarted());
+  upnp_child_paring->StopService();
+  EXPECT_FALSE(upnp_child_paring->IsServiceStarted());
 }

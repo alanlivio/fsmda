@@ -22,25 +22,23 @@ using std::endl;
 /*----------------------------------------------------------------------
  |   class fields
  +---------------------------------------------------------------------*/
-const char* DeviceClassDescription::deviceClassTypeMap_[] = { "base", "passive",
-    "active", "html", "ondemand", "mediacapture" };
+const char* DeviceClassDescription::device_class_type_strings_[] = {
+    "base", "passive", "active", "html", "ondemand", "mediacapture"};
 
 /*----------------------------------------------------------------------
  |   DeviceClassDescription::DeviceClassDescription
  +---------------------------------------------------------------------*/
 DeviceClassDescription::DeviceClassDescription()
     : doc_(NULL),
-      classType_(kFsmdaBaseDevice),
+      device_class_type_(kFsmdaBaseDevice),
       min_devices_(0),
       max_devices_(0),
-      initialized_(false) {
-}
+      initialized_(false) {}
 
 /*----------------------------------------------------------------------
  |   DeviceClassDescription::~DeviceClassDescription
  +---------------------------------------------------------------------*/
-DeviceClassDescription::~DeviceClassDescription() {
-}
+DeviceClassDescription::~DeviceClassDescription() {}
 
 /*----------------------------------------------------------------------
  |   DeviceClassDescription::DeviceMeetRequirements
@@ -50,10 +48,10 @@ bool DeviceClassDescription::DeviceMeetRequirements(
   if (!initialized_) {
     clog << "device_meets_requirements fail: not initialized_" << endl;
     return false;
-  } else if (this->classType_ != device_desc->classType_) {
+  } else if (this->device_class_type_ != device_desc->classType_) {
     clog << "device_meets_requirements fail: classType_" << endl;
     return false;
-  } else if (this->paringMethod_ != device_desc->paringMethod_) {
+  } else if (this->paring_method_ != device_desc->paringMethod_) {
     clog << "device_meets_requirements fail: paringMethod_" << endl;
     return false;
   } else {
@@ -66,10 +64,10 @@ bool DeviceClassDescription::DeviceMeetRequirements(
  +---------------------------------------------------------------------*/
 int DeviceClassDescription::InitializeByDefaultDeviceClass(
     DeviceClassType type) {
-  this->classType_ = type;
+  this->device_class_type_ = type;
   this->min_devices_ = 1;
   this->max_devices_ = UINT_MAX;
-  this->paringMethod_ = "UPnP";
+  this->paring_method_ = "UPnP";
   this->initialized_ = true;
   return 0;
 }
@@ -101,10 +99,11 @@ int DeviceClassDescription::InitializeByParseRdfFile(const string& rdf_file) {
   assert(xpathObj != NULL);
   nodes = xpathObj->nodesetval;
   assert(nodes->nodeTab[0]);
-  aux = (const char*) nodes->nodeTab[0]->children->content;
-  this->classType_ = DeviceClassDescription::GetDeviceClassTypeByString(aux);
-  clog << "--->fsmda:classType = " << aux << "(or " << this->classType_ << ")"
-       << endl;
+  aux = (const char*)nodes->nodeTab[0]->children->content;
+  this->device_class_type_ =
+      DeviceClassDescription::GetDeviceClassTypeByString(aux);
+  clog << "--->fsmda:classType = " << aux << "(or " << this->device_class_type_
+       << ")" << endl;
   xmlXPathFreeObject(xpathObj);
 
   // capture min_devices
@@ -113,7 +112,7 @@ int DeviceClassDescription::InitializeByParseRdfFile(const string& rdf_file) {
   assert(xpathObj != NULL);
   nodes = xpathObj->nodesetval;
   assert(nodes->nodeTab[0]);
-  aux = (const char*) nodes->nodeTab[0]->children->content;
+  aux = (const char*)nodes->nodeTab[0]->children->content;
   this->min_devices_ = atoi(aux);
   clog << "--->fsmda:minDevices = " << this->min_devices_ << endl;
   xmlXPathFreeObject(xpathObj);
@@ -124,7 +123,7 @@ int DeviceClassDescription::InitializeByParseRdfFile(const string& rdf_file) {
   assert(xpathObj != NULL);
   nodes = xpathObj->nodesetval;
   assert(nodes->nodeTab[0]);
-  aux = (const char*) nodes->nodeTab[0]->children->content;
+  aux = (const char*)nodes->nodeTab[0]->children->content;
   this->max_devices_ = atoi(aux);
   clog << "--->fsmda:maxDevices = " << this->max_devices_ << endl;
   xmlXPathFreeObject(xpathObj);
@@ -135,8 +134,8 @@ int DeviceClassDescription::InitializeByParseRdfFile(const string& rdf_file) {
   assert(xpathObj != NULL);
   nodes = xpathObj->nodesetval;
   assert(nodes->nodeTab[0]);
-  this->paringMethod_ = (const char*) nodes->nodeTab[0]->children->content;
-  clog << "--->fsmda:pairingMethod = " << this->paringMethod_ << endl;
+  this->paring_method_ = (const char*)nodes->nodeTab[0]->children->content;
+  clog << "--->fsmda:pairingMethod = " << this->paring_method_ << endl;
   xmlXPathFreeObject(xpathObj);
 
   // release libxml
@@ -152,17 +151,17 @@ int DeviceClassDescription::InitializeByParseRdfFile(const string& rdf_file) {
 /*----------------------------------------------------------------------
  |   DeviceClassDescription::GetDeviceClassTypeByString
  +---------------------------------------------------------------------*/
-DeviceClassDescription::DeviceClassType DeviceClassDescription::GetDeviceClassTypeByString(
-    const string& str) {
-  if (!str.compare(deviceClassTypeMap_[kFsmdaPassiveDevice]))
+DeviceClassDescription::DeviceClassType
+DeviceClassDescription::GetDeviceClassTypeByString(const string& str) {
+  if (!str.compare(device_class_type_strings_[kFsmdaPassiveDevice]))
     return kFsmdaPassiveDevice;
-  else if (!str.compare(deviceClassTypeMap_[kFsmdaActiveDevice]))
+  else if (!str.compare(device_class_type_strings_[kFsmdaActiveDevice]))
     return kFsmdaActiveDevice;
-  else if (!str.compare(deviceClassTypeMap_[kFsmdaHtmlDevice]))
+  else if (!str.compare(device_class_type_strings_[kFsmdaHtmlDevice]))
     return kFsmdaHtmlDevice;
-  else if (!str.compare(deviceClassTypeMap_[kFsmdaOnDemandDevice]))
+  else if (!str.compare(device_class_type_strings_[kFsmdaOnDemandDevice]))
     return kFsmdaOnDemandDevice;
-  else if (!str.compare(deviceClassTypeMap_[kFsmdaMediaCaptureDevice]))
+  else if (!str.compare(device_class_type_strings_[kFsmdaMediaCaptureDevice]))
     return kFsmdaMediaCaptureDevice;
   else
     return kFsmdaBaseDevice;

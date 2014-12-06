@@ -14,7 +14,11 @@ using std::string;
  +---------------------------------------------------------------------*/
 class UpnpFsmdaUtils {
  public:
-  // class fields
+  // class fields - upnp fsmda manufacturer
+  static const char* kFsmdaManufacturer;
+  static const char* kFsmdaManufacturerUrl;
+
+  // class fields - upnp paring device strings
   static const char* kPpmDeviceType;
   static const char* kPpmDeviceFriendlyName;
   static const char* kPpmDeviceModelDescription;
@@ -36,9 +40,7 @@ class UpnpFsmdaUtils {
   static const char* kCpmServiceName;
   static const char* kCpmServiceScpdXml;
 
-  static const char* kFsmdaManufacturer;
-  static const char* kFsmdaManufacturerUrl;
-
+  // class fields - upnp communication devices string for upnp
   static const char* kOnDemandCcmDeviceFriendlyName;
   static const char* kOnDemandCcmDeviceModelDescription;
   static const char* kOnDemandCcmDeviceModelUrl;
@@ -46,9 +48,11 @@ class UpnpFsmdaUtils {
   static const char* kOnDemandCcmDeviceModelName;
 
   // class methods
-  static PLT_UPnP* RequestUpnpReference();
-  static void ReleaseUpnpReference();
-  static unsigned int references_count_;
+  static PLT_UPnP* GetRunningUpnpInstance();
+  static void ReleaseUpnpInstance();
+  static unsigned int upnp_references_count() {
+    return UpnpFsmdaUtils::upnp_references_count_;
+  }
 
  private:
   // private constructors & destructors
@@ -57,7 +61,7 @@ class UpnpFsmdaUtils {
 
   // private class fields
   static PLT_UPnP* upnp_singleton_;
-  static bool upnp_running_;
+  static unsigned int upnp_references_count_;
 };
 
 #endif  // FSMDA_UTILS_UPNP_FSMDA_UTILS_H_

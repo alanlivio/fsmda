@@ -17,8 +17,7 @@
  +---------------------------------------------------------------------*/
 // singleton fields
 PLT_UPnP* UpnpFsmdaUtils::upnp_singleton_ = NULL;
-unsigned int UpnpFsmdaUtils::references_count_ = 0;
-bool UpnpFsmdaUtils::upnp_running_ = false;
+unsigned int UpnpFsmdaUtils::upnp_references_count_ = 0;
 
 // PPM UPNP constant strings
 const char* UpnpFsmdaUtils::kPpmDeviceType =
@@ -247,7 +246,7 @@ const char* UpnpFsmdaUtils::kFsmdaManufacturerUrl =
 /*----------------------------------------------------------------------
  |   UpnpUtils::RequestUpnpReference
  +---------------------------------------------------------------------*/
-PLT_UPnP* UpnpFsmdaUtils::RequestUpnpReference() {
+PLT_UPnP* UpnpFsmdaUtils::GetRunningUpnpInstance() {
   if (UpnpFsmdaUtils::upnp_singleton_ == NULL) {
     // setup Neptune logging
     NPT_LogManager::GetDefault().Configure(
@@ -260,26 +259,24 @@ PLT_UPnP* UpnpFsmdaUtils::RequestUpnpReference() {
     PLT_UPnPMessageHelper::GetIPAddresses(list);
     UpnpFsmdaUtils::upnp_singleton_ = new PLT_UPnP();
     UpnpFsmdaUtils::upnp_singleton_->Start();
-    UpnpFsmdaUtils::references_count_ = 0;
-    UpnpFsmdaUtils::upnp_running_ = true;
+    UpnpFsmdaUtils::upnp_references_count_ = 0;
   }
-  UpnpFsmdaUtils::references_count_++;
+  UpnpFsmdaUtils::upnp_references_count_++;
   return UpnpFsmdaUtils::upnp_singleton_;
 }
 
 /*----------------------------------------------------------------------
  |   UpnpUtils::ReleaseUpnpReference
  +---------------------------------------------------------------------*/
-void UpnpFsmdaUtils::ReleaseUpnpReference() {
-  if (UpnpFsmdaUtils::references_count_ == 0) {
+void UpnpFsmdaUtils::ReleaseUpnpInstance() {
+  if (UpnpFsmdaUtils::upnp_references_count_ == 0) {
     return;
-  } else if (UpnpFsmdaUtils::references_count_ == 1) {
+  } else if (UpnpFsmdaUtils::upnp_references_count_ == 1) {
     UpnpFsmdaUtils::upnp_singleton_->Stop();
     //    delete upnp_singleton_;
     UpnpFsmdaUtils::upnp_singleton_ = NULL;
-    UpnpFsmdaUtils::references_count_ = 0;
-    UpnpFsmdaUtils::upnp_running_ = false;
+    UpnpFsmdaUtils::upnp_references_count_ = 0;
   } else {
-    UpnpFsmdaUtils::references_count_--;
+    UpnpFsmdaUtils::upnp_references_count_--;
   }
 }
