@@ -11,25 +11,27 @@
 #include "gtest/internal/gtest-linked_ptr.h"
 #include "PltUPnP.h"
 #include <cstdlib>
-
-#include "fsmda/paring/device_class_description.h"
-#include "fsmda/paring/device_description.h"
-#include "gtest/gtest.h"
-#include <cstdlib>
 #include <string>
 
 TEST(Paring, Constructors) {
+  EXPECT_FALSE(UpnpFsmdaUtils::IsUpnpRunning());
+  EXPECT_EQ(0, UpnpFsmdaUtils::upnp_references_count());
+
   UpnpParentParing* ppm = new UpnpParentParing();
-  EXPECT_TRUE(ppm != NULL);
+  EXPECT_TRUE(ppm);
   delete ppm;
   UpnpChildParing* cpm = new UpnpChildParing();
-  EXPECT_TRUE(cpm != NULL);
+  EXPECT_TRUE(cpm);
   delete cpm;
+
+  EXPECT_FALSE(UpnpFsmdaUtils::IsUpnpRunning());
+  EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 0);
+
   DeviceDescription* dev_description = new DeviceDescription();
-  EXPECT_TRUE(dev_description != NULL);
+  EXPECT_TRUE(dev_description);
   delete dev_description;
   DeviceClassDescription* dev_class_requirements = new DeviceClassDescription();
-  EXPECT_TRUE(dev_class_requirements != NULL);
+  EXPECT_TRUE(dev_class_requirements);
   delete dev_class_requirements;
 }
 
@@ -38,10 +40,10 @@ TEST(Paring, DeviceDescriptionMatching) {
   string device_class_description_rdf;
   bool ret;
   DeviceDescription* device_description = new DeviceDescription();
-  EXPECT_TRUE(device_description != NULL);
+  EXPECT_TRUE(device_description);
   DeviceClassDescription* device_class_description =
       new DeviceClassDescription();
-  EXPECT_TRUE(device_class_description != NULL);
+  EXPECT_TRUE(device_class_description);
 
   // passive class description initialize and meet_requirements tests
   device_rdf = "./files/test1_passive_dev_desc00.xml";

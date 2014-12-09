@@ -107,6 +107,8 @@ NPT_Result UpnpChildParing::OnDeviceAdded(PLT_DeviceDataReference &device) {
        << device->GetType().GetChars() << endl;
   clog << "UpnpChildParing::OnDeviceAdded()::device->GetUUID="
        << device->GetUUID().GetChars() << endl;
+  clog << "UpnpChildParing::OnDeviceAdded()::device->GetURLBase()->"
+          "GetSCPDURL=" << device->GetURLBase().ToString().GetChars() << endl;
   clog << "UpnpChildParing::OnDeviceAdded()::device->GetServices()[0]->"
           "GetSCPDURL=" << device->GetServices()[0]->GetSCPDURL().GetChars()
        << endl;
@@ -115,13 +117,12 @@ NPT_Result UpnpChildParing::OnDeviceAdded(PLT_DeviceDataReference &device) {
   if (!device->GetType().Compare(UpnpFsmdaUtils::kPpmDeviceType)) {
     device->FindServiceByType(UpnpFsmdaUtils::kPpmServiceType,
                               parent_paring_service);
-//    NPT_String parent_scpdxml;
-//    parent_paring_service->GetSCPDXML(parent_scpdxml);
     clog << "----->paired_with_parent_= true" << endl;
     paired_with_parent_ = true;
     return NPT_SUCCESS;
-  } else
+  } else {
     return NPT_FAILURE;
+  }
 }
 /*----------------------------------------------------------------------
  |   UpnpChildParing::StartService

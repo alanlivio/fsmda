@@ -10,7 +10,6 @@
 #include "fsmda/communication/upnp_ondemand_pcm.h"
 #include "fsmda/communication/upnp_passive_ccm.h"
 #include "fsmda/communication/upnp_passive_pcm.h"
-#include "fsmda/communication/upnp_ondemand_ccm.h"
 #include "gtest/gtest.h"
 #include <cstdlib>
 #include <iostream>
