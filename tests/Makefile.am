@@ -51,7 +51,7 @@ testsuit_gtest_SOURCES = \
 
 #testsuit_gtest_SOURCES = \
   testsuit_gtest.cc\
-  paring2_test.cc
+  simple_test.cc
 
 paring2_test_helper_SOURCES = \
   paring2_test_helper.cc
