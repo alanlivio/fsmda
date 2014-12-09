@@ -50,7 +50,7 @@ TEST(Paring, ChildDiscoverParent) {
   EXPECT_EQ(1, UpnpFsmdaUtils::upnp_references_count());
   EXPECT_TRUE(UpnpFsmdaUtils::IsUpnpRunning());
 
-  int ret = system("./test2_aux &");
+  int ret = system("./paring2_test_helper &");
   sleep(3);
   EXPECT_TRUE(upnp_child_paring->IsPaired());
 

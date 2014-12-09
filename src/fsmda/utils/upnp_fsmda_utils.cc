@@ -142,7 +142,7 @@ const char* UpnpFsmdaUtils::kPpmServiceScpdXml =
 const char* UpnpFsmdaUtils::kCpmDeviceType =
     "urn:schemas-upnp-org:device:smda-child-paring-device:1";
 const char* UpnpFsmdaUtils::kCpmDeviceFriendlyName =
-    "fsmda child paring device  friendly name";
+    "fsmda child paring device friendly name";
 const char* UpnpFsmdaUtils::kCpmDeviceModelName =
     "fsmda-child-paring-device model name";
 const char* UpnpFsmdaUtils::kCpmDeviceModelDescription =

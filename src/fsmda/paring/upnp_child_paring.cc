@@ -112,12 +112,12 @@ NPT_Result UpnpChildParing::OnDeviceAdded(PLT_DeviceDataReference &device) {
        << endl;
 
   PLT_Service *parent_paring_service;
-  if (device->GetType().StartsWith(UpnpFsmdaUtils::kPpmDeviceType)) {
+  if (!device->GetType().Compare(UpnpFsmdaUtils::kPpmDeviceType)) {
     device->FindServiceByType(UpnpFsmdaUtils::kPpmServiceType,
                               parent_paring_service);
 //    NPT_String parent_scpdxml;
 //    parent_paring_service->GetSCPDXML(parent_scpdxml);
-//    clog << "----->parent_scpdxml=" << parent_scpdxml.GetChars() << endl;
+    clog << "----->paired_with_parent_= true" << endl;
     paired_with_parent_ = true;
     return NPT_SUCCESS;
   } else

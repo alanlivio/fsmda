@@ -4,11 +4,36 @@
 
 #include "fsmda/paring/device_class_description.h"
 #include "fsmda/paring/device_description.h"
+#include "fsmda/paring/upnp_child_paring.h"
+#include "fsmda/paring/upnp_parent_paring.h"
+#include "fsmda/utils/upnp_fsmda_utils.h"
+#include "gtest/gtest.h"
+#include "gtest/internal/gtest-linked_ptr.h"
+#include "PltUPnP.h"
+#include <cstdlib>
+
+#include "fsmda/paring/device_class_description.h"
+#include "fsmda/paring/device_description.h"
 #include "gtest/gtest.h"
 #include <cstdlib>
 #include <string>
 
-TEST(Paring, DeviceMeetRequirements) {
+TEST(Paring, Constructors) {
+  UpnpParentParing* ppm = new UpnpParentParing();
+  EXPECT_TRUE(ppm != NULL);
+  delete ppm;
+  UpnpChildParing* cpm = new UpnpChildParing();
+  EXPECT_TRUE(cpm != NULL);
+  delete cpm;
+  DeviceDescription* dev_description = new DeviceDescription();
+  EXPECT_TRUE(dev_description != NULL);
+  delete dev_description;
+  DeviceClassDescription* dev_class_requirements = new DeviceClassDescription();
+  EXPECT_TRUE(dev_class_requirements != NULL);
+  delete dev_class_requirements;
+}
+
+TEST(Paring, DeviceDescriptionMatching) {
   string device_rdf;
   string device_class_description_rdf;
   bool ret;

@@ -13,9 +13,10 @@ config.*
 stamp-h1
 *.trs
 *.pc
-*_test
-*_gtest
-*_program
+tests/*_test
+tests/*_helper
+tests/*_gtest
+programs/*_program
 
 # Created by https://www.gitignore.io
 
