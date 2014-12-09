@@ -50,6 +50,7 @@ class UpnpFsmdaUtils {
   // class methods
   static PLT_UPnP* GetRunningUpnpInstance();
   static void ReleaseUpnpInstance();
+  static bool IsUpnpRunning();
   static unsigned int upnp_references_count() {
     return UpnpFsmdaUtils::upnp_references_count_;
   }

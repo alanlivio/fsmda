@@ -44,7 +44,6 @@ UpnpParentParing::UpnpParentParing()
  +---------------------------------------------------------------------*/
 UpnpParentParing::~UpnpParentParing() {
   this->StopService();
-  delete device_host_;
   delete device_service_;
 }
 

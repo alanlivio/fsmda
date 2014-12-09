@@ -47,7 +47,6 @@ UpnpChildParing::UpnpChildParing()
  +---------------------------------------------------------------------*/
 UpnpChildParing::~UpnpChildParing() {
   this->StopService();
-  delete device_host_;
   delete device_service_;
   delete ctrl_point_;
 }
@@ -101,28 +100,28 @@ NPT_Result UpnpChildParing::OnActionResponse(NPT_Result res,
 NPT_Result UpnpChildParing::OnDeviceRemoved(PLT_DeviceDataReference &device) {}
 
 NPT_Result UpnpChildParing::OnDeviceAdded(PLT_DeviceDataReference &device) {
-  //  clog << "UpnpChildParing::OnDeviceAdded()" << endl;
-  //  clog << "UpnpChildParing::OnDeviceAdded()::device->GetFriendlyName="
-  //       << device->GetFriendlyName().GetChars() << endl;
-  //  clog << "UpnpChildParing::OnDeviceAdded()::device->GetType="
-  //       << device->GetType().GetChars() << endl;
-  //  clog << "UpnpChildParing::OnDeviceAdded()::device->GetUUID="
-  //       << device->GetUUID().GetChars() << endl;
+  clog << "UpnpChildParing::OnDeviceAdded()" << endl;
+  clog << "UpnpChildParing::OnDeviceAdded()::device->GetFriendlyName="
+       << device->GetFriendlyName().GetChars() << endl;
+  clog << "UpnpChildParing::OnDeviceAdded()::device->GetType="
+       << device->GetType().GetChars() << endl;
+  clog << "UpnpChildParing::OnDeviceAdded()::device->GetUUID="
+       << device->GetUUID().GetChars() << endl;
+  clog << "UpnpChildParing::OnDeviceAdded()::device->GetServices()[0]->"
+          "GetSCPDURL=" << device->GetServices()[0]->GetSCPDURL().GetChars()
+       << endl;
 
-  //  // verify the device implements the function we need
-  //  PLT_Service *parent_paring_service;
-
-  //  if (device->GetType().StartsWith(UpnpFsmdaUtils::kPpmDeviceType))
-  //    if (device->FindServiceByType(UpnpFsmdaUtils::kPpmServiceType,
-  //                                  parent_paring_service)) {
-  //      NPT_String parent_scpdxml;
-  //      parent_paring_service->GetSCPDXML(parent_scpdxml);
-  //      clog << "----->parent_scpdxml=" << parent_scpdxml.GetChars() << endl;
-  //      paired_with_parent_ = true;
-  //      return NPT_SUCCESS;
-  //    } else {
-  //      return NPT_FAILURE;
-  //    }
+  PLT_Service *parent_paring_service;
+  if (device->GetType().StartsWith(UpnpFsmdaUtils::kPpmDeviceType)) {
+    device->FindServiceByType(UpnpFsmdaUtils::kPpmServiceType,
+                              parent_paring_service);
+//    NPT_String parent_scpdxml;
+//    parent_paring_service->GetSCPDXML(parent_scpdxml);
+//    clog << "----->parent_scpdxml=" << parent_scpdxml.GetChars() << endl;
+    paired_with_parent_ = true;
+    return NPT_SUCCESS;
+  } else
+    return NPT_FAILURE;
 }
 /*----------------------------------------------------------------------
  |   UpnpChildParing::StartService

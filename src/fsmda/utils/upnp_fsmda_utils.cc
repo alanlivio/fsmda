@@ -258,6 +258,7 @@ PLT_UPnP* UpnpFsmdaUtils::GetRunningUpnpInstance() {
     NPT_List<NPT_IpAddress> list;
     PLT_UPnPMessageHelper::GetIPAddresses(list);
     UpnpFsmdaUtils::upnp_singleton_ = new PLT_UPnP();
+    UpnpFsmdaUtils::upnp_singleton_->SetIgnoreLocalUUIDs(false);
     UpnpFsmdaUtils::upnp_singleton_->Start();
     UpnpFsmdaUtils::upnp_references_count_ = 0;
   }
@@ -278,5 +279,16 @@ void UpnpFsmdaUtils::ReleaseUpnpInstance() {
     UpnpFsmdaUtils::upnp_references_count_ = 0;
   } else {
     UpnpFsmdaUtils::upnp_references_count_--;
+  }
+}
+
+/*----------------------------------------------------------------------
+ |   UpnpUtils::IsUpnpRunning
+ +---------------------------------------------------------------------*/
+bool UpnpFsmdaUtils::IsUpnpRunning() {
+  if (UpnpFsmdaUtils::upnp_singleton_ == NULL) {
+    return false;
+  } else {
+    UpnpFsmdaUtils::upnp_singleton_->IsRunning();
   }
 }

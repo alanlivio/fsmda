@@ -39,11 +39,12 @@ libgmockgtest_la_LDFLAGS =\
   
 ############################# Testes gtests-based ###########################
 ### Tests programs
-check_PROGRAMS = testsuit_gtest 
+check_PROGRAMS = test2_aux testsuit_gtest
 
 ### Tests programs sources
-#testsuit_gtest_SOURCES = testsuit_gtest.cc test0.cc test1.cc test2.cc test3.cc
-testsuit_gtest_SOURCES = testsuit_gtest.cc test2.cc
+testsuit_gtest_SOURCES = testsuit_gtest.cc test0.cc test1.cc test2.cc test3.cc
+#testsuit_gtest_SOURCES = testsuit_gtest.cc test2.cc
+test2_aux_SOURCES = test2_aux.cc
 
 ### Tests programs compiler options
 testsuit_gtest_CPPFLAGS = \
@@ -51,9 +52,18 @@ testsuit_gtest_CPPFLAGS = \
   $(LIBXML2_CFLAGS)\
   $(GMOCKGTEST_CPPFLAGS)
 
+test2_aux_CPPFLAGS = \
+  $(PLATINUMKIT_CFLAGS)\
+  $(LIBXML2_CFLAGS)
+
 ### Tests programs linker options
 testsuit_gtest_LDADD = \
   $(top_srcdir)/src/libfsmda.la\
   $(PLATINUMKIT_LIBS)\
   $(LIBXML2_LIBS)\
-  libgmockgtest.la
+  $(top_srcdir)/tests/libgmockgtest.la
+
+test2_aux_LDADD = \
+  $(top_srcdir)/src/libfsmda.la\
+  $(PLATINUMKIT_LIBS)\
+  $(LIBXML2_LIBS)
