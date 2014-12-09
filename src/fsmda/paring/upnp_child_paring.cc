@@ -20,7 +20,7 @@ using std::endl;
  |   UpnpChildParing::UpnpChildParing
  +---------------------------------------------------------------------*/
 UpnpChildParing::UpnpChildParing()
-    : PLT_DeviceHost("/", NULL, UpnpFsmdaUtils::kPpmDeviceType,
+    : PLT_DeviceHost("/", NULL, UpnpFsmdaUtils::kCpmDeviceType,
                      UpnpFsmdaUtils::kCpmDeviceFriendlyName, true, 4445, true),
       device_service_(NULL),
       upnp_instance_(NULL),
