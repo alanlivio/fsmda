@@ -42,8 +42,8 @@ libgmockgtest_la_LDFLAGS =\
 check_PROGRAMS = testsuit_gtest 
 
 ### Tests programs sources
-testsuit_gtest_SOURCES = testsuit_gtest.cc test0.cc test1.cc test2.cc
-#testsuit_gtest_SOURCES = testsuit_gtest.cc test2.cc
+#testsuit_gtest_SOURCES = testsuit_gtest.cc test0.cc test1.cc test2.cc test3.cc
+testsuit_gtest_SOURCES = testsuit_gtest.cc test2.cc
 
 ### Tests programs compiler options
 testsuit_gtest_CPPFLAGS = \
