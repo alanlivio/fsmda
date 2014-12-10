@@ -23,7 +23,6 @@ using std::endl;
 UpnpParentParing::UpnpParentParing()
     : PLT_DeviceHost("/", NULL, UpnpFsmdaUtils::kPpmDeviceType,
                      UpnpFsmdaUtils::kPpmDeviceFriendlyName, true, 0, true),
-      device_service_(NULL),
       upnp_instance_(NULL),
       paired_childs_(0) {
   m_ModelDescription = UpnpFsmdaUtils::kPpmDeviceModelDescription;
@@ -47,6 +46,8 @@ UpnpParentParing::~UpnpParentParing() {
   this->StopService();
   delete device_service_;
   delete ctrl_point_;
+  device_host_->Detach();
+  delete device_host_;
 }
 
 /*----------------------------------------------------------------------
