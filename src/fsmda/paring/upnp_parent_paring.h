@@ -10,9 +10,12 @@
 #include "NptTypes.h"
 #include "PltDeviceHost.h"
 #include "PltUPnP.h"
+#include "PltCtrlPoint.h"
 #include <string>
+#include <vector>
 
 using std::string;
+using std::vector;
 
 /*----------------------------------------------------------------------
  |   UpnpPpm class
@@ -40,15 +43,15 @@ class UpnpParentParing : public PLT_DeviceHost, public PLT_CtrlPointListener {
   int StartService();
   int StopService();
   bool IsServiceStarted();
-  unsigned int paired_childs() {
-    return paired_childs_;
-  }
+  unsigned int paired_childs() { return paired_childs_; }
 
  private:
   PLT_UPnP* upnp_instance_;
   PLT_DeviceHostReference* device_host_;
   PLT_Service* device_service_;
+  PLT_CtrlPointReference* ctrl_point_;
   unsigned int paired_childs_;
+  vector<PLT_DeviceDataReference> discoverd_cpm_;
 };
 
 #endif  // FSMDA_PARING_UPNP_PARENT_PARING_H_

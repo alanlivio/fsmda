@@ -22,7 +22,7 @@ using std::endl;
  +---------------------------------------------------------------------*/
 UpnpParentParing::UpnpParentParing()
     : PLT_DeviceHost("/", NULL, UpnpFsmdaUtils::kPpmDeviceType,
-                     UpnpFsmdaUtils::kPpmDeviceFriendlyName, true, 4444, true),
+                     UpnpFsmdaUtils::kPpmDeviceFriendlyName, true, 0, true),
       device_service_(NULL),
       upnp_instance_(NULL),
       paired_childs_(0) {
@@ -37,6 +37,7 @@ UpnpParentParing::UpnpParentParing()
                                     UpnpFsmdaUtils::kPpmServiceId,
                                     UpnpFsmdaUtils::kPpmServiceName);
   device_service_->SetSCPDXML((const char *)UpnpFsmdaUtils::kPpmServiceScpdXml);
+  ctrl_point_ = new PLT_CtrlPointReference(new PLT_CtrlPoint());
 }
 
 /*----------------------------------------------------------------------
@@ -45,6 +46,7 @@ UpnpParentParing::UpnpParentParing()
 UpnpParentParing::~UpnpParentParing() {
   this->StopService();
   delete device_service_;
+  delete ctrl_point_;
 }
 
 /*----------------------------------------------------------------------
@@ -105,7 +107,32 @@ NPT_Result UpnpParentParing::OnActionResponse(NPT_Result res,
                                               void *userdata) {}
 NPT_Result UpnpParentParing::OnDeviceRemoved(PLT_DeviceDataReference &device) {}
 
-NPT_Result UpnpParentParing::OnDeviceAdded(PLT_DeviceDataReference &device) {}
+NPT_Result UpnpParentParing::OnDeviceAdded(PLT_DeviceDataReference &device) {
+  clog << "UpnpParentParing::OnDeviceAdded()" << endl;
+  clog << "UpnpParentParing::OnDeviceAdded()::device->GetFriendlyName="
+       << device->GetFriendlyName().GetChars() << endl;
+  clog << "UpnpParentParing::OnDeviceAdded()::device->GetType="
+       << device->GetType().GetChars() << endl;
+  clog << "UpnpParentParing::OnDeviceAdded()::device->GetUUID="
+       << device->GetUUID().GetChars() << endl;
+  clog << "UpnpParentParing::OnDeviceAdded()::device->GetURLBase()->"
+          "GetSCPDURL=" << device->GetURLBase().ToString().GetChars() << endl;
+  clog << "UpnpParentParing::OnDeviceAdded()::device->GetServices()[0]->"
+          "GetSCPDURL=" << device->GetServices()[0]->GetSCPDURL().GetChars()
+       << endl;
+
+  PLT_Service *parent_paring_service;
+  if (!device->GetType().Compare(UpnpFsmdaUtils::kCpmDeviceType)) {
+    device->FindServiceByType(UpnpFsmdaUtils::kCpmServiceType,
+                              parent_paring_service);
+    clog << "----->discoverd_cpm_.push_back(device)" << endl;
+    //    paired_childs_++;
+    discoverd_cpm_.push_back(device);
+    return NPT_SUCCESS;
+  } else {
+    return NPT_FAILURE;
+  }
+}
 
 /*----------------------------------------------------------------------
  |   UpnpParentParing::StartService
@@ -116,6 +143,8 @@ int UpnpParentParing::StartService() {
     upnp_instance_ = UpnpFsmdaUtils::GetRunningUpnpInstance();
   }
   NPT_Result res = upnp_instance_->AddDevice(*device_host_);
+  res = upnp_instance_->AddCtrlPoint(*ctrl_point_);
+  (*ctrl_point_)->AddListener(this);
   if (res != NPT_SUCCESS) {
     return -1;
   } else {
@@ -130,6 +159,8 @@ int UpnpParentParing::StopService() {
   if (upnp_instance_ != NULL) {
     RemoveService(device_service_);
     upnp_instance_->RemoveDevice(*device_host_);
+    (*ctrl_point_)->RemoveListener(this);
+    upnp_instance_->RemoveCtrlPoint(*ctrl_point_);
     UpnpFsmdaUtils::ReleaseUpnpInstance();
     upnp_instance_ = NULL;
   }

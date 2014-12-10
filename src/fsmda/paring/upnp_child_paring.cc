@@ -21,7 +21,7 @@ using std::endl;
  +---------------------------------------------------------------------*/
 UpnpChildParing::UpnpChildParing()
     : PLT_DeviceHost("/", NULL, UpnpFsmdaUtils::kCpmDeviceType,
-                     UpnpFsmdaUtils::kCpmDeviceFriendlyName, true, 4445, true),
+                     UpnpFsmdaUtils::kCpmDeviceFriendlyName, true, 0, true),
       device_service_(NULL),
       upnp_instance_(NULL),
       paired_with_parent_(false) {
@@ -37,9 +37,6 @@ UpnpChildParing::UpnpChildParing()
                                     UpnpFsmdaUtils::kCpmServiceName);
   device_service_->SetSCPDXML((const char *)UpnpFsmdaUtils::kCpmServiceScpdXml);
   ctrl_point_ = new PLT_CtrlPointReference(new PLT_CtrlPoint());
-  //  (*ctrl_point_)->IgnoreUUID(m_UUID);
-  //  (*ctrl_point_)->IgnoreUUID("886ef746-92bf-44f8-bd17-cdc1da03c322");
-  //  (*ctrl_point_)->IgnoreUUID("fd264c69-e1d8-483e-9038-a896b65d2c1b");
 }
 
 /*----------------------------------------------------------------------
