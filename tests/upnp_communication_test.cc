@@ -17,7 +17,7 @@
 using std::cout;
 using std::endl;
 
-TEST(Communication, Constructors) {
+TEST(UpnpCommunication, Constructors) {
   UpnpActivePcm* active_pcm = new UpnpActivePcm();
   EXPECT_TRUE(active_pcm != NULL);
   delete active_pcm;
@@ -44,7 +44,7 @@ TEST(Communication, Constructors) {
   delete passive_ccm;
 }
 
-TEST(Communication, UpnpOnDemandCcm) {
+TEST(UpnpCommunication, UpnpOnDemandCcm) {
   // ondemand class description initialize and meet_requirements tests
   UpnpOnDemandCcm* ondemand_ccm = new UpnpOnDemandCcm();
   ondemand_ccm->StartCommunicationService();

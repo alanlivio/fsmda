@@ -14,7 +14,19 @@ using std::cout;
 using std::endl;
 using std::system;
 
-TEST(Paring, SameProcessParing) {
+TEST(UpnpParing, Constructors) {
+  EXPECT_FALSE(UpnpFsmdaUtils::IsUpnpRunning());
+  EXPECT_EQ(0, UpnpFsmdaUtils::upnp_references_count());
+
+  UpnpParentParing* ppm = new UpnpParentParing();
+  EXPECT_TRUE(ppm);
+  delete ppm;
+  UpnpChildParing* cpm = new UpnpChildParing();
+  EXPECT_TRUE(cpm);
+  delete cpm;
+}
+
+TEST(UpnpParing, SameProcessParing) {
   EXPECT_FALSE(UpnpFsmdaUtils::IsUpnpRunning());
   EXPECT_EQ(0, UpnpFsmdaUtils::upnp_references_count());
 
@@ -47,7 +59,7 @@ TEST(Paring, SameProcessParing) {
   EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 0);
 }
 
-TEST(Paring, DiferentProcessesParing) {
+TEST(UpnpParing, DiferentProcessesParing) {
   EXPECT_FALSE(UpnpFsmdaUtils::IsUpnpRunning());
   EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 0);
 
@@ -60,7 +72,7 @@ TEST(Paring, DiferentProcessesParing) {
 
   // start parent paring service
   sleep(1);
-  ASSERT_TRUE(popen("./paring2_test_helper", "r"));
+  ASSERT_TRUE(popen("./upnp_paring_test_helper", "r"));
   sleep(1);
 
   EXPECT_TRUE(upnp_child_paring->IsPaired());

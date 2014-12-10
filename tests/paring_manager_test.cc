@@ -13,19 +13,7 @@
 #include <cstdlib>
 #include <string>
 
-TEST(Paring, Constructors) {
-  EXPECT_FALSE(UpnpFsmdaUtils::IsUpnpRunning());
-  EXPECT_EQ(0, UpnpFsmdaUtils::upnp_references_count());
-
-  UpnpParentParing* ppm = new UpnpParentParing();
-  EXPECT_TRUE(ppm);
-  delete ppm;
-  UpnpChildParing* cpm = new UpnpChildParing();
-  EXPECT_TRUE(cpm);
-  delete cpm;
-
-  EXPECT_FALSE(UpnpFsmdaUtils::IsUpnpRunning());
-  EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 0);
+TEST(ParingManager, Constructors) {
 
   DeviceDescription* dev_description = new DeviceDescription();
   EXPECT_TRUE(dev_description);
@@ -35,7 +23,7 @@ TEST(Paring, Constructors) {
   delete dev_class_requirements;
 }
 
-TEST(Paring, DeviceDescriptionMatching) {
+TEST(ParingManager, DeviceDescriptionMatching) {
   string device_rdf;
   string device_class_description_rdf;
   bool ret;

@@ -39,22 +39,22 @@ libgmockgtest_la_LDFLAGS =\
   
 ############################# Testes gtests-based ###########################
 ### Tests programs
-check_PROGRAMS = testsuit_gtest paring2_test_helper
+check_PROGRAMS = testsuit_gtest upnp_paring_test_helper
 
 ### Tests programs sources
 testsuit_gtest_SOURCES = \
   testsuit_gtest.cc\
-  communication1_test.cc\
-  paring1_test.cc\
-  paring2_test.cc\
-  utils1_test.cc
+  paring_manager_test.cc\
+  upnp_communication_test.cc\
+  upnp_paring_test.cc\
+  utils_test.cc
 
 #testsuit_gtest_SOURCES = \
   testsuit_gtest.cc\
   simple_test.cc
 
-paring2_test_helper_SOURCES = \
-  paring2_test_helper.cc
+upnp_paring_test_helper_SOURCES = \
+  upnp_paring_test_helper.cc
 
 ### Tests programs compiler options
 testsuit_gtest_CPPFLAGS = \
@@ -62,7 +62,7 @@ testsuit_gtest_CPPFLAGS = \
   $(LIBXML2_CFLAGS)\
   $(GMOCKGTEST_CPPFLAGS)
 
-paring2_test_helper_CPPFLAGS = \
+upnp_paring_test_helper_CPPFLAGS = \
   $(PLATINUMKIT_CFLAGS)\
   $(LIBXML2_CFLAGS)
 
@@ -73,7 +73,7 @@ testsuit_gtest_LDADD = \
   $(LIBXML2_LIBS)\
   $(top_srcdir)/tests/libgmockgtest.la
 
-paring2_test_helper_LDADD = \
+upnp_paring_test_helper_LDADD = \
   $(top_srcdir)/src/libfsmda.la\
   $(PLATINUMKIT_LIBS)\
   $(LIBXML2_LIBS)

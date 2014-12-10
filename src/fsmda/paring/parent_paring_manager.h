@@ -21,12 +21,6 @@ class ParentParingManager : public ClassHandlingPpmInterface,
   ParentParingManager();
   virtual ~ParentParingManager();
 
-  // Methods for factory parent communication managers
-  ActivePcmInterface* CreateActivePcm(unsigned int class_index);
-  MediaCapturePcmInterface* CreateMediaCapturePcm(unsigned int class_index);
-  OnDemandPcmInterface* CreateOnDemandPcm(unsigned int class_index);
-  PassivePcmInterface* CreatePassivePcm(unsigned int class_index);
-
   // ClassHandlingPpmInterface overloaded methods
   virtual void AddClass(const string& application_id, unsigned int class_index);
   virtual void RemoveClass(const string& application_id,
@@ -45,6 +39,12 @@ class ParentParingManager : public ClassHandlingPpmInterface,
   virtual void GetChildIndex(const string& application_id,
                              const string& device_address,
                              unsigned int class_index);
+
+  // Methods for factory parent communication managers
+  ActivePcmInterface* CreateActivePcm(unsigned int class_index);
+  MediaCapturePcmInterface* CreateMediaCapturePcm(unsigned int class_index);
+  OnDemandPcmInterface* CreateOnDemandPcm(unsigned int class_index);
+  PassivePcmInterface* CreatePassivePcm(unsigned int class_index);
 
  private:
   map<unsigned int, DeviceClassDescription*> device_class_description_map_;

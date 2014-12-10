@@ -7,7 +7,7 @@
 #include <cstdlib>
 #include <iostream>
 
-TEST(Utils, UpnpReference) {
+TEST(UpnpUtils, UpnpReference) {
   EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 0);
   PLT_UPnP* upnp = UpnpFsmdaUtils::GetRunningUpnpInstance();
   EXPECT_TRUE(upnp != NULL);
