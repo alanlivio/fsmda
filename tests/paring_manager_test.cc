@@ -95,11 +95,11 @@ TEST(ParingManager, DeviceDescriptionMatching) {
   EXPECT_TRUE(device_class_description);
 
   // passive class description initialize and meet_requirements tests
-  device_rdf = "./files/test1_passive_dev_desc00.xml";
+  device_rdf = "./files/passive_dev_desc00.xml";
   device_description->InitializeByRdfFile(device_rdf);
   EXPECT_EQ(device_description->device_class_type(),
             DeviceClassDescription::kFsmdaPassiveDevice);
-  device_class_description_rdf = "./files/test1_passive_class_desc00.xml";
+  device_class_description_rdf = "./files/passive_class_desc00.xml";
   device_class_description->InitializeByParseRdfFile(
       device_class_description_rdf);
   EXPECT_EQ(device_class_description->device_class_type(),
@@ -108,11 +108,11 @@ TEST(ParingManager, DeviceDescriptionMatching) {
       device_class_description->DeviceMeetRequirements(device_description));
 
   // active class description initialize and meet_requirements tests
-  device_rdf = "./files/test1_active_dev_desc00.xml";
+  device_rdf = "./files/active_dev_desc00.xml";
   device_description->InitializeByRdfFile(device_rdf);
   EXPECT_EQ(device_description->device_class_type(),
             DeviceClassDescription::kFsmdaActiveDevice);
-  device_class_description_rdf = "./files/test1_active_class_desc00.xml";
+  device_class_description_rdf = "./files/active_class_desc00.xml";
   device_class_description->InitializeByParseRdfFile(
       device_class_description_rdf);
   EXPECT_EQ(device_class_description->device_class_type(),
@@ -121,11 +121,11 @@ TEST(ParingManager, DeviceDescriptionMatching) {
       device_class_description->DeviceMeetRequirements(device_description));
 
   // html class description initialize and meet_requirements tests
-  device_rdf = "./files/test1_html_dev_desc00.xml";
+  device_rdf = "./files/html_dev_desc00.xml";
   device_description->InitializeByRdfFile(device_rdf);
   EXPECT_EQ(device_description->device_class_type(),
             DeviceClassDescription::kFsmdaHtmlDevice);
-  device_class_description_rdf = "./files/test1_html_class_desc00.xml";
+  device_class_description_rdf = "./files/html_class_desc00.xml";
   device_class_description->InitializeByParseRdfFile(
       device_class_description_rdf);
   EXPECT_EQ(device_class_description->device_class_type(),
@@ -134,11 +134,11 @@ TEST(ParingManager, DeviceDescriptionMatching) {
       device_class_description->DeviceMeetRequirements(device_description));
 
   // ondemand class description initialize and meet_requirements tests
-  device_rdf = "./files/test1_ondemand_dev_desc00.xml";
+  device_rdf = "./files/ondemand_dev_desc00.xml";
   device_description->InitializeByRdfFile(device_rdf);
   EXPECT_EQ(device_description->device_class_type(),
             DeviceClassDescription::kFsmdaOnDemandDevice);
-  device_class_description_rdf = "./files/test1_ondemand_class_desc00.xml";
+  device_class_description_rdf = "./files/ondemand_class_desc00.xml";
   device_class_description->InitializeByParseRdfFile(
       device_class_description_rdf);
   EXPECT_EQ(device_class_description->device_class_type(),
@@ -147,11 +147,11 @@ TEST(ParingManager, DeviceDescriptionMatching) {
       device_class_description->DeviceMeetRequirements(device_description));
 
   // mediacapture class description initialize and meet_requirements tests
-  device_rdf = "./files/test1_mediacapture_dev_desc00.xml";
+  device_rdf = "./files/mediacapture_dev_desc00.xml";
   device_description->InitializeByRdfFile(device_rdf);
   EXPECT_EQ(device_description->device_class_type(),
             DeviceClassDescription::kFsmdaMediaCaptureDevice);
-  device_class_description_rdf = "./files/test1_mediacapture_class_desc00.xml";
+  device_class_description_rdf = "./files/mediacapture_class_desc00.xml";
   device_class_description->InitializeByParseRdfFile(
       device_class_description_rdf);
   EXPECT_EQ(device_class_description->device_class_type(),
