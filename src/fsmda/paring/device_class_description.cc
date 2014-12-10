@@ -48,10 +48,10 @@ bool DeviceClassDescription::DeviceMeetRequirements(
   if (!initialized_) {
     clog << "device_meets_requirements fail: not initialized_" << endl;
     return false;
-  } else if (this->device_class_type_ != device_desc->classType_) {
+  } else if (this->device_class_type_ != device_desc->device_class_type()) {
     clog << "device_meets_requirements fail: classType_" << endl;
     return false;
-  } else if (this->paring_method_ != device_desc->paringMethod_) {
+  } else if (this->paring_protocol_ != device_desc->paring_method()) {
     clog << "device_meets_requirements fail: paringMethod_" << endl;
     return false;
   } else {
@@ -66,7 +66,7 @@ int DeviceClassDescription::InitializeByDeviceClass(DeviceClassType type) {
   this->device_class_type_ = type;
   this->min_devices_ = 1;
   this->max_devices_ = UINT_MAX;
-  this->paring_method_ = "UPnP";
+  this->paring_protocol_ = "UPnP";
   this->initialized_ = true;
   return 0;
 }
@@ -133,8 +133,8 @@ int DeviceClassDescription::InitializeByParseRdfFile(const string& rdf_file) {
   assert(xpathObj != NULL);
   nodes = xpathObj->nodesetval;
   assert(nodes->nodeTab[0]);
-  this->paring_method_ = (const char*)nodes->nodeTab[0]->children->content;
-  clog << "--->fsmda:pairingMethod = " << this->paring_method_ << endl;
+  this->paring_protocol_ = (const char*)nodes->nodeTab[0]->children->content;
+  clog << "--->fsmda:pairingMethod = " << this->paring_protocol_ << endl;
   xmlXPathFreeObject(xpathObj);
 
   // release libxml

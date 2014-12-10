@@ -22,7 +22,7 @@ using std::endl;
  +---------------------------------------------------------------------*/
 DeviceDescription::DeviceDescription()
     : doc_(NULL),
-      classType_(DeviceClassDescription::kFsmdaBaseDevice),
+      class_type_(DeviceClassDescription::kFsmdaBaseDevice),
       initialized_(false) {}
 
 /*----------------------------------------------------------------------
@@ -58,8 +58,8 @@ int DeviceDescription::InitializeByRdfFile(const string& rdf_file) {
   nodes = xpathObj->nodesetval;
   assert(nodes->nodeTab[0]);
   aux = (const char*)nodes->nodeTab[0]->children->content;
-  this->classType_ = DeviceClassDescription::GetDeviceClassTypeByString(aux);
-  clog << "--->fsmda:classType = " << aux << "(or " << this->classType_ << ")"
+  this->class_type_ = DeviceClassDescription::GetDeviceClassTypeByString(aux);
+  clog << "--->fsmda:classType = " << aux << "(or " << this->class_type_ << ")"
        << endl;
   xmlXPathFreeObject(xpathObj);
 
@@ -69,8 +69,8 @@ int DeviceDescription::InitializeByRdfFile(const string& rdf_file) {
   assert(xpathObj != NULL);
   nodes = xpathObj->nodesetval;
   assert(nodes->nodeTab[0]);
-  this->paringMethod_ = (const char*)nodes->nodeTab[0]->children->content;
-  clog << "--->fsmda:pairingMethod = " << this->paringMethod_ << endl;
+  this->paring_method_ = (const char*)nodes->nodeTab[0]->children->content;
+  clog << "--->fsmda:pairingMethod = " << this->paring_method_ << endl;
   xmlXPathFreeObject(xpathObj);
 
   // release libxml

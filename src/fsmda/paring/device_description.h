@@ -17,15 +17,17 @@ class DeviceDescription {
   DeviceDescription();
   virtual ~DeviceDescription();
 
-  // public fields
-  DeviceClassDescription::DeviceClassType classType_;
-  string paringMethod_;
-
   // public methods
+  DeviceClassDescription::DeviceClassType device_class_type() {
+    return class_type_;
+  }
+  string& paring_method() { return paring_method_; }
   int InitializeByRdfFile(const string& rdf_file);
 
  private:
   // private fields
+  DeviceClassDescription::DeviceClassType class_type_;
+  string paring_method_;
   xmlDocPtr doc_;
   bool initialized_;
 };

@@ -4,7 +4,6 @@
 /*----------------------------------------------------------------------
  |   includes
  +---------------------------------------------------------------------*/
-
 #include "libxml/tree.h"
 #include <string>
 
@@ -29,26 +28,32 @@ class DeviceClassDescription {
     kFsmdaOnDemandDevice = 4,
     kFsmdaMediaCaptureDevice = 5
   };
-  enum DeviceProtocol { kFsmaUpnpProtocol = 0, kFsmdaZeroconfProtocol = 1, };
+  enum ParingProtocol { kUpnpParingProcotol = 0, kZeroconfParingProtocol = 1 };
+  enum CommunicationProtocol {
+    kUpnpCommunicationProcotol = 0,
+    kHTTPCommunicationProtocol = 1
+  };
   static DeviceClassType GetDeviceClassTypeByString(const string& str);
-  static const char *GetDeviceClassTypeStringByEnum(DeviceClassType type);
+  static const char* GetDeviceClassTypeStringByEnum(DeviceClassType type);
 
   // public constructors & destructors
   DeviceClassDescription();
   virtual ~DeviceClassDescription();
 
   // public fields
-  DeviceClassType device_class_type_;
-  string paring_method_;
-  unsigned int min_devices_;
-  unsigned int max_devices_;
-
-  // public methods
+  DeviceClassType device_class_type() { return device_class_type_; }
+  const string& paring_method() { return paring_protocol_; }
+  unsigned int min_devices() { return min_devices_; }
+  unsigned int max_devices() { return max_devices_; }
   bool DeviceMeetRequirements(DeviceDescription* device_desc);
   int InitializeByDeviceClass(DeviceClassType type);
   int InitializeByParseRdfFile(const string& rdf_file);
 
  private:
+  DeviceClassType device_class_type_;
+  string paring_protocol_;
+  unsigned int min_devices_;
+  unsigned int max_devices_;
   static const char* device_class_type_strings_[];
   xmlDocPtr doc_;
   bool initialized_;
