@@ -283,7 +283,7 @@ void UpnpFsmdaUtils::ReleaseUpnpInstance() {
     return;
   } else if (UpnpFsmdaUtils::upnp_references_count_ == 1) {
     UpnpFsmdaUtils::upnp_singleton_->Stop();
-    //    delete upnp_singleton_;
+    delete upnp_singleton_;
     UpnpFsmdaUtils::upnp_singleton_ = NULL;
     UpnpFsmdaUtils::upnp_references_count_ = 0;
   } else {
