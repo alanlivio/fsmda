@@ -2,7 +2,10 @@
  |   includes
  +---------------------------------------------------------------------*/
 
+#include <iostream>
+#include <string>
 #include "fsmda/paring/upnp_child_paring.h"
+#include "fsmda/paring/child_paring_manager.h"
 #include "fsmda/utils/upnp_fsmda_utils.h"
 #include "NptConfig.h"
 #include "NptResults.h"
@@ -10,8 +13,6 @@
 #include "PltFileMediaServer.h"
 #include "PltService.h"
 #include "PltStateVariable.h"
-#include <iostream>
-#include <string>
 
 using std::clog;
 using std::endl;
@@ -77,11 +78,16 @@ NPT_Result UpnpChildParing::OnAction(PLT_ActionReference &action,
     action->GetArgumentValue("classDesc", classDesc);
     NPT_String classFunction;
     action->GetArgumentValue("classFunction", classFunction);
-    clog << "--->UpnpChildParing::OnAction receive classAnnouncement("
+    clog << "UpnpChildParing::OnAction receive classAnnouncement("
          << applicationId.GetChars() << "," << classIndex << ","
          << classDesc.GetChars() << "," << classFunction.GetChars() << ")"
          << endl;
-    return NPT_SUCCESS;
+    if (child_paring_manager_ != NULL) {
+      child_paring_manager_->ClassAnnouncement(applicationId.GetChars(),
+                                               classIndex, classDesc.GetChars(),
+                                               classFunction.GetChars());
+      return NPT_SUCCESS;
+    }
   }
   action->SetError(501, "Action Failed");
   return NPT_FAILURE;
@@ -115,7 +121,7 @@ NPT_Result UpnpChildParing::OnDeviceAdded(PLT_DeviceDataReference &device) {
   if (!device->GetType().Compare(UpnpFsmdaUtils::kPpmDeviceType)) {
     device->FindServiceByType(UpnpFsmdaUtils::kPpmServiceType,
                               parent_paring_service);
-    clog << "----->paired_with_parent_= true" << endl;
+    clog << "--->paired_with_parent_= true" << endl;
     paired_with_parent_ = true;
     return NPT_SUCCESS;
   } else {
@@ -157,11 +163,9 @@ int UpnpChildParing::StopService() {
 }
 
 /*----------------------------------------------------------------------
- |   UpnpChildParing::IsServiceStarted
+ |   UpnpChildParing::SetParentParingManager
  +---------------------------------------------------------------------*/
-bool UpnpChildParing::IsServiceStarted() { return m_Started; }
-
-/*----------------------------------------------------------------------
- |   UpnpChildParing::IsPaired
- +---------------------------------------------------------------------*/
-bool UpnpChildParing::IsPaired() { return paired_with_parent_; }
+void UpnpChildParing::SetParentParingManager(
+    ChildParingManager *child_paring_manager) {
+  child_paring_manager_ = child_paring_manager;
+}

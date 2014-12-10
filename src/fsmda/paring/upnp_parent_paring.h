@@ -18,6 +18,11 @@ using std::string;
 using std::vector;
 
 /*----------------------------------------------------------------------
+ |   forward definitions
+ +---------------------------------------------------------------------*/
+class ParentParingManager;
+
+/*----------------------------------------------------------------------
  |   UpnpPpm class
  +---------------------------------------------------------------------*/
 class UpnpParentParing : public PLT_DeviceHost, public PLT_CtrlPointListener {
@@ -42,7 +47,8 @@ class UpnpParentParing : public PLT_DeviceHost, public PLT_CtrlPointListener {
   // public methods
   int StartService();
   int StopService();
-  bool IsServiceStarted();
+  void SetParentParingManager(ParentParingManager* parent_paring_manager);
+  bool IsServiceStarted() { return m_Started; }
   unsigned int paired_childs() { return paired_childs_; }
 
  private:
@@ -52,6 +58,7 @@ class UpnpParentParing : public PLT_DeviceHost, public PLT_CtrlPointListener {
   PLT_CtrlPointReference* ctrl_point_;
   unsigned int paired_childs_;
   vector<PLT_DeviceDataReference> discoverd_cpm_;
+  ParentParingManager* parent_paring_manager_;
 };
 
 #endif  // FSMDA_PARING_UPNP_PARENT_PARING_H_

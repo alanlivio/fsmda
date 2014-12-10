@@ -2,6 +2,9 @@
  |   includes
  +---------------------------------------------------------------------*/
 
+#include <iostream>
+#include <string>
+#include "fsmda/paring/parent_paring_manager.h"
 #include "fsmda/paring/upnp_parent_paring.h"
 #include "fsmda/utils/upnp_fsmda_utils.h"
 #include "NptResults.h"
@@ -11,8 +14,6 @@
 #include "PltHttp.h"
 #include "PltService.h"
 #include "PltStateVariable.h"
-#include <iostream>
-#include <string>
 
 using std::clog;
 using std::endl;
@@ -24,6 +25,7 @@ UpnpParentParing::UpnpParentParing()
     : PLT_DeviceHost("/", NULL, UpnpFsmdaUtils::kPpmDeviceType,
                      UpnpFsmdaUtils::kPpmDeviceFriendlyName, true, 0, true),
       upnp_instance_(NULL),
+      parent_paring_manager_(NULL),
       paired_childs_(0) {
   m_ModelDescription = UpnpFsmdaUtils::kPpmDeviceModelDescription;
   m_ModelURL = UpnpFsmdaUtils::kPpmDeviceModelUrl;
@@ -78,9 +80,14 @@ NPT_Result UpnpParentParing::OnAction(PLT_ActionReference &action,
     action->GetArgumentValue("classIndex", classIndex);
     NPT_String deviceDesc;
     action->GetArgumentValue("deviceDesc", deviceDesc);
-    clog << "--->UpnpParentParing::OnAction receive addDeviceToClass("
+    clog << "UpnpParentParing::OnAction:: receive addDeviceToClass("
          << applicationId.GetChars() << "," << deviceAddr.GetChars() << ","
          << classIndex << "," << deviceDesc.GetChars() << ")" << endl;
+    if (parent_paring_manager_ != NULL) {
+      parent_paring_manager_->AddDeviceToClass(
+          applicationId.GetChars(), deviceAddr.GetChars(), classIndex,
+          deviceDesc.GetChars());
+    }
     return NPT_SUCCESS;
   } else if (name.Compare("getChildIndex") == 0) {
     // handling getChildIndex call
@@ -90,10 +97,14 @@ NPT_Result UpnpParentParing::OnAction(PLT_ActionReference &action,
     action->GetArgumentValue("deviceAddr", deviceAddr);
     NPT_Int32 classIndex;
     action->GetArgumentValue("classIndex", classIndex);
-    clog << "--->UpnpParentParing::OnAction receive getChildIndex("
+    clog << "UpnpParentParing::OnAction:: receive getChildIndex("
          << applicationId.GetChars() << "," << deviceAddr.GetChars() << ","
          << classIndex << ")" << endl;
     action->SetArgumentValue("ret", "100");
+    if (parent_paring_manager_ != NULL) {
+      parent_paring_manager_->GetChildIndex(applicationId.GetChars(),
+                                            deviceAddr.GetChars(), classIndex);
+    }
     return NPT_SUCCESS;
   }
   action->SetError(501, "Action Failed");
@@ -126,7 +137,7 @@ NPT_Result UpnpParentParing::OnDeviceAdded(PLT_DeviceDataReference &device) {
   if (!device->GetType().Compare(UpnpFsmdaUtils::kCpmDeviceType)) {
     device->FindServiceByType(UpnpFsmdaUtils::kCpmServiceType,
                               parent_paring_service);
-    clog << "----->discoverd_cpm_.push_back(device)" << endl;
+    clog << "--->discoverd_cpm_.push_back(device)" << endl;
     //    paired_childs_++;
     discoverd_cpm_.push_back(device);
     return NPT_SUCCESS;
@@ -167,7 +178,11 @@ int UpnpParentParing::StopService() {
   }
   return 0;
 }
+
 /*----------------------------------------------------------------------
- |   UpnpParentParing::IsServiceStarted
+ |   UpnpParentParing::SetParentParingManager
  +---------------------------------------------------------------------*/
-bool UpnpParentParing::IsServiceStarted() { return m_Started; }
+void UpnpParentParing::SetParentParingManager(
+    ParentParingManager *parent_paring_manager) {
+  parent_paring_manager_ = parent_paring_manager;
+}

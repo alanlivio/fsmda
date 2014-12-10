@@ -10,10 +10,10 @@
 #include "fsmda/paring/parent_paring_manager.h"
 
 ParentParingManager::ParentParingManager()
-    : upnp_parent_paring(NULL), registred_classes_size_(0) {}
+    : upnp_parent_paring_(NULL), registred_classes_size_(0) {}
 
 ParentParingManager::~ParentParingManager() {
-  if (upnp_parent_paring != NULL) delete upnp_parent_paring;
+  if (upnp_parent_paring_ != NULL) delete upnp_parent_paring_;
 }
 
 /*----------------------------------------------------------------------
@@ -144,9 +144,10 @@ int ParentParingManager::StartParingByDeviceClassDescription(
 
   if (device_class_description->paring_protocol() ==
       DeviceClassDescription::kUpnpParingProcotol) {
-    if (upnp_parent_paring == NULL) {
-      upnp_parent_paring = new UpnpParentParing();
-      upnp_parent_paring->StartService();
+    if (upnp_parent_paring_ == NULL) {
+      upnp_parent_paring_ = new UpnpParentParing();
+      upnp_parent_paring_->SetParentParingManager(this);
+      upnp_parent_paring_->StartService();
     }
   } else {
     return -1;

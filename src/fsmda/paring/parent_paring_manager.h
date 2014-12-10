@@ -63,7 +63,7 @@ class ParentParingManager : public ClassHandlingPpmInterface,
   map<const string, map<unsigned int, DeviceClassDescription*> >
       device_class_description_map_;
   unsigned int registred_classes_size_;
-  UpnpParentParing* upnp_parent_paring;
+  UpnpParentParing* upnp_parent_paring_;
 
   // private methods
   int StartParingByDeviceClassDescription(

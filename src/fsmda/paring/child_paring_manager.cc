@@ -6,7 +6,8 @@
 #include "fsmda/paring/child_paring_manager.h"
 #include "fsmda/paring/device_class_description.h"
 
-ChildParingManager::ChildParingManager() {}
+ChildParingManager::ChildParingManager()
+    : upnp_child_paring_(NULL) {}
 
 ChildParingManager::~ChildParingManager() {}
 

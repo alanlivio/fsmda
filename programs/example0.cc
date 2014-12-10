@@ -18,14 +18,20 @@ using std::cin;
  |   main
  +---------------------------------------------------------------------*/
 int main(void) {
-  UpnpParentParing* upnp_parent_paring = new UpnpParentParing();
-  upnp_parent_paring->StartService();
+//  UpnpParentParing* upnp_parent_paring = new UpnpParentParing();
+//  upnp_parent_paring->StartService();
+  UpnpChildParing* upnp_child_paring = new UpnpChildParing();
+  upnp_child_paring->StartService();
 
   char buf[256];
   while (cin.getline(buf, 255)) {
     if (*buf == 'q') break;
   }
-  upnp_parent_paring->StopService();
-  delete upnp_parent_paring;
+
+//  upnp_parent_paring->StopService();
+//  delete upnp_parent_paring;
+  upnp_child_paring->StopService();
+  delete upnp_child_paring;
+
   return 0;
 }

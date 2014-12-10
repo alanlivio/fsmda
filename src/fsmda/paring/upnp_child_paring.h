@@ -14,6 +14,11 @@
 #include "PltCtrlPoint.h"
 
 /*----------------------------------------------------------------------
+ |   forward definitions
+ +---------------------------------------------------------------------*/
+class ChildParingManager;
+
+/*----------------------------------------------------------------------
  |   UpnpChildParing class
  +---------------------------------------------------------------------*/
 class UpnpChildParing : public PLT_DeviceHost, public PLT_CtrlPointListener {
@@ -39,8 +44,9 @@ class UpnpChildParing : public PLT_DeviceHost, public PLT_CtrlPointListener {
   // public methods
   int StartService();
   int StopService();
-  bool IsServiceStarted();
-  bool IsPaired();
+  void SetParentParingManager(ChildParingManager* child_paring_manager);
+  bool IsServiceStarted() { return m_Started; }
+  bool IsPaired() { return paired_with_parent_; }
 
  private:
   PLT_UPnP* upnp_instance_;
@@ -48,6 +54,7 @@ class UpnpChildParing : public PLT_DeviceHost, public PLT_CtrlPointListener {
   PLT_Service* device_service_;
   PLT_CtrlPointReference* ctrl_point_;
   bool paired_with_parent_;
+  ChildParingManager* child_paring_manager_;
 };
 
 #endif  // FSMDA_PARING_UPNP_CHILD_PARING_H_
