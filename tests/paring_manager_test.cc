@@ -27,6 +27,7 @@ TEST(ParingManager, Constructors) {
 
 TEST(ParingManager, ClassHandling) {
   string app_id, class_type;
+  unsigned int class_index;
 
   // constructors
   DeviceDescription* dev_description = new DeviceDescription();
@@ -38,21 +39,22 @@ TEST(ParingManager, ClassHandling) {
   ChildParingManager* child_paring_manager = new ChildParingManager();
   EXPECT_TRUE(child_paring_manager);
 
-  UpnpFsmdaUtils::GenerateGUID(app_id);
   // Registing one deviceclass for app
-  parent_paring_manager->AddClass(
-      app_id, parent_paring_manager->GenerateAvaliableIndex());
-  EXPECT_EQ(parent_paring_manager->GetNumberOfRegistredClasses(), 1);
+  UpnpFsmdaUtils::GenerateGUID(app_id);
+  class_index = parent_paring_manager->GenerateAvaliableIndex(app_id);
+  parent_paring_manager->AddClass(app_id, class_index);
+  EXPECT_EQ(parent_paring_manager->GetNumberOfRegistredClasses(app_id), 1);
 
   // Registing one deviceclass for app
   UpnpFsmdaUtils::GenerateGUID(app_id);
+  class_index = parent_paring_manager->GenerateAvaliableIndex(app_id);
   class_type = DeviceClassDescription::GetDeviceClassTypeStringByEnum(
       DeviceClassDescription::kFsmdaPassiveDevice);
   string network_paremeters, software_parameters, hardware_parameters;
   parent_paring_manager->AddClassDescription(
-      app_id, parent_paring_manager->GenerateAvaliableIndex(), class_type, 1, 3,
-      network_paremeters, software_parameters, hardware_parameters);
-  EXPECT_EQ(parent_paring_manager->GetNumberOfRegistredClasses(), 2);
+      app_id, class_index, class_type, 1, 3, network_paremeters,
+      software_parameters, hardware_parameters);
+  EXPECT_EQ(parent_paring_manager->GetNumberOfRegistredClasses(app_id), 2);
 
   // release poniters
   delete dev_description;

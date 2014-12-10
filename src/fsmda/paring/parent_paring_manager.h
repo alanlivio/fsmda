@@ -41,17 +41,22 @@ class ParentParingManager : public ClassHandlingPpmInterface,
                              unsigned int class_index);
 
   // Methods for factory parent communication managers
-  ActivePcmInterface* CreateActivePcm(unsigned int class_index);
-  MediaCapturePcmInterface* CreateMediaCapturePcm(unsigned int class_index);
-  OnDemandPcmInterface* CreateOnDemandPcm(unsigned int class_index);
-  PassivePcmInterface* CreatePassivePcm(unsigned int class_index);
+  ActivePcmInterface* CreateActivePcm(const string& application_id,
+                                      unsigned int class_index);
+  MediaCapturePcmInterface* CreateMediaCapturePcm(const string& application_id,
+                                                  unsigned int class_index);
+  OnDemandPcmInterface* CreateOnDemandPcm(const string& application_id,
+                                          unsigned int class_index);
+  PassivePcmInterface* CreatePassivePcm(const string& application_id,
+                                        unsigned int class_index);
 
   // Utils methods
-  unsigned int GenerateAvaliableIndex();
-  unsigned int GetNumberOfRegistredClasses();
+  unsigned int GenerateAvaliableIndex(const string& application_id);
+  unsigned int GetNumberOfRegistredClasses(const string& application_id);
 
  private:
-  map<unsigned int, DeviceClassDescription*> device_class_description_map_;
+  map<const string, map<unsigned int, DeviceClassDescription*> >
+      device_class_description_map_;
   unsigned int registred_classes_size_;
 };
 
