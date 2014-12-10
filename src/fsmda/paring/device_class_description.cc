@@ -2,6 +2,11 @@
  |   includes
  +---------------------------------------------------------------------*/
 
+#include <cassert>
+#include <climits>
+#include <cstdlib>
+#include <iostream>
+#include <string>
 #include "fsmda/paring/device_class_description.h"
 #include "fsmda/paring/device_description.h"
 #include "libxml/parser.h"
@@ -10,11 +15,6 @@
 #include "libxml/xmlstring.h"
 #include "libxml/xpath.h"
 #include "libxml/xpathInternals.h"
-#include <cassert>
-#include <climits>
-#include <cstdlib>
-#include <iostream>
-#include <string>
 
 using std::clog;
 using std::endl;

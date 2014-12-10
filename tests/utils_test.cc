@@ -1,11 +1,10 @@
 /*----------------------------------------------------------------------
  |   includes
  +---------------------------------------------------------------------*/
-
-#include "fsmda/utils/upnp_fsmda_utils.h"
-#include "gtest/gtest.h"
 #include <cstdlib>
 #include <iostream>
+#include "fsmda/utils/upnp_fsmda_utils.h"
+#include "gtest/gtest.h"
 
 TEST(UpnpUtils, UpnpReference) {
   // test if upnp is running

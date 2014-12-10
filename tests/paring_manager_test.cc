@@ -51,13 +51,13 @@ TEST(ParingManager, ClassHandling) {
   EXPECT_TRUE(child_paring_manager);
 
   // Registing one deviceclass for app
-  UpnpFsmdaUtils::GenerateGUID(app_id);
+  UpnpFsmdaUtils::GenerateGUID(&app_id);
   class_index = parent_paring_manager->GenerateAvaliableIndex(app_id);
   parent_paring_manager->AddClass(app_id, class_index);
   EXPECT_EQ(parent_paring_manager->GetNumberOfRegistredClasses(app_id), 1);
 
   // Registing one deviceclass for app
-  UpnpFsmdaUtils::GenerateGUID(app_id);
+  UpnpFsmdaUtils::GenerateGUID(&app_id);
   class_index = parent_paring_manager->GenerateAvaliableIndex(app_id);
   class_type = DeviceClassDescription::GetDeviceClassTypeStringByEnum(
       DeviceClassDescription::kFsmdaPassiveDevice);

@@ -1,10 +1,10 @@
+#include <string>
 #include "fsmda/communication/model/passive_object_interfaces.h"
 #include "fsmda/communication/upnp_active_ccm.h"
 #include "fsmda/communication/upnp_mediacapture_ccm.h"
 #include "fsmda/communication/upnp_passive_ccm.h"
 #include "fsmda/paring/child_paring_manager.h"
 #include "fsmda/paring/device_class_description.h"
-#include <string>
 
 ChildParingManager::ChildParingManager() {}
 

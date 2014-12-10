@@ -4,10 +4,9 @@
 /*----------------------------------------------------------------------
  |   includes
  +---------------------------------------------------------------------*/
-
-#include "fsmda/communication/model/active_object_interfaces.h"
 #include <string>
 #include <vector>
+#include "fsmda/communication/model/active_object_interfaces.h"
 
 using std::string;
 

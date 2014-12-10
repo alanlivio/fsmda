@@ -246,10 +246,10 @@ const char* UpnpFsmdaUtils::kFsmdaManufacturerUrl =
 /*----------------------------------------------------------------------
  |   UpnpUtils::GenerateGUID
  +---------------------------------------------------------------------*/
-void UpnpFsmdaUtils::GenerateGUID(std::string& guid) {
+void UpnpFsmdaUtils::GenerateGUID(std::string* guid) {
   NPT_String guid_aux;
   PLT_UPnPMessageHelper::GenerateGUID(guid_aux);
-  guid.assign(guid_aux.GetChars());
+  guid->assign(guid_aux.GetChars());
 }
 
 /*----------------------------------------------------------------------

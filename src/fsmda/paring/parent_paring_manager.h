@@ -1,6 +1,8 @@
 #ifndef FSMDA_PARING_PARENT_PARING_MANAGER_H_
 #define FSMDA_PARING_PARENT_PARING_MANAGER_H_
 
+#include <map>
+#include <string>
 #include "fsmda/communication/model/active_object_interfaces.h"
 #include "fsmda/communication/model/mediacapture_object_interfaces.h"
 #include "fsmda/communication/model/ondemand_object_interfaces.h"
@@ -9,8 +11,6 @@
 #include "fsmda/paring/model/class_handling_interfaces.h"
 #include "fsmda/paring/model/device_paring_interfaces.h"
 #include "fsmda/paring/upnp_parent_paring.h"
-#include <map>
-#include <string>
 
 using std::string;
 using std::map;

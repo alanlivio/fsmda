@@ -1,3 +1,5 @@
+#include <string>
+#include <climits>
 #include "fsmda/communication/model/passive_object_interfaces.h"
 #include "fsmda/communication/upnp_active_pcm.h"
 #include "fsmda/communication/upnp_mediacapture_pcm.h"
@@ -6,8 +8,6 @@
 #include "fsmda/paring/upnp_parent_paring.h"
 #include "fsmda/paring/device_class_description.h"
 #include "fsmda/paring/parent_paring_manager.h"
-#include <string>
-#include <climits>
 
 ParentParingManager::ParentParingManager()
     : upnp_parent_paring(NULL), registred_classes_size_(0) {}

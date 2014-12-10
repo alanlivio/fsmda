@@ -4,9 +4,8 @@
 /*----------------------------------------------------------------------
  |   include
  +---------------------------------------------------------------------*/
-
-#include "fsmda/communication/model/mediacapture_object_interfaces.h"
 #include <string>
+#include "fsmda/communication/model/mediacapture_object_interfaces.h"
 
 using std::string;
 

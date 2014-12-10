@@ -4,9 +4,8 @@
 /*----------------------------------------------------------------------
  |   includes
  +---------------------------------------------------------------------*/
-
-#include "fsmda/communication/model/passive_object_interfaces.h"
 #include <string>
+#include "fsmda/communication/model/passive_object_interfaces.h"
 
 using std::string;
 
