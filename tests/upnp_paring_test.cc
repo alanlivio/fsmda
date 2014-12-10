@@ -49,6 +49,7 @@ TEST(UpnpParing, SameProcessParing) {
   EXPECT_TRUE(upnp_parent_paring->IsServiceStarted());
   EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 2);
 
+  // test if child is paired
   sleep(1);
   EXPECT_TRUE(upnp_child_paring->IsPaired());
 

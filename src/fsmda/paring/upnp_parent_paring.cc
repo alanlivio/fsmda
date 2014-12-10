@@ -91,19 +91,19 @@ NPT_Result UpnpParentParing::OnAction(PLT_ActionReference &action,
     return NPT_SUCCESS;
   } else if (name.Compare("getChildIndex") == 0) {
     // handling getChildIndex call
-    NPT_String applicationId;
-    action->GetArgumentValue("applicationId", applicationId);
-    NPT_String deviceAddr;
-    action->GetArgumentValue("deviceAddr", deviceAddr);
-    NPT_Int32 classIndex;
-    action->GetArgumentValue("classIndex", classIndex);
+    NPT_String application_id;
+    action->GetArgumentValue("applicationId", application_id);
+    NPT_String device_addr;
+    action->GetArgumentValue("deviceAddr", device_addr);
+    NPT_Int32 class_index;
+    action->GetArgumentValue("classIndex", class_index);
     clog << "UpnpParentParing::OnAction:: receive getChildIndex("
-         << applicationId.GetChars() << "," << deviceAddr.GetChars() << ","
-         << classIndex << ")" << endl;
+         << application_id.GetChars() << "," << device_addr.GetChars() << ","
+         << class_index << ")" << endl;
     action->SetArgumentValue("ret", "100");
     if (parent_paring_manager_ != NULL) {
-      parent_paring_manager_->GetChildIndex(applicationId.GetChars(),
-                                            deviceAddr.GetChars(), classIndex);
+      parent_paring_manager_->GetChildIndex(application_id.GetChars(),
+                                            device_addr.GetChars(), class_index);
     }
     return NPT_SUCCESS;
   }

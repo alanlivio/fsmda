@@ -70,22 +70,22 @@ NPT_Result UpnpChildParing::OnAction(PLT_ActionReference &action,
 
   // handling classAnnouncement call
   if (name.Compare("classAnnouncement") == 0) {
-    NPT_String applicationId;
-    action->GetArgumentValue("applicationId", applicationId);
-    NPT_Int32 classIndex;
-    action->GetArgumentValue("classIndex", classIndex);
-    NPT_String classDesc;
-    action->GetArgumentValue("classDesc", classDesc);
-    NPT_String classFunction;
-    action->GetArgumentValue("classFunction", classFunction);
+    NPT_String application_id;
+    action->GetArgumentValue("applicationId", application_id);
+    NPT_Int32 class_index;
+    action->GetArgumentValue("classIndex", class_index);
+    NPT_String class_desc;
+    action->GetArgumentValue("classDesc", class_desc);
+    NPT_String class_function;
+    action->GetArgumentValue("classFunction", class_function);
     clog << "UpnpChildParing::OnAction receive classAnnouncement("
-         << applicationId.GetChars() << "," << classIndex << ","
-         << classDesc.GetChars() << "," << classFunction.GetChars() << ")"
+         << application_id.GetChars() << "," << class_index << ","
+         << class_desc.GetChars() << "," << class_function.GetChars() << ")"
          << endl;
     if (child_paring_manager_ != NULL) {
-      child_paring_manager_->ClassAnnouncement(applicationId.GetChars(),
-                                               classIndex, classDesc.GetChars(),
-                                               classFunction.GetChars());
+      child_paring_manager_->ClassAnnouncement(
+          application_id.GetChars(), class_index, class_desc.GetChars(),
+          class_function.GetChars());
       return NPT_SUCCESS;
     }
   }
