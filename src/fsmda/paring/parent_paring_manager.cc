@@ -6,6 +6,7 @@
 #include "fsmda/paring/device_class_description.h"
 #include "fsmda/paring/parent_paring_manager.h"
 #include <string>
+#include <climits>
 
 ParentParingManager::ParentParingManager() {}
 
@@ -15,7 +16,13 @@ ParentParingManager::~ParentParingManager() {}
  |   ParentParingManager::AddClass
  +---------------------------------------------------------------------*/
 void ParentParingManager::AddClass(const string& application_id,
-                                   unsigned int class_index) {}
+                                   unsigned int class_index) {
+  DeviceClassDescription* device_class_description =
+      new DeviceClassDescription();
+  device_class_description->InitializeByDeviceClass(
+      DeviceClassDescription::kFsmdaActiveDevice);
+  device_class_description_map_[class_index] = device_class_description;
+}
 /*----------------------------------------------------------------------
  |   ParentParingManager::RemoveClass
  +---------------------------------------------------------------------*/
@@ -28,7 +35,13 @@ void ParentParingManager::AddClassDescription(
     const string& application_id, unsigned int class_index,
     const string& class_type, unsigned int max_devices,
     unsigned int min_devices, const string& hardware_requirements,
-    const string& software_requirements, const string& network_requirements) {}
+    const string& software_requirements, const string& network_requirements) {
+  DeviceClassDescription* device_class_description =
+      new DeviceClassDescription();
+  device_class_description->InitializeByDeviceClass(
+      DeviceClassDescription::GetDeviceClassTypeByString(class_type));
+  device_class_description_map_[class_index] = device_class_description;
+}
 
 /*----------------------------------------------------------------------
  |   ParentParingManager::AddDeviceToClass
@@ -90,4 +103,22 @@ PassivePcmInterface* ParentParingManager::CreatePassivePcm(
     return new UpnpPassivePcm();
   else
     return NULL;
+}
+
+/*----------------------------------------------------------------------
+ |   ParentParingManager::CreatePassivePcm
+ +---------------------------------------------------------------------*/
+unsigned int ParentParingManager::GenerateAvaliableIndex() {
+  for (int i = 0; i < UINT_MAX; i++) {
+    if (device_class_description_map_.find(i) ==
+        device_class_description_map_.end())
+      return i;
+  }
+}
+
+/*----------------------------------------------------------------------
+ |   ParentParingManager::CreatePassivePcm
+ +---------------------------------------------------------------------*/
+unsigned int ParentParingManager::GetNumberOfRegistredClasses() {
+  return device_class_description_map_.size();
 }

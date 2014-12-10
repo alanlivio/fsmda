@@ -62,8 +62,7 @@ bool DeviceClassDescription::DeviceMeetRequirements(
 /*----------------------------------------------------------------------
  |   DeviceClassDescription::InitializeByDefaultDeviceClass
  +---------------------------------------------------------------------*/
-int DeviceClassDescription::InitializeByDefaultDeviceClass(
-    DeviceClassType type) {
+int DeviceClassDescription::InitializeByDeviceClass(DeviceClassType type) {
   this->device_class_type_ = type;
   this->min_devices_ = 1;
   this->max_devices_ = UINT_MAX;
@@ -165,4 +164,33 @@ DeviceClassDescription::GetDeviceClassTypeByString(const string& str) {
     return kFsmdaMediaCaptureDevice;
   else
     return kFsmdaBaseDevice;
+}
+
+/*----------------------------------------------------------------------
+ |   DeviceClassDescription::GetDeviceClassTypeStringByEnum
+ +---------------------------------------------------------------------*/
+const char* DeviceClassDescription::GetDeviceClassTypeStringByEnum(
+    DeviceClassDescription::DeviceClassType type) {
+  switch (type) {
+    case kFsmdaBaseDevice:
+      return device_class_type_strings_[kFsmdaBaseDevice];
+      break;
+    case kFsmdaPassiveDevice:
+      return device_class_type_strings_[kFsmdaPassiveDevice];
+      break;
+    case kFsmdaActiveDevice:
+      return device_class_type_strings_[kFsmdaActiveDevice];
+      break;
+    case kFsmdaHtmlDevice:
+      return device_class_type_strings_[kFsmdaHtmlDevice];
+      break;
+    case kFsmdaOnDemandDevice:
+      return device_class_type_strings_[kFsmdaOnDemandDevice];
+      break;
+    case kFsmdaMediaCaptureDevice:
+      return device_class_type_strings_[kFsmdaMediaCaptureDevice];
+      break;
+    default:
+      return device_class_type_strings_[kFsmdaBaseDevice];
+  }
 }

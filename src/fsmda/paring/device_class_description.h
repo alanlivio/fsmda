@@ -31,6 +31,7 @@ class DeviceClassDescription {
   };
   enum DeviceProtocol { kFsmaUpnpProtocol = 0, kFsmdaZeroconfProtocol = 1, };
   static DeviceClassType GetDeviceClassTypeByString(const string& str);
+  static const char *GetDeviceClassTypeStringByEnum(DeviceClassType type);
 
   // public constructors & destructors
   DeviceClassDescription();
@@ -44,7 +45,7 @@ class DeviceClassDescription {
 
   // public methods
   bool DeviceMeetRequirements(DeviceDescription* device_desc);
-  int InitializeByDefaultDeviceClass(DeviceClassType type);
+  int InitializeByDeviceClass(DeviceClassType type);
   int InitializeByParseRdfFile(const string& rdf_file);
 
  private:

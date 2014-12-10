@@ -48,6 +48,7 @@ class UpnpFsmdaUtils {
   static const char* kOnDemandCcmDeviceModelName;
 
   // class methods
+  static void GenerateGUID(string& guid);
   static PLT_UPnP* GetRunningUpnpInstance();
   static void ReleaseUpnpInstance();
   static bool IsUpnpRunning();

@@ -244,6 +244,15 @@ const char* UpnpFsmdaUtils::kFsmdaManufacturerUrl =
     "http://www.ncl.org.br/fsmda/ondemand";
 
 /*----------------------------------------------------------------------
+ |   UpnpUtils::GenerateGUID
+ +---------------------------------------------------------------------*/
+void UpnpFsmdaUtils::GenerateGUID(std::string& guid) {
+  NPT_String guid_aux;
+  PLT_UPnPMessageHelper::GenerateGUID(guid_aux);
+  guid.assign(guid_aux.GetChars());
+}
+
+/*----------------------------------------------------------------------
  |   UpnpUtils::RequestUpnpReference
  +---------------------------------------------------------------------*/
 PLT_UPnP* UpnpFsmdaUtils::GetRunningUpnpInstance() {

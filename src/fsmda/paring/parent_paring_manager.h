@@ -46,8 +46,13 @@ class ParentParingManager : public ClassHandlingPpmInterface,
   OnDemandPcmInterface* CreateOnDemandPcm(unsigned int class_index);
   PassivePcmInterface* CreatePassivePcm(unsigned int class_index);
 
+  // Utils methods
+  unsigned int GenerateAvaliableIndex();
+  unsigned int GetNumberOfRegistredClasses();
+
  private:
   map<unsigned int, DeviceClassDescription*> device_class_description_map_;
+  unsigned int registred_classes_size_;
 };
 
 #endif  // FSMDA_PARING_PARENT_PARING_MANAGER_H_
