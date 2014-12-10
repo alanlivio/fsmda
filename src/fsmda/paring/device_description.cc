@@ -59,8 +59,8 @@ int DeviceDescription::InitializeByRdfFile(const string& rdf_file) {
   assert(nodes->nodeTab[0]);
   aux = (const char*)nodes->nodeTab[0]->children->content;
   this->class_type_ = DeviceClassDescription::GetDeviceClassTypeByString(aux);
-  clog << "--->fsmda:classType = " << aux << "(or " << this->class_type_ << ")"
-       << endl;
+  clog << "DeviceDescription::InitializeByRdfFile::classType = " << aux
+       << "(or " << this->class_type_ << ")" << endl;
   xmlXPathFreeObject(xpathObj);
 
   // capture paringMethod
@@ -69,8 +69,10 @@ int DeviceDescription::InitializeByRdfFile(const string& rdf_file) {
   assert(xpathObj != NULL);
   nodes = xpathObj->nodesetval;
   assert(nodes->nodeTab[0]);
-  this->paring_method_ = (const char*)nodes->nodeTab[0]->children->content;
-  clog << "--->fsmda:pairingMethod = " << this->paring_method_ << endl;
+  this->paring_method_ = DeviceClassDescription::GetParingProtocolByString(
+      (const char*)nodes->nodeTab[0]->children->content);
+  clog << "DeviceDescription::InitializeByRdfFile::pairingMethod = "
+       << this->paring_method_ << endl;
   xmlXPathFreeObject(xpathObj);
 
   // release libxml

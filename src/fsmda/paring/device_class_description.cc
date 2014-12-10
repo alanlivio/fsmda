@@ -18,12 +18,18 @@
 
 using std::clog;
 using std::endl;
+using std::string;
 
 /*----------------------------------------------------------------------
  |   class fields
  +---------------------------------------------------------------------*/
 const char* DeviceClassDescription::device_class_type_strings_[] = {
     "base", "passive", "active", "html", "ondemand", "mediacapture"};
+
+const char* DeviceClassDescription::paring_protocol_strings_[] = {"Upnp",
+                                                                  "Zeroconf"};
+const char* DeviceClassDescription::communication_protocol_strings_[] = {
+    "Upnp", "HTTP"};
 
 /*----------------------------------------------------------------------
  |   DeviceClassDescription::DeviceClassDescription
@@ -66,7 +72,7 @@ int DeviceClassDescription::InitializeByDeviceClass(DeviceClassType type) {
   this->device_class_type_ = type;
   this->min_devices_ = 1;
   this->max_devices_ = UINT_MAX;
-  this->paring_protocol_ = "UPnP";
+  this->paring_protocol_ = DeviceClassDescription::kUpnpParingProcotol;
   this->initialized_ = true;
   return 0;
 }
@@ -101,8 +107,8 @@ int DeviceClassDescription::InitializeByParseRdfFile(const string& rdf_file) {
   aux = (const char*)nodes->nodeTab[0]->children->content;
   this->device_class_type_ =
       DeviceClassDescription::GetDeviceClassTypeByString(aux);
-  clog << "--->fsmda:classType = " << aux << "(or " << this->device_class_type_
-       << ")" << endl;
+  clog << "DeviceClassDescription::InitializeByParseRdfFile::classType = "
+       << aux << "(or " << this->device_class_type_ << ")" << endl;
   xmlXPathFreeObject(xpathObj);
 
   // capture min_devices
@@ -113,7 +119,8 @@ int DeviceClassDescription::InitializeByParseRdfFile(const string& rdf_file) {
   assert(nodes->nodeTab[0]);
   aux = (const char*)nodes->nodeTab[0]->children->content;
   this->min_devices_ = atoi(aux);
-  clog << "--->fsmda:minDevices = " << this->min_devices_ << endl;
+  clog << "DeviceClassDescription::InitializeByParseRdfFile::minDevices = "
+       << this->min_devices_ << endl;
   xmlXPathFreeObject(xpathObj);
 
   // capture max_devices
@@ -124,7 +131,8 @@ int DeviceClassDescription::InitializeByParseRdfFile(const string& rdf_file) {
   assert(nodes->nodeTab[0]);
   aux = (const char*)nodes->nodeTab[0]->children->content;
   this->max_devices_ = atoi(aux);
-  clog << "--->fsmda:maxDevices = " << this->max_devices_ << endl;
+  clog << "DeviceClassDescription::InitializeByParseRdfFile::maxDevices = "
+       << this->max_devices_ << endl;
   xmlXPathFreeObject(xpathObj);
 
   // capture paringMethod
@@ -133,8 +141,10 @@ int DeviceClassDescription::InitializeByParseRdfFile(const string& rdf_file) {
   assert(xpathObj != NULL);
   nodes = xpathObj->nodesetval;
   assert(nodes->nodeTab[0]);
-  this->paring_protocol_ = (const char*)nodes->nodeTab[0]->children->content;
-  clog << "--->fsmda:pairingMethod = " << this->paring_protocol_ << endl;
+  this->paring_protocol_ = DeviceClassDescription::GetParingProtocolByString(
+      (const char*)nodes->nodeTab[0]->children->content);
+  clog << "DeviceClassDescription::InitializeByParseRdfFile::pairingMethod = "
+       << this->paring_protocol_ << endl;
   xmlXPathFreeObject(xpathObj);
 
   // release libxml
@@ -164,6 +174,67 @@ DeviceClassDescription::GetDeviceClassTypeByString(const string& str) {
     return kFsmdaMediaCaptureDevice;
   else
     return kFsmdaBaseDevice;
+}
+
+/*----------------------------------------------------------------------
+ |   DeviceClassDescription::GetParingProtocolByString
+ +---------------------------------------------------------------------*/
+DeviceClassDescription::ParingProtocol
+DeviceClassDescription::GetParingProtocolByString(const std::string& str) {
+  if (!str.compare(paring_protocol_strings_[kUpnpParingProcotol]))
+    return kUpnpParingProcotol;
+  else if (!str.compare(paring_protocol_strings_[kZeroconfParingProtocol]))
+    return kZeroconfParingProtocol;
+  else
+    return kParingProtocolInvalid;
+}
+
+/*----------------------------------------------------------------------
+ |   DeviceClassDescription::GetCommunicationProtocoByString
+ +---------------------------------------------------------------------*/
+DeviceClassDescription::CommunicationProtocol
+DeviceClassDescription::GetCommunicationProtocoByString(
+    const std::string& str) {
+  if (!str.compare(communication_protocol_strings_[kUpnpCommunicationProcotol]))
+    return kUpnpCommunicationProcotol;
+  else if (!str.compare(
+               communication_protocol_strings_[kHTTPCommunicationProtocol]))
+    return kHTTPCommunicationProtocol;
+  else
+    return kCommunicationProtocolInvalid;
+}
+/*----------------------------------------------------------------------
+ |   DeviceClassDescription::GetDeviceClassTypeByString
+ +---------------------------------------------------------------------*/
+const char* DeviceClassDescription::GetParingProtocolStringByEnum(
+    DeviceClassDescription::ParingProtocol type) {
+  switch (type) {
+    case kUpnpParingProcotol:
+      return paring_protocol_strings_[kUpnpParingProcotol];
+      break;
+    case kZeroconfParingProtocol:
+      return paring_protocol_strings_[kZeroconfParingProtocol];
+      break;
+    default:
+      return paring_protocol_strings_[kUpnpParingProcotol];
+  }
+}
+
+/*----------------------------------------------------------------------
+ |   DeviceClassDescription::GetDeviceClassTypeByString
+ +---------------------------------------------------------------------*/
+const char* DeviceClassDescription::GetCommunicationProtocolStringByEnum(
+    DeviceClassDescription::CommunicationProtocol type) {
+  switch (type) {
+    case kUpnpCommunicationProcotol:
+      return communication_protocol_strings_[kUpnpCommunicationProcotol];
+      break;
+    case kHTTPCommunicationProtocol:
+      return communication_protocol_strings_[kHTTPCommunicationProtocol];
+      break;
+    default:
+      return communication_protocol_strings_[kUpnpCommunicationProcotol];
+  }
 }
 
 /*----------------------------------------------------------------------

@@ -15,15 +15,13 @@ using std::endl;
 using std::system;
 
 TEST(UpnpParing, Constructors) {
-  EXPECT_FALSE(UpnpFsmdaUtils::IsUpnpRunning());
-  EXPECT_EQ(0, UpnpFsmdaUtils::upnp_references_count());
+  UpnpParentParing* upnp_parent_paring = new UpnpParentParing();
+  EXPECT_TRUE(upnp_parent_paring);
+  UpnpChildParing* upnp_child_paring = new UpnpChildParing();
+  EXPECT_TRUE(upnp_child_paring);
 
-  UpnpParentParing* ppm = new UpnpParentParing();
-  EXPECT_TRUE(ppm);
-  delete ppm;
-  UpnpChildParing* cpm = new UpnpChildParing();
-  EXPECT_TRUE(cpm);
-  delete cpm;
+  delete upnp_parent_paring;
+  delete upnp_child_paring;
 }
 
 TEST(UpnpParing, SameProcessParing) {
@@ -57,6 +55,10 @@ TEST(UpnpParing, SameProcessParing) {
 
   EXPECT_FALSE(UpnpFsmdaUtils::IsUpnpRunning());
   EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 0);
+
+  // release poniters
+  delete upnp_child_paring;
+  delete upnp_parent_paring;
 }
 
 TEST(UpnpParing, DiferentProcessesParing) {
@@ -83,4 +85,7 @@ TEST(UpnpParing, DiferentProcessesParing) {
 
   EXPECT_FALSE(UpnpFsmdaUtils::IsUpnpRunning());
   EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 0);
+
+  // release poniters
+  delete upnp_child_paring;
 }

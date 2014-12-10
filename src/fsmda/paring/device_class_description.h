@@ -19,8 +19,9 @@ class DeviceDescription;
  +---------------------------------------------------------------------*/
 class DeviceClassDescription {
  public:
-  // class fields and methods
+  // class fields
   enum DeviceClassType {
+    kDeviceClassTypeInvalid = -1,
     kFsmdaBaseDevice = 0,
     kFsmdaPassiveDevice = 1,
     kFsmdaActiveDevice = 2,
@@ -28,13 +29,26 @@ class DeviceClassDescription {
     kFsmdaOnDemandDevice = 4,
     kFsmdaMediaCaptureDevice = 5
   };
-  enum ParingProtocol { kUpnpParingProcotol = 0, kZeroconfParingProtocol = 1 };
+  enum ParingProtocol {
+    kParingProtocolInvalid = -1,
+    kUpnpParingProcotol = 0,
+    kZeroconfParingProtocol = 1
+  };
   enum CommunicationProtocol {
+    kCommunicationProtocolInvalid = -1,
     kUpnpCommunicationProcotol = 0,
     kHTTPCommunicationProtocol = 1
   };
+
+  // class methods
   static DeviceClassType GetDeviceClassTypeByString(const string& str);
+  static ParingProtocol GetParingProtocolByString(const string& str);
+  static CommunicationProtocol GetCommunicationProtocoByString(
+      const string& str);
   static const char* GetDeviceClassTypeStringByEnum(DeviceClassType type);
+  static const char* GetParingProtocolStringByEnum(ParingProtocol type);
+  static const char* GetCommunicationProtocolStringByEnum(
+      CommunicationProtocol type);
 
   // public constructors & destructors
   DeviceClassDescription();
@@ -42,7 +56,10 @@ class DeviceClassDescription {
 
   // public fields
   DeviceClassType device_class_type() { return device_class_type_; }
-  const string& paring_method() { return paring_protocol_; }
+  ParingProtocol paring_protocol() { return paring_protocol_; }
+  CommunicationProtocol communication_protocol() {
+    return communication_protocol_;
+  }
   unsigned int min_devices() { return min_devices_; }
   unsigned int max_devices() { return max_devices_; }
   bool DeviceMeetRequirements(DeviceDescription* device_desc);
@@ -50,11 +67,15 @@ class DeviceClassDescription {
   int InitializeByParseRdfFile(const string& rdf_file);
 
  private:
+  // private fields
   DeviceClassType device_class_type_;
-  string paring_protocol_;
+  ParingProtocol paring_protocol_;
+  CommunicationProtocol communication_protocol_;
   unsigned int min_devices_;
   unsigned int max_devices_;
   static const char* device_class_type_strings_[];
+  static const char* paring_protocol_strings_[];
+  static const char* communication_protocol_strings_[];
   xmlDocPtr doc_;
   bool initialized_;
 };
