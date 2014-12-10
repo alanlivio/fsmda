@@ -15,6 +15,10 @@ using std::endl;
 using std::system;
 
 TEST(UpnpParing, Constructors) {
+  // test if upnp is running
+  EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 0);
+  EXPECT_FALSE(UpnpFsmdaUtils::IsUpnpRunning());
+
   UpnpParentParing* upnp_parent_paring = new UpnpParentParing();
   EXPECT_TRUE(upnp_parent_paring);
   UpnpChildParing* upnp_child_paring = new UpnpChildParing();
@@ -22,11 +26,16 @@ TEST(UpnpParing, Constructors) {
 
   delete upnp_parent_paring;
   delete upnp_child_paring;
+
+  // test if upnp is running
+  EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 0);
+  EXPECT_FALSE(UpnpFsmdaUtils::IsUpnpRunning());
 }
 
 TEST(UpnpParing, SameProcessParing) {
+  // test if upnp is running
+  EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 0);
   EXPECT_FALSE(UpnpFsmdaUtils::IsUpnpRunning());
-  EXPECT_EQ(0, UpnpFsmdaUtils::upnp_references_count());
 
   // start child paring service
   UpnpChildParing* upnp_child_paring = new UpnpChildParing();
@@ -53,17 +62,19 @@ TEST(UpnpParing, SameProcessParing) {
   upnp_parent_paring->StopService();
   EXPECT_FALSE(upnp_parent_paring->IsServiceStarted());
 
-  EXPECT_FALSE(UpnpFsmdaUtils::IsUpnpRunning());
-  EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 0);
-
   // release poniters
   delete upnp_child_paring;
   delete upnp_parent_paring;
+
+  // test if upnp is running
+  EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 0);
+  EXPECT_FALSE(UpnpFsmdaUtils::IsUpnpRunning());
 }
 
 TEST(UpnpParing, DiferentProcessesParing) {
-  EXPECT_FALSE(UpnpFsmdaUtils::IsUpnpRunning());
+  // test if upnp is running
   EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 0);
+  EXPECT_FALSE(UpnpFsmdaUtils::IsUpnpRunning());
 
   // start child paring service
   UpnpChildParing* upnp_child_paring = new UpnpChildParing();
@@ -83,9 +94,10 @@ TEST(UpnpParing, DiferentProcessesParing) {
   upnp_child_paring->StopService();
   EXPECT_FALSE(upnp_child_paring->IsServiceStarted());
 
-  EXPECT_FALSE(UpnpFsmdaUtils::IsUpnpRunning());
-  EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 0);
-
   // release poniters
   delete upnp_child_paring;
+
+  // test if upnp is running
+  EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 0);
+  EXPECT_FALSE(UpnpFsmdaUtils::IsUpnpRunning());
 }

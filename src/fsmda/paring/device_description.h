@@ -21,7 +21,9 @@ class DeviceDescription {
   DeviceClassDescription::DeviceClassType device_class_type() {
     return class_type_;
   }
-  DeviceClassDescription::ParingProtocol paring_method() { return paring_method_; }
+  DeviceClassDescription::ParingProtocol paring_method() {
+    return paring_method_;
+  }
   int InitializeByRdfFile(const string& rdf_file);
 
  private:

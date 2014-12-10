@@ -10,6 +10,9 @@
 #include "gtest/gtest.h"
 
 TEST(ParingManager, Constructors) {
+  // test if upnp is running
+  EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 0);
+  EXPECT_FALSE(UpnpFsmdaUtils::IsUpnpRunning());
 
   // constructors tests
   ParentParingManager* parent_paring_manager = new ParentParingManager();
@@ -23,11 +26,19 @@ TEST(ParingManager, Constructors) {
   delete parent_paring_manager;
   delete dev_class_requirements;
   delete dev_description;
+
+  // test if upnp is running
+  EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 0);
+  EXPECT_FALSE(UpnpFsmdaUtils::IsUpnpRunning());
 }
 
 TEST(ParingManager, ClassHandling) {
   string app_id, class_type;
   unsigned int class_index;
+
+  // test if upnp is running
+  EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 0);
+  EXPECT_FALSE(UpnpFsmdaUtils::IsUpnpRunning());
 
   // constructors
   DeviceDescription* dev_description = new DeviceDescription();
@@ -61,12 +72,20 @@ TEST(ParingManager, ClassHandling) {
   delete dev_class_requirements;
   delete parent_paring_manager;
   delete child_paring_manager;
+
+  // test if upnp is running
+  EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 0);
+  EXPECT_FALSE(UpnpFsmdaUtils::IsUpnpRunning());
 }
 
 TEST(ParingManager, DeviceDescriptionMatching) {
   string device_rdf;
   string device_class_description_rdf;
   bool ret;
+
+  // test if upnp is running
+  EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 0);
+  EXPECT_FALSE(UpnpFsmdaUtils::IsUpnpRunning());
 
   // constructors tests
   DeviceDescription* device_description = new DeviceDescription();
@@ -143,4 +162,8 @@ TEST(ParingManager, DeviceDescriptionMatching) {
   // release poniters
   delete device_description;
   delete device_class_description;
+
+  // test if upnp is running
+  EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 0);
+  EXPECT_FALSE(UpnpFsmdaUtils::IsUpnpRunning());
 }

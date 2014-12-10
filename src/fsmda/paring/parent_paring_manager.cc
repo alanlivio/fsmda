@@ -9,9 +9,12 @@
 #include <string>
 #include <climits>
 
-ParentParingManager::ParentParingManager() {}
+ParentParingManager::ParentParingManager()
+    : upnp_parent_paring(NULL), registred_classes_size_(0) {}
 
-ParentParingManager::~ParentParingManager() {}
+ParentParingManager::~ParentParingManager() {
+  if (upnp_parent_paring != NULL) delete upnp_parent_paring;
+}
 
 /*----------------------------------------------------------------------
  |   ParentParingManager::AddClass
@@ -24,12 +27,15 @@ void ParentParingManager::AddClass(const string& application_id,
       DeviceClassDescription::kFsmdaActiveDevice);
   device_class_description_map_[application_id][class_index] =
       device_class_description;
+  StartParingByDeviceClassDescription(device_class_description);
 }
+
 /*----------------------------------------------------------------------
  |   ParentParingManager::RemoveClass
  +---------------------------------------------------------------------*/
 void ParentParingManager::RemoveClass(const string& application_id,
                                       unsigned int class_index) {}
+
 /*----------------------------------------------------------------------
  |   ParentParingManager::AddClassDescription
  +---------------------------------------------------------------------*/
@@ -44,7 +50,7 @@ void ParentParingManager::AddClassDescription(
       DeviceClassDescription::GetDeviceClassTypeByString(class_type));
   device_class_description_map_[application_id][class_index] =
       device_class_description;
-  // TODO : Start UpnpParing Service
+  // TODO(alan@telemidia.puc-rio.br): Start UpnpParing Service.
 }
 
 /*----------------------------------------------------------------------
@@ -134,4 +140,15 @@ unsigned int ParentParingManager::GetNumberOfRegistredClasses(
  |   ParentParingManager::StartParingByDeviceClassDescription
  +---------------------------------------------------------------------*/
 int ParentParingManager::StartParingByDeviceClassDescription(
-    const DeviceClassDescription& device_class_description) {}
+    DeviceClassDescription* device_class_description) {
+
+  if (device_class_description->paring_protocol() ==
+      DeviceClassDescription::kUpnpParingProcotol) {
+    if (upnp_parent_paring == NULL) {
+      upnp_parent_paring = new UpnpParentParing();
+      upnp_parent_paring->StartService();
+    }
+  } else {
+    return -1;
+  }
+}

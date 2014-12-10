@@ -2,6 +2,7 @@
  |   includes
  +---------------------------------------------------------------------*/
 
+#include "gtest/gtest.h"
 #include "fsmda/communication/upnp_active_ccm.h"
 #include "fsmda/communication/upnp_active_pcm.h"
 #include "fsmda/communication/upnp_mediacapture_ccm.h"
@@ -10,14 +11,16 @@
 #include "fsmda/communication/upnp_ondemand_pcm.h"
 #include "fsmda/communication/upnp_passive_ccm.h"
 #include "fsmda/communication/upnp_passive_pcm.h"
-#include "gtest/gtest.h"
-#include <cstdlib>
-#include <iostream>
+#include "fsmda/utils/upnp_fsmda_utils.h"
 
 using std::cout;
 using std::endl;
 
 TEST(UpnpCommunication, Constructors) {
+  // test if upnp is running
+  EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 0);
+  EXPECT_FALSE(UpnpFsmdaUtils::IsUpnpRunning());
+
   // constructors tests
   UpnpActivePcm* active_pcm = new UpnpActivePcm();
   EXPECT_TRUE(active_pcm != NULL);
@@ -45,9 +48,17 @@ TEST(UpnpCommunication, Constructors) {
   delete ondemand_ccm;
   delete passive_pcm;
   delete passive_ccm;
+
+  // test if upnp is running
+  EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 0);
+  EXPECT_FALSE(UpnpFsmdaUtils::IsUpnpRunning());
 }
 
 TEST(UpnpCommunication, UpnpOnDemandCcm) {
+  // test if upnp is running
+  EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 0);
+  EXPECT_FALSE(UpnpFsmdaUtils::IsUpnpRunning());
+
   // ondemand class description initialize and meet_requirements tests
   UpnpOnDemandCcm* ondemand_ccm = new UpnpOnDemandCcm();
   ondemand_ccm->StartCommunicationService();
@@ -57,4 +68,8 @@ TEST(UpnpCommunication, UpnpOnDemandCcm) {
 
   // release poniters
   delete ondemand_ccm;
+
+  // test if upnp is running
+  EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 0);
+  EXPECT_FALSE(UpnpFsmdaUtils::IsUpnpRunning());
 }

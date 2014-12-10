@@ -8,6 +8,7 @@
 #include "fsmda/paring/device_class_description.h"
 #include "fsmda/paring/model/class_handling_interfaces.h"
 #include "fsmda/paring/model/device_paring_interfaces.h"
+#include "fsmda/paring/upnp_parent_paring.h"
 #include <map>
 #include <string>
 
@@ -58,14 +59,15 @@ class ParentParingManager : public ClassHandlingPpmInterface,
   unsigned int GetNumberOfRegistredClasses(const string& application_id);
 
  private:
-  // private methods
-  int StartParingByDeviceClassDescription(
-      const DeviceClassDescription& device_class_description);
-
   // private filds
   map<const string, map<unsigned int, DeviceClassDescription*> >
       device_class_description_map_;
   unsigned int registred_classes_size_;
+  UpnpParentParing* upnp_parent_paring;
+
+  // private methods
+  int StartParingByDeviceClassDescription(
+      DeviceClassDescription* device_class_description);
 };
 
 #endif  // FSMDA_PARING_PARENT_PARING_MANAGER_H_
