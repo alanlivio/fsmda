@@ -47,6 +47,7 @@ UpnpParentParing::UpnpParentParing()
 UpnpParentParing::~UpnpParentParing() {
   this->StopService();
   delete device_service_;
+  ctrl_point_->Detach();
   delete ctrl_point_;
   device_host_->Detach();
   delete device_host_;
@@ -102,8 +103,8 @@ NPT_Result UpnpParentParing::OnAction(PLT_ActionReference &action,
          << class_index << ")" << endl;
     action->SetArgumentValue("ret", "100");
     if (parent_paring_manager_ != NULL) {
-      parent_paring_manager_->GetChildIndex(application_id.GetChars(),
-                                            device_addr.GetChars(), class_index);
+      parent_paring_manager_->GetChildIndex(
+          application_id.GetChars(), device_addr.GetChars(), class_index);
     }
     return NPT_SUCCESS;
   }

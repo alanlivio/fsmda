@@ -45,6 +45,7 @@ UpnpChildParing::UpnpChildParing()
 UpnpChildParing::~UpnpChildParing() {
   this->StopService();
   delete device_service_;
+  ctrl_point_->Detach();
   delete ctrl_point_;
   device_host_->Detach();
   delete device_host_;
