@@ -7,6 +7,8 @@
 #include <NptLogging.h>
 #include <PltCtrlPoint.h>
 #include <PltUPnP.h>
+#include "fsmda/paring/child_paring_manager.h"
+#include "fsmda/paring/parent_paring_manager.h"
 #include "fsmda/paring/upnp_child_paring.h"
 #include "fsmda/paring/upnp_parent_paring.h"
 #include "fsmda/utils/upnp_fsmda_utils.h"
@@ -18,9 +20,8 @@ using std::cin;
  |   main
  +---------------------------------------------------------------------*/
 int main(void) {
-//  UpnpParentParing* upnp_parent_paring = new UpnpParentParing();
-//  upnp_parent_paring->StartService();
-  UpnpChildParing* upnp_child_paring = new UpnpChildParing();
+  ChildParingManager* parent_paring_manager = new ChildParingManager();
+  UpnpChildParing* upnp_child_paring = new UpnpChildParing(parent_paring_manager);
   upnp_child_paring->StartService();
 
   char buf[256];
@@ -28,10 +29,11 @@ int main(void) {
     if (*buf == 'q') break;
   }
 
-//  upnp_parent_paring->StopService();
-//  delete upnp_parent_paring;
+  //  upnp_parent_paring->StopService();
+  //  delete upnp_parent_paring;
   upnp_child_paring->StopService();
   delete upnp_child_paring;
+  delete parent_paring_manager;
 
   return 0;
 }

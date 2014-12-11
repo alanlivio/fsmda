@@ -43,36 +43,6 @@ class ParingManagerTest : public ::testing::Test {
   }
 };
 
-TEST_F(ParingManagerTest, AddClassDescription) {
-  string app_id, class_type;
-  unsigned int class_index;
-
-  // Registing one deviceclass for app
-  UpnpFsmdaUtils::GenerateGUID(&app_id);
-  class_index = parent_paring_manager_->GenerateAvaliableIndex(app_id);
-  parent_paring_manager_->AddClass(app_id, class_index);
-  EXPECT_EQ(parent_paring_manager_->GetNumberOfRegistredClasses(app_id), 1);
-
-  // test if upnp is running
-  EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 1);
-  EXPECT_TRUE(UpnpFsmdaUtils::IsUpnpRunning());
-
-  // Registing one deviceclass for app
-  UpnpFsmdaUtils::GenerateGUID(&app_id);
-  class_index = parent_paring_manager_->GenerateAvaliableIndex(app_id);
-  class_type = DeviceClassDescription::GetDeviceClassTypeStringByEnum(
-      DeviceClassDescription::kFsmdaPassiveDevice);
-  string network_paremeters, software_parameters, hardware_parameters;
-  parent_paring_manager_->AddClassDescription(
-      app_id, class_index, class_type, 1, 3, network_paremeters,
-      software_parameters, hardware_parameters);
-  EXPECT_EQ(parent_paring_manager_->GetNumberOfRegistredClasses(app_id), 2);
-
-  // test if upnp is running
-  EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 1);
-  EXPECT_TRUE(UpnpFsmdaUtils::IsUpnpRunning());
-}
-
 TEST_F(ParingManagerTest, DeviceDescriptionMatching) {
   string device_rdf;
   string device_class_description__rdf;
@@ -141,4 +111,34 @@ TEST_F(ParingManagerTest, DeviceDescriptionMatching) {
             DeviceClassDescription::kFsmdaMediaCaptureDevice);
   EXPECT_TRUE(
       device_class_description_->DeviceMeetRequirements(device_description_));
+}
+
+TEST_F(ParingManagerTest, AddClassDescription) {
+  string app_id, class_type;
+  unsigned int class_index;
+
+  // Registing one deviceclass for app
+  UpnpFsmdaUtils::GenerateGUID(&app_id);
+  class_index = parent_paring_manager_->GenerateAvaliableIndex(app_id);
+  parent_paring_manager_->AddClass(app_id, class_index);
+  EXPECT_EQ(parent_paring_manager_->GetNumberOfRegistredClasses(app_id), 1);
+
+  // test if upnp is running
+  EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 1);
+  EXPECT_TRUE(UpnpFsmdaUtils::IsUpnpRunning());
+
+  // Registing one deviceclass for app
+  UpnpFsmdaUtils::GenerateGUID(&app_id);
+  class_index = parent_paring_manager_->GenerateAvaliableIndex(app_id);
+  class_type = DeviceClassDescription::GetDeviceClassTypeStringByEnum(
+      DeviceClassDescription::kFsmdaPassiveDevice);
+  string network_paremeters, software_parameters, hardware_parameters;
+  parent_paring_manager_->AddClassDescription(
+      app_id, class_index, class_type, 1, 3, network_paremeters,
+      software_parameters, hardware_parameters);
+  EXPECT_EQ(parent_paring_manager_->GetNumberOfRegistredClasses(app_id), 2);
+
+  // test if upnp is running
+  EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 1);
+  EXPECT_TRUE(UpnpFsmdaUtils::IsUpnpRunning());
 }

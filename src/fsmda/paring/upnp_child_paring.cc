@@ -20,7 +20,7 @@ using std::endl;
 /*----------------------------------------------------------------------
  |   UpnpChildParing::UpnpChildParing
  +---------------------------------------------------------------------*/
-UpnpChildParing::UpnpChildParing()
+UpnpChildParing::UpnpChildParing(ChildParingManager* child_paring_manager)
     : PLT_DeviceHost("/", NULL, UpnpFsmdaUtils::kCpmDeviceType,
                      UpnpFsmdaUtils::kCpmDeviceFriendlyName, true, 0, true),
       upnp_instance_(NULL),
@@ -38,6 +38,7 @@ UpnpChildParing::UpnpChildParing()
                                     UpnpFsmdaUtils::kCpmServiceName);
   device_service_->SetSCPDXML((const char *)UpnpFsmdaUtils::kCpmServiceScpdXml);
   ctrl_point_ = new PLT_CtrlPointReference(new PLT_CtrlPoint());
+  child_paring_manager_ = child_paring_manager;
 }
 
 /*----------------------------------------------------------------------
@@ -162,12 +163,4 @@ int UpnpChildParing::StopService() {
     upnp_instance_ = NULL;
   }
   return 0;
-}
-
-/*----------------------------------------------------------------------
- |   UpnpChildParing::SetChildParingManager
- +---------------------------------------------------------------------*/
-void UpnpChildParing::SetChildParingManager(
-    ChildParingManager *child_paring_manager) {
-  child_paring_manager_ = child_paring_manager;
 }

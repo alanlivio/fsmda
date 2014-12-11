@@ -5,7 +5,7 @@ bin_PROGRAMS=p0_program
 p0_program_SOURCES= example0.cc 
 
 # Programs compiler options
-p0_program_CPPFLAGS = $(PLATINUMKIT_CFLAGS)
+p0_program_CPPFLAGS = $(PLATINUMKIT_CFLAGS) $(LIBXML2_CFLAGS)
 
 # Programs linker options
 p0_program_LDFLAGS = $(top_srcdir)/src/libfsmda.la $(PLATINUMKIT_LIBS)

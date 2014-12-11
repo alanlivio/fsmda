@@ -145,8 +145,7 @@ int ParentParingManager::StartParingService(
   if (device_class_description->paring_protocol() ==
       DeviceClassDescription::kUpnpParingProcotol) {
     if (upnp_parent_paring_ == NULL) {
-      upnp_parent_paring_ = new UpnpParentParing();
-      upnp_parent_paring_->SetParentParingManager(this);
+      upnp_parent_paring_ = new UpnpParentParing(this);
       upnp_parent_paring_->StartService();
       return 0;
     }

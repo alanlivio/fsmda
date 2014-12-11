@@ -24,7 +24,7 @@ class ChildParingManager;
 class UpnpChildParing : public PLT_DeviceHost, public PLT_CtrlPointListener {
  public:
   // public constructors & destructors
-  UpnpChildParing();
+  UpnpChildParing(ChildParingManager* child_paring_manager);
   virtual ~UpnpChildParing();
 
   // PLT_DeviceHost overloaded methods
@@ -44,7 +44,6 @@ class UpnpChildParing : public PLT_DeviceHost, public PLT_CtrlPointListener {
   // public methods
   int StartService();
   int StopService();
-  void SetChildParingManager(ChildParingManager* child_paring_manager);
   bool IsServiceStarted() { return m_Started; }
   bool IsPaired() { return paired_with_parent_; }
 
