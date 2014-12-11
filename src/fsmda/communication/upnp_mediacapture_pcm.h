@@ -2,7 +2,7 @@
 #define FSMDA_COMMUNICATION_UPNP_MEDIACAPTURE_PCM_H_
 
 /*----------------------------------------------------------------------
- |   include
+ |   includes
  +---------------------------------------------------------------------*/
 #include <string>
 #include "fsmda/communication/model/mediacapture_object_interfaces.h"

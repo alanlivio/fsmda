@@ -21,17 +21,16 @@ using std::cin;
  +---------------------------------------------------------------------*/
 int main(void) {
   ChildParingManager* parent_paring_manager = new ChildParingManager();
-  UpnpChildParing* upnp_child_paring = new UpnpChildParing(parent_paring_manager);
-  upnp_child_paring->StartService();
+  UpnpChildParing* upnp_child_paring =
+      new UpnpChildParing(parent_paring_manager);
+  upnp_child_paring->StartParingService();
 
   char buf[256];
   while (cin.getline(buf, 255)) {
     if (*buf == 'q') break;
   }
 
-  //  upnp_parent_paring->StopService();
-  //  delete upnp_parent_paring;
-  upnp_child_paring->StopService();
+  upnp_child_paring->StopParingService();
   delete upnp_child_paring;
   delete parent_paring_manager;
 

@@ -4,7 +4,6 @@
 /*----------------------------------------------------------------------
  |   includes
  +---------------------------------------------------------------------*/
-
 #include <string>
 #include <vector>
 
@@ -15,17 +14,17 @@ using std::vector;
  |   Property class
  +---------------------------------------------------------------------*/
 class Property {
-  const string property_name_;
-  const string property_value_;
+  string property_name_;
+  string property_value_;
 };
 
 /*----------------------------------------------------------------------
  |   Event class
  +---------------------------------------------------------------------*/
 class Event {
-  const string event_id_;
-  const string event_type_;
-  const string event_desc_;
+  string event_id_;
+  string event_type_;
+  string event_desc_;
 };
 
 /*----------------------------------------------------------------------
@@ -40,7 +39,7 @@ class ActivePcmInterface {
   virtual void RequestPropertyValue(const string& object_id,
                                     const string& name) = 0;
   virtual void NotifyEventTransition(const string& object_id,
-                                     const string& eventID,
+                                     const string& event_id,
                                      const string& transition) = 0;
   virtual void NotifyError(const string& object_id, const string& message) = 0;
 };
@@ -55,10 +54,10 @@ class ActiveCcmInterface {
 
   // public pure virtual methods
   virtual void Prepare(const string& object_id, const string& object_src,
-                       vector<Property> properties, vector<Event> evts) = 0;
+                       vector<Property> properties, vector<Event> events) = 0;
   virtual void AddEvent(const string& object_id, Event evt) = 0;
-  virtual void RemoveEvent(const string& object_id, const string& eventID) = 0;
-  virtual void PostAction(const string& object_id, const string& eventID,
+  virtual void RemoveEvent(const string& object_id, const string& event_id) = 0;
+  virtual void PostAction(const string& object_id, const string& event_id,
                           const string& action) = 0;
   virtual void ReportPropertyValue(const string& object_id, const string& name,
                                    const string& value) = 0;

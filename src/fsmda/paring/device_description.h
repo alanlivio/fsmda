@@ -27,10 +27,10 @@ class DeviceDescription {
 
  private:
   // private fields
+  bool initialized_;
   DeviceClassDescription::DeviceClassType class_type_;
   DeviceClassDescription::ParingProtocol paring_method_;
   xmlDocPtr doc_;
-  bool initialized_;
 };
 
 #endif  // FSMDA_PARING_DEVICE_DESCRIPTION_H_

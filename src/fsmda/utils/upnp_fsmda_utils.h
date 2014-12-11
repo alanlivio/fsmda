@@ -51,7 +51,7 @@ class UpnpFsmdaUtils {
   static void GenerateGUID(string* guid);
   static PLT_UPnP* GetRunningUpnpInstance();
   static void ReleaseUpnpInstance();
-  static bool IsUpnpRunning();
+  static bool IsUpnpStarted();
   static unsigned int upnp_references_count() {
     return UpnpFsmdaUtils::upnp_references_count_;
   }

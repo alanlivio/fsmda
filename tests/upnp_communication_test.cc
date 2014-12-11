@@ -32,7 +32,7 @@ class UpnpCommunicationTest : public ::testing::Test {
   void SetUp() {
     // test if upnp is running
     EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 0);
-    EXPECT_FALSE(UpnpFsmdaUtils::IsUpnpRunning());
+    EXPECT_FALSE(UpnpFsmdaUtils::IsUpnpStarted());
 
     // constructors
     active_pcm_ = new UpnpActivePcm();
@@ -58,14 +58,14 @@ class UpnpCommunicationTest : public ::testing::Test {
 
     // test if upnp is running
     EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 0);
-    EXPECT_FALSE(UpnpFsmdaUtils::IsUpnpRunning());
+    EXPECT_FALSE(UpnpFsmdaUtils::IsUpnpStarted());
   }
 };
 
 TEST_F(UpnpCommunicationTest, UpnpOnDemandCcm) {
   // ondemand class description initialize and meet_requirements tests
   EXPECT_EQ(ondemand_ccm_->StartCommunicationService(), 0);
-  EXPECT_TRUE(ondemand_ccm_->IsServiceStartd());
+  EXPECT_TRUE(ondemand_ccm_->IsCommunicationServiceStarted());
   EXPECT_EQ(ondemand_ccm_->StopCommunicationService(), 0);
-  EXPECT_FALSE(ondemand_ccm_->IsServiceStartd());
+  EXPECT_FALSE(ondemand_ccm_->IsCommunicationServiceStarted());
 }

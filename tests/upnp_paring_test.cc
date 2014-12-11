@@ -27,7 +27,7 @@ class UpnpParingTest : public ::testing::Test {
   void SetUp() {
     // test if upnp is running
     EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 0);
-    EXPECT_FALSE(UpnpFsmdaUtils::IsUpnpRunning());
+    EXPECT_FALSE(UpnpFsmdaUtils::IsUpnpStarted());
 
     // constructors
     parent_paring_manager_ = new ParentParingManager();
@@ -45,19 +45,19 @@ class UpnpParingTest : public ::testing::Test {
 
     // test if upnp is running
     EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 0);
-    EXPECT_FALSE(UpnpFsmdaUtils::IsUpnpRunning());
+    EXPECT_FALSE(UpnpFsmdaUtils::IsUpnpStarted());
   }
 };
 
 TEST_F(UpnpParingTest, SameProcessParing) {
   // start child paring service
-  EXPECT_EQ(upnp_child_paring->StartService(), 0);
-  EXPECT_TRUE(upnp_child_paring->IsServiceStarted());
+  EXPECT_EQ(upnp_child_paring->StartParingService(), 0);
+  EXPECT_TRUE(upnp_child_paring->IsParingServiceStarted());
   EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 1);
 
   // start parent paring service
-  EXPECT_EQ(upnp_parent_paring_->StartService(), 0);
-  EXPECT_TRUE(upnp_parent_paring_->IsServiceStarted());
+  EXPECT_EQ(upnp_parent_paring_->StartParingService(), 0);
+  EXPECT_TRUE(upnp_parent_paring_->IsParingServiceStarted());
   EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 2);
 
   // test if child is paired
@@ -65,19 +65,19 @@ TEST_F(UpnpParingTest, SameProcessParing) {
   EXPECT_TRUE(upnp_child_paring->IsPaired());
 
   // stop child paring service
-  EXPECT_EQ(upnp_child_paring->StopService(), 0);
-  EXPECT_FALSE(upnp_child_paring->IsServiceStarted());
+  EXPECT_EQ(upnp_child_paring->StopParingService(), 0);
+  EXPECT_FALSE(upnp_child_paring->IsParingServiceStarted());
   EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 1);
 
   // stop parent paring service
-  EXPECT_EQ(upnp_parent_paring_->StopService(), 0);
-  EXPECT_FALSE(upnp_parent_paring_->IsServiceStarted());
+  EXPECT_EQ(upnp_parent_paring_->StopParingService(), 0);
+  EXPECT_FALSE(upnp_parent_paring_->IsParingServiceStarted());
 }
 
 TEST_F(UpnpParingTest, DiferentProcessesParing) {
   // start child paring service
-  EXPECT_EQ(upnp_child_paring->StartService(), 0);
-  EXPECT_TRUE(upnp_child_paring->IsServiceStarted());
+  EXPECT_EQ(upnp_child_paring->StartParingService(), 0);
+  EXPECT_TRUE(upnp_child_paring->IsParingServiceStarted());
   EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 1);
 
   // start parent paring service
@@ -88,7 +88,7 @@ TEST_F(UpnpParingTest, DiferentProcessesParing) {
   EXPECT_TRUE(upnp_child_paring->IsPaired());
 
   // stop child paring service
-  EXPECT_EQ(upnp_child_paring->StopService(), 0);
-  EXPECT_FALSE(upnp_child_paring->IsServiceStarted());
+  EXPECT_EQ(upnp_child_paring->StopParingService(), 0);
+  EXPECT_FALSE(upnp_child_paring->IsParingServiceStarted());
   EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 0);
 }

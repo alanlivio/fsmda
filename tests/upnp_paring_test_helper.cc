@@ -22,13 +22,13 @@ int main(void) {
   ParentParingManager* parent_paring_manager_ = new ParentParingManager();
   UpnpParentParing* upnp_parent_paring =
       new UpnpParentParing(parent_paring_manager_);
-  upnp_parent_paring->StartService();
+  upnp_parent_paring->StartParingService();
 
   char buf[256];
   while (cin.getline(buf, 255)) {
     if (*buf == 'q') break;
   }
-  upnp_parent_paring->StopService();
+  upnp_parent_paring->StopParingService();
   delete upnp_parent_paring;
   return 0;
 }

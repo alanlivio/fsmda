@@ -2,6 +2,7 @@
 #define FSMDA_PARING_PARENT_PARING_MANAGER_H_
 
 #include <map>
+#include <set>
 #include <string>
 #include "fsmda/communication/model/active_object_interfaces.h"
 #include "fsmda/communication/model/mediacapture_object_interfaces.h"
@@ -14,6 +15,7 @@
 
 using std::string;
 using std::map;
+using std::set;
 
 class ParentParingManager : public ClassHandlingPpmInterface,
                             public DeviceParingPpmInterface {
@@ -32,6 +34,12 @@ class ParentParingManager : public ClassHandlingPpmInterface,
       const string& class_type, unsigned int max_devices,
       unsigned int min_devices, const string& hardware_requirements,
       const string& software_requirements, const string& network_requirements);
+
+  // Extra ClassHandlingPpmInterface  methods
+  // called by HypermediaEngine
+  virtual void AddClassDescription(
+      const string& application_id, unsigned int class_index,
+      DeviceClassDescription* device_class_description);
 
   // Methods for factory parent communication managers
   // called by HypermediaEngine
@@ -57,19 +65,16 @@ class ParentParingManager : public ClassHandlingPpmInterface,
   // Utils methods
   unsigned int GenerateAvaliableIndex(const string& application_id);
   unsigned int GetNumberOfRegistredClasses(const string& application_id);
+  int StartParing();
+  int StopParing();
+  bool IsParingStarted();
 
  private:
   // private filds
+  unsigned int registred_upnp_classes_size_;
   map<const string, map<unsigned int, DeviceClassDescription*> >
       device_class_description_map_;
-  unsigned int registred_classes_size_;
   UpnpParentParing* upnp_parent_paring_;
-
-  // private methods
-  int StartParingService(
-      DeviceClassDescription* device_class_description);
-  int StopParingService(
-      DeviceClassDescription* device_class_description);
 };
 
 #endif  // FSMDA_PARING_PARENT_PARING_MANAGER_H_

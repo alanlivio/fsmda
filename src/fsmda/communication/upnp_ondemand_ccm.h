@@ -3,18 +3,16 @@
 /*----------------------------------------------------------------------
  |   includes
  +---------------------------------------------------------------------*/
-
-#include "fsmda/communication/upnp_service_cm_interface.h"
 #include <string>
-
-class PLT_UPnP;
+#include "fsmda/communication/communication_service_interface.h"
+#include "PltUPnP.h"
 
 using std::string;
 
 /*----------------------------------------------------------------------
  |   UpnpOnDemandCcm class
  +---------------------------------------------------------------------*/
-class UpnpOnDemandCcm : public ServiceCmInterface {
+class UpnpOnDemandCcm : public CommunicationServiceInterface{
  public:
   // class fields and methods
 
@@ -25,7 +23,7 @@ class UpnpOnDemandCcm : public ServiceCmInterface {
   // ServiceCMInterface overloaded methods
   virtual int StartCommunicationService();
   virtual int StopCommunicationService();
-  virtual bool IsServiceStartd();
+  virtual bool IsCommunicationServiceStarted();
 
  private:
   string ondemand_folder_;

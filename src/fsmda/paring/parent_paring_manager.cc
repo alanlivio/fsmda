@@ -10,7 +10,7 @@
 #include "fsmda/paring/parent_paring_manager.h"
 
 ParentParingManager::ParentParingManager()
-    : upnp_parent_paring_(NULL), registred_classes_size_(0) {}
+    : upnp_parent_paring_(NULL), registred_upnp_classes_size_(0) {}
 
 ParentParingManager::~ParentParingManager() {
   if (upnp_parent_paring_ != NULL) delete upnp_parent_paring_;
@@ -25,9 +25,7 @@ void ParentParingManager::AddClass(const string& application_id,
       new DeviceClassDescription();
   device_class_description->InitializeByDeviceClass(
       DeviceClassDescription::kFsmdaActiveDevice);
-  device_class_description_map_[application_id][class_index] =
-      device_class_description;
-  StartParingService(device_class_description);
+  device_class_description_map_[application_id][class_index] = NULL;
 }
 
 /*----------------------------------------------------------------------
@@ -48,9 +46,23 @@ void ParentParingManager::AddClassDescription(
       new DeviceClassDescription();
   device_class_description->InitializeByDeviceClass(
       DeviceClassDescription::GetDeviceClassTypeByString(class_type));
+  // TODO: change  to Initialize passing paremeters
+  AddClassDescription(application_id, class_index, device_class_description);
+}
+
+/*----------------------------------------------------------------------
+ |   ParentParingManager::AddClassDescription
+ +---------------------------------------------------------------------*/
+void ParentParingManager::AddClassDescription(
+    const std::string& application_id, unsigned int class_index,
+    DeviceClassDescription* device_class_description) {
   device_class_description_map_[application_id][class_index] =
       device_class_description;
-  // TODO(alan@telemidia.puc-rio.br): Start UpnpParing Service.
+  if (device_class_description->paring_protocol() ==
+      DeviceClassDescription::kUpnpParingProcotol) {
+    upnp_parent_paring_++;
+    StartParing();
+  }
 }
 
 /*----------------------------------------------------------------------
@@ -137,29 +149,27 @@ unsigned int ParentParingManager::GetNumberOfRegistredClasses(
 }
 
 /*----------------------------------------------------------------------
- |   ParentParingManager::StartParingByDeviceClassDescription
+ |   ParentParingManager::GetNumberOfRegistredClasses
  +---------------------------------------------------------------------*/
-int ParentParingManager::StartParingService(
-    DeviceClassDescription* device_class_description) {
-
-  if (device_class_description->paring_protocol() ==
-      DeviceClassDescription::kUpnpParingProcotol) {
-    if (upnp_parent_paring_ == NULL) {
+int ParentParingManager::StartParing() {
+  if (registred_upnp_classes_size_ > 0)
+    if (upnp_parent_paring_ == NULL)
       upnp_parent_paring_ = new UpnpParentParing(this);
-      upnp_parent_paring_->StartService();
-      return 0;
-    }
-  } else {
-    return -1;
-  }
+  upnp_parent_paring_->StartParingService();
+  return 0;
 }
+
 /*----------------------------------------------------------------------
- |   ParentParingManager::StopParingService
+ |   ParentParingManager::GetNumberOfRegistredClasses
  +---------------------------------------------------------------------*/
-int ParentParingManager::StopParingService(
-    DeviceClassDescription* device_class_description) {
+int ParentParingManager::StopParing() {
   if (upnp_parent_paring_ != NULL) {
-    upnp_parent_paring_->StopService();
+    upnp_parent_paring_->StopParingService();
     return 0;
   }
 }
+
+/*----------------------------------------------------------------------
+ |   ParentParingManager::GetNumberOfRegistredClasses
+ +---------------------------------------------------------------------*/
+bool ParentParingManager::IsParingStarted() {}

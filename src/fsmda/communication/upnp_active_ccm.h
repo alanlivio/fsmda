@@ -23,8 +23,8 @@ class UpnpActiveCcm : public ActiveCcmInterface {
   virtual void Prepare(const string& object_id, const string& object_src,
                        vector<Property> properties, vector<Event> evts);
   virtual void AddEvent(const string& object_id, Event evt);
-  virtual void RemoveEvent(const string& object_id, const string& eventID);
-  virtual void PostAction(const string& object_id, const string& eventID,
+  virtual void RemoveEvent(const string& object_id, const string& event_id);
+  virtual void PostAction(const string& object_id, const string& event_id,
                           const string& action);
   virtual void ReportPropertyValue(const string& object_id, const string& name,
                                    const string& value);

@@ -32,7 +32,7 @@ UpnpOnDemandCcm::~UpnpOnDemandCcm() {
 }
 
 /*----------------------------------------------------------------------
- |   UpnpOnDemandCcm::StartCommunicationService
+ |   UpnpOnDemandCcm::Start
  +---------------------------------------------------------------------*/
 int UpnpOnDemandCcm::StartCommunicationService() {
   if (upnp_reference_ == NULL)
@@ -56,7 +56,7 @@ int UpnpOnDemandCcm::StartCommunicationService() {
 }
 
 /*----------------------------------------------------------------------
- |   UpnpOnDemandCcm::StopCommunicationService
+ |   UpnpOnDemandCcm::Stop
  +---------------------------------------------------------------------*/
 int UpnpOnDemandCcm::StopCommunicationService() {
   UpnpFsmdaUtils::ReleaseUpnpInstance();
@@ -65,6 +65,6 @@ int UpnpOnDemandCcm::StopCommunicationService() {
   return 0;
 }
 /*----------------------------------------------------------------------
- |   UpnpOnDemandCcm::IsServiceStartd
+ |   UpnpOnDemandCcm::IsRunning
  +---------------------------------------------------------------------*/
-bool UpnpOnDemandCcm::IsServiceStartd() { return service_start_; }
+bool UpnpOnDemandCcm::IsCommunicationServiceStarted() { return service_start_; }

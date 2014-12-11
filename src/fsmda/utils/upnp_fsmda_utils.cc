@@ -294,7 +294,7 @@ void UpnpFsmdaUtils::ReleaseUpnpInstance() {
 /*----------------------------------------------------------------------
  |   UpnpUtils::IsUpnpRunning
  +---------------------------------------------------------------------*/
-bool UpnpFsmdaUtils::IsUpnpRunning() {
+bool UpnpFsmdaUtils::IsUpnpStarted() {
   if (UpnpFsmdaUtils::upnp_singleton_ == NULL) {
     return false;
   } else {

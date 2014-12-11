@@ -7,6 +7,7 @@
 
 #include <string>
 #include <vector>
+#include "fsmda/paring/paring_service_interface.h"
 #include "fsmda/paring/model/class_handling_interfaces.h"
 #include "fsmda/paring/model/device_paring_interfaces.h"
 #include "NptTypes.h"
@@ -25,11 +26,13 @@ class ParentParingManager;
 /*----------------------------------------------------------------------
  |   UpnpPpm class
  +---------------------------------------------------------------------*/
-class UpnpParentParing : public PLT_DeviceHost, public PLT_CtrlPointListener {
+class UpnpParentParing : public PLT_DeviceHost,
+                         public PLT_CtrlPointListener,
+                         public ParingServiceInterface {
  public:
   // public constructors & destructors
 
-  UpnpParentParing(ParentParingManager* parent_paring_manager);
+  explicit UpnpParentParing(ParentParingManager* parent_paring_manager);
   virtual ~UpnpParentParing();
 
   // PLT_DeviceHost overloaded methods
@@ -45,17 +48,17 @@ class UpnpParentParing : public PLT_DeviceHost, public PLT_CtrlPointListener {
   virtual NPT_Result OnEventNotify(PLT_Service* service,
                                    NPT_List<PLT_StateVariable*>* vars);
   // public methods
-  int StartService();
-  int StopService();
-  bool IsServiceStarted() { return m_Started; }
+  virtual int StartParingService();
+  virtual int StopParingService();
+  virtual bool IsParingServiceStarted() { return m_Started; }
   unsigned int paired_childs() { return paired_childs_; }
 
  private:
+  unsigned int paired_childs_;
   PLT_UPnP* upnp_instance_;
   PLT_DeviceHostReference* device_host_;
   PLT_Service* device_service_;
   PLT_CtrlPointReference* ctrl_point_;
-  unsigned int paired_childs_;
   vector<PLT_DeviceDataReference> discoverd_cpm_;
   ParentParingManager* parent_paring_manager_;
 };

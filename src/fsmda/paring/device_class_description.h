@@ -68,16 +68,16 @@ class DeviceClassDescription {
 
  private:
   // private fields
-  DeviceClassType device_class_type_;
-  ParingProtocol paring_protocol_;
-  CommunicationProtocol communication_protocol_;
   unsigned int min_devices_;
   unsigned int max_devices_;
+  bool initialized_;
   static const char* device_class_type_strings_[];
   static const char* paring_protocol_strings_[];
   static const char* communication_protocol_strings_[];
   xmlDocPtr doc_;
-  bool initialized_;
+  DeviceClassType device_class_type_;
+  ParingProtocol paring_protocol_;
+  CommunicationProtocol communication_protocol_;
 };
 
 #endif  // FSMDA_PARING_DEVICE_CLASS_DESCRIPTION_H_

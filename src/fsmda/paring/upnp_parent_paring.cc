@@ -25,7 +25,6 @@ UpnpParentParing::UpnpParentParing(ParentParingManager* parent_paring_manager)
     : PLT_DeviceHost("/", NULL, UpnpFsmdaUtils::kPpmDeviceType,
                      UpnpFsmdaUtils::kPpmDeviceFriendlyName, true, 0, true),
       upnp_instance_(NULL),
-      parent_paring_manager_(NULL),
       paired_childs_(0) {
   m_ModelDescription = UpnpFsmdaUtils::kPpmDeviceModelDescription;
   m_ModelURL = UpnpFsmdaUtils::kPpmDeviceModelUrl;
@@ -46,7 +45,7 @@ UpnpParentParing::UpnpParentParing(ParentParingManager* parent_paring_manager)
  |   UpnpParentParing::~UpnpParentParing
  +---------------------------------------------------------------------*/
 UpnpParentParing::~UpnpParentParing() {
-  this->StopService();
+  this->StopParingService();
   delete device_service_;
   ctrl_point_->Detach();
   delete ctrl_point_;
@@ -158,9 +157,9 @@ NPT_Result UpnpParentParing::OnDeviceAdded(PLT_DeviceDataReference &device) {
 }
 
 /*----------------------------------------------------------------------
- |   UpnpParentParing::StartService
+ |   UpnpParentParing::StartParingService
  +---------------------------------------------------------------------*/
-int UpnpParentParing::StartService() {
+int UpnpParentParing::StartParingService() {
   clog << "UpnpParentParing::StartService" << endl;
   if (upnp_instance_ == NULL) {
     upnp_instance_ = UpnpFsmdaUtils::GetRunningUpnpInstance();
@@ -176,9 +175,9 @@ int UpnpParentParing::StartService() {
 }
 
 /*----------------------------------------------------------------------
- |   UpnpParentParing::StopService
+ |   UpnpParentParing::StopParingService
  +---------------------------------------------------------------------*/
-int UpnpParentParing::StopService() {
+int UpnpParentParing::StopParingService() {
   if (upnp_instance_ != NULL) {
     RemoveService(device_service_);
     upnp_instance_->RemoveDevice(*device_host_);
