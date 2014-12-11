@@ -34,23 +34,15 @@ class UpnpCommunicationTest : public ::testing::Test {
     EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 0);
     EXPECT_FALSE(UpnpFsmdaUtils::IsUpnpRunning());
 
-    // constructors tests
+    // constructors
     active_pcm_ = new UpnpActivePcm();
-    EXPECT_TRUE(active_pcm_ != NULL);
     active_ccm_ = new UpnpActiveCcm();
-    EXPECT_TRUE(active_ccm_ != NULL);
     mediacapture_pcm_ = new UpnpMediaCapturePcm();
-    EXPECT_TRUE(mediacapture_pcm_ != NULL);
     mediacapture_ccm_ = new UpnpMediaCaptureCcm();
-    EXPECT_TRUE(mediacapture_ccm_ != NULL);
     ondemand_pcm_ = new UpnpOnDemandPcm();
-    EXPECT_TRUE(ondemand_pcm_ != NULL);
     ondemand_ccm_ = new UpnpOnDemandCcm();
-    EXPECT_TRUE(ondemand_ccm_ != NULL);
     passive_pcm_ = new UpnpPassivePcm();
-    EXPECT_TRUE(passive_pcm_ != NULL);
     passive_ccm_ = new UpnpPassiveCcm();
-    EXPECT_TRUE(passive_ccm_ != NULL);
   }
 
   void TearDown() {
@@ -72,8 +64,8 @@ class UpnpCommunicationTest : public ::testing::Test {
 
 TEST_F(UpnpCommunicationTest, UpnpOnDemandCcm) {
   // ondemand class description initialize and meet_requirements tests
-  ondemand_ccm_->StartCommunicationService();
+  EXPECT_EQ(ondemand_ccm_->StartCommunicationService(), 0);
   EXPECT_TRUE(ondemand_ccm_->IsServiceStartd());
-  ondemand_ccm_->StopCommunicationService();
+  EXPECT_EQ(ondemand_ccm_->StopCommunicationService(), 0);
   EXPECT_FALSE(ondemand_ccm_->IsServiceStartd());
 }

@@ -29,12 +29,11 @@ class UpnpParingTest : public ::testing::Test {
     EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 0);
     EXPECT_FALSE(UpnpFsmdaUtils::IsUpnpRunning());
 
+    // constructors
     parent_paring_manager_ = new ParentParingManager();
     child_paring_manager_ = new ChildParingManager();
     upnp_parent_paring_ = new UpnpParentParing(parent_paring_manager_);
     upnp_child_paring = new UpnpChildParing(child_paring_manager_);
-    EXPECT_TRUE(upnp_parent_paring_);
-    EXPECT_TRUE(upnp_child_paring);
   }
 
   void TearDown() {
@@ -66,12 +65,12 @@ TEST_F(UpnpParingTest, SameProcessParing) {
   EXPECT_TRUE(upnp_child_paring->IsPaired());
 
   // stop child paring service
-  upnp_child_paring->StopService();
+  EXPECT_EQ(upnp_child_paring->StopService(), 0);
   EXPECT_FALSE(upnp_child_paring->IsServiceStarted());
   EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 1);
 
   // stop parent paring service
-  upnp_parent_paring_->StopService();
+  EXPECT_EQ(upnp_parent_paring_->StopService(), 0);
   EXPECT_FALSE(upnp_parent_paring_->IsServiceStarted());
 }
 
