@@ -3,13 +3,35 @@
 #include "fsmda/communication/upnp_active_ccm.h"
 #include "fsmda/communication/upnp_mediacapture_ccm.h"
 #include "fsmda/communication/upnp_passive_ccm.h"
+#include "fsmda/communication/upnp_ondemand_ccm.h"
 #include "fsmda/paring/child_paring_manager.h"
 #include "fsmda/paring/device_class_description.h"
 
+/*----------------------------------------------------------------------
+ |   ChildParingManager::ChildParingManager
+ +---------------------------------------------------------------------*/
 ChildParingManager::ChildParingManager(DeviceDescription* device_description)
     : device_description_(device_description), upnp_child_paring_(NULL) {}
 
+/*----------------------------------------------------------------------
+ |   ChildParingManager::~ChildParingManager
+ +---------------------------------------------------------------------*/
 ChildParingManager::~ChildParingManager() {}
+
+/*----------------------------------------------------------------------
+ |   ChildParingManager::StartParing
+ +---------------------------------------------------------------------*/
+int ChildParingManager::StartParing() {}
+
+/*----------------------------------------------------------------------
+ |   ChildParingManager::StopParing
+ +---------------------------------------------------------------------*/
+int ChildParingManager::StopParing() {}
+
+/*----------------------------------------------------------------------
+ |   ChildParingManager::IsParingStarted
+ +---------------------------------------------------------------------*/
+bool ChildParingManager::IsParingStarted() {}
 
 /*----------------------------------------------------------------------
  |   ChildParingManager::CreateActiveCc
@@ -24,18 +46,6 @@ ActiveCcmInterface* ChildParingManager::CreateActiveCcm(
 }
 
 /*----------------------------------------------------------------------
- |   ChildParingManager::CreateMediaCaptureCcm
- +---------------------------------------------------------------------*/
-MediaCaptureCcmInterface* ChildParingManager::CreateMediaCaptureCcm(
-    unsigned int class_index) {
-  if (device_class_description_map_[class_index]->device_class_type() ==
-      DeviceClassDescription::kFsmdaMediaCaptureDevice)
-    return new UpnpMediaCaptureCcm();
-  else
-    return NULL;
-}
-
-/*----------------------------------------------------------------------
  |  ChildParingManager::CreatePassiveCcm
  +---------------------------------------------------------------------*/
 PassiveCcmInterface* ChildParingManager::CreatePassiveCcm(
@@ -43,6 +53,30 @@ PassiveCcmInterface* ChildParingManager::CreatePassiveCcm(
   if (device_class_description_map_[class_index]->device_class_type() ==
       DeviceClassDescription::kFsmdaPassiveDevice)
     return new UpnpPassiveCcm();
+  else
+    return NULL;
+}
+
+/*----------------------------------------------------------------------
+ |   ChildParingManager::CreateOndemandCcm
+ +---------------------------------------------------------------------*/
+OnDemandCcmInterface* ChildParingManager::CreateOndemandCcm(
+    unsigned int class_index) {
+  if (device_class_description_map_[class_index]->device_class_type() ==
+      DeviceClassDescription::kFsmdaOnDemandDevice)
+    return new UpnpOnDemandCcm();
+  else
+    return NULL;
+}
+
+/*----------------------------------------------------------------------
+ |   ChildParingManager::CreateMediaCaptureCcm
+ +---------------------------------------------------------------------*/
+MediaCaptureCcmInterface* ChildParingManager::CreateMediaCaptureCcm(
+    unsigned int class_index) {
+  if (device_class_description_map_[class_index]->device_class_type() ==
+      DeviceClassDescription::kFsmdaMediaCaptureDevice)
+    return new UpnpMediaCaptureCcm();
   else
     return NULL;
 }

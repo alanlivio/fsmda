@@ -21,4 +21,13 @@ class OnDemandPcmInterface {
                                      const string& location) = 0;
 };
 
+/*----------------------------------------------------------------------
+ |   OnDemandCcmInterface abstract class
+ +---------------------------------------------------------------------*/
+class OnDemandCcmInterface {
+ public:
+  // public constructors & destructors
+  virtual ~OnDemandCcmInterface() {}
+};
+
 #endif  // FSMDA_COMMUNICATION_MODEL_ONDEMAND_OBJECT_INTERFACES_H_

@@ -10,7 +10,7 @@
 #include "fsmda/paring/parent_paring_manager.h"
 
 ParentParingManager::ParentParingManager()
-    : upnp_parent_paring_(NULL), registred_upnp_classes_size_(0) {}
+    : upnp_parent_paring_(NULL), upnp_registred_classes_size(0) {}
 
 ParentParingManager::~ParentParingManager() {
   if (upnp_parent_paring_ != NULL) delete upnp_parent_paring_;
@@ -141,18 +141,18 @@ unsigned int ParentParingManager::GenerateAvaliableIndex(
 }
 
 /*----------------------------------------------------------------------
- |   ParentParingManager::GetNumberOfRegistredClasses
+ |   ParentParingManager::GetRegistredClassesSize
  +---------------------------------------------------------------------*/
-unsigned int ParentParingManager::GetNumberOfRegistredClasses(
+unsigned int ParentParingManager::GetRegistredClassesSize(
     const string& application_id) {
-  return device_class_description_map_.size();
+  return device_class_description_map_[application_id].size();
 }
 
 /*----------------------------------------------------------------------
- |   ParentParingManager::GetNumberOfRegistredClasses
+ |   ParentParingManager::StartParing
  +---------------------------------------------------------------------*/
 int ParentParingManager::StartParing() {
-  if (registred_upnp_classes_size_ > 0)
+  if (upnp_registred_classes_size > 0)
     if (upnp_parent_paring_ == NULL)
       upnp_parent_paring_ = new UpnpParentParing(this);
   upnp_parent_paring_->StartParingService();
@@ -160,7 +160,7 @@ int ParentParingManager::StartParing() {
 }
 
 /*----------------------------------------------------------------------
- |   ParentParingManager::GetNumberOfRegistredClasses
+ |   ParentParingManager::StopParing
  +---------------------------------------------------------------------*/
 int ParentParingManager::StopParing() {
   if (upnp_parent_paring_ != NULL) {
@@ -168,8 +168,3 @@ int ParentParingManager::StopParing() {
     return 0;
   }
 }
-
-/*----------------------------------------------------------------------
- |   ParentParingManager::GetNumberOfRegistredClasses
- +---------------------------------------------------------------------*/
-bool ParentParingManager::IsParingStarted() {}

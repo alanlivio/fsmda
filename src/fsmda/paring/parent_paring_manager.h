@@ -64,14 +64,13 @@ class ParentParingManager : public ClassHandlingPpmInterface,
 
   // Utils methods
   unsigned int GenerateAvaliableIndex(const string& application_id);
-  unsigned int GetNumberOfRegistredClasses(const string& application_id);
+  unsigned int GetRegistredClassesSize(const string& application_id);
   int StartParing();
   int StopParing();
-  bool IsParingStarted();
 
  private:
   // private filds
-  unsigned int registred_upnp_classes_size_;
+  unsigned int upnp_registred_classes_size;
   map<const string, map<unsigned int, DeviceClassDescription*> >
       device_class_description_map_;
   UpnpParentParing* upnp_parent_paring_;

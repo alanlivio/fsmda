@@ -21,7 +21,12 @@ class ChildParingManager : public DeviceParingCpmInterface {
   explicit ChildParingManager(DeviceDescription* device_description);
   virtual ~ChildParingManager();
 
-  // DeviceParingCpmInterface overloaded methods
+  // public methods
+  int StartParing();
+  int StopParing();
+  bool IsParingStarted();
+
+  // public DeviceParingCpmInterface overloaded methods
   // called by ParentParingManager
   virtual void ClassAnnouncement(const string& application_id,
                                  unsigned int class_index,
@@ -32,6 +37,7 @@ class ChildParingManager : public DeviceParingCpmInterface {
   ActiveCcmInterface* CreateActiveCcm(unsigned int class_index);
   MediaCaptureCcmInterface* CreateMediaCaptureCcm(unsigned int class_index);
   PassiveCcmInterface* CreatePassiveCcm(unsigned int class_index);
+  OnDemandCcmInterface* CreateOndemandCcm(unsigned int class_index);
 
  private:
   map<unsigned int, DeviceClassDescription*> device_class_description_map_;
