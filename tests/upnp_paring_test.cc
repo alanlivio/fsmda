@@ -84,10 +84,10 @@ TEST(UpnpParing, DiferentProcessesParing) {
   EXPECT_EQ(1, UpnpFsmdaUtils::upnp_references_count());
 
   // start parent paring service
-  sleep(1);
   ASSERT_TRUE(popen("./upnp_paring_test_helper", "r"));
-  sleep(1);
 
+  // test if child is paired
+  sleep(1);
   EXPECT_TRUE(upnp_child_paring->IsPaired());
 
   // stop child paring service

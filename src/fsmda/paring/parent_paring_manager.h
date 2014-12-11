@@ -66,7 +66,9 @@ class ParentParingManager : public ClassHandlingPpmInterface,
   UpnpParentParing* upnp_parent_paring_;
 
   // private methods
-  int StartParingByDeviceClassDescription(
+  int StartParingService(
+      DeviceClassDescription* device_class_description);
+  int StopParingService(
       DeviceClassDescription* device_class_description);
 };
 

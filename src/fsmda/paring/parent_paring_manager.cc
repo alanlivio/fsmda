@@ -27,7 +27,7 @@ void ParentParingManager::AddClass(const string& application_id,
       DeviceClassDescription::kFsmdaActiveDevice);
   device_class_description_map_[application_id][class_index] =
       device_class_description;
-  StartParingByDeviceClassDescription(device_class_description);
+  StartParingService(device_class_description);
 }
 
 /*----------------------------------------------------------------------
@@ -139,7 +139,7 @@ unsigned int ParentParingManager::GetNumberOfRegistredClasses(
 /*----------------------------------------------------------------------
  |   ParentParingManager::StartParingByDeviceClassDescription
  +---------------------------------------------------------------------*/
-int ParentParingManager::StartParingByDeviceClassDescription(
+int ParentParingManager::StartParingService(
     DeviceClassDescription* device_class_description) {
 
   if (device_class_description->paring_protocol() ==
@@ -148,8 +148,19 @@ int ParentParingManager::StartParingByDeviceClassDescription(
       upnp_parent_paring_ = new UpnpParentParing();
       upnp_parent_paring_->SetParentParingManager(this);
       upnp_parent_paring_->StartService();
+      return 0;
     }
   } else {
     return -1;
+  }
+}
+/*----------------------------------------------------------------------
+ |   ParentParingManager::StopParingService
+ +---------------------------------------------------------------------*/
+int ParentParingManager::StopParingService(
+    DeviceClassDescription* device_class_description) {
+  if (upnp_parent_paring_ != NULL) {
+    upnp_parent_paring_->StopService();
+    return 0;
   }
 }

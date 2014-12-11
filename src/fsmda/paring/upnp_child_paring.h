@@ -44,7 +44,7 @@ class UpnpChildParing : public PLT_DeviceHost, public PLT_CtrlPointListener {
   // public methods
   int StartService();
   int StopService();
-  void SetParentParingManager(ChildParingManager* child_paring_manager);
+  void SetChildParingManager(ChildParingManager* child_paring_manager);
   bool IsServiceStarted() { return m_Started; }
   bool IsPaired() { return paired_with_parent_; }
 

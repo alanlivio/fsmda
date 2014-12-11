@@ -21,16 +21,17 @@ class ChildParingManager : public DeviceParingCpmInterface {
   ChildParingManager();
   virtual ~ChildParingManager();
 
-  // Method for factory child communication managers
-  ActiveCcmInterface* CreateActiveCcm(unsigned int class_index);
-  MediaCaptureCcmInterface* CreateMediaCaptureCcm(unsigned int class_index);
-  PassiveCcmInterface* CreatePassiveCcm(unsigned int class_index);
-
   // DeviceParingCpmInterface overloaded methods
+  // called by ParentParingManager
   virtual void ClassAnnouncement(const string& application_id,
                                  unsigned int class_index,
                                  const string& class_desc,
                                  const string& class_function);
+
+  // Method for factory child communication managers
+  ActiveCcmInterface* CreateActiveCcm(unsigned int class_index);
+  MediaCaptureCcmInterface* CreateMediaCaptureCcm(unsigned int class_index);
+  PassiveCcmInterface* CreatePassiveCcm(unsigned int class_index);
 
  private:
   map<unsigned int, DeviceClassDescription*> device_class_description_map_;

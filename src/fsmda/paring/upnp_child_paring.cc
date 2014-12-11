@@ -165,9 +165,9 @@ int UpnpChildParing::StopService() {
 }
 
 /*----------------------------------------------------------------------
- |   UpnpChildParing::SetParentParingManager
+ |   UpnpChildParing::SetChildParingManager
  +---------------------------------------------------------------------*/
-void UpnpChildParing::SetParentParingManager(
+void UpnpChildParing::SetChildParingManager(
     ChildParingManager *child_paring_manager) {
   child_paring_manager_ = child_paring_manager;
 }
