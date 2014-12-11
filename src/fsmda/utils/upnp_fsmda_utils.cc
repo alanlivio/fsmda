@@ -258,9 +258,9 @@ void UpnpFsmdaUtils::GenerateGUID(std::string* guid) {
 PLT_UPnP* UpnpFsmdaUtils::GetRunningUpnpInstance() {
   if (UpnpFsmdaUtils::upnp_singleton_ == NULL) {
     // setup Neptune logging
-    NPT_LogManager::GetDefault().Configure(
-        "plist:.level=FINE;.handlers=ConsoleHandler;.ConsoleHandler.colors=off;"
-        ".ConsoleHandler.filter=42");
+//    NPT_LogManager::GetDefault().Configure(
+//        "plist:.level=FINE;.handlers=ConsoleHandler;.ConsoleHandler.colors=off;"
+//        ".ConsoleHandler.filter=42");
 
     // setup upnp service
     PLT_Constants::GetInstance().SetDefaultDeviceLease(NPT_TimeInterval(60.));
