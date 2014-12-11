@@ -138,8 +138,17 @@ NPT_Result UpnpParentParing::OnDeviceAdded(PLT_DeviceDataReference &device) {
   if (!device->GetType().Compare(UpnpFsmdaUtils::kCpmDeviceType)) {
     device->FindServiceByType(UpnpFsmdaUtils::kCpmServiceType,
                               parent_paring_service);
+    PLT_ActionReference action;
+    (*ctrl_point_)->CreateAction(device, UpnpFsmdaUtils::kCpmServiceType,
+                                 "classAnnouncement", action);
+    if (!action.IsNull()) {
+      action->SetArgumentValue("applicationId", "applicationId");
+      action->SetArgumentValue("classIndex", "applicationId");
+      action->SetArgumentValue("classDesc", "applicationId");
+      action->SetArgumentValue("classFunction", "applicationId");
+      (*ctrl_point_)->InvokeAction(action, 0);
+    }
     clog << "--->discoverd_cpm_.push_back(device)" << endl;
-    //    paired_childs_++;
     discoverd_cpm_.push_back(device);
     return NPT_SUCCESS;
   } else {

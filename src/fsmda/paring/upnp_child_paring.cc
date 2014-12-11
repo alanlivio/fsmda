@@ -24,6 +24,7 @@ UpnpChildParing::UpnpChildParing()
     : PLT_DeviceHost("/", NULL, UpnpFsmdaUtils::kCpmDeviceType,
                      UpnpFsmdaUtils::kCpmDeviceFriendlyName, true, 0, true),
       upnp_instance_(NULL),
+      child_paring_manager_(NULL),
       paired_with_parent_(false) {
   m_ModelDescription = UpnpFsmdaUtils::kCpmDeviceModelDescription;
   m_ModelURL = UpnpFsmdaUtils::kCpmDeviceModelUrl;
@@ -83,6 +84,8 @@ NPT_Result UpnpChildParing::OnAction(PLT_ActionReference &action,
          << application_id.GetChars() << "," << class_index << ","
          << class_desc.GetChars() << "," << class_function.GetChars() << ")"
          << endl;
+    clog << "--->paired_with_parent_= true" << endl;
+    paired_with_parent_ = true;
     if (child_paring_manager_ != NULL) {
       child_paring_manager_->ClassAnnouncement(
           application_id.GetChars(), class_index, class_desc.GetChars(),
@@ -122,8 +125,6 @@ NPT_Result UpnpChildParing::OnDeviceAdded(PLT_DeviceDataReference &device) {
   if (!device->GetType().Compare(UpnpFsmdaUtils::kPpmDeviceType)) {
     device->FindServiceByType(UpnpFsmdaUtils::kPpmServiceType,
                               parent_paring_service);
-    clog << "--->paired_with_parent_= true" << endl;
-    paired_with_parent_ = true;
     return NPT_SUCCESS;
   } else {
     return NPT_FAILURE;
