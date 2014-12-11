@@ -21,7 +21,7 @@ using std::endl;
 /*----------------------------------------------------------------------
  |   UpnpParentParing::UpnpParentParing
  +---------------------------------------------------------------------*/
-UpnpParentParing::UpnpParentParing(ParentParingManager* parent_paring_manager)
+UpnpParentParing::UpnpParentParing(ParentParingManager *parent_paring_manager)
     : PLT_DeviceHost("/", NULL, UpnpFsmdaUtils::kPpmDeviceType,
                      UpnpFsmdaUtils::kPpmDeviceFriendlyName, true, 0, true),
       upnp_instance_(NULL),
@@ -68,8 +68,8 @@ NPT_Result UpnpParentParing::SetupServices() {
  +---------------------------------------------------------------------*/
 NPT_Result UpnpParentParing::OnAction(PLT_ActionReference &action,
                                       const PLT_HttpRequestContext &context) {
-  clog << "UpnpParentParing::OnAction()" << endl;
   NPT_String name = action->GetActionDesc().GetName();
+  clog << "UpnpParentParing::OnAction()::action.name=" << name.GetChars() << endl;
 
   if (name.Compare("addDeviceToClass") == 0) {
     // handling addDeviceToClass call
@@ -81,7 +81,7 @@ NPT_Result UpnpParentParing::OnAction(PLT_ActionReference &action,
     action->GetArgumentValue("classIndex", classIndex);
     NPT_String deviceDesc;
     action->GetArgumentValue("deviceDesc", deviceDesc);
-    clog << "UpnpParentParing::OnAction:: receive addDeviceToClass("
+    clog << "UpnpParentParing::OnAction::receive addDeviceToClass("
          << applicationId.GetChars() << "," << deviceAddr.GetChars() << ","
          << classIndex << "," << deviceDesc.GetChars() << ")" << endl;
     if (parent_paring_manager_ != NULL) {
@@ -121,7 +121,6 @@ NPT_Result UpnpParentParing::OnActionResponse(NPT_Result res,
 NPT_Result UpnpParentParing::OnDeviceRemoved(PLT_DeviceDataReference &device) {}
 
 NPT_Result UpnpParentParing::OnDeviceAdded(PLT_DeviceDataReference &device) {
-  clog << "UpnpParentParing::OnDeviceAdded()" << endl;
   clog << "UpnpParentParing::OnDeviceAdded()::device->GetFriendlyName="
        << device->GetFriendlyName().GetChars() << endl;
   clog << "UpnpParentParing::OnDeviceAdded()::device->GetType="
@@ -129,10 +128,7 @@ NPT_Result UpnpParentParing::OnDeviceAdded(PLT_DeviceDataReference &device) {
   clog << "UpnpParentParing::OnDeviceAdded()::device->GetUUID="
        << device->GetUUID().GetChars() << endl;
   clog << "UpnpParentParing::OnDeviceAdded()::device->GetURLBase()->"
-          "GetSCPDURL=" << device->GetURLBase().ToString().GetChars() << endl;
-  clog << "UpnpParentParing::OnDeviceAdded()::device->GetServices()[0]->"
-          "GetSCPDURL=" << device->GetServices()[0]->GetSCPDURL().GetChars()
-       << endl;
+       << device->GetURLBase().ToString().GetChars() << endl;
 
   PLT_Service *parent_paring_service;
   if (!device->GetType().Compare(UpnpFsmdaUtils::kCpmDeviceType)) {
@@ -148,7 +144,8 @@ NPT_Result UpnpParentParing::OnDeviceAdded(PLT_DeviceDataReference &device) {
       action->SetArgumentValue("classFunction", "applicationId");
       (*ctrl_point_)->InvokeAction(action, 0);
     }
-    clog << "--->discoverd_cpm_.push_back(device)" << endl;
+    clog << "UpnpParentParing::OnDeviceAdded():: "
+            "discoverd_cpm_.push_back(device)" << endl;
     discoverd_cpm_.push_back(device);
     return NPT_SUCCESS;
   } else {

@@ -1,38 +1,80 @@
 #include <string>
+#include <iostream>
 #include "fsmda/communication/model/passive_object_interfaces.h"
 #include "fsmda/communication/upnp_active_ccm.h"
 #include "fsmda/communication/upnp_mediacapture_ccm.h"
 #include "fsmda/communication/upnp_passive_ccm.h"
 #include "fsmda/communication/upnp_ondemand_ccm.h"
 #include "fsmda/paring/child_paring_manager.h"
+#include "fsmda/paring/device_description.h"
 #include "fsmda/paring/device_class_description.h"
 
+using std::clog;
+using std::endl;
 /*----------------------------------------------------------------------
  |   ChildParingManager::ChildParingManager
  +---------------------------------------------------------------------*/
-ChildParingManager::ChildParingManager(DeviceDescription* device_description)
-    : device_description_(device_description), upnp_child_paring_(NULL) {}
+ChildParingManager::ChildParingManager(
+    const DeviceDescription& device_description)
+    : upnp_child_paring_(NULL) {
+
+  device_description_ = new DeviceDescription(device_description);
+}
 
 /*----------------------------------------------------------------------
  |   ChildParingManager::~ChildParingManager
  +---------------------------------------------------------------------*/
-ChildParingManager::~ChildParingManager() {}
+ChildParingManager::~ChildParingManager() {
+  if (upnp_child_paring_ != NULL) delete upnp_child_paring_;
+  delete device_description_;
+}
 
 /*----------------------------------------------------------------------
  |   ChildParingManager::StartParing
  +---------------------------------------------------------------------*/
-int ChildParingManager::StartParing() {}
+int ChildParingManager::StartParing() {
+  clog << "ChildParingManager::StartParing()::" << endl;
+  if (device_description_->paring_method() ==
+      DeviceClassDescription::kUpnpParingProcotol) {
+    if (upnp_child_paring_ == NULL) {
+      upnp_child_paring_ = new UpnpChildParing(this);
+    }
+    return upnp_child_paring_->StartParingService();
+  } else
+    return -1;
+}
 
 /*----------------------------------------------------------------------
  |   ChildParingManager::StopParing
  +---------------------------------------------------------------------*/
-int ChildParingManager::StopParing() {}
+int ChildParingManager::StopParing() {
+  if (upnp_child_paring_ != NULL &&
+      device_description_->paring_method() ==
+          DeviceClassDescription::kUpnpParingProcotol) {
+    return upnp_child_paring_->StopParingService();
+  }
+  return 0;
+}
 
 /*----------------------------------------------------------------------
  |   ChildParingManager::IsParingStarted
  +---------------------------------------------------------------------*/
-bool ChildParingManager::IsParingStarted() {}
+bool ChildParingManager::IsParingStarted() {
+  if (upnp_child_paring_ != NULL &&
+      device_description_->paring_method() ==
+          DeviceClassDescription::kUpnpParingProcotol) {
+    return upnp_child_paring_->IsParingServiceStarted();
+  } else
+    return false;
+}
 
+/*----------------------------------------------------------------------
+ |   ChildParingManager::ClassAnnouncement
+ +---------------------------------------------------------------------*/
+void ChildParingManager::ClassAnnouncement(const string& application_id,
+                                           unsigned int class_index,
+                                           const string& class_desc,
+                                           const string& class_function) {}
 /*----------------------------------------------------------------------
  |   ChildParingManager::CreateActiveCc
  +---------------------------------------------------------------------*/
@@ -80,8 +122,3 @@ MediaCaptureCcmInterface* ChildParingManager::CreateMediaCaptureCcm(
   else
     return NULL;
 }
-
-void ChildParingManager::ClassAnnouncement(const string& application_id,
-                                           unsigned int class_index,
-                                           const string& class_desc,
-                                           const string& class_function) {}

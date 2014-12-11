@@ -25,7 +25,6 @@ class UpnpParingTest : public ::testing::Test {
   UpnpParentParing* upnp_parent_paring_;
   ChildParingManager* child_paring_manager_;
   UpnpChildParing* upnp_child_paring_;
-  DeviceDescription* device_description_;
 
   void SetUp() {
     // test if upnp is running
@@ -34,21 +33,18 @@ class UpnpParingTest : public ::testing::Test {
 
     // constructors
     parent_paring_manager_ = new ParentParingManager();
-    device_description_ = new DeviceDescription();
-    device_description_->InitializeByDeviceClass(
+    DeviceDescription description_aux;
+    description_aux.InitializeByDeviceClass(
         DeviceClassDescription::kFsmdaActiveDevice);
-    child_paring_manager_ = new ChildParingManager(device_description_);
+    child_paring_manager_ = new ChildParingManager(description_aux);
     upnp_parent_paring_ = new UpnpParentParing(parent_paring_manager_);
     upnp_child_paring_ = new UpnpChildParing(child_paring_manager_);
   }
 
   void TearDown() {
     // release poniters
-    delete upnp_parent_paring_;
-    delete upnp_child_paring_;
     delete parent_paring_manager_;
     delete child_paring_manager_;
-    delete device_description_;
 
     // test if upnp is running
     EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 0);

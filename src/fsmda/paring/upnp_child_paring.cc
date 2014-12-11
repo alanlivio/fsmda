@@ -20,7 +20,7 @@ using std::endl;
 /*----------------------------------------------------------------------
  |   UpnpChildParing::UpnpChildParing
  +---------------------------------------------------------------------*/
-UpnpChildParing::UpnpChildParing(ChildParingManager* child_paring_manager)
+UpnpChildParing::UpnpChildParing(ChildParingManager *child_paring_manager)
     : PLT_DeviceHost("/", NULL, UpnpFsmdaUtils::kCpmDeviceType,
                      UpnpFsmdaUtils::kCpmDeviceFriendlyName, true, 0, true),
       upnp_instance_(NULL),
@@ -67,8 +67,9 @@ NPT_Result UpnpChildParing::SetupServices() {
  +---------------------------------------------------------------------*/
 NPT_Result UpnpChildParing::OnAction(PLT_ActionReference &action,
                                      const PLT_HttpRequestContext &context) {
-  clog << "UpnpChildParing::OnAction()" << endl;
   NPT_String name = action->GetActionDesc().GetName();
+  clog << "UpnpChildParing::OnAction()::action.name=" << name.GetChars()
+       << endl;
 
   // handling classAnnouncement call
   if (name.Compare("classAnnouncement") == 0) {
@@ -84,7 +85,7 @@ NPT_Result UpnpChildParing::OnAction(PLT_ActionReference &action,
          << application_id.GetChars() << "," << class_index << ","
          << class_desc.GetChars() << "," << class_function.GetChars() << ")"
          << endl;
-    clog << "--->paired_with_parent_= true" << endl;
+    clog << "UpnpChildParing::OnAction()::paired_with_parent_= true" << endl;
     paired_with_parent_ = true;
     if (child_paring_manager_ != NULL) {
       child_paring_manager_->ClassAnnouncement(
@@ -108,7 +109,6 @@ NPT_Result UpnpChildParing::OnActionResponse(NPT_Result res,
 NPT_Result UpnpChildParing::OnDeviceRemoved(PLT_DeviceDataReference &device) {}
 
 NPT_Result UpnpChildParing::OnDeviceAdded(PLT_DeviceDataReference &device) {
-  clog << "UpnpChildParing::OnDeviceAdded()" << endl;
   clog << "UpnpChildParing::OnDeviceAdded()::device->GetFriendlyName="
        << device->GetFriendlyName().GetChars() << endl;
   clog << "UpnpChildParing::OnDeviceAdded()::device->GetType="
@@ -116,10 +116,7 @@ NPT_Result UpnpChildParing::OnDeviceAdded(PLT_DeviceDataReference &device) {
   clog << "UpnpChildParing::OnDeviceAdded()::device->GetUUID="
        << device->GetUUID().GetChars() << endl;
   clog << "UpnpChildParing::OnDeviceAdded()::device->GetURLBase()->"
-          "GetSCPDURL=" << device->GetURLBase().ToString().GetChars() << endl;
-  clog << "UpnpChildParing::OnDeviceAdded()::device->GetServices()[0]->"
-          "GetSCPDURL=" << device->GetServices()[0]->GetSCPDURL().GetChars()
-       << endl;
+       << device->GetURLBase().ToString().GetChars() << endl;
 
   PLT_Service *parent_paring_service;
   if (!device->GetType().Compare(UpnpFsmdaUtils::kPpmDeviceType)) {
@@ -134,7 +131,7 @@ NPT_Result UpnpChildParing::OnDeviceAdded(PLT_DeviceDataReference &device) {
  |   UpnpChildParing::StartParingService
  +---------------------------------------------------------------------*/
 int UpnpChildParing::StartParingService() {
-  clog << "UpnpChildParing::StartService" << endl;
+  clog << "UpnpChildParing::StartService()" << endl;
   if (upnp_instance_ == NULL) {
     upnp_instance_ = UpnpFsmdaUtils::GetRunningUpnpInstance();
   }
@@ -142,11 +139,11 @@ int UpnpChildParing::StartParingService() {
   res = upnp_instance_->AddDevice(*device_host_);
   res = upnp_instance_->AddCtrlPoint(*ctrl_point_);
   (*ctrl_point_)->AddListener(this);
-  if (res != NPT_SUCCESS) {
-    return -1;
-  } else {
+  clog << "UpnpChildParing::StartService()::NPT_Result res="<< NPT_ResultText(res) << endl;
+  if (res == NPT_SUCCESS) {
     return 0;
-  }
+  } else
+    return -1;
 }
 
 /*----------------------------------------------------------------------
