@@ -18,7 +18,7 @@ using std::map;
 class ChildParingManager : public DeviceParingCpmInterface {
  public:
   // public constructors & destructors
-  ChildParingManager();
+  explicit ChildParingManager(DeviceDescription* device_description);
   virtual ~ChildParingManager();
 
   // DeviceParingCpmInterface overloaded methods
@@ -35,7 +35,7 @@ class ChildParingManager : public DeviceParingCpmInterface {
 
  private:
   map<unsigned int, DeviceClassDescription*> device_class_description_map_;
-  DeviceDescription * device_description_;
+  DeviceDescription* device_description_;
   UpnpChildParing* upnp_child_paring_;
 };
 

@@ -46,7 +46,7 @@ void ParentParingManager::AddClassDescription(
       new DeviceClassDescription();
   device_class_description->InitializeByDeviceClass(
       DeviceClassDescription::GetDeviceClassTypeByString(class_type));
-  // TODO: change  to Initialize passing paremeters
+  // TODO(alanlivio@gmail.com): change  to Initialize passing paremeters
   AddClassDescription(application_id, class_index, device_class_description);
 }
 

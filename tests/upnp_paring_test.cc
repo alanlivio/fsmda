@@ -3,6 +3,8 @@
  +---------------------------------------------------------------------*/
 #include <cstdlib>
 #include <iostream>
+#include "fsmda/paring/device_description.h"
+#include "fsmda/paring/device_class_description.h"
 #include "fsmda/communication/upnp_ondemand_ccm.h"
 #include "fsmda/paring/parent_paring_manager.h"
 #include "fsmda/paring/child_paring_manager.h"
@@ -22,7 +24,8 @@ class UpnpParingTest : public ::testing::Test {
   ParentParingManager* parent_paring_manager_;
   UpnpParentParing* upnp_parent_paring_;
   ChildParingManager* child_paring_manager_;
-  UpnpChildParing* upnp_child_paring;
+  UpnpChildParing* upnp_child_paring_;
+  DeviceDescription* device_description_;
 
   void SetUp() {
     // test if upnp is running
@@ -31,17 +34,21 @@ class UpnpParingTest : public ::testing::Test {
 
     // constructors
     parent_paring_manager_ = new ParentParingManager();
-    child_paring_manager_ = new ChildParingManager();
+    device_description_ = new DeviceDescription();
+    device_description_->InitializeByDeviceClass(
+        DeviceClassDescription::kFsmdaActiveDevice);
+    child_paring_manager_ = new ChildParingManager(device_description_);
     upnp_parent_paring_ = new UpnpParentParing(parent_paring_manager_);
-    upnp_child_paring = new UpnpChildParing(child_paring_manager_);
+    upnp_child_paring_ = new UpnpChildParing(child_paring_manager_);
   }
 
   void TearDown() {
     // release poniters
     delete upnp_parent_paring_;
-    delete upnp_child_paring;
+    delete upnp_child_paring_;
     delete parent_paring_manager_;
     delete child_paring_manager_;
+    delete device_description_;
 
     // test if upnp is running
     EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 0);
@@ -51,8 +58,8 @@ class UpnpParingTest : public ::testing::Test {
 
 TEST_F(UpnpParingTest, SameProcessParing) {
   // start child paring service
-  EXPECT_EQ(upnp_child_paring->StartParingService(), 0);
-  EXPECT_TRUE(upnp_child_paring->IsParingServiceStarted());
+  EXPECT_EQ(upnp_child_paring_->StartParingService(), 0);
+  EXPECT_TRUE(upnp_child_paring_->IsParingServiceStarted());
   EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 1);
 
   // start parent paring service
@@ -62,11 +69,11 @@ TEST_F(UpnpParingTest, SameProcessParing) {
 
   // test if child is paired
   sleep(1);
-  EXPECT_TRUE(upnp_child_paring->IsPaired());
+  EXPECT_TRUE(upnp_child_paring_->IsPaired());
 
   // stop child paring service
-  EXPECT_EQ(upnp_child_paring->StopParingService(), 0);
-  EXPECT_FALSE(upnp_child_paring->IsParingServiceStarted());
+  EXPECT_EQ(upnp_child_paring_->StopParingService(), 0);
+  EXPECT_FALSE(upnp_child_paring_->IsParingServiceStarted());
   EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 1);
 
   // stop parent paring service
@@ -76,8 +83,8 @@ TEST_F(UpnpParingTest, SameProcessParing) {
 
 TEST_F(UpnpParingTest, DiferentProcessesParing) {
   // start child paring service
-  EXPECT_EQ(upnp_child_paring->StartParingService(), 0);
-  EXPECT_TRUE(upnp_child_paring->IsParingServiceStarted());
+  EXPECT_EQ(upnp_child_paring_->StartParingService(), 0);
+  EXPECT_TRUE(upnp_child_paring_->IsParingServiceStarted());
   EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 1);
 
   // start parent paring service
@@ -85,10 +92,10 @@ TEST_F(UpnpParingTest, DiferentProcessesParing) {
 
   // test if child is paired
   sleep(1);
-  EXPECT_TRUE(upnp_child_paring->IsPaired());
+  EXPECT_TRUE(upnp_child_paring_->IsPaired());
 
   // stop child paring service
-  EXPECT_EQ(upnp_child_paring->StopParingService(), 0);
-  EXPECT_FALSE(upnp_child_paring->IsParingServiceStarted());
+  EXPECT_EQ(upnp_child_paring_->StopParingService(), 0);
+  EXPECT_FALSE(upnp_child_paring_->IsParingServiceStarted());
   EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 0);
 }

@@ -23,7 +23,10 @@ class DeviceDescription {
   DeviceClassDescription::ParingProtocol paring_method() {
     return paring_method_;
   }
+  bool IsInitialize() { return initialized_; }
   int InitializeByRdfFile(const string& rdf_file);
+  int InitializeByDeviceClass(
+      DeviceClassDescription::DeviceClassType device_class_type);
 
  private:
   // private fields

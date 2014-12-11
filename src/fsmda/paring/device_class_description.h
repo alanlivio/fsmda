@@ -64,7 +64,7 @@ class DeviceClassDescription {
   unsigned int max_devices() { return max_devices_; }
   bool DeviceMeetRequirements(DeviceDescription* device_desc);
   int InitializeByDeviceClass(DeviceClassType type);
-  int InitializeByParseRdfFile(const string& rdf_file);
+  int InitializeByRdfFile(const string& rdf_file);
 
  private:
   // private fields

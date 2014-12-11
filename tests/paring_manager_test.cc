@@ -28,7 +28,6 @@ class ParingManagerTest : public ::testing::Test {
 
     // constructors
     parent_paring_manager_ = new ParentParingManager();
-    child_paring_manager_ = new ChildParingManager();
     device_description_ = new DeviceDescription();
     device_class_description_ = new DeviceClassDescription();
   }
@@ -38,7 +37,6 @@ class ParingManagerTest : public ::testing::Test {
     delete device_description_;
     delete device_class_description_;
     delete parent_paring_manager_;
-    delete child_paring_manager_;
 
     // test if upnp is running
     EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 0);
@@ -53,7 +51,7 @@ TEST_F(ParingManagerTest, DeviceDescriptionMatching) {
   device_description_->InitializeByRdfFile(device_rdf_);
   EXPECT_EQ(device_description_->device_class_type(),
             DeviceClassDescription::kFsmdaPassiveDevice);
-  EXPECT_EQ(device_class_description_->InitializeByParseRdfFile(
+  EXPECT_EQ(device_class_description_->InitializeByRdfFile(
                 device_class_description_rdf_),
             0);
   EXPECT_EQ(device_class_description_->device_class_type(),
@@ -67,7 +65,7 @@ TEST_F(ParingManagerTest, DeviceDescriptionMatching) {
   EXPECT_EQ(device_description_->InitializeByRdfFile(device_rdf_), 0);
   EXPECT_EQ(device_description_->device_class_type(),
             DeviceClassDescription::kFsmdaActiveDevice);
-  EXPECT_EQ(device_class_description_->InitializeByParseRdfFile(
+  EXPECT_EQ(device_class_description_->InitializeByRdfFile(
                 device_class_description_rdf_),
             0);
   EXPECT_EQ(device_class_description_->device_class_type(),
@@ -81,7 +79,7 @@ TEST_F(ParingManagerTest, DeviceDescriptionMatching) {
   EXPECT_EQ(device_description_->InitializeByRdfFile(device_rdf_), 0);
   EXPECT_EQ(device_description_->device_class_type(),
             DeviceClassDescription::kFsmdaHtmlDevice);
-  EXPECT_EQ(device_class_description_->InitializeByParseRdfFile(
+  EXPECT_EQ(device_class_description_->InitializeByRdfFile(
                 device_class_description_rdf_),
             0);
   EXPECT_EQ(device_class_description_->device_class_type(),
@@ -95,7 +93,7 @@ TEST_F(ParingManagerTest, DeviceDescriptionMatching) {
   EXPECT_EQ(device_description_->InitializeByRdfFile(device_rdf_), 0);
   EXPECT_EQ(device_description_->device_class_type(),
             DeviceClassDescription::kFsmdaOnDemandDevice);
-  EXPECT_EQ(device_class_description_->InitializeByParseRdfFile(
+  EXPECT_EQ(device_class_description_->InitializeByRdfFile(
                 device_class_description_rdf_),
             0);
   EXPECT_EQ(device_class_description_->device_class_type(),
@@ -109,7 +107,7 @@ TEST_F(ParingManagerTest, DeviceDescriptionMatching) {
   EXPECT_EQ(device_description_->InitializeByRdfFile(device_rdf_), 0);
   EXPECT_EQ(device_description_->device_class_type(),
             DeviceClassDescription::kFsmdaMediaCaptureDevice);
-  EXPECT_EQ(device_class_description_->InitializeByParseRdfFile(
+  EXPECT_EQ(device_class_description_->InitializeByRdfFile(
                 device_class_description_rdf_),
             0);
   EXPECT_EQ(device_class_description_->device_class_type(),

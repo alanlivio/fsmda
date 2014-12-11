@@ -31,6 +31,16 @@ DeviceDescription::DeviceDescription()
 DeviceDescription::~DeviceDescription() {}
 
 /*----------------------------------------------------------------------
+ |   DeviceDescription::InitializeByDeviceClass
+ +---------------------------------------------------------------------*/
+int DeviceDescription::InitializeByDeviceClass(
+    DeviceClassDescription::DeviceClassType device_class_type) {
+  class_type_ = device_class_type;
+  paring_method_ = DeviceClassDescription::kUpnpParingProcotol;
+  initialized_ = true;
+}
+
+/*----------------------------------------------------------------------
  |   DeviceDescription::InitializeByRdfFile
  +---------------------------------------------------------------------*/
 int DeviceDescription::InitializeByRdfFile(const string& rdf_file) {

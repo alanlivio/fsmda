@@ -80,7 +80,7 @@ int DeviceClassDescription::InitializeByDeviceClass(DeviceClassType type) {
 /*----------------------------------------------------------------------
  |   DeviceClassDescription::InitializeByParseRdfFile
  +---------------------------------------------------------------------*/
-int DeviceClassDescription::InitializeByParseRdfFile(const string& rdf_file) {
+int DeviceClassDescription::InitializeByRdfFile(const string& rdf_file) {
   int ret;
   xmlXPathContextPtr xpathCtx;
   xmlXPathObjectPtr xpathObj;
