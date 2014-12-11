@@ -16,60 +16,64 @@
 using std::cout;
 using std::endl;
 
-TEST(UpnpCommunication, Constructors) {
-  // test if upnp is running
-  EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 0);
-  EXPECT_FALSE(UpnpFsmdaUtils::IsUpnpRunning());
+class UpnpCommunicationTest : public ::testing::Test {
+ public:
+  UpnpCommunicationTest() {}
+  ~UpnpCommunicationTest() {}
+  UpnpActivePcm* active_pcm_;
+  UpnpActiveCcm* active_ccm_;
+  UpnpMediaCapturePcm* mediacapture_pcm_;
+  UpnpMediaCaptureCcm* mediacapture_ccm_;
+  UpnpOnDemandPcm* ondemand_pcm_;
+  UpnpOnDemandCcm* ondemand_ccm_;
+  UpnpPassivePcm* passive_pcm_;
+  UpnpPassiveCcm* passive_ccm_;
 
-  // constructors tests
-  UpnpActivePcm* active_pcm = new UpnpActivePcm();
-  EXPECT_TRUE(active_pcm != NULL);
-  UpnpActiveCcm* active_ccm = new UpnpActiveCcm();
-  EXPECT_TRUE(active_ccm != NULL);
-  UpnpMediaCapturePcm* mediacapture_pcm = new UpnpMediaCapturePcm();
-  EXPECT_TRUE(mediacapture_pcm != NULL);
-  UpnpMediaCaptureCcm* mediacapture_ccm = new UpnpMediaCaptureCcm();
-  EXPECT_TRUE(mediacapture_ccm != NULL);
-  UpnpOnDemandPcm* ondemand_pcm = new UpnpOnDemandPcm();
-  EXPECT_TRUE(ondemand_pcm != NULL);
-  UpnpOnDemandCcm* ondemand_ccm = new UpnpOnDemandCcm();
-  EXPECT_TRUE(ondemand_ccm != NULL);
-  UpnpPassivePcm* passive_pcm = new UpnpPassivePcm();
-  EXPECT_TRUE(passive_pcm != NULL);
-  UpnpPassiveCcm* passive_ccm = new UpnpPassiveCcm();
-  EXPECT_TRUE(passive_ccm != NULL);
+  void SetUp() {
+    // test if upnp is running
+    EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 0);
+    EXPECT_FALSE(UpnpFsmdaUtils::IsUpnpRunning());
 
-  // release poniters
-  delete active_pcm;
-  delete active_ccm;
-  delete mediacapture_pcm;
-  delete mediacapture_ccm;
-  delete ondemand_pcm;
-  delete ondemand_ccm;
-  delete passive_pcm;
-  delete passive_ccm;
+    // constructors tests
+    active_pcm_ = new UpnpActivePcm();
+    EXPECT_TRUE(active_pcm_ != NULL);
+    active_ccm_ = new UpnpActiveCcm();
+    EXPECT_TRUE(active_ccm_ != NULL);
+    mediacapture_pcm_ = new UpnpMediaCapturePcm();
+    EXPECT_TRUE(mediacapture_pcm_ != NULL);
+    mediacapture_ccm_ = new UpnpMediaCaptureCcm();
+    EXPECT_TRUE(mediacapture_ccm_ != NULL);
+    ondemand_pcm_ = new UpnpOnDemandPcm();
+    EXPECT_TRUE(ondemand_pcm_ != NULL);
+    ondemand_ccm_ = new UpnpOnDemandCcm();
+    EXPECT_TRUE(ondemand_ccm_ != NULL);
+    passive_pcm_ = new UpnpPassivePcm();
+    EXPECT_TRUE(passive_pcm_ != NULL);
+    passive_ccm_ = new UpnpPassiveCcm();
+    EXPECT_TRUE(passive_ccm_ != NULL);
+  }
 
-  // test if upnp is running
-  EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 0);
-  EXPECT_FALSE(UpnpFsmdaUtils::IsUpnpRunning());
-}
+  void TearDown() {
+    // release poniters
+    delete active_pcm_;
+    delete active_ccm_;
+    delete mediacapture_pcm_;
+    delete mediacapture_ccm_;
+    delete ondemand_pcm_;
+    delete ondemand_ccm_;
+    delete passive_pcm_;
+    delete passive_ccm_;
 
-TEST(UpnpCommunication, UpnpOnDemandCcm) {
-  // test if upnp is running
-  EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 0);
-  EXPECT_FALSE(UpnpFsmdaUtils::IsUpnpRunning());
+    // test if upnp is running
+    EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 0);
+    EXPECT_FALSE(UpnpFsmdaUtils::IsUpnpRunning());
+  }
+};
 
+TEST_F(UpnpCommunicationTest, UpnpOnDemandCcm) {
   // ondemand class description initialize and meet_requirements tests
-  UpnpOnDemandCcm* ondemand_ccm = new UpnpOnDemandCcm();
-  ondemand_ccm->StartCommunicationService();
-  EXPECT_TRUE(ondemand_ccm->IsServiceStartd());
-  ondemand_ccm->StopCommunicationService();
-  EXPECT_FALSE(ondemand_ccm->IsServiceStartd());
-
-  // release poniters
-  delete ondemand_ccm;
-
-  // test if upnp is running
-  EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 0);
-  EXPECT_FALSE(UpnpFsmdaUtils::IsUpnpRunning());
+  ondemand_ccm_->StartCommunicationService();
+  EXPECT_TRUE(ondemand_ccm_->IsServiceStartd());
+  ondemand_ccm_->StopCommunicationService();
+  EXPECT_FALSE(ondemand_ccm_->IsServiceStartd());
 }
