@@ -33,8 +33,8 @@ class UpnpPairingTest : public ::testing::Test {
 
     // constructors
     parent_pairing_manager_ = new ParentPairingManager();
-    DeviceDescription description_aux;
-    description_aux.InitializeByDeviceClass(
+    DeviceDescription* description_aux  = new DeviceDescription();
+    description_aux->InitializeByDeviceClass(
         DeviceClassDescription::kActiveDevice);
     child_pairing_manager_ = new ChildPairingManager(description_aux);
     upnp_parent_pairing_ = new UpnpParentPairing();

@@ -12,11 +12,10 @@ using std::endl;
 /*----------------------------------------------------------------------
  |   ChildPairingManager::ChildPairingManager
  +---------------------------------------------------------------------*/
-ChildPairingManager::ChildPairingManager(
-    const DeviceDescription& device_description)
+ChildPairingManager::ChildPairingManager(DeviceDescription* device_description)
     : upnp_child_pairing_(NULL) {
 
-  device_description_ = new DeviceDescription(device_description);
+  device_description_ = device_description;
 }
 
 /*----------------------------------------------------------------------

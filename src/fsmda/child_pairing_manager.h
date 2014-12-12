@@ -24,7 +24,7 @@ using std::map;
 class ChildPairingManager : public DevicePairingCpmInterface {
  public:
   // public constructors & destructors
-  explicit ChildPairingManager(const DeviceDescription& device_description);
+  explicit ChildPairingManager(DeviceDescription* device_description);
   virtual ~ChildPairingManager();
 
   // public methods

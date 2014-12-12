@@ -39,8 +39,9 @@ void PairingWithOneDeviceHelper(
   EXPECT_FALSE(UpnpFsmdaUtils::IsUpnpStarted());
 
   // add a device class
-  DeviceClassDescription device_class_description;
-  EXPECT_EQ(device_class_description.InitializeByRdfFile(
+  DeviceClassDescription* device_class_description =
+      new DeviceClassDescription();
+  EXPECT_EQ(device_class_description->InitializeByRdfFile(
                 device_class_description_rdf),
             0);
   string app_id;
@@ -50,17 +51,17 @@ void PairingWithOneDeviceHelper(
       parent_pairing_manager->GenerateAvaliableIndex(app_id);
   parent_pairing_manager->AddClass(app_id, class_index);
   parent_pairing_manager->AddClassDescription(app_id, class_index,
-                                              &device_class_description);
+                                              device_class_description);
   EXPECT_EQ(parent_pairing_manager->GetNumberOfRegistredClasses(app_id), 1);
 
   // add a device
-  DeviceDescription device_description;
-  EXPECT_EQ(device_description.InitializeByRdfFile(device_rdf), 0);
+  DeviceDescription* device_description = new DeviceDescription();
+  EXPECT_EQ(device_description->InitializeByRdfFile(device_rdf), 0);
   ChildPairingManager* child_pairing_manager =
       new ChildPairingManager(device_description);
 
-  EXPECT_EQ(device_description.device_class_type(), expected_device_class_type);
-  EXPECT_EQ(device_class_description.device_class_type(),
+  EXPECT_EQ(device_description->device_class_type(), expected_device_class_type);
+  EXPECT_EQ(device_class_description->device_class_type(),
             expected_device_class_type);
 
   // start parent pairing service
