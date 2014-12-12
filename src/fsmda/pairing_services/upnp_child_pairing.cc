@@ -16,7 +16,7 @@ UpnpChildPairing::UpnpChildPairing()
                      UpnpFsmdaUtils::kCpmDeviceFriendlyName, true, 0, true),
       upnp_instance_(NULL),
       child_pairing_manager_(NULL),
-      paired_(false) {
+      performed_handshake_(false) {
   m_ModelDescription = UpnpFsmdaUtils::kCpmDeviceModelDescription;
   m_ModelURL = UpnpFsmdaUtils::kCpmDeviceModelUrl;
   m_ModelNumber = UpnpFsmdaUtils::kCpmDeviceModelNumber;
@@ -84,7 +84,7 @@ NPT_Result UpnpChildPairing::OnAction(PLT_ActionReference &action,
          << class_desc.GetChars() << "," << class_function.GetChars() << ")"
          << endl;
     clog << "UpnpChildPairing::OnAction()::paired_with_parent_= true" << endl;
-    paired_ = true;
+    performed_handshake_ = true;
     if (child_pairing_manager_ != NULL) {
       child_pairing_manager_->ClassAnnouncement(
           application_id.GetChars(), class_index, class_desc.GetChars(),

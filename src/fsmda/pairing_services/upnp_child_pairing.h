@@ -49,10 +49,10 @@ class UpnpChildPairing : public PLT_DeviceHost,
   virtual int StartPairingService();
   virtual int StopPairingService();
   virtual bool IsPairingServiceStarted() { return m_Started; }
-  bool IsPaired() { return paired_; }
+  virtual bool PerformedHandShake() { return performed_handshake_; }
 
  private:
-  bool paired_;
+  bool performed_handshake_;
   PLT_UPnP* upnp_instance_;
   PLT_DeviceHostReference* device_host_;
   PLT_Service* device_service_;

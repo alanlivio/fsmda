@@ -72,7 +72,7 @@ bool ChildPairingManager::IsPaired() {
   if (upnp_child_pairing_ != NULL &&
       device_description_->pairing_method() ==
           DeviceClassDescription::kUpnpPairingProcotol) {
-    return upnp_child_pairing_->IsPaired();
+    return upnp_child_pairing_->PerformedHandShake();
   } else {
     return false;
   }

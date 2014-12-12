@@ -36,7 +36,7 @@ class ChildPairingServiceInterface {
   virtual int StartPairingService() = 0;
   virtual int StopPairingService() = 0;
   virtual bool IsPairingServiceStarted() = 0;
-  virtual bool IsPaired() = 0;
+  virtual bool PerformedHandShake() = 0;
 };
 
 #endif  // FSMDA_PAIRING_SERVICES_PAIRING_SERVICE_INTERFACE_H_

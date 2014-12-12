@@ -41,7 +41,7 @@ void PairingWithOnDeviceInSameProcessHelper(
 
   // test if child is paired
   sleep(1);
-  EXPECT_TRUE(upnp_child_pairing->IsPaired());
+  EXPECT_TRUE(upnp_child_pairing->PerformedHandShake());
 
   // stop parent pairing service
   EXPECT_EQ(upnp_parent_pairing->StopPairingService(), 0);
@@ -81,7 +81,7 @@ void PairingWithOnDeviceInDiferentProcessesHelper(
 
   // test if child is paired
   sleep(1);
-  EXPECT_TRUE(upnp_child_pairing->IsPaired());
+  EXPECT_TRUE(upnp_child_pairing->PerformedHandShake());
   // TODO(alan@telemidia.puc-rio.br): use class_type as program parameter
 
   // stop child pairing service
