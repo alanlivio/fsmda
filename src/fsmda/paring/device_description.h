@@ -4,9 +4,9 @@
 /*----------------------------------------------------------------------
  |   includes
  +---------------------------------------------------------------------*/
+#include <libxml/tree.h>
 #include <string>
 #include "fsmda/paring/device_class_description.h"
-#include "libxml/tree.h"
 
 using std::string;
 

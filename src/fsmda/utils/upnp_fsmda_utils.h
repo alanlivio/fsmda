@@ -5,8 +5,11 @@
  |   include
  +---------------------------------------------------------------------*/
 
-#include "PltUPnP.h"
 #include <string>
+#include <NptList.h>
+#include <NptLogging.h>
+#include <PltUPnP.h>
+
 using std::string;
 
 /*----------------------------------------------------------------------

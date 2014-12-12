@@ -4,12 +4,11 @@
 /*----------------------------------------------------------------------
  |   includes
  +---------------------------------------------------------------------*/
-
-#include "NptTypes.h"
-#include "PltAction.h"
-#include "PltDeviceHost.h"
-#include "PltHttp.h"
-#include "PltUPnP.h"
+#include <NptTypes.h>
+#include <PltAction.h>
+#include <PltDeviceHost.h>
+#include <PltHttp.h>
+#include <PltUPnP.h>
 #include <PltCtrlPoint.h>
 #include "fsmda/paring/paring_service_interface.h"
 #include "fsmda/paring/model/device_paring_interfaces.h"

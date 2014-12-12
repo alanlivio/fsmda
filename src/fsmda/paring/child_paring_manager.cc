@@ -40,8 +40,9 @@ int ChildParingManager::StartParing() {
       upnp_child_paring_ = new UpnpChildParing(this);
     }
     return upnp_child_paring_->StartParingService();
-  } else
+  } else {
     return -1;
+  }
 }
 
 /*----------------------------------------------------------------------
@@ -64,8 +65,9 @@ bool ChildParingManager::IsParingStarted() {
       device_description_->paring_method() ==
           DeviceClassDescription::kUpnpParingProcotol) {
     return upnp_child_paring_->IsParingServiceStarted();
-  } else
+  } else {
     return false;
+  }
 }
 
 /*----------------------------------------------------------------------

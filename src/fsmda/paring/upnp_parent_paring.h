@@ -7,13 +7,13 @@
 
 #include <string>
 #include <vector>
+#include <NptTypes.h>
+#include <PltDeviceHost.h>
+#include <PltUPnP.h>
+#include <PltCtrlPoint.h>
 #include "fsmda/paring/paring_service_interface.h"
 #include "fsmda/paring/model/class_handling_interfaces.h"
 #include "fsmda/paring/model/device_paring_interfaces.h"
-#include "NptTypes.h"
-#include "PltDeviceHost.h"
-#include "PltUPnP.h"
-#include "PltCtrlPoint.h"
 
 using std::string;
 using std::vector;

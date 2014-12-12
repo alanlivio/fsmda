@@ -1,18 +1,17 @@
 /*----------------------------------------------------------------------
  |   includes
  +---------------------------------------------------------------------*/
-
 #include <iostream>
 #include <string>
+#include <NptConfig.h>
+#include <NptResults.h>
+#include <NptStrings.h>
+#include <PltFileMediaServer.h>
+#include <PltService.h>
+#include <PltStateVariable.h>
 #include "fsmda/paring/upnp_child_paring.h"
 #include "fsmda/paring/child_paring_manager.h"
 #include "fsmda/utils/upnp_fsmda_utils.h"
-#include "NptConfig.h"
-#include "NptResults.h"
-#include "NptStrings.h"
-#include "PltFileMediaServer.h"
-#include "PltService.h"
-#include "PltStateVariable.h"
 
 using std::clog;
 using std::endl;
@@ -139,11 +138,13 @@ int UpnpChildParing::StartParingService() {
   res = upnp_instance_->AddDevice(*device_host_);
   res = upnp_instance_->AddCtrlPoint(*ctrl_point_);
   (*ctrl_point_)->AddListener(this);
-  clog << "UpnpChildParing::StartService()::NPT_Result res="<< NPT_ResultText(res) << endl;
+  clog << "UpnpChildParing::StartService()::NPT_Result res="
+       << NPT_ResultText(res) << endl;
   if (res == NPT_SUCCESS) {
     return 0;
-  } else
+  } else {
     return -1;
+  }
 }
 
 /*----------------------------------------------------------------------

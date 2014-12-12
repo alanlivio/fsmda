@@ -4,16 +4,16 @@
 
 #include <iostream>
 #include <string>
+#include <NptConfig.h>
+#include <NptResults.h>
+#include <NptStrings.h>
+#include <PltFileMediaServer.h>
+#include <PltService.h>
+#include <PltStateVariable.h>
+#include <string>
 #include "fsmda/paring/parent_paring_manager.h"
 #include "fsmda/paring/upnp_parent_paring.h"
 #include "fsmda/utils/upnp_fsmda_utils.h"
-#include "NptResults.h"
-#include "NptStrings.h"
-#include "NptTypes.h"
-#include "PltAction.h"
-#include "PltHttp.h"
-#include "PltService.h"
-#include "PltStateVariable.h"
 
 using std::clog;
 using std::endl;
@@ -69,7 +69,8 @@ NPT_Result UpnpParentParing::SetupServices() {
 NPT_Result UpnpParentParing::OnAction(PLT_ActionReference &action,
                                       const PLT_HttpRequestContext &context) {
   NPT_String name = action->GetActionDesc().GetName();
-  clog << "UpnpParentParing::OnAction()::action.name=" << name.GetChars() << endl;
+  clog << "UpnpParentParing::OnAction()::action.name=" << name.GetChars()
+       << endl;
 
   if (name.Compare("addDeviceToClass") == 0) {
     // handling addDeviceToClass call
