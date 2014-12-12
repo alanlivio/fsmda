@@ -6,26 +6,11 @@
 #include "fsmda/utils/upnp_fsmda_utils.h"
 #include "gtest/gtest.h"
 
-class UpnpUtilsTest : public ::testing::Test {
- public:
-  UpnpUtilsTest() {}
-  ~UpnpUtilsTest() {}
-  PLT_UPnP* upnp_reference_;
-
-  void SetUp() {
-    // test if upnp is running
-    EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 0);
-    EXPECT_FALSE(UpnpFsmdaUtils::IsUpnpStarted());
-  }
-
-  void TearDown() {
-    // test if upnp is running
-    EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 0);
-    EXPECT_FALSE(UpnpFsmdaUtils::IsUpnpStarted());
-  }
-};
-
 TEST(UpnpUtilsTest, GetRunningUpnpInstance) {
+  // test if upnp is running
+  EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 0);
+  EXPECT_FALSE(UpnpFsmdaUtils::IsUpnpStarted());
+
   // test upnp references counter
   PLT_UPnP* upnp_reference_ = UpnpFsmdaUtils::GetRunningUpnpInstance();
   EXPECT_TRUE(upnp_reference_);
@@ -34,4 +19,8 @@ TEST(UpnpUtilsTest, GetRunningUpnpInstance) {
   UpnpFsmdaUtils::ReleaseUpnpInstance();
   EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 0);
   UpnpFsmdaUtils::ReleaseUpnpInstance();
+
+  // test if upnp is running
+  EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 0);
+  EXPECT_FALSE(UpnpFsmdaUtils::IsUpnpStarted());
 }
