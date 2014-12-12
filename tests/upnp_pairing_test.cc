@@ -17,73 +17,64 @@ using std::cout;
 using std::endl;
 using std::system;
 
-class UpnpPairingTest : public ::testing::Test {
- public:
-  UpnpPairingTest() {}
-  ~UpnpPairingTest() {}
-  ParentPairingManager* parent_pairing_manager_;
-  UpnpParentPairing* upnp_parent_pairing_;
-  ChildPairingManager* child_pairing_manager_;
-  UpnpChildPairing* upnp_child_pairing_;
+void PairingWithOnDeviceInSameProcessHelper(
+    DeviceClassDescription::DeviceClassType device_class_type) {
+  UpnpParentPairing* upnp_parent_pairing;
+  UpnpChildPairing* upnp_child_pairing;
 
-  void SetUp() {
-    // test if upnp is running
-    EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 0);
-    EXPECT_FALSE(UpnpFsmdaUtils::IsUpnpStarted());
+  // test if upnp is running
+  EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 0);
+  EXPECT_FALSE(UpnpFsmdaUtils::IsUpnpStarted());
 
-    // constructors
-    parent_pairing_manager_ = new ParentPairingManager();
-    DeviceDescription* description_aux  = new DeviceDescription();
-    description_aux->InitializeByDeviceClass(
-        DeviceClassDescription::kActiveDevice);
-    child_pairing_manager_ = new ChildPairingManager(description_aux);
-    upnp_parent_pairing_ = new UpnpParentPairing();
-    upnp_parent_pairing_->SetServiceOwner(parent_pairing_manager_);
-    upnp_child_pairing_ = new UpnpChildPairing();
-    upnp_child_pairing_->SetServiceOwner(child_pairing_manager_);
-  }
-
-  void TearDown() {
-    // release poniters
-    delete parent_pairing_manager_;
-    delete child_pairing_manager_;
-
-    // test if upnp is running
-    EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 0);
-    EXPECT_FALSE(UpnpFsmdaUtils::IsUpnpStarted());
-  }
-};
-
-TEST_F(UpnpPairingTest, SameProcessPairing) {
   // start parent pairing service
-  EXPECT_EQ(upnp_parent_pairing_->StartPairingService(), 0);
-  EXPECT_TRUE(upnp_parent_pairing_->IsPairingServiceStarted());
+  upnp_parent_pairing = new UpnpParentPairing();
+  EXPECT_EQ(upnp_parent_pairing->StartPairingService(), 0);
+  EXPECT_TRUE(upnp_parent_pairing->IsPairingServiceStarted());
   EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 1);
 
   // start child pairing service
-  EXPECT_EQ(upnp_child_pairing_->StartPairingService(), 0);
-  EXPECT_TRUE(upnp_child_pairing_->IsPairingServiceStarted());
+  DeviceDescription* description_aux = new DeviceDescription();
+  description_aux->InitializeByDeviceClass(device_class_type);
+  upnp_child_pairing = new UpnpChildPairing();
+  EXPECT_EQ(upnp_child_pairing->StartPairingService(), 0);
+  EXPECT_TRUE(upnp_child_pairing->IsPairingServiceStarted());
   EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 2);
 
   // test if child is paired
   sleep(1);
-  EXPECT_TRUE(upnp_child_pairing_->IsPaired());
-
-  // stop child pairing service
-  EXPECT_EQ(upnp_child_pairing_->StopPairingService(), 0);
-  EXPECT_FALSE(upnp_child_pairing_->IsPairingServiceStarted());
-  EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 1);
+  EXPECT_TRUE(upnp_child_pairing->IsPaired());
 
   // stop parent pairing service
-  EXPECT_EQ(upnp_parent_pairing_->StopPairingService(), 0);
-  EXPECT_FALSE(upnp_parent_pairing_->IsPairingServiceStarted());
+  EXPECT_EQ(upnp_parent_pairing->StopPairingService(), 0);
+  EXPECT_FALSE(upnp_parent_pairing->IsPairingServiceStarted());
+  EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 1);
+  delete upnp_parent_pairing;
+
+  // stop child pairing service
+  EXPECT_EQ(upnp_child_pairing->StopPairingService(), 0);
+  EXPECT_FALSE(upnp_child_pairing->IsPairingServiceStarted());
   EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 0);
+  delete upnp_child_pairing;
+
+  // test if upnp is running
+  EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 0);
+  EXPECT_FALSE(UpnpFsmdaUtils::IsUpnpStarted());
 }
 
-TEST_F(UpnpPairingTest, DiferentProcessesPairing) {
+void PairingWithOnDeviceInDiferentProcessesHelper(
+    DeviceClassDescription::DeviceClassType device_class_type) {
+  UpnpChildPairing* upnp_child_pairing;
+
+  // test if upnp is running
+  EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 0);
+  EXPECT_FALSE(UpnpFsmdaUtils::IsUpnpStarted());
+
   // start child pairing service
-  EXPECT_EQ(upnp_child_pairing_->StartPairingService(), 0);
-  EXPECT_TRUE(upnp_child_pairing_->IsPairingServiceStarted());
+  DeviceDescription* description_aux = new DeviceDescription();
+  description_aux->InitializeByDeviceClass(device_class_type);
+  upnp_child_pairing = new UpnpChildPairing();
+  EXPECT_EQ(upnp_child_pairing->StartPairingService(), 0);
+  EXPECT_TRUE(upnp_child_pairing->IsPairingServiceStarted());
   EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 1);
 
   // start parent pairing service
@@ -91,10 +82,32 @@ TEST_F(UpnpPairingTest, DiferentProcessesPairing) {
 
   // test if child is paired
   sleep(1);
-  EXPECT_TRUE(upnp_child_pairing_->IsPaired());
+  EXPECT_TRUE(upnp_child_pairing->IsPaired());
 
   // stop child pairing service
-  EXPECT_EQ(upnp_child_pairing_->StopPairingService(), 0);
-  EXPECT_FALSE(upnp_child_pairing_->IsPairingServiceStarted());
+  EXPECT_EQ(upnp_child_pairing->StopPairingService(), 0);
+  EXPECT_FALSE(upnp_child_pairing->IsPairingServiceStarted());
   EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 0);
+  delete upnp_child_pairing;
+
+  // test if upnp is running
+  EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 0);
+  EXPECT_FALSE(UpnpFsmdaUtils::IsUpnpStarted());
+}
+
+TEST(UpnpPairingServicesTest, PairingWithOnDeviceInSameProcess) {
+  PairingWithOnDeviceInSameProcessHelper(DeviceClassDescription::kActiveDevice);
+  //  PairingWithOnDeviceInSameProcess(DeviceClassDescription::kHtmlDevice);
+  //  PairingWithOnDeviceInSameProcess(DeviceClassDescription::kPassiveDevice);
+  //  PairingWithOnDeviceInSameProcess(DeviceClassDescription::kOnDemandDevice);
+  //  PairingWithOnDeviceInSameProcess(DeviceClassDescription::kMediaCaptureDevice);
+}
+
+TEST(UpnpPairingServicesTest, PairingWithOnDeviceInDiferentProcesses) {
+  PairingWithOnDeviceInDiferentProcessesHelper(
+      DeviceClassDescription::kActiveDevice);
+  //  PairingWithOnDeviceInSameProcess(DeviceClassDescription::kPassiveDevice);
+  //  PairingWithOnDeviceInSameProcess(DeviceClassDescription::kHtmlDevice);
+  //  PairingWithOnDeviceInSameProcess(DeviceClassDescription::kOnDemandDevice);
+  //  PairingWithOnDeviceInSameProcess(DeviceClassDescription::kMediaCaptureDevice);
 }

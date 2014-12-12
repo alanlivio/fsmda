@@ -15,6 +15,7 @@ UpnpChildPairing::UpnpChildPairing()
     : PLT_DeviceHost("/", NULL, UpnpFsmdaUtils::kCpmDeviceType,
                      UpnpFsmdaUtils::kCpmDeviceFriendlyName, true, 0, true),
       upnp_instance_(NULL),
+      child_pairing_manager_(NULL),
       paired_(false) {
   m_ModelDescription = UpnpFsmdaUtils::kCpmDeviceModelDescription;
   m_ModelURL = UpnpFsmdaUtils::kCpmDeviceModelUrl;
