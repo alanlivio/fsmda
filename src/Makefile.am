@@ -6,7 +6,7 @@ nobase_pkginclude_HEADERS =\
   fsmda/model/passive_object_interfaces.h\
   fsmda/model/mediacapture_object_interfaces.h\
   fsmda/model/class_handling_interfaces.h\
-  fsmda/model/device_paring_interfaces.h
+  fsmda/model/device_pairing_interfaces.h
 
 ############################## Libraries ####################################
 # Libraries
@@ -16,10 +16,10 @@ lib_LTLIBRARIES = libfsmda.la
 libfsmda_la_SOURCES = \
   fsmda/device_description.cc\
   fsmda/device_class_description.cc\
-  fsmda/parent_paring_manager.cc\
-  fsmda/child_paring_manager.cc\
-  fsmda/paring_services/upnp_parent_paring.cc\
-  fsmda/paring_services/upnp_child_paring.cc\
+  fsmda/parent_pairing_manager.cc\
+  fsmda/child_pairing_manager.cc\
+  fsmda/pairing_services/upnp_parent_pairing.cc\
+  fsmda/pairing_services/upnp_child_pairing.cc\
   fsmda/communication_services/upnp_active_ccm.cc\
   fsmda/communication_services/upnp_active_pcm.cc\
   fsmda/communication_services/upnp_passive_ccm.cc\

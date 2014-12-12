@@ -26,7 +26,7 @@ using std::string;
 const char* DeviceClassDescription::device_class_type_strings_[] = {
     "base", "passive", "active", "html", "ondemand", "mediacapture"};
 
-const char* DeviceClassDescription::paring_protocol_strings_[] = {"Upnp",
+const char* DeviceClassDescription::pairing_protocol_strings_[] = {"Upnp",
                                                                   "Zeroconf"};
 const char* DeviceClassDescription::communication_protocol_strings_[] = {
     "Upnp", "HTTP"};
@@ -57,8 +57,8 @@ bool DeviceClassDescription::DeviceMeetRequirements(
   } else if (this->device_class_type_ != device_desc->device_class_type()) {
     clog << "device_meets_requirements fail: classType_" << endl;
     return false;
-  } else if (this->paring_protocol_ != device_desc->paring_method()) {
-    clog << "device_meets_requirements fail: paringMethod_" << endl;
+  } else if (this->pairing_protocol_ != device_desc->pairing_method()) {
+    clog << "device_meets_requirements fail: pairingMethod_" << endl;
     return false;
   } else {
     return true;
@@ -72,7 +72,7 @@ int DeviceClassDescription::InitializeByDeviceClass(DeviceClassType type) {
   this->device_class_type_ = type;
   this->min_devices_ = 1;
   this->max_devices_ = UINT_MAX;
-  this->paring_protocol_ = DeviceClassDescription::kUpnpParingProcotol;
+  this->pairing_protocol_ = DeviceClassDescription::kUpnpPairingProcotol;
   this->initialized_ = true;
   return 0;
 }
@@ -135,16 +135,16 @@ int DeviceClassDescription::InitializeByRdfFile(const string& rdf_file) {
        << this->max_devices_ << endl;
   xmlXPathFreeObject(xpathObj);
 
-  // capture paringMethod
+  // capture pairingMethod
   xpathObj = xmlXPathEvalExpression(
       reinterpret_cast<const xmlChar*>("//fsmda:pairingMethod"), xpathCtx);
   assert(xpathObj != NULL);
   nodes = xpathObj->nodesetval;
   assert(nodes->nodeTab[0]);
-  this->paring_protocol_ = DeviceClassDescription::GetParingProtocolByString(
+  this->pairing_protocol_ = DeviceClassDescription::GetPairingProtocolByString(
       (const char*)nodes->nodeTab[0]->children->content);
   clog << "DeviceClassDescription::InitializeByParseRdfFile::pairingMethod = "
-       << this->paring_protocol_ << endl;
+       << this->pairing_protocol_ << endl;
   xmlXPathFreeObject(xpathObj);
 
   // release libxml
@@ -177,16 +177,16 @@ DeviceClassDescription::GetDeviceClassTypeByString(const string& str) {
 }
 
 /*----------------------------------------------------------------------
- |   DeviceClassDescription::GetParingProtocolByString
+ |   DeviceClassDescription::GetPairingProtocolByString
  +---------------------------------------------------------------------*/
-DeviceClassDescription::ParingProtocol
-DeviceClassDescription::GetParingProtocolByString(const std::string& str) {
-  if (!str.compare(paring_protocol_strings_[kUpnpParingProcotol]))
-    return kUpnpParingProcotol;
-  else if (!str.compare(paring_protocol_strings_[kZeroconfParingProtocol]))
-    return kZeroconfParingProtocol;
+DeviceClassDescription::PairingProtocol
+DeviceClassDescription::GetPairingProtocolByString(const std::string& str) {
+  if (!str.compare(pairing_protocol_strings_[kUpnpPairingProcotol]))
+    return kUpnpPairingProcotol;
+  else if (!str.compare(pairing_protocol_strings_[kZeroconfPairingProtocol]))
+    return kZeroconfPairingProtocol;
   else
-    return kParingProtocolInvalid;
+    return kPairingProtocolInvalid;
 }
 
 /*----------------------------------------------------------------------
@@ -206,17 +206,17 @@ DeviceClassDescription::GetCommunicationProtocoByString(
 /*----------------------------------------------------------------------
  |   DeviceClassDescription::GetDeviceClassTypeByString
  +---------------------------------------------------------------------*/
-const char* DeviceClassDescription::GetParingProtocolStringByEnum(
-    DeviceClassDescription::ParingProtocol type) {
+const char* DeviceClassDescription::GetPairingProtocolStringByEnum(
+    DeviceClassDescription::PairingProtocol type) {
   switch (type) {
-    case kUpnpParingProcotol:
-      return paring_protocol_strings_[kUpnpParingProcotol];
+    case kUpnpPairingProcotol:
+      return pairing_protocol_strings_[kUpnpPairingProcotol];
       break;
-    case kZeroconfParingProtocol:
-      return paring_protocol_strings_[kZeroconfParingProtocol];
+    case kZeroconfPairingProtocol:
+      return pairing_protocol_strings_[kZeroconfPairingProtocol];
       break;
     default:
-      return paring_protocol_strings_[kUpnpParingProcotol];
+      return pairing_protocol_strings_[kUpnpPairingProcotol];
   }
 }
 

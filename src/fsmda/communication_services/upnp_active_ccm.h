@@ -5,9 +5,11 @@
  |   includes
  +---------------------------------------------------------------------*/
 #include <string>
+#include <vector>
 #include "fsmda/model/active_object_interfaces.h"
 
 using std::string;
+using std::vector;
 
 /*----------------------------------------------------------------------
  |   UpnpActiveCcm class

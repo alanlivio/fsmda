@@ -1,86 +1,86 @@
 #include <string>
 #include <iostream>
+#include "fsmda/model/passive_object_interfaces.h"
+#include "fsmda/child_pairing_manager.h"
+#include "fsmda/device_description.h"
+#include "fsmda/device_class_description.h"
 #include "fsmda/communication_services/upnp_active_ccm.h"
 #include "fsmda/communication_services/upnp_mediacapture_ccm.h"
 #include "fsmda/communication_services/upnp_ondemand_ccm.h"
 #include "fsmda/communication_services/upnp_passive_ccm.h"
-#include "fsmda/model/passive_object_interfaces.h"
-#include "fsmda/child_paring_manager.h"
-#include "fsmda/device_description.h"
-#include "fsmda/device_class_description.h"
 
 using std::clog;
 using std::endl;
 /*----------------------------------------------------------------------
- |   ChildParingManager::ChildParingManager
+ |   ChildPairingManager::ChildPairingManager
  +---------------------------------------------------------------------*/
-ChildParingManager::ChildParingManager(
+ChildPairingManager::ChildPairingManager(
     const DeviceDescription& device_description)
-    : upnp_child_paring_(NULL) {
+    : upnp_child_pairing_(NULL) {
 
   device_description_ = new DeviceDescription(device_description);
 }
 
 /*----------------------------------------------------------------------
- |   ChildParingManager::~ChildParingManager
+ |   ChildPairingManager::~ChildPairingManager
  +---------------------------------------------------------------------*/
-ChildParingManager::~ChildParingManager() {
-  if (upnp_child_paring_ != NULL) delete upnp_child_paring_;
+ChildPairingManager::~ChildPairingManager() {
+  if (upnp_child_pairing_ != NULL) delete upnp_child_pairing_;
   delete device_description_;
 }
 
 /*----------------------------------------------------------------------
- |   ChildParingManager::StartParing
+ |   ChildPairingManager::StartPairing
  +---------------------------------------------------------------------*/
-int ChildParingManager::StartParing() {
-  clog << "ChildParingManager::StartParing()" << endl;
-  if (device_description_->paring_method() ==
-      DeviceClassDescription::kUpnpParingProcotol) {
-    if (upnp_child_paring_ == NULL) {
-      upnp_child_paring_ = new UpnpChildParing(this);
+int ChildPairingManager::StartPairing() {
+  clog << "ChildPairingManager::StartPairing()" << endl;
+  if (device_description_->pairing_method() ==
+      DeviceClassDescription::kUpnpPairingProcotol) {
+    if (upnp_child_pairing_ == NULL) {
+      upnp_child_pairing_ = new UpnpChildPairing(this);
     }
-    return upnp_child_paring_->StartParingService();
+    return upnp_child_pairing_->StartPairingService();
   } else {
     return -1;
   }
 }
 
 /*----------------------------------------------------------------------
- |   ChildParingManager::StopParing
+ |   ChildPairingManager::StopPairing
  +---------------------------------------------------------------------*/
-int ChildParingManager::StopParing() {
-  if (upnp_child_paring_ != NULL &&
-      device_description_->paring_method() ==
-          DeviceClassDescription::kUpnpParingProcotol) {
-    return upnp_child_paring_->StopParingService();
+int ChildPairingManager::StopPairing() {
+  if (upnp_child_pairing_ != NULL &&
+      device_description_->pairing_method() ==
+          DeviceClassDescription::kUpnpPairingProcotol) {
+    return upnp_child_pairing_->StopPairingService();
   }
   return 0;
 }
 
 /*----------------------------------------------------------------------
- |   ChildParingManager::IsParingStarted
+ |   ChildPairingManager::IsPairingStarted
  +---------------------------------------------------------------------*/
-bool ChildParingManager::IsParingStarted() {
-  if (upnp_child_paring_ != NULL &&
-      device_description_->paring_method() ==
-          DeviceClassDescription::kUpnpParingProcotol) {
-    return upnp_child_paring_->IsParingServiceStarted();
+bool ChildPairingManager::IsPairingStarted() {
+  if (upnp_child_pairing_ != NULL &&
+      device_description_->pairing_method() ==
+          DeviceClassDescription::kUpnpPairingProcotol) {
+    return upnp_child_pairing_->IsPairingServiceStarted();
   } else {
     return false;
   }
 }
 
 /*----------------------------------------------------------------------
- |   ChildParingManager::ClassAnnouncement
+ |   ChildPairingManager::ClassAnnouncement
  +---------------------------------------------------------------------*/
-void ChildParingManager::ClassAnnouncement(const string& application_id,
+void ChildPairingManager::ClassAnnouncement(const string& application_id,
                                            unsigned int class_index,
                                            const string& class_desc,
                                            const string& class_function) {}
 /*----------------------------------------------------------------------
- |   ChildParingManager::CreateActiveCc
+ |   ChildPairingManager::CreateActiveCc
  +---------------------------------------------------------------------*/
-ActiveCcmInterface* ChildParingManager::CreateActiveCcm(
+ActiveCcmInterface* ChildPairingManager::CreateActiveCcm(
     unsigned int class_index) {
   if (device_class_description_map_[class_index]->device_class_type() ==
       DeviceClassDescription::kActiveDevice)
@@ -90,9 +90,9 @@ ActiveCcmInterface* ChildParingManager::CreateActiveCcm(
 }
 
 /*----------------------------------------------------------------------
- |  ChildParingManager::CreatePassiveCcm
+ |  ChildPairingManager::CreatePassiveCcm
  +---------------------------------------------------------------------*/
-PassiveCcmInterface* ChildParingManager::CreatePassiveCcm(
+PassiveCcmInterface* ChildPairingManager::CreatePassiveCcm(
     unsigned int class_index) {
   if (device_class_description_map_[class_index]->device_class_type() ==
       DeviceClassDescription::kPassiveDevice)
@@ -102,9 +102,9 @@ PassiveCcmInterface* ChildParingManager::CreatePassiveCcm(
 }
 
 /*----------------------------------------------------------------------
- |   ChildParingManager::CreateOndemandCcm
+ |   ChildPairingManager::CreateOndemandCcm
  +---------------------------------------------------------------------*/
-OnDemandCcmInterface* ChildParingManager::CreateOndemandCcm(
+OnDemandCcmInterface* ChildPairingManager::CreateOndemandCcm(
     unsigned int class_index) {
   if (device_class_description_map_[class_index]->device_class_type() ==
       DeviceClassDescription::kOnDemandDevice)
@@ -114,9 +114,9 @@ OnDemandCcmInterface* ChildParingManager::CreateOndemandCcm(
 }
 
 /*----------------------------------------------------------------------
- |   ChildParingManager::CreateMediaCaptureCcm
+ |   ChildPairingManager::CreateMediaCaptureCcm
  +---------------------------------------------------------------------*/
-MediaCaptureCcmInterface* ChildParingManager::CreateMediaCaptureCcm(
+MediaCaptureCcmInterface* ChildPairingManager::CreateMediaCaptureCcm(
     unsigned int class_index) {
   if (device_class_description_map_[class_index]->device_class_type() ==
       DeviceClassDescription::kMediaCaptureDevice)

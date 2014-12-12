@@ -29,10 +29,10 @@ class DeviceClassDescription {
     kOnDemandDevice = 4,
     kMediaCaptureDevice = 5
   };
-  enum ParingProtocol {
-    kParingProtocolInvalid = -1,
-    kUpnpParingProcotol = 0,
-    kZeroconfParingProtocol = 1
+  enum PairingProtocol {
+    kPairingProtocolInvalid = -1,
+    kUpnpPairingProcotol = 0,
+    kZeroconfPairingProtocol = 1
   };
   enum CommunicationProtocol {
     kCommunicationProtocolInvalid = -1,
@@ -43,11 +43,11 @@ class DeviceClassDescription {
 
   // class methods
   static DeviceClassType GetDeviceClassTypeByString(const string& str);
-  static ParingProtocol GetParingProtocolByString(const string& str);
+  static PairingProtocol GetPairingProtocolByString(const string& str);
   static CommunicationProtocol GetCommunicationProtocoByString(
       const string& str);
   static const char* GetDeviceClassTypeStringByEnum(DeviceClassType type);
-  static const char* GetParingProtocolStringByEnum(ParingProtocol type);
+  static const char* GetPairingProtocolStringByEnum(PairingProtocol type);
   static const char* GetCommunicationProtocolStringByEnum(
       CommunicationProtocol type);
 
@@ -57,7 +57,7 @@ class DeviceClassDescription {
 
   // public fields
   DeviceClassType device_class_type() { return device_class_type_; }
-  ParingProtocol paring_protocol() { return paring_protocol_; }
+  PairingProtocol pairing_protocol() { return pairing_protocol_; }
   CommunicationProtocol communication_protocol() {
     return communication_protocol_;
   }
@@ -73,11 +73,11 @@ class DeviceClassDescription {
   unsigned int max_devices_;
   bool initialized_;
   static const char* device_class_type_strings_[];
-  static const char* paring_protocol_strings_[];
+  static const char* pairing_protocol_strings_[];
   static const char* communication_protocol_strings_[];
   xmlDocPtr doc_;
   DeviceClassType device_class_type_;
-  ParingProtocol paring_protocol_;
+  PairingProtocol pairing_protocol_;
   CommunicationProtocol communication_protocol_;
 };
 

@@ -19,22 +19,22 @@ unsigned int UpnpFsmdaUtils::upnp_references_count_ = 0;
 
 // PPM UPNP constant strings
 const char* UpnpFsmdaUtils::kPpmDeviceType =
-    "urn:schemas-upnp-org:device:fsmda-parent-paring-device:1";
+    "urn:schemas-upnp-org:device:fsmda-parent-pairing-device:1";
 const char* UpnpFsmdaUtils::kPpmDeviceFriendlyName =
-    "fsmda parent paring device friendly name";
+    "fsmda parent pairing device friendly name";
 const char* UpnpFsmdaUtils::kPpmDeviceModelName =
-    "fsmda-parent-paring-device model name";
+    "fsmda-parent-pairing-device model name";
 const char* UpnpFsmdaUtils::kPpmDeviceModelDescription =
-    "fsmda parent paring model description";
+    "fsmda parent pairing model description";
 const char* UpnpFsmdaUtils::kPpmDeviceModelUrl =
-    "http://www.ncl.org.br/fsmda/fsmda-parent-paring-device";
+    "http://www.ncl.org.br/fsmda/fsmda-parent-pairing-device";
 const char* UpnpFsmdaUtils::kPpmDeviceNumber = "1.0";
 const char* UpnpFsmdaUtils::kPpmServiceType =
-    "urn:schemas-upnp-org:service:fsmda-parent-paring-service:1";
+    "urn:schemas-upnp-org:service:fsmda-parent-pairing-service:1";
 const char* UpnpFsmdaUtils::kPpmServiceId =
-    "urn:upnp-org:serviceId:parent-paring-service001";
+    "urn:upnp-org:serviceId:parent-pairing-service001";
 const char* UpnpFsmdaUtils::kPpmServiceName =
-    "urn:upnp-org:serviceId:parent-paring-service001-name";
+    "urn:upnp-org:serviceId:parent-pairing-service001-name";
 const char* UpnpFsmdaUtils::kPpmServiceScpdXml =
     "<?xml version=\"1.0\" ?>"
     "<scpd xmlns=\"urn:schemas-upnp-org:service-1-0\">"
@@ -138,22 +138,22 @@ const char* UpnpFsmdaUtils::kPpmServiceScpdXml =
 
 // CPM UPNP constant strings
 const char* UpnpFsmdaUtils::kCpmDeviceType =
-    "urn:schemas-upnp-org:device:smda-child-paring-device:1";
+    "urn:schemas-upnp-org:device:smda-child-pairing-device:1";
 const char* UpnpFsmdaUtils::kCpmDeviceFriendlyName =
-    "fsmda child paring device friendly name";
+    "fsmda child pairing device friendly name";
 const char* UpnpFsmdaUtils::kCpmDeviceModelName =
-    "fsmda-child-paring-device model name";
+    "fsmda-child-pairing-device model name";
 const char* UpnpFsmdaUtils::kCpmDeviceModelDescription =
-    "fsmda child paring model description";
+    "fsmda child pairing model description";
 const char* UpnpFsmdaUtils::kCpmDeviceModelUrl =
     "http://www.ncl.org.br/fsmda/ondemand";
 const char* UpnpFsmdaUtils::kCpmDeviceModelNumber = "1.0";
 const char* UpnpFsmdaUtils::kCpmServiceType =
-    "urn:schemas-upnp-org:service:fsmda-child-paring-service:1";
+    "urn:schemas-upnp-org:service:fsmda-child-pairing-service:1";
 const char* UpnpFsmdaUtils::kCpmServiceId =
-    "urn:upnp-org:serviceId:child-paring-service001";
+    "urn:upnp-org:serviceId:child-pairing-service001";
 const char* UpnpFsmdaUtils::kCpmServiceName =
-    "urn:upnp-org:serviceId:child-paring-service001-name";
+    "urn:upnp-org:serviceId:child-pairing-service001-name";
 const char* UpnpFsmdaUtils::kCpmServiceScpdXml =
     "<?xml version=\"1.0\" ?>"
     "<scpd xmlns=\"urn:schemas-upnp-org:service-1-0\">"

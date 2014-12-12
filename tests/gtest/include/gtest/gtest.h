@@ -1691,7 +1691,7 @@ GTEST_API_ AssertionResult IsNotSubstring(
 
 namespace internal {
 
-// Helper template function for comparing floating-points.
+// Helper template function for compairing floating-points.
 //
 // Template parameter:
 //
@@ -2081,7 +2081,7 @@ class TestWithParam : public Test, public WithParamInterface<T> {
 #define ASSERT_STRCASENE(s1, s2)\
   ASSERT_PRED_FORMAT2(::testing::internal::CmpHelperSTRCASENE, s1, s2)
 
-// Macros for comparing floating-point numbers.
+// Macros for compairing floating-point numbers.
 //
 //    * {ASSERT|EXPECT}_FLOAT_EQ(expected, actual):
 //         Tests that two float values are almost equal.

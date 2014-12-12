@@ -1,5 +1,5 @@
-#ifndef FSMDA_MODEL_DEVICE_PARING_INTERFACES_H_
-#define FSMDA_MODEL_DEVICE_PARING_INTERFACES_H_
+#ifndef FSMDA_MODEL_DEVICE_PAIRING_INTERFACES_H_
+#define FSMDA_MODEL_DEVICE_PAIRING_INTERFACES_H_
 
 /*----------------------------------------------------------------------
  |   includes
@@ -10,12 +10,12 @@
 using std::string;
 
 /*----------------------------------------------------------------------
- |   DeviceParingCpmInterface abstract class
+ |   DevicePairingCpmInterface abstract class
  +---------------------------------------------------------------------*/
-class DeviceParingPpmInterface {
+class DevicePairingPpmInterface {
  public:
   // public constructors & destructors
-  virtual ~DeviceParingPpmInterface() {}
+  virtual ~DevicePairingPpmInterface() {}
 
   // public pure virtual methods
   virtual void AddDeviceToClass(const string& application_id,
@@ -28,12 +28,12 @@ class DeviceParingPpmInterface {
 };
 
 /*----------------------------------------------------------------------
- |   DeviceParingCpmInterface abstract class
+ |   DevicePairingCpmInterface abstract class
  +---------------------------------------------------------------------*/
-class DeviceParingCpmInterface {
+class DevicePairingCpmInterface {
  public:
   // public constructors & destructors
-  virtual ~DeviceParingCpmInterface() {}
+  virtual ~DevicePairingCpmInterface() {}
 
   // public pure virtual methods
   virtual void ClassAnnouncement(const string& application_id,
@@ -42,4 +42,4 @@ class DeviceParingCpmInterface {
                                  const string& class_function) = 0;
 };
 
-#endif  // FSMDA_MODEL_DEVICE_PARING_INTERFACES_H_
+#endif  // FSMDA_MODEL_DEVICE_PAIRING_INTERFACES_H_

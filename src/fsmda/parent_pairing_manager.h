@@ -1,5 +1,5 @@
-#ifndef FSMDA_PARENT_PARING_MANAGER_H_
-#define FSMDA_PARENT_PARING_MANAGER_H_
+#ifndef FSMDA_PARENT_PAIRING_MANAGER_H_
+#define FSMDA_PARENT_PAIRING_MANAGER_H_
 
 /*----------------------------------------------------------------------
  |   includes
@@ -7,28 +7,28 @@
 #include <map>
 #include <set>
 #include <string>
+#include "fsmda/device_class_description.h"
 #include "fsmda/model/active_object_interfaces.h"
 #include "fsmda/model/mediacapture_object_interfaces.h"
 #include "fsmda/model/ondemand_object_interfaces.h"
 #include "fsmda/model/passive_object_interfaces.h"
 #include "fsmda/model/class_handling_interfaces.h"
-#include "fsmda/model/device_paring_interfaces.h"
-#include "fsmda/device_class_description.h"
-#include "fsmda/paring_services/upnp_parent_paring.h"
+#include "fsmda/model/device_pairing_interfaces.h"
+#include "fsmda/pairing_services/upnp_parent_pairing.h"
 
 using std::string;
 using std::map;
 using std::set;
 
 /*----------------------------------------------------------------------
- |   ParentParingManager class
+ |   ParentPairingManager class
  +---------------------------------------------------------------------*/
-class ParentParingManager : public ClassHandlingPpmInterface,
-                            public DeviceParingPpmInterface {
+class ParentPairingManager : public ClassHandlingPpmInterface,
+                            public DevicePairingPpmInterface {
  public:
   // public constructors & destructors
-  ParentParingManager();
-  virtual ~ParentParingManager();
+  ParentPairingManager();
+  virtual ~ParentPairingManager();
 
   // ClassHandlingPpmInterface overloaded methods
   // called by HypermediaEngine
@@ -58,8 +58,8 @@ class ParentParingManager : public ClassHandlingPpmInterface,
   PassivePcmInterface* CreatePassivePcm(const string& application_id,
                                         unsigned int class_index);
 
-  // DeviceParingPpmInterface overloaded methods
-  // called by remote ChildParingManager
+  // DevicePairingPpmInterface overloaded methods
+  // called by remote ChildPairingManager
   virtual void AddDeviceToClass(const string& application_id,
                                 const string& device_address,
                                 unsigned int class_index,
@@ -71,16 +71,16 @@ class ParentParingManager : public ClassHandlingPpmInterface,
   // Utils methods
   unsigned int GenerateAvaliableIndex(const string& application_id);
   unsigned int GetRegistredClassesSize(const string& application_id);
-  int StartParing();
-  int StopParing();
-  bool IsParingStarted();
+  int StartPairing();
+  int StopPairing();
+  bool IsPairingStarted();
 
  private:
   // private filds
   unsigned int upnp_registred_classes_size;
   map<const string, map<unsigned int, DeviceClassDescription*> >
       device_class_description_map_;
-  UpnpParentParing* upnp_parent_paring_;
+  UpnpParentPairing* upnp_parent_pairing_;
 };
 
-#endif  // FSMDA_PARENT_PARING_MANAGER_H_
+#endif  // FSMDA_PARENT_PAIRING_MANAGER_H_

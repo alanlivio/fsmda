@@ -290,7 +290,7 @@ class FloatingPoint {
   static const Bits kExponentBitMask = ~(kSignBitMask | kFractionBitMask);
 
   // How many ULP's (Units in the Last Place) we want to tolerate when
-  // comparing two numbers.  The larger the value, the more error we
+  // compairing two numbers.  The larger the value, the more error we
   // allow.  A 0 value means that two numbers must be exactly the same
   // to be considered equal.
   //
@@ -300,7 +300,7 @@ class FloatingPoint {
   // bits.  Therefore, 4 should be enough for ordinary use.
   //
   // See the following article for more details on ULP:
-  // http://randomascii.wordpress.com/2012/02/25/comparing-floating-point-numbers-2012-edition/
+  // http://randomascii.wordpress.com/2012/02/25/compairing-floating-point-numbers-2012-edition/
   static const size_t kMaxUlps = 4;
 
   // Constructs a FloatingPoint from a raw floating-point number.
@@ -906,7 +906,7 @@ template<> struct EnableIf<true> { typedef void type; };  // NOLINT
 
 // ArrayEq() compares two k-dimensional native arrays using the
 // elements' operator==, where k can be any integer >= 0.  When k is
-// 0, ArrayEq() degenerates into comparing a single pair of values.
+// 0, ArrayEq() degenerates into compairing a single pair of values.
 
 template <typename T, typename U>
 bool ArrayEq(const T* lhs, size_t size, const U* rhs);

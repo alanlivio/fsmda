@@ -36,7 +36,7 @@ DeviceDescription::~DeviceDescription() {}
 int DeviceDescription::InitializeByDeviceClass(
     DeviceClassDescription::DeviceClassType device_class_type) {
   class_type_ = device_class_type;
-  paring_method_ = DeviceClassDescription::kUpnpParingProcotol;
+  pairing_method_ = DeviceClassDescription::kUpnpPairingProcotol;
   initialized_ = true;
 }
 
@@ -73,16 +73,16 @@ int DeviceDescription::InitializeByRdfFile(const string& rdf_file) {
        << "(or " << this->class_type_ << ")" << endl;
   xmlXPathFreeObject(xpathObj);
 
-  // capture paringMethod
+  // capture pairingMethod
   xpathObj = xmlXPathEvalExpression(
       reinterpret_cast<const xmlChar*>("//fsmda:pairingMethod"), xpathCtx);
   assert(xpathObj != NULL);
   nodes = xpathObj->nodesetval;
   assert(nodes->nodeTab[0]);
-  this->paring_method_ = DeviceClassDescription::GetParingProtocolByString(
+  this->pairing_method_ = DeviceClassDescription::GetPairingProtocolByString(
       (const char*)nodes->nodeTab[0]->children->content);
   clog << "DeviceDescription::InitializeByRdfFile::pairingMethod = "
-       << this->paring_method_ << endl;
+       << this->pairing_method_ << endl;
   xmlXPathFreeObject(xpathObj);
 
   // release libxml

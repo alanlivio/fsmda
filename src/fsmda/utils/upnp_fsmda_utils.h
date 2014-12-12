@@ -21,7 +21,7 @@ class UpnpFsmdaUtils {
   static const char* kFsmdaManufacturer;
   static const char* kFsmdaManufacturerUrl;
 
-  // class fields - upnp paring device strings
+  // class fields - upnp pairing device strings
   static const char* kPpmDeviceType;
   static const char* kPpmDeviceFriendlyName;
   static const char* kPpmDeviceModelDescription;

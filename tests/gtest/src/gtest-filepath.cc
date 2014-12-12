@@ -137,7 +137,7 @@ const char* FilePath::FindLastPathSeparator() const {
   const char* const last_sep = strrchr(c_str(), kPathSeparator);
 #if GTEST_HAS_ALT_PATH_SEP_
   const char* const last_alt_sep = strrchr(c_str(), kAlternatePathSeparator);
-  // Comparing two pointers of which only one is NULL is undefined.
+  // Compairing two pointers of which only one is NULL is undefined.
   if (last_alt_sep != NULL &&
       (last_sep == NULL || last_alt_sep > last_sep)) {
     return last_alt_sep;

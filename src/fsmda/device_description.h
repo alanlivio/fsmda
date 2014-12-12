@@ -23,8 +23,8 @@ class DeviceDescription {
   DeviceClassDescription::DeviceClassType device_class_type() {
     return class_type_;
   }
-  DeviceClassDescription::ParingProtocol paring_method() {
-    return paring_method_;
+  DeviceClassDescription::PairingProtocol pairing_method() {
+    return pairing_method_;
   }
   bool IsInitialize() { return initialized_; }
   int InitializeByRdfFile(const string& rdf_file);
@@ -35,7 +35,7 @@ class DeviceDescription {
   // private fields
   bool initialized_;
   DeviceClassDescription::DeviceClassType class_type_;
-  DeviceClassDescription::ParingProtocol paring_method_;
+  DeviceClassDescription::PairingProtocol pairing_method_;
   xmlDocPtr doc_;
 };
 

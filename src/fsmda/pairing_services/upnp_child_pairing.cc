@@ -9,17 +9,17 @@
 #include <PltFileMediaServer.h>
 #include <PltService.h>
 #include <PltStateVariable.h>
-#include "fsmda/paring_services/upnp_child_paring.h"
-#include "fsmda/child_paring_manager.h"
+#include "fsmda/pairing_services/upnp_child_pairing.h"
+#include "fsmda/child_pairing_manager.h"
 #include "fsmda/utils/upnp_fsmda_utils.h"
 
 using std::clog;
 using std::endl;
 
 /*----------------------------------------------------------------------
- |   UpnpChildParing::UpnpChildParing
+ |   UpnpChildPairing::UpnpChildPairing
  +---------------------------------------------------------------------*/
-UpnpChildParing::UpnpChildParing(ChildParingManager *child_paring_manager)
+UpnpChildPairing::UpnpChildPairing(ChildPairingManager *child_pairing_manager)
     : PLT_DeviceHost("/", NULL, UpnpFsmdaUtils::kCpmDeviceType,
                      UpnpFsmdaUtils::kCpmDeviceFriendlyName, true, 0, true),
       upnp_instance_(NULL),
@@ -36,14 +36,14 @@ UpnpChildParing::UpnpChildParing(ChildParingManager *child_paring_manager)
                                     UpnpFsmdaUtils::kCpmServiceName);
   device_service_->SetSCPDXML((const char *)UpnpFsmdaUtils::kCpmServiceScpdXml);
   ctrl_point_ = new PLT_CtrlPointReference(new PLT_CtrlPoint());
-  child_paring_manager_ = child_paring_manager;
+  child_pairing_manager_ = child_pairing_manager;
 }
 
 /*----------------------------------------------------------------------
- |   UpnpChildParing::~UpnpChildParing
+ |   UpnpChildPairing::~UpnpChildPairing
  +---------------------------------------------------------------------*/
-UpnpChildParing::~UpnpChildParing() {
-  this->StopParingService();
+UpnpChildPairing::~UpnpChildPairing() {
+  this->StopPairingService();
   delete device_service_;
   ctrl_point_->Detach();
   delete ctrl_point_;
@@ -52,22 +52,22 @@ UpnpChildParing::~UpnpChildParing() {
 }
 
 /*----------------------------------------------------------------------
- |   UpnpChildParing::SetupServices
+ |   UpnpChildPairing::SetupServices
  +---------------------------------------------------------------------*/
-NPT_Result UpnpChildParing::SetupServices() {
-  clog << "UpnpChildParing::SetupServices()" << endl;
+NPT_Result UpnpChildPairing::SetupServices() {
+  clog << "UpnpChildPairing::SetupServices()" << endl;
   NPT_Result res;
   res = AddService(device_service_);
   return res;
 }
 
 /*----------------------------------------------------------------------
- |   UpnpChildParing::OnAction
+ |   UpnpChildPairing::OnAction
  +---------------------------------------------------------------------*/
-NPT_Result UpnpChildParing::OnAction(PLT_ActionReference &action,
+NPT_Result UpnpChildPairing::OnAction(PLT_ActionReference &action,
                                      const PLT_HttpRequestContext &context) {
   NPT_String name = action->GetActionDesc().GetName();
-  clog << "UpnpChildParing::OnAction()::action.name=" << name.GetChars()
+  clog << "UpnpChildPairing::OnAction()::action.name=" << name.GetChars()
        << endl;
 
   // handling classAnnouncement call
@@ -80,14 +80,14 @@ NPT_Result UpnpChildParing::OnAction(PLT_ActionReference &action,
     action->GetArgumentValue("classDesc", class_desc);
     NPT_String class_function;
     action->GetArgumentValue("classFunction", class_function);
-    clog << "UpnpChildParing::OnAction receive classAnnouncement("
+    clog << "UpnpChildPairing::OnAction receive classAnnouncement("
          << application_id.GetChars() << "," << class_index << ","
          << class_desc.GetChars() << "," << class_function.GetChars() << ")"
          << endl;
-    clog << "UpnpChildParing::OnAction()::paired_with_parent_= true" << endl;
+    clog << "UpnpChildPairing::OnAction()::paired_with_parent_= true" << endl;
     paired_with_parent_ = true;
-    if (child_paring_manager_ != NULL) {
-      child_paring_manager_->ClassAnnouncement(
+    if (child_pairing_manager_ != NULL) {
+      child_pairing_manager_->ClassAnnouncement(
           application_id.GetChars(), class_index, class_desc.GetChars(),
           class_function.GetChars());
       return NPT_SUCCESS;
@@ -97,40 +97,40 @@ NPT_Result UpnpChildParing::OnAction(PLT_ActionReference &action,
   return NPT_FAILURE;
 }
 
-NPT_Result UpnpChildParing::OnEventNotify(PLT_Service *service,
+NPT_Result UpnpChildPairing::OnEventNotify(PLT_Service *service,
                                           NPT_List<PLT_StateVariable *> *vars) {
 }
 
-NPT_Result UpnpChildParing::OnActionResponse(NPT_Result res,
+NPT_Result UpnpChildPairing::OnActionResponse(NPT_Result res,
                                              PLT_ActionReference &action,
                                              void *userdata) {}
 
-NPT_Result UpnpChildParing::OnDeviceRemoved(PLT_DeviceDataReference &device) {}
+NPT_Result UpnpChildPairing::OnDeviceRemoved(PLT_DeviceDataReference &device) {}
 
-NPT_Result UpnpChildParing::OnDeviceAdded(PLT_DeviceDataReference &device) {
-  clog << "UpnpChildParing::OnDeviceAdded()::device->GetFriendlyName="
+NPT_Result UpnpChildPairing::OnDeviceAdded(PLT_DeviceDataReference &device) {
+  clog << "UpnpChildPairing::OnDeviceAdded()::device->GetFriendlyName="
        << device->GetFriendlyName().GetChars() << endl;
-  clog << "UpnpChildParing::OnDeviceAdded()::device->GetType="
+  clog << "UpnpChildPairing::OnDeviceAdded()::device->GetType="
        << device->GetType().GetChars() << endl;
-  clog << "UpnpChildParing::OnDeviceAdded()::device->GetUUID="
+  clog << "UpnpChildPairing::OnDeviceAdded()::device->GetUUID="
        << device->GetUUID().GetChars() << endl;
-  clog << "UpnpChildParing::OnDeviceAdded()::device->GetURLBase()->"
+  clog << "UpnpChildPairing::OnDeviceAdded()::device->GetURLBase()->"
        << device->GetURLBase().ToString().GetChars() << endl;
 
-  PLT_Service *parent_paring_service;
+  PLT_Service *parent_pairing_service;
   if (!device->GetType().Compare(UpnpFsmdaUtils::kPpmDeviceType)) {
     device->FindServiceByType(UpnpFsmdaUtils::kPpmServiceType,
-                              parent_paring_service);
+                              parent_pairing_service);
     return NPT_SUCCESS;
   } else {
     return NPT_FAILURE;
   }
 }
 /*----------------------------------------------------------------------
- |   UpnpChildParing::StartParingService
+ |   UpnpChildPairing::StartPairingService
  +---------------------------------------------------------------------*/
-int UpnpChildParing::StartParingService() {
-  clog << "UpnpChildParing::StartService()" << endl;
+int UpnpChildPairing::StartPairingService() {
+  clog << "UpnpChildPairing::StartService()" << endl;
   if (upnp_instance_ == NULL) {
     upnp_instance_ = UpnpFsmdaUtils::GetRunningUpnpInstance();
   }
@@ -138,7 +138,7 @@ int UpnpChildParing::StartParingService() {
   res = upnp_instance_->AddDevice(*device_host_);
   res = upnp_instance_->AddCtrlPoint(*ctrl_point_);
   (*ctrl_point_)->AddListener(this);
-  clog << "UpnpChildParing::StartService()::NPT_Result res="
+  clog << "UpnpChildPairing::StartService()::NPT_Result res="
        << NPT_ResultText(res) << endl;
   if (res == NPT_SUCCESS) {
     return 0;
@@ -148,9 +148,9 @@ int UpnpChildParing::StartParingService() {
 }
 
 /*----------------------------------------------------------------------
- |   UpnpChildParing::StopParingService
+ |   UpnpChildPairing::StopPairingService
  +---------------------------------------------------------------------*/
-int UpnpChildParing::StopParingService() {
+int UpnpChildPairing::StopPairingService() {
   if (upnp_instance_ != NULL) {
     RemoveService(device_service_);
     upnp_instance_->RemoveDevice(*device_host_);
