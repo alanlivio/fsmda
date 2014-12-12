@@ -26,10 +26,10 @@ using std::string;
 const char* DeviceClassDescription::device_class_type_strings_[] = {
     "base", "passive", "active", "html", "ondemand", "mediacapture"};
 
-const char* DeviceClassDescription::pairing_protocol_strings_[] = {"Upnp",
+const char* DeviceClassDescription::pairing_protocol_strings_[] = {"UPnP",
                                                                   "Zeroconf"};
 const char* DeviceClassDescription::communication_protocol_strings_[] = {
-    "Upnp", "HTTP"};
+    "UPnP", "HTTP"};
 
 /*----------------------------------------------------------------------
  |   DeviceClassDescription::DeviceClassDescription

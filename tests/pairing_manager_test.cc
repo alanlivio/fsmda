@@ -11,303 +11,137 @@
 
 using std::string;
 
-class PairingManagerTest : public ::testing::Test {
- public:
-  PairingManagerTest() {}
-  ~PairingManagerTest() {}
-  DeviceDescription* device_description_;
-  DeviceDescription* ppm_device_description_;
-  DeviceClassDescription* device_class_description_;
-  string device_rdf_, device_class_description_rdf_;
-  ParentPairingManager* parent_pairing_manager_;
+void DeviceDescriptionMatchingHelper(
+    const string& device_rdf, const string& device_class_description_rdf,
+    DeviceClassDescription::DeviceClassType expected_device_class_type) {
 
-  void SetUp() {
-    // test if upnp is running
-    EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 0);
-    EXPECT_FALSE(UpnpFsmdaUtils::IsUpnpStarted());
+  DeviceDescription device_description;
+  DeviceClassDescription device_class_description;
 
-    // constructors
-    parent_pairing_manager_ = new ParentPairingManager();
-    device_description_ = new DeviceDescription();
-    device_class_description_ = new DeviceClassDescription();
-  }
-
-  void TearDown() {
-    // release poniters
-    delete device_description_;
-    delete device_class_description_;
-    delete parent_pairing_manager_;
-
-    // test if upnp is running
-    EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 0);
-    EXPECT_FALSE(UpnpFsmdaUtils::IsUpnpStarted());
-  }
-};
-
-TEST_F(PairingManagerTest, DeviceDescriptionMatching) {
-  // passive class description initialize and meet_requirements tests
-  device_rdf_ = "./files/passive_dev_desc00.xml";
-  device_class_description_rdf_ = "./files/passive_class_desc00.xml";
-  device_description_->InitializeByRdfFile(device_rdf_);
-  EXPECT_EQ(device_description_->device_class_type(),
-            DeviceClassDescription::kPassiveDevice);
-  EXPECT_EQ(device_class_description_->InitializeByRdfFile(
-                device_class_description_rdf_),
+  EXPECT_EQ(device_description.InitializeByRdfFile(device_rdf), 0);
+  EXPECT_EQ(device_class_description.InitializeByRdfFile(
+                device_class_description_rdf),
             0);
-  EXPECT_EQ(device_class_description_->device_class_type(),
-            DeviceClassDescription::kPassiveDevice);
-  EXPECT_TRUE(
-      device_class_description_->DeviceMeetRequirements(device_description_));
 
+  EXPECT_EQ(device_description.device_class_type(), expected_device_class_type);
+  EXPECT_EQ(device_class_description.device_class_type(),
+            expected_device_class_type);
+
+  EXPECT_TRUE(
+      device_class_description.DeviceMeetRequirements(&device_description));
+}
+
+void PairingWithOneDeviceHelper(
+    const string& device_rdf, const string& device_class_description_rdf,
+    DeviceClassDescription::DeviceClassType expected_device_class_type) {
+
+  EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 0);
+  EXPECT_FALSE(UpnpFsmdaUtils::IsUpnpStarted());
+
+  // add a device class
+  DeviceClassDescription device_class_description;
+  EXPECT_EQ(device_class_description.InitializeByRdfFile(
+                device_class_description_rdf),
+            0);
+  string app_id;
+  UpnpFsmdaUtils::GenerateGUID(&app_id);
+  ParentPairingManager* parent_pairing_manager = new ParentPairingManager();
+  unsigned int class_index =
+      parent_pairing_manager->GenerateAvaliableIndex(app_id);
+  parent_pairing_manager->AddClass(app_id, class_index);
+  parent_pairing_manager->AddClassDescription(app_id, class_index,
+                                              &device_class_description);
+  EXPECT_EQ(parent_pairing_manager->GetNumberOfRegistredClasses(app_id), 1);
+
+  // add a device
+  DeviceDescription device_description;
+  EXPECT_EQ(device_description.InitializeByRdfFile(device_rdf), 0);
+  ChildPairingManager* child_pairing_manager =
+      new ChildPairingManager(device_description);
+
+  EXPECT_EQ(device_description.device_class_type(), expected_device_class_type);
+  EXPECT_EQ(device_class_description.device_class_type(),
+            expected_device_class_type);
+
+  // start parent pairing service
+  EXPECT_EQ(parent_pairing_manager->StartPairing(), 0);
+  EXPECT_TRUE(parent_pairing_manager->IsPairingStarted());
+  EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 1);
+
+  // start child pairing service
+  EXPECT_EQ(child_pairing_manager->StartPairing(), 0);
+  EXPECT_TRUE(child_pairing_manager->IsPairingStarted());
+  EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 2);
+
+  // test if child is paired
+  sleep(1);
+  EXPECT_TRUE(child_pairing_manager->IsPaired());
+
+  // stop child pairing service
+  EXPECT_EQ(child_pairing_manager->StopPairing(), 0);
+  EXPECT_FALSE(child_pairing_manager->IsPairingStarted());
+  EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 1);
+  delete child_pairing_manager;
+
+  // stop parent pairing service
+  EXPECT_EQ(parent_pairing_manager->StopPairing(), 0);
+  EXPECT_FALSE(parent_pairing_manager->IsPairingStarted());
+  delete parent_pairing_manager;
+
+  EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 0);
+  EXPECT_FALSE(UpnpFsmdaUtils::IsUpnpStarted());
+}
+
+TEST(PairingManagersTest, DeviceDescriptionMatching) {
   // active class description initialize and meet_requirements tests
-  device_rdf_ = "./files/active_dev_desc00.xml";
-  device_class_description_rdf_ = "./files/active_class_desc00.xml";
-  EXPECT_EQ(device_description_->InitializeByRdfFile(device_rdf_), 0);
-  EXPECT_EQ(device_description_->device_class_type(),
-            DeviceClassDescription::kActiveDevice);
-  EXPECT_EQ(device_class_description_->InitializeByRdfFile(
-                device_class_description_rdf_),
-            0);
-  EXPECT_EQ(device_class_description_->device_class_type(),
-            DeviceClassDescription::kActiveDevice);
-  EXPECT_TRUE(
-      device_class_description_->DeviceMeetRequirements(device_description_));
+  DeviceDescriptionMatchingHelper("./files/active_dev_desc00.xml",
+                                  "./files/active_class_desc00.xml",
+                                  DeviceClassDescription::kActiveDevice);
+
+  // passive class description initialize and meet_requirements tests
+  DeviceDescriptionMatchingHelper("./files/passive_dev_desc00.xml",
+                                  "./files/passive_class_desc00.xml",
+                                  DeviceClassDescription::kPassiveDevice);
 
   // html class description initialize and meet_requirements tests
-  device_rdf_ = "./files/html_dev_desc00.xml";
-  device_class_description_rdf_ = "./files/html_class_desc00.xml";
-  EXPECT_EQ(device_description_->InitializeByRdfFile(device_rdf_), 0);
-  EXPECT_EQ(device_description_->device_class_type(),
-            DeviceClassDescription::kHtmlDevice);
-  EXPECT_EQ(device_class_description_->InitializeByRdfFile(
-                device_class_description_rdf_),
-            0);
-  EXPECT_EQ(device_class_description_->device_class_type(),
-            DeviceClassDescription::kHtmlDevice);
-  EXPECT_TRUE(
-      device_class_description_->DeviceMeetRequirements(device_description_));
+  DeviceDescriptionMatchingHelper("./files/html_dev_desc00.xml",
+                                  "./files/html_class_desc00.xml",
+                                  DeviceClassDescription::kHtmlDevice);
 
   // ondemand class description initialize and meet_requirements tests
-  device_class_description_rdf_ = "./files/ondemand_class_desc00.xml";
-  device_rdf_ = "./files/ondemand_dev_desc00.xml";
-  EXPECT_EQ(device_description_->InitializeByRdfFile(device_rdf_), 0);
-  EXPECT_EQ(device_description_->device_class_type(),
-            DeviceClassDescription::kOnDemandDevice);
-  EXPECT_EQ(device_class_description_->InitializeByRdfFile(
-                device_class_description_rdf_),
-            0);
-  EXPECT_EQ(device_class_description_->device_class_type(),
-            DeviceClassDescription::kOnDemandDevice);
-  EXPECT_TRUE(
-      device_class_description_->DeviceMeetRequirements(device_description_));
+  DeviceDescriptionMatchingHelper("./files/ondemand_dev_desc00.xml",
+                                  "./files/ondemand_class_desc00.xml",
+                                  DeviceClassDescription::kOnDemandDevice);
 
   // mediacapture class description initialize and meet_requirements tests
-  device_rdf_ = "./files/mediacapture_dev_desc00.xml";
-  device_class_description_rdf_ = "./files/mediacapture_class_desc00.xml";
-  EXPECT_EQ(device_description_->InitializeByRdfFile(device_rdf_), 0);
-  EXPECT_EQ(device_description_->device_class_type(),
-            DeviceClassDescription::kMediaCaptureDevice);
-  EXPECT_EQ(device_class_description_->InitializeByRdfFile(
-                device_class_description_rdf_),
-            0);
-  EXPECT_EQ(device_class_description_->device_class_type(),
-            DeviceClassDescription::kMediaCaptureDevice);
-  EXPECT_TRUE(
-      device_class_description_->DeviceMeetRequirements(device_description_));
+  DeviceDescriptionMatchingHelper("./files/mediacapture_dev_desc00.xml",
+                                  "./files/mediacapture_class_desc00.xml",
+                                  DeviceClassDescription::kMediaCaptureDevice);
 }
 
-TEST_F(PairingManagerTest, PairingWithOneActiveDevice) {
-  unsigned int class_index;
-  string app_id;
+TEST(PairingManagersTest, PairingWithOneActiveDevice) {
+  // active class description initialize and meet_requirements tests
+  PairingWithOneDeviceHelper("./files/active_dev_desc00.xml",
+                             "./files/active_class_desc00.xml",
+                             DeviceClassDescription::kActiveDevice);
 
-  // add a device class
-  UpnpFsmdaUtils::GenerateGUID(&app_id);
-  class_index = parent_pairing_manager_->GenerateAvaliableIndex(app_id);
-  device_class_description_rdf_ = "./files/active_class_desc00.xml";
-  EXPECT_EQ(device_class_description_->InitializeByRdfFile(
-                device_class_description_rdf_),
-            0);
-  parent_pairing_manager_->AddClass(app_id, class_index);
-  parent_pairing_manager_->AddClassDescription(app_id, class_index,
-                                               device_class_description_);
-  EXPECT_EQ(parent_pairing_manager_->GetNumberOfRegistredClasses(app_id), 1);
+  // active class description initialize and meet_requirements tests
+  PairingWithOneDeviceHelper("./files/passive_dev_desc00.xml",
+                             "./files/passive_class_desc00.xml",
+                             DeviceClassDescription::kPassiveDevice);
 
-  // add a device
-  DeviceDescription description_aux;
-  description_aux.InitializeByDeviceClass(
-      DeviceClassDescription::kActiveDevice);
-  ChildPairingManager* child_pairing_manager =
-      new ChildPairingManager(description_aux);
+  // active class description initialize and meet_requirements tests
+  PairingWithOneDeviceHelper("./files/html_dev_desc00.xml",
+                             "./files/html_class_desc00.xml",
+                             DeviceClassDescription::kHtmlDevice);
 
-  // start parent pairing service
-  EXPECT_EQ(parent_pairing_manager_->StartPairing(), 0);
-  EXPECT_TRUE(parent_pairing_manager_->IsPairingStarted());
-  EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 1);
+  // active class description initialize and meet_requirements tests
+  PairingWithOneDeviceHelper("./files/ondemand_dev_desc00.xml",
+                             "./files/ondemand_class_desc00.xml",
+                             DeviceClassDescription::kOnDemandDevice);
 
-  // start child pairing service
-  EXPECT_EQ(child_pairing_manager->StartPairing(), 0);
-  EXPECT_TRUE(child_pairing_manager->IsPairingStarted());
-  EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 2);
-
-  // test if child is paired
-  sleep(1);
-  EXPECT_TRUE(child_pairing_manager->IsPaired());
-
-  // stop child pairing service
-  EXPECT_EQ(child_pairing_manager->StopPairing(), 0);
-  EXPECT_FALSE(child_pairing_manager->IsPairingStarted());
-  EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 1);
-  delete child_pairing_manager;
-
-  // stop parent pairing service
-  EXPECT_EQ(parent_pairing_manager_->StopPairing(), 0);
-  EXPECT_FALSE(parent_pairing_manager_->IsPairingStarted());
-  EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 0);
-}
-
-TEST_F(PairingManagerTest, PairingWithOnePassiveDevice) {
-  unsigned int class_index;
-  string app_id;
-
-  // add a device class
-  UpnpFsmdaUtils::GenerateGUID(&app_id);
-  class_index = parent_pairing_manager_->GenerateAvaliableIndex(app_id);
-  device_class_description_rdf_ = "./files/passive_class_desc00.xml";
-  EXPECT_EQ(device_class_description_->InitializeByRdfFile(
-                device_class_description_rdf_),
-            0);
-  parent_pairing_manager_->AddClass(app_id, class_index);
-  parent_pairing_manager_->AddClassDescription(app_id, class_index,
-                                               device_class_description_);
-  EXPECT_EQ(parent_pairing_manager_->GetNumberOfRegistredClasses(app_id), 1);
-
-  // add a device
-  DeviceDescription description_aux;
-  description_aux.InitializeByDeviceClass(
-      DeviceClassDescription::kPassiveDevice);
-  ChildPairingManager* child_pairing_manager =
-      new ChildPairingManager(description_aux);
-
-  // start parent pairing service
-  EXPECT_EQ(parent_pairing_manager_->StartPairing(), 0);
-  EXPECT_TRUE(parent_pairing_manager_->IsPairingStarted());
-  EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 1);
-
-  // start child pairing service
-  EXPECT_EQ(child_pairing_manager->StartPairing(), 0);
-  EXPECT_TRUE(child_pairing_manager->IsPairingStarted());
-  EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 2);
-
-  // test if child is paired
-  sleep(1);
-  EXPECT_TRUE(child_pairing_manager->IsPaired());
-
-  // stop child pairing service
-  EXPECT_EQ(child_pairing_manager->StopPairing(), 0);
-  EXPECT_FALSE(child_pairing_manager->IsPairingStarted());
-  EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 1);
-  delete child_pairing_manager;
-
-  // stop parent pairing service
-  EXPECT_EQ(parent_pairing_manager_->StopPairing(), 0);
-  EXPECT_FALSE(parent_pairing_manager_->IsPairingStarted());
-  EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 0);
-}
-
-TEST_F(PairingManagerTest, PairingWithOneOnDemandDevice) {
-  unsigned int class_index;
-  string app_id;
-
-  // add a active device class
-  UpnpFsmdaUtils::GenerateGUID(&app_id);
-  class_index = parent_pairing_manager_->GenerateAvaliableIndex(app_id);
-  device_class_description_rdf_ = "./files/ondemand_class_desc00.xml";
-  EXPECT_EQ(device_class_description_->InitializeByRdfFile(
-                device_class_description_rdf_),
-            0);
-  parent_pairing_manager_->AddClass(app_id, class_index);
-  parent_pairing_manager_->AddClassDescription(app_id, class_index,
-                                               device_class_description_);
-  EXPECT_EQ(parent_pairing_manager_->GetNumberOfRegistredClasses(app_id), 1);
-
-  // add a active device
-  DeviceDescription description_aux;
-  description_aux.InitializeByDeviceClass(
-      DeviceClassDescription::kOnDemandDevice);
-  ChildPairingManager* child_pairing_manager =
-      new ChildPairingManager(description_aux);
-
-  // start parent pairing service
-  EXPECT_EQ(parent_pairing_manager_->StartPairing(), 0);
-  EXPECT_TRUE(parent_pairing_manager_->IsPairingStarted());
-  EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 1);
-
-  // start child pairing service
-  EXPECT_EQ(child_pairing_manager->StartPairing(), 0);
-  EXPECT_TRUE(child_pairing_manager->IsPairingStarted());
-  EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 2);
-
-  // test if child is paired
-  sleep(1);
-  EXPECT_TRUE(child_pairing_manager->IsPaired());
-
-  // stop child pairing service
-  EXPECT_EQ(child_pairing_manager->StopPairing(), 0);
-  EXPECT_FALSE(child_pairing_manager->IsPairingStarted());
-  EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 1);
-  delete child_pairing_manager;
-
-  // stop parent pairing service
-  EXPECT_EQ(parent_pairing_manager_->StopPairing(), 0);
-  EXPECT_FALSE(parent_pairing_manager_->IsPairingStarted());
-  EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 0);
-}
-
-TEST_F(PairingManagerTest, PairingWithOneMediaCapturedDevice) {
-  unsigned int class_index;
-  string app_id;
-
-  // add a active device class
-  UpnpFsmdaUtils::GenerateGUID(&app_id);
-  class_index = parent_pairing_manager_->GenerateAvaliableIndex(app_id);
-  device_class_description_rdf_ = "./files/mediacapture_class_desc00.xml";
-  EXPECT_EQ(device_class_description_->InitializeByRdfFile(
-                device_class_description_rdf_),
-            0);
-  parent_pairing_manager_->AddClass(app_id, class_index);
-  parent_pairing_manager_->AddClassDescription(app_id, class_index,
-                                               device_class_description_);
-  EXPECT_EQ(parent_pairing_manager_->GetNumberOfRegistredClasses(app_id), 1);
-
-  // add a active device
-  DeviceDescription description_aux;
-  description_aux.InitializeByDeviceClass(
-      DeviceClassDescription::kMediaCaptureDevice);
-  ChildPairingManager* child_pairing_manager =
-      new ChildPairingManager(description_aux);
-
-  // start parent pairing service
-  EXPECT_EQ(parent_pairing_manager_->StartPairing(), 0);
-  EXPECT_TRUE(parent_pairing_manager_->IsPairingStarted());
-  EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 1);
-
-  // start child pairing service
-  EXPECT_EQ(child_pairing_manager->StartPairing(), 0);
-  EXPECT_TRUE(child_pairing_manager->IsPairingStarted());
-  EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 2);
-
-  // test if child is paired
-  sleep(1);
-  EXPECT_TRUE(child_pairing_manager->IsPaired());
-
-  // stop child pairing service
-  EXPECT_EQ(child_pairing_manager->StopPairing(), 0);
-  EXPECT_FALSE(child_pairing_manager->IsPairingStarted());
-  EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 1);
-  delete child_pairing_manager;
-
-  // stop parent pairing service
-  EXPECT_EQ(parent_pairing_manager_->StopPairing(), 0);
-  EXPECT_FALSE(parent_pairing_manager_->IsPairingStarted());
-  EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 0);
+  // active class description initialize and meet_requirements tests
+  PairingWithOneDeviceHelper("./files/mediacapture_dev_desc00.xml",
+                             "./files/mediacapture_class_desc00.xml",
+                             DeviceClassDescription::kMediaCaptureDevice);
 }
