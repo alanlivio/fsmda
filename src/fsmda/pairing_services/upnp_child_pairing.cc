@@ -1,9 +1,9 @@
 /*----------------------------------------------------------------------
  |   includes
  +---------------------------------------------------------------------*/
+#include <iostream>
 #include "fsmda/child_pairing_manager.h"
 #include "fsmda/utils/upnp_fsmda_utils.h"
-#include <iostream>
 
 using std::clog;
 using std::endl;

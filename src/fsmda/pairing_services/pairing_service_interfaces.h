@@ -1,5 +1,5 @@
-#ifndef FSMDA_PAIRING_SERVICES_PAIRING_SERVICE_INTERFACE_H_
-#define FSMDA_PAIRING_SERVICES_PAIRING_SERVICE_INTERFACE_H_
+#ifndef FSMDA_PAIRING_SERVICES_PAIRING_SERVICE_INTERFACES_H_
+#define FSMDA_PAIRING_SERVICES_PAIRING_SERVICE_INTERFACES_H_
 
 /*----------------------------------------------------------------------
  |   forward definitions
@@ -20,7 +20,7 @@ class ParentPairingServiceInterface {
   virtual int StartPairingService() = 0;
   virtual int StopPairingService() = 0;
   virtual bool IsPairingServiceStarted() = 0;
-  virtual bool GetNumberOfDiscoveredChildren() = 0;
+  virtual unsigned int GetNumberOfDiscoveredChildren() = 0;
 };
 
 /*----------------------------------------------------------------------
@@ -39,4 +39,4 @@ class ChildPairingServiceInterface {
   virtual bool PerformedHandShake() = 0;
 };
 
-#endif  // FSMDA_PAIRING_SERVICES_PAIRING_SERVICE_INTERFACE_H_
+#endif  // FSMDA_PAIRING_SERVICES_PAIRING_SERVICE_INTERFACES_H_

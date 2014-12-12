@@ -24,7 +24,6 @@ UpnpParentPairing::UpnpParentPairing()
     : PLT_DeviceHost("/", NULL, UpnpFsmdaUtils::kPpmDeviceType,
                      UpnpFsmdaUtils::kPpmDeviceFriendlyName, true, 0, true),
       upnp_instance_(NULL),
-      discovered_children_(0),
       parent_pairing_manager_(NULL) {
   m_ModelDescription = UpnpFsmdaUtils::kPpmDeviceModelDescription;
   m_ModelURL = UpnpFsmdaUtils::kPpmDeviceModelUrl;
@@ -153,7 +152,7 @@ NPT_Result UpnpParentPairing::OnDeviceAdded(PLT_DeviceDataReference &device) {
     }
     clog << "UpnpParentPairing::OnDeviceAdded():: "
             "discoverd_cpm_.push_back(device)" << endl;
-    discoverd_cpm_.push_back(device);
+    discovered_children_.push_back(device);
     return NPT_SUCCESS;
   } else {
     return NPT_FAILURE;

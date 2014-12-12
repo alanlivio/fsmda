@@ -1,3 +1,4 @@
+#include "fsmda/child_pairing_manager.h"
 #include <iostream>
 #include <string>
 #include <NptConfig.h>
@@ -5,7 +6,6 @@
 #include <NptStrings.h>
 #include <PltService.h>
 #include <PltStateVariable.h>
-#include "child_pairing_manager.h"
 
 using std::clog;
 using std::endl;

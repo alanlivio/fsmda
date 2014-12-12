@@ -54,15 +54,16 @@ class UpnpParentPairing : public PLT_DeviceHost,
   virtual int StartPairingService();
   virtual int StopPairingService();
   virtual bool IsPairingServiceStarted() { return m_Started; }
-  virtual bool GetNumberOfDiscoveredChildren() { return discovered_children_; }
+  virtual unsigned int GetNumberOfDiscoveredChildren() {
+    return discovered_children_.size();
+  }
 
  private:
-  unsigned int discovered_children_;
   PLT_UPnP* upnp_instance_;
   PLT_DeviceHostReference* device_host_;
   PLT_Service* device_service_;
   PLT_CtrlPointReference* ctrl_point_;
-  vector<PLT_DeviceDataReference> discoverd_cpm_;
+  vector<PLT_DeviceDataReference> discovered_children_;
   ParentPairingManager* parent_pairing_manager_;
 };
 

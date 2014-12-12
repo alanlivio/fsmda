@@ -23,6 +23,7 @@ using std::string;
 /*----------------------------------------------------------------------
  |   class fields
  +---------------------------------------------------------------------*/
+// TODO(alan@telemidia.puc-rio.br): convert to map
 const char* DeviceClassDescription::device_class_type_strings_[] = {
     "base", "passive", "active", "html", "ondemand", "mediacapture"};
 
