@@ -33,7 +33,7 @@ ChildParingManager::~ChildParingManager() {
  |   ChildParingManager::StartParing
  +---------------------------------------------------------------------*/
 int ChildParingManager::StartParing() {
-  clog << "ChildParingManager::StartParing()::" << endl;
+  clog << "ChildParingManager::StartParing()" << endl;
   if (device_description_->paring_method() ==
       DeviceClassDescription::kUpnpParingProcotol) {
     if (upnp_child_paring_ == NULL) {

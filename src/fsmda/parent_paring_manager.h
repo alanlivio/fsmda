@@ -67,6 +67,7 @@ class ParentParingManager : public ClassHandlingPpmInterface,
   unsigned int GetRegistredClassesSize(const string& application_id);
   int StartParing();
   int StopParing();
+  bool IsParingStarted();
 
  private:
   // private filds
