@@ -1,15 +1,15 @@
 /*----------------------------------------------------------------------
  |   includes
  +---------------------------------------------------------------------*/
+#include "fsmda/communication_services/upnp_ondemand_ccm.h"
 #include <cstdlib>
 #include <iostream>
-#include "fsmda/paring/device_description.h"
-#include "fsmda/paring/device_class_description.h"
-#include "fsmda/communication/upnp_ondemand_ccm.h"
-#include "fsmda/paring/parent_paring_manager.h"
-#include "fsmda/paring/child_paring_manager.h"
-#include "fsmda/paring/upnp_child_paring.h"
-#include "fsmda/paring/upnp_parent_paring.h"
+#include "fsmda/device_description.h"
+#include "fsmda/device_class_description.h"
+#include "fsmda/parent_paring_manager.h"
+#include "fsmda/child_paring_manager.h"
+#include "fsmda/paring_services/upnp_child_paring.h"
+#include "fsmda/paring_services/upnp_parent_paring.h"
 #include "fsmda/utils/upnp_fsmda_utils.h"
 #include "gtest/gtest.h"
 

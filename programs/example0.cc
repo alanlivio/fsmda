@@ -7,9 +7,9 @@
 #include <NptLogging.h>
 #include <PltCtrlPoint.h>
 #include <PltUPnP.h>
-#include "fsmda/paring/parent_paring_manager.h"
-#include "fsmda/paring/upnp_child_paring.h"
-#include "fsmda/paring/upnp_parent_paring.h"
+#include "fsmda/paring_services/upnp_child_paring.h"
+#include "fsmda/paring_services/upnp_parent_paring.h"
+#include "fsmda/parent_paring_manager.h"
 #include "fsmda/utils/upnp_fsmda_utils.h"
 
 using std::clog;

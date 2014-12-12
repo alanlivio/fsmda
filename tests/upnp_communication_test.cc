@@ -2,15 +2,15 @@
  |   includes
  +---------------------------------------------------------------------*/
 
+#include "fsmda/communication_services/upnp_active_ccm.h"
+#include "fsmda/communication_services/upnp_active_pcm.h"
+#include "fsmda/communication_services/upnp_mediacapture_ccm.h"
+#include "fsmda/communication_services/upnp_mediacapture_pcm.h"
+#include "fsmda/communication_services/upnp_ondemand_ccm.h"
+#include "fsmda/communication_services/upnp_ondemand_pcm.h"
+#include "fsmda/communication_services/upnp_passive_ccm.h"
+#include "fsmda/communication_services/upnp_passive_pcm.h"
 #include "gtest/gtest.h"
-#include "fsmda/communication/upnp_active_ccm.h"
-#include "fsmda/communication/upnp_active_pcm.h"
-#include "fsmda/communication/upnp_mediacapture_ccm.h"
-#include "fsmda/communication/upnp_mediacapture_pcm.h"
-#include "fsmda/communication/upnp_ondemand_ccm.h"
-#include "fsmda/communication/upnp_ondemand_pcm.h"
-#include "fsmda/communication/upnp_passive_ccm.h"
-#include "fsmda/communication/upnp_passive_pcm.h"
 #include "fsmda/utils/upnp_fsmda_utils.h"
 
 using std::cout;
