@@ -1,6 +1,9 @@
 #ifndef FSMDA_CHILD_PARING_MANAGER_H_
 #define FSMDA_CHILD_PARING_MANAGER_H_
 
+/*----------------------------------------------------------------------
+ |   includes
+ +---------------------------------------------------------------------*/
 #include <map>
 #include <string>
 #include "fsmda/paring_services/upnp_child_paring.h"
@@ -15,6 +18,9 @@
 using std::string;
 using std::map;
 
+/*----------------------------------------------------------------------
+ |   ChildParingManager class
+ +---------------------------------------------------------------------*/
 class ChildParingManager : public DeviceParingCpmInterface {
  public:
   // public constructors & destructors
@@ -22,6 +28,7 @@ class ChildParingManager : public DeviceParingCpmInterface {
   virtual ~ChildParingManager();
 
   // public methods
+  // called by ParentParingManager
   int StartParing();
   int StopParing();
   bool IsParingStarted();
@@ -34,6 +41,7 @@ class ChildParingManager : public DeviceParingCpmInterface {
                                  const string& class_function);
 
   // Method for factory child communication managers
+  // called by ParentParingManager
   ActiveCcmInterface* CreateActiveCcm(unsigned int class_index);
   MediaCaptureCcmInterface* CreateMediaCaptureCcm(unsigned int class_index);
   PassiveCcmInterface* CreatePassiveCcm(unsigned int class_index);

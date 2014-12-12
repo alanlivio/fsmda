@@ -50,12 +50,12 @@ TEST_F(ParingManagerTest, DeviceDescriptionMatching) {
   device_class_description_rdf_ = "./files/passive_class_desc00.xml";
   device_description_->InitializeByRdfFile(device_rdf_);
   EXPECT_EQ(device_description_->device_class_type(),
-            DeviceClassDescription::kFsmdaPassiveDevice);
+            DeviceClassDescription::kPassiveDevice);
   EXPECT_EQ(device_class_description_->InitializeByRdfFile(
                 device_class_description_rdf_),
             0);
   EXPECT_EQ(device_class_description_->device_class_type(),
-            DeviceClassDescription::kFsmdaPassiveDevice);
+            DeviceClassDescription::kPassiveDevice);
   EXPECT_TRUE(
       device_class_description_->DeviceMeetRequirements(device_description_));
 
@@ -64,12 +64,12 @@ TEST_F(ParingManagerTest, DeviceDescriptionMatching) {
   device_class_description_rdf_ = "./files/active_class_desc00.xml";
   EXPECT_EQ(device_description_->InitializeByRdfFile(device_rdf_), 0);
   EXPECT_EQ(device_description_->device_class_type(),
-            DeviceClassDescription::kFsmdaActiveDevice);
+            DeviceClassDescription::kActiveDevice);
   EXPECT_EQ(device_class_description_->InitializeByRdfFile(
                 device_class_description_rdf_),
             0);
   EXPECT_EQ(device_class_description_->device_class_type(),
-            DeviceClassDescription::kFsmdaActiveDevice);
+            DeviceClassDescription::kActiveDevice);
   EXPECT_TRUE(
       device_class_description_->DeviceMeetRequirements(device_description_));
 
@@ -78,12 +78,12 @@ TEST_F(ParingManagerTest, DeviceDescriptionMatching) {
   device_class_description_rdf_ = "./files/html_class_desc00.xml";
   EXPECT_EQ(device_description_->InitializeByRdfFile(device_rdf_), 0);
   EXPECT_EQ(device_description_->device_class_type(),
-            DeviceClassDescription::kFsmdaHtmlDevice);
+            DeviceClassDescription::kHtmlDevice);
   EXPECT_EQ(device_class_description_->InitializeByRdfFile(
                 device_class_description_rdf_),
             0);
   EXPECT_EQ(device_class_description_->device_class_type(),
-            DeviceClassDescription::kFsmdaHtmlDevice);
+            DeviceClassDescription::kHtmlDevice);
   EXPECT_TRUE(
       device_class_description_->DeviceMeetRequirements(device_description_));
 
@@ -92,12 +92,12 @@ TEST_F(ParingManagerTest, DeviceDescriptionMatching) {
   device_rdf_ = "./files/ondemand_dev_desc00.xml";
   EXPECT_EQ(device_description_->InitializeByRdfFile(device_rdf_), 0);
   EXPECT_EQ(device_description_->device_class_type(),
-            DeviceClassDescription::kFsmdaOnDemandDevice);
+            DeviceClassDescription::kOnDemandDevice);
   EXPECT_EQ(device_class_description_->InitializeByRdfFile(
                 device_class_description_rdf_),
             0);
   EXPECT_EQ(device_class_description_->device_class_type(),
-            DeviceClassDescription::kFsmdaOnDemandDevice);
+            DeviceClassDescription::kOnDemandDevice);
   EXPECT_TRUE(
       device_class_description_->DeviceMeetRequirements(device_description_));
 
@@ -106,12 +106,12 @@ TEST_F(ParingManagerTest, DeviceDescriptionMatching) {
   device_class_description_rdf_ = "./files/mediacapture_class_desc00.xml";
   EXPECT_EQ(device_description_->InitializeByRdfFile(device_rdf_), 0);
   EXPECT_EQ(device_description_->device_class_type(),
-            DeviceClassDescription::kFsmdaMediaCaptureDevice);
+            DeviceClassDescription::kMediaCaptureDevice);
   EXPECT_EQ(device_class_description_->InitializeByRdfFile(
                 device_class_description_rdf_),
             0);
   EXPECT_EQ(device_class_description_->device_class_type(),
-            DeviceClassDescription::kFsmdaMediaCaptureDevice);
+            DeviceClassDescription::kMediaCaptureDevice);
   EXPECT_TRUE(
       device_class_description_->DeviceMeetRequirements(device_description_));
 }
@@ -136,7 +136,7 @@ TEST_F(ParingManagerTest, PairingWithOneActiveDevice) {
   // start child paring service
   DeviceDescription description_aux;
   description_aux.InitializeByDeviceClass(
-      DeviceClassDescription::kFsmdaActiveDevice);
+      DeviceClassDescription::kActiveDevice);
   ChildParingManager* child_paring_manager =
       new ChildParingManager(description_aux);
   EXPECT_EQ(child_paring_manager->StartParing(), 0);
@@ -178,7 +178,7 @@ TEST_F(ParingManagerTest, PairingWithOnePassiveDevice) {
   // start child paring service
   DeviceDescription description_aux;
   description_aux.InitializeByDeviceClass(
-      DeviceClassDescription::kFsmdaPassiveDevice);
+      DeviceClassDescription::kPassiveDevice);
   ChildParingManager* child_paring_manager =
       new ChildParingManager(description_aux);
   EXPECT_EQ(child_paring_manager->StartParing(), 0);
@@ -220,7 +220,7 @@ TEST_F(ParingManagerTest, PairingWithOneOnDemandDevice) {
   // start child paring service
   DeviceDescription description_aux;
   description_aux.InitializeByDeviceClass(
-      DeviceClassDescription::kFsmdaOnDemandDevice);
+      DeviceClassDescription::kOnDemandDevice);
   ChildParingManager* child_paring_manager =
       new ChildParingManager(description_aux);
   EXPECT_EQ(child_paring_manager->StartParing(), 0);
@@ -262,7 +262,7 @@ TEST_F(ParingManagerTest, PairingWithOneMediaCapture) {
   // start child paring service
   DeviceDescription description_aux;
   description_aux.InitializeByDeviceClass(
-      DeviceClassDescription::kFsmdaMediaCaptureDevice);
+      DeviceClassDescription::kMediaCaptureDevice);
   ChildParingManager* child_paring_manager =
       new ChildParingManager(description_aux);
   EXPECT_EQ(child_paring_manager->StartParing(), 0);

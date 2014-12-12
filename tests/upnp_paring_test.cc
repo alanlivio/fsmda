@@ -35,7 +35,7 @@ class UpnpParingTest : public ::testing::Test {
     parent_paring_manager_ = new ParentParingManager();
     DeviceDescription description_aux;
     description_aux.InitializeByDeviceClass(
-        DeviceClassDescription::kFsmdaActiveDevice);
+        DeviceClassDescription::kActiveDevice);
     child_paring_manager_ = new ChildParingManager(description_aux);
     upnp_parent_paring_ = new UpnpParentParing(parent_paring_manager_);
     upnp_child_paring_ = new UpnpChildParing(child_paring_manager_);

@@ -22,7 +22,7 @@ using std::endl;
  +---------------------------------------------------------------------*/
 DeviceDescription::DeviceDescription()
     : doc_(NULL),
-      class_type_(DeviceClassDescription::kFsmdaBaseDevice),
+      class_type_(DeviceClassDescription::kBaseDevice),
       initialized_(false) {}
 
 /*----------------------------------------------------------------------

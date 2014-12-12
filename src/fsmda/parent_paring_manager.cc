@@ -28,7 +28,7 @@ void ParentParingManager::AddClass(const string& application_id,
   DeviceClassDescription* device_class_description =
       new DeviceClassDescription();
   device_class_description->InitializeByDeviceClass(
-      DeviceClassDescription::kFsmdaActiveDevice);
+      DeviceClassDescription::kActiveDevice);
   AddClassDescription(application_id, class_index, device_class_description);
 }
 
@@ -123,7 +123,7 @@ bool ParentParingManager::IsParingStarted() {
 ActivePcmInterface* ParentParingManager::CreateActivePcm(
     const string& application_id, unsigned int class_index) {
   if (device_class_description_map_[application_id][class_index]
-          ->device_class_type() == DeviceClassDescription::kFsmdaActiveDevice)
+          ->device_class_type() == DeviceClassDescription::kActiveDevice)
     return new UpnpActivePcm();
   else
     return NULL;
@@ -136,7 +136,7 @@ MediaCapturePcmInterface* ParentParingManager::CreateMediaCapturePcm(
     const string& application_id, unsigned int class_index) {
   if (device_class_description_map_[application_id][class_index]
           ->device_class_type() ==
-      DeviceClassDescription::kFsmdaMediaCaptureDevice)
+      DeviceClassDescription::kMediaCaptureDevice)
     return new UpnpMediaCapturePcm();
   else
     return NULL;
@@ -148,7 +148,7 @@ MediaCapturePcmInterface* ParentParingManager::CreateMediaCapturePcm(
 OnDemandPcmInterface* ParentParingManager::CreateOnDemandPcm(
     const string& application_id, unsigned int class_index) {
   if (device_class_description_map_[application_id][class_index]
-          ->device_class_type() == DeviceClassDescription::kFsmdaOnDemandDevice)
+          ->device_class_type() == DeviceClassDescription::kOnDemandDevice)
     return new UpnpOnDemandPcm();
   else
     return NULL;
@@ -160,7 +160,7 @@ OnDemandPcmInterface* ParentParingManager::CreateOnDemandPcm(
 PassivePcmInterface* ParentParingManager::CreatePassivePcm(
     const string& application_id, unsigned int class_index) {
   if (device_class_description_map_[application_id][class_index]
-          ->device_class_type() == DeviceClassDescription::kFsmdaPassiveDevice)
+          ->device_class_type() == DeviceClassDescription::kPassiveDevice)
     return new UpnpPassivePcm();
   else
     return NULL;

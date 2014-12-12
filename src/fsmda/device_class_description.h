@@ -22,12 +22,12 @@ class DeviceClassDescription {
   // class fields
   enum DeviceClassType {
     kDeviceClassTypeInvalid = -1,
-    kFsmdaBaseDevice = 0,
-    kFsmdaPassiveDevice = 1,
-    kFsmdaActiveDevice = 2,
-    kFsmdaHtmlDevice = 3,
-    kFsmdaOnDemandDevice = 4,
-    kFsmdaMediaCaptureDevice = 5
+    kBaseDevice = 0,
+    kPassiveDevice = 1,
+    kActiveDevice = 2,
+    kHtmlDevice = 3,
+    kOnDemandDevice = 4,
+    kMediaCaptureDevice = 5
   };
   enum ParingProtocol {
     kParingProtocolInvalid = -1,
@@ -37,7 +37,8 @@ class DeviceClassDescription {
   enum CommunicationProtocol {
     kCommunicationProtocolInvalid = -1,
     kUpnpCommunicationProcotol = 0,
-    kHTTPCommunicationProtocol = 1
+    kHTTPCommunicationProtocol = 1,
+    kAdHocSocketCommunicationProtocol = 2
   };
 
   // class methods

@@ -1,6 +1,9 @@
 #ifndef FSMDA_PARENT_PARING_MANAGER_H_
 #define FSMDA_PARENT_PARING_MANAGER_H_
 
+/*----------------------------------------------------------------------
+ |   includes
+ +---------------------------------------------------------------------*/
 #include <map>
 #include <set>
 #include <string>
@@ -17,6 +20,9 @@ using std::string;
 using std::map;
 using std::set;
 
+/*----------------------------------------------------------------------
+ |   ParentParingManager class
+ +---------------------------------------------------------------------*/
 class ParentParingManager : public ClassHandlingPpmInterface,
                             public DeviceParingPpmInterface {
  public:

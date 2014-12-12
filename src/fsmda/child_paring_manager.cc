@@ -83,7 +83,7 @@ void ChildParingManager::ClassAnnouncement(const string& application_id,
 ActiveCcmInterface* ChildParingManager::CreateActiveCcm(
     unsigned int class_index) {
   if (device_class_description_map_[class_index]->device_class_type() ==
-      DeviceClassDescription::kFsmdaActiveDevice)
+      DeviceClassDescription::kActiveDevice)
     return new UpnpActiveCcm();
   else
     return NULL;
@@ -95,7 +95,7 @@ ActiveCcmInterface* ChildParingManager::CreateActiveCcm(
 PassiveCcmInterface* ChildParingManager::CreatePassiveCcm(
     unsigned int class_index) {
   if (device_class_description_map_[class_index]->device_class_type() ==
-      DeviceClassDescription::kFsmdaPassiveDevice)
+      DeviceClassDescription::kPassiveDevice)
     return new UpnpPassiveCcm();
   else
     return NULL;
@@ -107,7 +107,7 @@ PassiveCcmInterface* ChildParingManager::CreatePassiveCcm(
 OnDemandCcmInterface* ChildParingManager::CreateOndemandCcm(
     unsigned int class_index) {
   if (device_class_description_map_[class_index]->device_class_type() ==
-      DeviceClassDescription::kFsmdaOnDemandDevice)
+      DeviceClassDescription::kOnDemandDevice)
     return new UpnpOnDemandCcm();
   else
     return NULL;
@@ -119,7 +119,7 @@ OnDemandCcmInterface* ChildParingManager::CreateOndemandCcm(
 MediaCaptureCcmInterface* ChildParingManager::CreateMediaCaptureCcm(
     unsigned int class_index) {
   if (device_class_description_map_[class_index]->device_class_type() ==
-      DeviceClassDescription::kFsmdaMediaCaptureDevice)
+      DeviceClassDescription::kMediaCaptureDevice)
     return new UpnpMediaCaptureCcm();
   else
     return NULL;

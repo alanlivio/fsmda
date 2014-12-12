@@ -10,6 +10,9 @@
 
 using std::string;
 
+/*----------------------------------------------------------------------
+ |   DeviceDescription class
+ +---------------------------------------------------------------------*/
 class DeviceDescription {
  public:
   // public constructors & destructors

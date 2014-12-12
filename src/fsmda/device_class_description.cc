@@ -36,7 +36,7 @@ const char* DeviceClassDescription::communication_protocol_strings_[] = {
  +---------------------------------------------------------------------*/
 DeviceClassDescription::DeviceClassDescription()
     : doc_(NULL),
-      device_class_type_(kFsmdaBaseDevice),
+      device_class_type_(kBaseDevice),
       min_devices_(0),
       max_devices_(0),
       initialized_(false) {}
@@ -162,18 +162,18 @@ int DeviceClassDescription::InitializeByRdfFile(const string& rdf_file) {
  +---------------------------------------------------------------------*/
 DeviceClassDescription::DeviceClassType
 DeviceClassDescription::GetDeviceClassTypeByString(const string& str) {
-  if (!str.compare(device_class_type_strings_[kFsmdaPassiveDevice]))
-    return kFsmdaPassiveDevice;
-  else if (!str.compare(device_class_type_strings_[kFsmdaActiveDevice]))
-    return kFsmdaActiveDevice;
-  else if (!str.compare(device_class_type_strings_[kFsmdaHtmlDevice]))
-    return kFsmdaHtmlDevice;
-  else if (!str.compare(device_class_type_strings_[kFsmdaOnDemandDevice]))
-    return kFsmdaOnDemandDevice;
-  else if (!str.compare(device_class_type_strings_[kFsmdaMediaCaptureDevice]))
-    return kFsmdaMediaCaptureDevice;
+  if (!str.compare(device_class_type_strings_[kPassiveDevice]))
+    return kPassiveDevice;
+  else if (!str.compare(device_class_type_strings_[kActiveDevice]))
+    return kActiveDevice;
+  else if (!str.compare(device_class_type_strings_[kHtmlDevice]))
+    return kHtmlDevice;
+  else if (!str.compare(device_class_type_strings_[kOnDemandDevice]))
+    return kOnDemandDevice;
+  else if (!str.compare(device_class_type_strings_[kMediaCaptureDevice]))
+    return kMediaCaptureDevice;
   else
-    return kFsmdaBaseDevice;
+    return kBaseDevice;
 }
 
 /*----------------------------------------------------------------------
@@ -243,25 +243,25 @@ const char* DeviceClassDescription::GetCommunicationProtocolStringByEnum(
 const char* DeviceClassDescription::GetDeviceClassTypeStringByEnum(
     DeviceClassDescription::DeviceClassType type) {
   switch (type) {
-    case kFsmdaBaseDevice:
-      return device_class_type_strings_[kFsmdaBaseDevice];
+    case kBaseDevice:
+      return device_class_type_strings_[kBaseDevice];
       break;
-    case kFsmdaPassiveDevice:
-      return device_class_type_strings_[kFsmdaPassiveDevice];
+    case kPassiveDevice:
+      return device_class_type_strings_[kPassiveDevice];
       break;
-    case kFsmdaActiveDevice:
-      return device_class_type_strings_[kFsmdaActiveDevice];
+    case kActiveDevice:
+      return device_class_type_strings_[kActiveDevice];
       break;
-    case kFsmdaHtmlDevice:
-      return device_class_type_strings_[kFsmdaHtmlDevice];
+    case kHtmlDevice:
+      return device_class_type_strings_[kHtmlDevice];
       break;
-    case kFsmdaOnDemandDevice:
-      return device_class_type_strings_[kFsmdaOnDemandDevice];
+    case kOnDemandDevice:
+      return device_class_type_strings_[kOnDemandDevice];
       break;
-    case kFsmdaMediaCaptureDevice:
-      return device_class_type_strings_[kFsmdaMediaCaptureDevice];
+    case kMediaCaptureDevice:
+      return device_class_type_strings_[kMediaCaptureDevice];
       break;
     default:
-      return device_class_type_strings_[kFsmdaBaseDevice];
+      return device_class_type_strings_[kBaseDevice];
   }
 }
