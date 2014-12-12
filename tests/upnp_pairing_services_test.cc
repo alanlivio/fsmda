@@ -15,7 +15,6 @@
 
 using std::cout;
 using std::endl;
-using std::system;
 
 void PairingWithOnDeviceInSameProcessHelper(
     DeviceClassDescription::DeviceClassType device_class_type) {
@@ -78,11 +77,12 @@ void PairingWithOnDeviceInDiferentProcessesHelper(
   EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 1);
 
   // start parent pairing service
-  ASSERT_TRUE(popen("./upnp_pairing_test_helper", "r"));
+  ASSERT_TRUE(popen("./upnp_pairing_services_test_helper", "r"));
 
   // test if child is paired
   sleep(1);
   EXPECT_TRUE(upnp_child_pairing->IsPaired());
+  // TODO(alan@telemidia.puc-rio.br): use class_type as program parameter
 
   // stop child pairing service
   EXPECT_EQ(upnp_child_pairing->StopPairingService(), 0);

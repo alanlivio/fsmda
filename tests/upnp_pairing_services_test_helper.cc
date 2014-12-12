@@ -1,12 +1,7 @@
 /*----------------------------------------------------------------------
  |   includes
  +---------------------------------------------------------------------*/
-#include <cassert>
 #include <iostream>
-#include <NptHttp.h>
-#include <NptLogging.h>
-#include <PltCtrlPoint.h>
-#include <PltUPnP.h>
 #include "fsmda/parent_pairing_manager.h"
 #include "fsmda/pairing_services/upnp_child_pairing.h"
 #include "fsmda/pairing_services/upnp_parent_pairing.h"
@@ -21,7 +16,6 @@ using std::cin;
 int main(void) {
   UpnpParentPairing* upnp_parent_pairing = new UpnpParentPairing();
   upnp_parent_pairing->StartPairingService();
-
   char buf[256];
   while (cin.getline(buf, 255)) {
     if (*buf == 'q') break;
