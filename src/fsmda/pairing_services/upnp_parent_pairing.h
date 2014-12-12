@@ -13,7 +13,7 @@
 #include <PltCtrlPoint.h>
 #include "fsmda/model/class_handling_interfaces.h"
 #include "fsmda/model/device_pairing_interfaces.h"
-#include "fsmda/pairing_services/pairing_service_interface.h"
+#include "fsmda/pairing_services/pairing_service_interfaces.h"
 
 using std::string;
 using std::vector;
@@ -27,13 +27,13 @@ class ParentPairingManager;
  |   UpnpPpm class
  +---------------------------------------------------------------------*/
 class UpnpParentPairing : public PLT_DeviceHost,
-                         public PLT_CtrlPointListener,
-                         public PairingServiceInterface {
+                          public PLT_CtrlPointListener,
+                          public ParentPairingServiceInterface {
  public:
   // public constructors & destructors
 
-  explicit UpnpParentPairing(ParentPairingManager* parent_pairing_manager);
-  virtual ~UpnpParentPairing();
+  UpnpParentPairing();
+  ~UpnpParentPairing();
 
   // PLT_DeviceHost overloaded methods
   virtual NPT_Result SetupServices();
@@ -47,14 +47,17 @@ class UpnpParentPairing : public PLT_DeviceHost,
                                       void* userdata);
   virtual NPT_Result OnEventNotify(PLT_Service* service,
                                    NPT_List<PLT_StateVariable*>* vars);
-  // public methods
+
+  // ParentPairingServiceInterface overloaded methods
+  // called by ParentPairingManager
+  virtual int SetServiceOwner(ParentPairingManager* service_owner);
   virtual int StartPairingService();
   virtual int StopPairingService();
   virtual bool IsPairingServiceStarted() { return m_Started; }
-  unsigned int paired_childs() { return paired_childs_; }
+  virtual bool GetNumberOfDiscoveredChildren() { return discovered_children_; }
 
  private:
-  unsigned int paired_childs_;
+  unsigned int discovered_children_;
   PLT_UPnP* upnp_instance_;
   PLT_DeviceHostReference* device_host_;
   PLT_Service* device_service_;

@@ -11,11 +11,11 @@ using std::endl;
 /*----------------------------------------------------------------------
  |   UpnpChildPairing::UpnpChildPairing
  +---------------------------------------------------------------------*/
-UpnpChildPairing::UpnpChildPairing(ChildPairingManager *child_pairing_manager)
+UpnpChildPairing::UpnpChildPairing()
     : PLT_DeviceHost("/", NULL, UpnpFsmdaUtils::kCpmDeviceType,
                      UpnpFsmdaUtils::kCpmDeviceFriendlyName, true, 0, true),
       upnp_instance_(NULL),
-      paired_with_parent_(false) {
+      paired_(false) {
   m_ModelDescription = UpnpFsmdaUtils::kCpmDeviceModelDescription;
   m_ModelURL = UpnpFsmdaUtils::kCpmDeviceModelUrl;
   m_ModelNumber = UpnpFsmdaUtils::kCpmDeviceModelNumber;
@@ -28,7 +28,6 @@ UpnpChildPairing::UpnpChildPairing(ChildPairingManager *child_pairing_manager)
                                     UpnpFsmdaUtils::kCpmServiceName);
   device_service_->SetSCPDXML((const char *)UpnpFsmdaUtils::kCpmServiceScpdXml);
   ctrl_point_ = new PLT_CtrlPointReference(new PLT_CtrlPoint());
-  child_pairing_manager_ = child_pairing_manager;
 }
 
 /*----------------------------------------------------------------------
@@ -41,6 +40,13 @@ UpnpChildPairing::~UpnpChildPairing() {
   delete ctrl_point_;
   device_host_->Detach();
   delete device_host_;
+}
+
+/*----------------------------------------------------------------------
+ |   UpnpChildPairing::SetServiceOwner
+ +---------------------------------------------------------------------*/
+int UpnpChildPairing::SetServiceOwner(ChildPairingManager *service_owner) {
+  child_pairing_manager_ = service_owner;
 }
 
 /*----------------------------------------------------------------------
@@ -77,7 +83,7 @@ NPT_Result UpnpChildPairing::OnAction(PLT_ActionReference &action,
          << class_desc.GetChars() << "," << class_function.GetChars() << ")"
          << endl;
     clog << "UpnpChildPairing::OnAction()::paired_with_parent_= true" << endl;
-    paired_with_parent_ = true;
+    paired_ = true;
     if (child_pairing_manager_ != NULL) {
       child_pairing_manager_->ClassAnnouncement(
           application_id.GetChars(), class_index, class_desc.GetChars(),

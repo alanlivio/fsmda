@@ -35,7 +35,8 @@ int ChildPairingManager::StartPairing() {
   if (device_description_->pairing_method() ==
       DeviceClassDescription::kUpnpPairingProcotol) {
     if (upnp_child_pairing_ == NULL) {
-      upnp_child_pairing_ = new UpnpChildPairing(this);
+      upnp_child_pairing_ = new UpnpChildPairing();
+      upnp_child_pairing_->SetServiceOwner(this);
     }
     return upnp_child_pairing_->StartPairingService();
   } else {

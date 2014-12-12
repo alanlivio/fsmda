@@ -10,7 +10,7 @@
 #include <PltHttp.h>
 #include <PltUPnP.h>
 #include <PltCtrlPoint.h>
-#include "fsmda/pairing_services/pairing_service_interface.h"
+#include "fsmda/pairing_services/pairing_service_interfaces.h"
 #include "fsmda/model/device_pairing_interfaces.h"
 
 /*----------------------------------------------------------------------
@@ -23,11 +23,11 @@ class ChildPairingManager;
  +---------------------------------------------------------------------*/
 class UpnpChildPairing : public PLT_DeviceHost,
                          public PLT_CtrlPointListener,
-                         public PairingServiceInterface {
+                         public ChildPairingServiceInterface {
  public:
   // public constructors & destructors
-  explicit UpnpChildPairing(ChildPairingManager* child_pairing_manager);
-  virtual ~UpnpChildPairing();
+  UpnpChildPairing();
+  ~UpnpChildPairing();
 
   // PLT_DeviceHost overloaded methods
   virtual NPT_Result SetupServices();
@@ -43,16 +43,16 @@ class UpnpChildPairing : public PLT_DeviceHost,
   virtual NPT_Result OnEventNotify(PLT_Service* service,
                                    NPT_List<PLT_StateVariable*>* vars);
 
-  // PairingServiceInterface overloaded methods
+  // ParentPairingServiceInterface overloaded methods
+  // called by ChildPairingManager
+  virtual int SetServiceOwner(ChildPairingManager* service_owner);
   virtual int StartPairingService();
   virtual int StopPairingService();
   virtual bool IsPairingServiceStarted() { return m_Started; }
-
-  // public methods
-  bool IsPaired() { return paired_with_parent_; }
+  bool IsPaired() { return paired_; }
 
  private:
-  bool paired_with_parent_;
+  bool paired_;
   PLT_UPnP* upnp_instance_;
   PLT_DeviceHostReference* device_host_;
   PLT_Service* device_service_;

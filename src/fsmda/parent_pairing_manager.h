@@ -70,7 +70,7 @@ class ParentPairingManager : public ClassHandlingPpmInterface,
 
   // Utils methods
   unsigned int GenerateAvaliableIndex(const string& application_id);
-  unsigned int GetRegistredClassesSize(const string& application_id);
+  unsigned int GetNumberOfRegistredClasses(const string& application_id);
   int StartPairing();
   int StopPairing();
   bool IsPairingStarted();

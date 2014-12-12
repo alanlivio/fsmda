@@ -37,8 +37,10 @@ class UpnpPairingTest : public ::testing::Test {
     description_aux.InitializeByDeviceClass(
         DeviceClassDescription::kActiveDevice);
     child_pairing_manager_ = new ChildPairingManager(description_aux);
-    upnp_parent_pairing_ = new UpnpParentPairing(parent_pairing_manager_);
-    upnp_child_pairing_ = new UpnpChildPairing(child_pairing_manager_);
+    upnp_parent_pairing_ = new UpnpParentPairing();
+    upnp_parent_pairing_->SetServiceOwner(parent_pairing_manager_);
+    upnp_child_pairing_ = new UpnpChildPairing();
+    upnp_child_pairing_->SetServiceOwner(child_pairing_manager_);
   }
 
   void TearDown() {

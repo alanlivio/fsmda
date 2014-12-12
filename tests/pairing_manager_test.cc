@@ -125,17 +125,17 @@ TEST_F(PairingManagerTest, PairingWithOneActiveDevice) {
   class_index = parent_pairing_manager_->GenerateAvaliableIndex(app_id);
   device_class_description_rdf_ = "./files/active_class_desc00.xml";
   EXPECT_EQ(device_class_description_->InitializeByRdfFile(
-              device_class_description_rdf_),
+                device_class_description_rdf_),
             0);
   parent_pairing_manager_->AddClass(app_id, class_index);
   parent_pairing_manager_->AddClassDescription(app_id, class_index,
                                                device_class_description_);
-  EXPECT_EQ(parent_pairing_manager_->GetRegistredClassesSize(app_id), 1);
+  EXPECT_EQ(parent_pairing_manager_->GetNumberOfRegistredClasses(app_id), 1);
 
   // add a device
   DeviceDescription description_aux;
   description_aux.InitializeByDeviceClass(
-        DeviceClassDescription::kActiveDevice);
+      DeviceClassDescription::kActiveDevice);
   ChildPairingManager* child_pairing_manager =
       new ChildPairingManager(description_aux);
 
@@ -174,17 +174,17 @@ TEST_F(PairingManagerTest, PairingWithOnePassiveDevice) {
   class_index = parent_pairing_manager_->GenerateAvaliableIndex(app_id);
   device_class_description_rdf_ = "./files/passive_class_desc00.xml";
   EXPECT_EQ(device_class_description_->InitializeByRdfFile(
-              device_class_description_rdf_),
+                device_class_description_rdf_),
             0);
   parent_pairing_manager_->AddClass(app_id, class_index);
   parent_pairing_manager_->AddClassDescription(app_id, class_index,
                                                device_class_description_);
-  EXPECT_EQ(parent_pairing_manager_->GetRegistredClassesSize(app_id), 1);
+  EXPECT_EQ(parent_pairing_manager_->GetNumberOfRegistredClasses(app_id), 1);
 
   // add a device
   DeviceDescription description_aux;
   description_aux.InitializeByDeviceClass(
-        DeviceClassDescription::kPassiveDevice);
+      DeviceClassDescription::kPassiveDevice);
   ChildPairingManager* child_pairing_manager =
       new ChildPairingManager(description_aux);
 
@@ -223,17 +223,17 @@ TEST_F(PairingManagerTest, PairingWithOneOnDemandDevice) {
   class_index = parent_pairing_manager_->GenerateAvaliableIndex(app_id);
   device_class_description_rdf_ = "./files/ondemand_class_desc00.xml";
   EXPECT_EQ(device_class_description_->InitializeByRdfFile(
-              device_class_description_rdf_),
+                device_class_description_rdf_),
             0);
   parent_pairing_manager_->AddClass(app_id, class_index);
   parent_pairing_manager_->AddClassDescription(app_id, class_index,
                                                device_class_description_);
-  EXPECT_EQ(parent_pairing_manager_->GetRegistredClassesSize(app_id), 1);
+  EXPECT_EQ(parent_pairing_manager_->GetNumberOfRegistredClasses(app_id), 1);
 
   // add a active device
   DeviceDescription description_aux;
   description_aux.InitializeByDeviceClass(
-        DeviceClassDescription::kOnDemandDevice);
+      DeviceClassDescription::kOnDemandDevice);
   ChildPairingManager* child_pairing_manager =
       new ChildPairingManager(description_aux);
 
@@ -277,7 +277,7 @@ TEST_F(PairingManagerTest, PairingWithOneMediaCapturedDevice) {
   parent_pairing_manager_->AddClass(app_id, class_index);
   parent_pairing_manager_->AddClassDescription(app_id, class_index,
                                                device_class_description_);
-  EXPECT_EQ(parent_pairing_manager_->GetRegistredClassesSize(app_id), 1);
+  EXPECT_EQ(parent_pairing_manager_->GetNumberOfRegistredClasses(app_id), 1);
 
   // add a active device
   DeviceDescription description_aux;

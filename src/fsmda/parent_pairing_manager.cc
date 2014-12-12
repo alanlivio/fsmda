@@ -99,8 +99,10 @@ void ParentPairingManager::GetChildIndex(const string& application_id,
 int ParentPairingManager::StartPairing() {
   clog << "ParentPairingManager::StartPairing()" << endl;
   if (upnp_registred_classes_size > 0) {
-    if (upnp_parent_pairing_ == NULL)
-      upnp_parent_pairing_ = new UpnpParentPairing(this);
+    if (upnp_parent_pairing_ == NULL) {
+      upnp_parent_pairing_ = new UpnpParentPairing();
+      upnp_parent_pairing_->SetServiceOwner(this);
+    }
     return upnp_parent_pairing_->StartPairingService();
   } else {
     return -1;
@@ -189,9 +191,9 @@ unsigned int ParentPairingManager::GenerateAvaliableIndex(
 }
 
 /*----------------------------------------------------------------------
- |   ParentPairingManager::GetRegistredClassesSize
+ |   ParentPairingManager::GetNumberOfRegistredClasses
  +---------------------------------------------------------------------*/
-unsigned int ParentPairingManager::GetRegistredClassesSize(
+unsigned int ParentPairingManager::GetNumberOfRegistredClasses(
     const string& application_id) {
   return device_class_description_map_[application_id].size();
 }

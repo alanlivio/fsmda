@@ -20,12 +20,12 @@ using std::endl;
 /*----------------------------------------------------------------------
  |   UpnpParentPairing::UpnpParentPairing
  +---------------------------------------------------------------------*/
-UpnpParentPairing::UpnpParentPairing(
-    ParentPairingManager *parent_pairing_manager)
+UpnpParentPairing::UpnpParentPairing()
     : PLT_DeviceHost("/", NULL, UpnpFsmdaUtils::kPpmDeviceType,
                      UpnpFsmdaUtils::kPpmDeviceFriendlyName, true, 0, true),
       upnp_instance_(NULL),
-      paired_childs_(0) {
+      discovered_children_(0),
+      parent_pairing_manager_(NULL) {
   m_ModelDescription = UpnpFsmdaUtils::kPpmDeviceModelDescription;
   m_ModelURL = UpnpFsmdaUtils::kPpmDeviceModelUrl;
   m_ModelNumber = UpnpFsmdaUtils::kPpmDeviceNumber;
@@ -38,7 +38,6 @@ UpnpParentPairing::UpnpParentPairing(
                                     UpnpFsmdaUtils::kPpmServiceName);
   device_service_->SetSCPDXML((const char *)UpnpFsmdaUtils::kPpmServiceScpdXml);
   ctrl_point_ = new PLT_CtrlPointReference(new PLT_CtrlPoint());
-  parent_pairing_manager_ = parent_pairing_manager;
 }
 
 /*----------------------------------------------------------------------
@@ -51,6 +50,13 @@ UpnpParentPairing::~UpnpParentPairing() {
   delete ctrl_point_;
   device_host_->Detach();
   delete device_host_;
+}
+
+/*----------------------------------------------------------------------
+ |   UpnpChildPairing::SetServiceOwner
+ +---------------------------------------------------------------------*/
+int UpnpParentPairing::SetServiceOwner(ParentPairingManager *service_owner) {
+  parent_pairing_manager_ = service_owner;
 }
 
 /*----------------------------------------------------------------------
@@ -115,7 +121,6 @@ NPT_Result UpnpParentPairing::OnAction(PLT_ActionReference &action,
 
 NPT_Result UpnpParentPairing::OnEventNotify(
     PLT_Service *service, NPT_List<PLT_StateVariable *> *vars) {}
-
 NPT_Result UpnpParentPairing::OnActionResponse(NPT_Result res,
                                                PLT_ActionReference &action,
                                                void *userdata) {}
