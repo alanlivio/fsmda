@@ -1,17 +1,9 @@
 /*----------------------------------------------------------------------
  |   includes
  +---------------------------------------------------------------------*/
-#include <iostream>
-#include <string>
-#include <NptConfig.h>
-#include <NptResults.h>
-#include <NptStrings.h>
-#include <PltFileMediaServer.h>
-#include <PltService.h>
-#include <PltStateVariable.h>
-#include "fsmda/pairing_services/upnp_child_pairing.h"
 #include "fsmda/child_pairing_manager.h"
 #include "fsmda/utils/upnp_fsmda_utils.h"
+#include <iostream>
 
 using std::clog;
 using std::endl;
@@ -65,7 +57,7 @@ NPT_Result UpnpChildPairing::SetupServices() {
  |   UpnpChildPairing::OnAction
  +---------------------------------------------------------------------*/
 NPT_Result UpnpChildPairing::OnAction(PLT_ActionReference &action,
-                                     const PLT_HttpRequestContext &context) {
+                                      const PLT_HttpRequestContext &context) {
   NPT_String name = action->GetActionDesc().GetName();
   clog << "UpnpChildPairing::OnAction()::action.name=" << name.GetChars()
        << endl;
@@ -97,13 +89,12 @@ NPT_Result UpnpChildPairing::OnAction(PLT_ActionReference &action,
   return NPT_FAILURE;
 }
 
-NPT_Result UpnpChildPairing::OnEventNotify(PLT_Service *service,
-                                          NPT_List<PLT_StateVariable *> *vars) {
-}
+NPT_Result UpnpChildPairing::OnEventNotify(
+    PLT_Service *service, NPT_List<PLT_StateVariable *> *vars) {}
 
 NPT_Result UpnpChildPairing::OnActionResponse(NPT_Result res,
-                                             PLT_ActionReference &action,
-                                             void *userdata) {}
+                                              PLT_ActionReference &action,
+                                              void *userdata) {}
 
 NPT_Result UpnpChildPairing::OnDeviceRemoved(PLT_DeviceDataReference &device) {}
 
@@ -117,10 +108,9 @@ NPT_Result UpnpChildPairing::OnDeviceAdded(PLT_DeviceDataReference &device) {
   clog << "UpnpChildPairing::OnDeviceAdded()::device->GetURLBase()->"
        << device->GetURLBase().ToString().GetChars() << endl;
 
-  PLT_Service *parent_pairing_service;
   if (!device->GetType().Compare(UpnpFsmdaUtils::kPpmDeviceType)) {
     device->FindServiceByType(UpnpFsmdaUtils::kPpmServiceType,
-                              parent_pairing_service);
+                              parent_pairing_service_);
     return NPT_SUCCESS;
   } else {
     return NPT_FAILURE;

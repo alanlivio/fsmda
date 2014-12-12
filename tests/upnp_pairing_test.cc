@@ -53,14 +53,14 @@ class UpnpPairingTest : public ::testing::Test {
 };
 
 TEST_F(UpnpPairingTest, SameProcessPairing) {
-  // start child pairing service
-  EXPECT_EQ(upnp_child_pairing_->StartPairingService(), 0);
-  EXPECT_TRUE(upnp_child_pairing_->IsPairingServiceStarted());
-  EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 1);
-
   // start parent pairing service
   EXPECT_EQ(upnp_parent_pairing_->StartPairingService(), 0);
   EXPECT_TRUE(upnp_parent_pairing_->IsPairingServiceStarted());
+  EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 1);
+
+  // start child pairing service
+  EXPECT_EQ(upnp_child_pairing_->StartPairingService(), 0);
+  EXPECT_TRUE(upnp_child_pairing_->IsPairingServiceStarted());
   EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 2);
 
   // test if child is paired
@@ -75,6 +75,7 @@ TEST_F(UpnpPairingTest, SameProcessPairing) {
   // stop parent pairing service
   EXPECT_EQ(upnp_parent_pairing_->StopPairingService(), 0);
   EXPECT_FALSE(upnp_parent_pairing_->IsPairingServiceStarted());
+  EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 0);
 }
 
 TEST_F(UpnpPairingTest, DiferentProcessesPairing) {

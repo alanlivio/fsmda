@@ -6,14 +6,14 @@
  +---------------------------------------------------------------------*/
 #include <map>
 #include <string>
-#include "fsmda/pairing_services/upnp_child_pairing.h"
 #include "fsmda/model/active_object_interfaces.h"
-#include "fsmda/model/mediacapture_object_interfaces.h"
-#include "fsmda/model/ondemand_object_interfaces.h"
-#include "fsmda/model/passive_object_interfaces.h"
-#include "fsmda/model/class_handling_interfaces.h"
-#include "fsmda/model/device_pairing_interfaces.h"
+#include "fsmda/communication_services/upnp_active_ccm.h"
+#include "fsmda/communication_services/upnp_passive_ccm.h"
+#include "fsmda/communication_services/upnp_ondemand_ccm.h"
+#include "fsmda/communication_services/upnp_mediacapture_ccm.h"
 #include "fsmda/device_class_description.h"
+#include "fsmda/device_description.h"
+#include "fsmda/pairing_services/upnp_child_pairing.h"
 
 using std::string;
 using std::map;
@@ -32,6 +32,7 @@ class ChildPairingManager : public DevicePairingCpmInterface {
   int StartPairing();
   int StopPairing();
   bool IsPairingStarted();
+  bool IsPaired();
 
   // public DevicePairingCpmInterface overloaded methods
   // called by ParentPairingManager

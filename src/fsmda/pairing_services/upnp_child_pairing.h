@@ -22,8 +22,8 @@ class ChildPairingManager;
  |   UpnpChildPairing class
  +---------------------------------------------------------------------*/
 class UpnpChildPairing : public PLT_DeviceHost,
-                        public PLT_CtrlPointListener,
-                        public PairingServiceInterface {
+                         public PLT_CtrlPointListener,
+                         public PairingServiceInterface {
  public:
   // public constructors & destructors
   explicit UpnpChildPairing(ChildPairingManager* child_pairing_manager);
@@ -58,6 +58,7 @@ class UpnpChildPairing : public PLT_DeviceHost,
   PLT_Service* device_service_;
   PLT_CtrlPointReference* ctrl_point_;
   ChildPairingManager* child_pairing_manager_;
+  PLT_Service* parent_pairing_service_;
 };
 
 #endif  // FSMDA_PAIRING_SERVICES_UPNP_CHILD_PAIRING_H_

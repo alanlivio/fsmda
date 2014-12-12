@@ -18,25 +18,21 @@ ParentPairingManager::ParentPairingManager()
 
 ParentPairingManager::~ParentPairingManager() {
   if (upnp_parent_pairing_ != NULL) delete upnp_parent_pairing_;
+  // TODO(alan@telemidia.puc-rio.br): delete  device_class_description_map_
+  // content
 }
 
 /*----------------------------------------------------------------------
  |   ParentPairingManager::AddClass
  +---------------------------------------------------------------------*/
 void ParentPairingManager::AddClass(const string& application_id,
-                                   unsigned int class_index) {
+                                    unsigned int class_index) {
   DeviceClassDescription* device_class_description =
       new DeviceClassDescription();
   device_class_description->InitializeByDeviceClass(
       DeviceClassDescription::kActiveDevice);
   AddClassDescription(application_id, class_index, device_class_description);
 }
-
-/*----------------------------------------------------------------------
- |   ParentPairingManager::RemoveClass
- +---------------------------------------------------------------------*/
-void ParentPairingManager::RemoveClass(const string& application_id,
-                                      unsigned int class_index) {}
 
 /*----------------------------------------------------------------------
  |   ParentPairingManager::AddClassDescription
@@ -50,7 +46,8 @@ void ParentPairingManager::AddClassDescription(
       new DeviceClassDescription();
   device_class_description->InitializeByDeviceClass(
       DeviceClassDescription::GetDeviceClassTypeByString(class_type));
-  // TODO(alanlivio@gmail.com): change  to Initialize passing paremeters
+  // TODO(alan@telemidia.puc-rio.br): change  to Initialize using given
+  // paremeters
   AddClassDescription(application_id, class_index, device_class_description);
 }
 
@@ -69,18 +66,32 @@ void ParentPairingManager::AddClassDescription(
 }
 
 /*----------------------------------------------------------------------
+ |   ParentPairingManager::RemoveClass
+ +---------------------------------------------------------------------*/
+void ParentPairingManager::RemoveClass(const string& application_id,
+                                       unsigned int class_index) {
+  // TODO(alan@telemidia.puc-rio.br): create tests to this
+  device_class_description_map_.at(application_id).erase(
+      device_class_description_map_.at(application_id).find(class_index));
+}
+
+/*----------------------------------------------------------------------
  |   ParentPairingManager::AddDeviceToClass
  +---------------------------------------------------------------------*/
 void ParentPairingManager::AddDeviceToClass(const string& application_id,
-                                           const string& device_address,
-                                           unsigned int class_index,
-                                           const string& device_desc) {}
+                                            const string& device_address,
+                                            unsigned int class_index,
+                                            const string& device_desc) {
+  // TODO(alan@telemidia.puc-rio.br): create tests to this
+}
 /*----------------------------------------------------------------------
  |   ParentPairingManager::GetChildIndex
  +---------------------------------------------------------------------*/
 void ParentPairingManager::GetChildIndex(const string& application_id,
-                                        const string& device_address,
-                                        unsigned int class_index) {}
+                                         const string& device_address,
+                                         unsigned int class_index) {
+  // TODO(alan@gmail.com): create tests to this
+}
 
 /*----------------------------------------------------------------------
  |   ParentPairingManager::StartPairing
@@ -135,8 +146,7 @@ ActivePcmInterface* ParentPairingManager::CreateActivePcm(
 MediaCapturePcmInterface* ParentPairingManager::CreateMediaCapturePcm(
     const string& application_id, unsigned int class_index) {
   if (device_class_description_map_[application_id][class_index]
-          ->device_class_type() ==
-      DeviceClassDescription::kMediaCaptureDevice)
+          ->device_class_type() == DeviceClassDescription::kMediaCaptureDevice)
     return new UpnpMediaCapturePcm();
   else
     return NULL;

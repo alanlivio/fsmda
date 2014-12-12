@@ -120,38 +120,45 @@ TEST_F(PairingManagerTest, PairingWithOneActiveDevice) {
   unsigned int class_index;
   string app_id;
 
-  // add a active class
+  // add a device class
   UpnpFsmdaUtils::GenerateGUID(&app_id);
   class_index = parent_pairing_manager_->GenerateAvaliableIndex(app_id);
   device_class_description_rdf_ = "./files/active_class_desc00.xml";
   EXPECT_EQ(device_class_description_->InitializeByRdfFile(
-                device_class_description_rdf_),
+              device_class_description_rdf_),
             0);
   parent_pairing_manager_->AddClass(app_id, class_index);
   parent_pairing_manager_->AddClassDescription(app_id, class_index,
-                                              device_class_description_);
+                                               device_class_description_);
   EXPECT_EQ(parent_pairing_manager_->GetRegistredClassesSize(app_id), 1);
-  EXPECT_EQ(parent_pairing_manager_->StartPairing(), 0);
 
-  // start child pairing service
+  // add a device
   DeviceDescription description_aux;
   description_aux.InitializeByDeviceClass(
-      DeviceClassDescription::kActiveDevice);
+        DeviceClassDescription::kActiveDevice);
   ChildPairingManager* child_pairing_manager =
       new ChildPairingManager(description_aux);
+
+  // start parent pairing service
+  EXPECT_EQ(parent_pairing_manager_->StartPairing(), 0);
+  EXPECT_TRUE(parent_pairing_manager_->IsPairingStarted());
+  EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 1);
+
+  // start child pairing service
   EXPECT_EQ(child_pairing_manager->StartPairing(), 0);
   EXPECT_TRUE(child_pairing_manager->IsPairingStarted());
   EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 2);
 
   // test if child is paired
   sleep(1);
-  EXPECT_TRUE(child_pairing_manager->IsPairingStarted());
+  EXPECT_TRUE(child_pairing_manager->IsPaired());
 
   // stop child pairing service
   EXPECT_EQ(child_pairing_manager->StopPairing(), 0);
   EXPECT_FALSE(child_pairing_manager->IsPairingStarted());
   EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 1);
   delete child_pairing_manager;
+
   // stop parent pairing service
   EXPECT_EQ(parent_pairing_manager_->StopPairing(), 0);
   EXPECT_FALSE(parent_pairing_manager_->IsPairingStarted());
@@ -162,38 +169,45 @@ TEST_F(PairingManagerTest, PairingWithOnePassiveDevice) {
   unsigned int class_index;
   string app_id;
 
-  // add a active class
+  // add a device class
   UpnpFsmdaUtils::GenerateGUID(&app_id);
   class_index = parent_pairing_manager_->GenerateAvaliableIndex(app_id);
   device_class_description_rdf_ = "./files/passive_class_desc00.xml";
   EXPECT_EQ(device_class_description_->InitializeByRdfFile(
-                device_class_description_rdf_),
+              device_class_description_rdf_),
             0);
   parent_pairing_manager_->AddClass(app_id, class_index);
   parent_pairing_manager_->AddClassDescription(app_id, class_index,
-                                              device_class_description_);
+                                               device_class_description_);
   EXPECT_EQ(parent_pairing_manager_->GetRegistredClassesSize(app_id), 1);
-  EXPECT_EQ(parent_pairing_manager_->StartPairing(), 0);
 
-  // start child pairing service
+  // add a device
   DeviceDescription description_aux;
   description_aux.InitializeByDeviceClass(
-      DeviceClassDescription::kPassiveDevice);
+        DeviceClassDescription::kPassiveDevice);
   ChildPairingManager* child_pairing_manager =
       new ChildPairingManager(description_aux);
+
+  // start parent pairing service
+  EXPECT_EQ(parent_pairing_manager_->StartPairing(), 0);
+  EXPECT_TRUE(parent_pairing_manager_->IsPairingStarted());
+  EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 1);
+
+  // start child pairing service
   EXPECT_EQ(child_pairing_manager->StartPairing(), 0);
   EXPECT_TRUE(child_pairing_manager->IsPairingStarted());
   EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 2);
 
   // test if child is paired
   sleep(1);
-  EXPECT_TRUE(child_pairing_manager->IsPairingStarted());
+  EXPECT_TRUE(child_pairing_manager->IsPaired());
 
   // stop child pairing service
   EXPECT_EQ(child_pairing_manager->StopPairing(), 0);
   EXPECT_FALSE(child_pairing_manager->IsPairingStarted());
   EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 1);
   delete child_pairing_manager;
+
   // stop parent pairing service
   EXPECT_EQ(parent_pairing_manager_->StopPairing(), 0);
   EXPECT_FALSE(parent_pairing_manager_->IsPairingStarted());
@@ -204,49 +218,56 @@ TEST_F(PairingManagerTest, PairingWithOneOnDemandDevice) {
   unsigned int class_index;
   string app_id;
 
-  // add a active class
+  // add a active device class
   UpnpFsmdaUtils::GenerateGUID(&app_id);
   class_index = parent_pairing_manager_->GenerateAvaliableIndex(app_id);
   device_class_description_rdf_ = "./files/ondemand_class_desc00.xml";
   EXPECT_EQ(device_class_description_->InitializeByRdfFile(
-                device_class_description_rdf_),
+              device_class_description_rdf_),
             0);
   parent_pairing_manager_->AddClass(app_id, class_index);
   parent_pairing_manager_->AddClassDescription(app_id, class_index,
-                                              device_class_description_);
+                                               device_class_description_);
   EXPECT_EQ(parent_pairing_manager_->GetRegistredClassesSize(app_id), 1);
-  EXPECT_EQ(parent_pairing_manager_->StartPairing(), 0);
 
-  // start child pairing service
+  // add a active device
   DeviceDescription description_aux;
   description_aux.InitializeByDeviceClass(
-      DeviceClassDescription::kOnDemandDevice);
+        DeviceClassDescription::kOnDemandDevice);
   ChildPairingManager* child_pairing_manager =
       new ChildPairingManager(description_aux);
+
+  // start parent pairing service
+  EXPECT_EQ(parent_pairing_manager_->StartPairing(), 0);
+  EXPECT_TRUE(parent_pairing_manager_->IsPairingStarted());
+  EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 1);
+
+  // start child pairing service
   EXPECT_EQ(child_pairing_manager->StartPairing(), 0);
   EXPECT_TRUE(child_pairing_manager->IsPairingStarted());
   EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 2);
 
   // test if child is paired
   sleep(1);
-  EXPECT_TRUE(child_pairing_manager->IsPairingStarted());
+  EXPECT_TRUE(child_pairing_manager->IsPaired());
 
   // stop child pairing service
   EXPECT_EQ(child_pairing_manager->StopPairing(), 0);
   EXPECT_FALSE(child_pairing_manager->IsPairingStarted());
   EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 1);
   delete child_pairing_manager;
+
   // stop parent pairing service
   EXPECT_EQ(parent_pairing_manager_->StopPairing(), 0);
   EXPECT_FALSE(parent_pairing_manager_->IsPairingStarted());
   EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 0);
 }
 
-TEST_F(PairingManagerTest, PairingWithOneMediaCapture) {
+TEST_F(PairingManagerTest, PairingWithOneMediaCapturedDevice) {
   unsigned int class_index;
   string app_id;
 
-  // add a active class
+  // add a active device class
   UpnpFsmdaUtils::GenerateGUID(&app_id);
   class_index = parent_pairing_manager_->GenerateAvaliableIndex(app_id);
   device_class_description_rdf_ = "./files/mediacapture_class_desc00.xml";
@@ -255,29 +276,36 @@ TEST_F(PairingManagerTest, PairingWithOneMediaCapture) {
             0);
   parent_pairing_manager_->AddClass(app_id, class_index);
   parent_pairing_manager_->AddClassDescription(app_id, class_index,
-                                              device_class_description_);
+                                               device_class_description_);
   EXPECT_EQ(parent_pairing_manager_->GetRegistredClassesSize(app_id), 1);
-  EXPECT_EQ(parent_pairing_manager_->StartPairing(), 0);
 
-  // start child pairing service
+  // add a active device
   DeviceDescription description_aux;
   description_aux.InitializeByDeviceClass(
       DeviceClassDescription::kMediaCaptureDevice);
   ChildPairingManager* child_pairing_manager =
       new ChildPairingManager(description_aux);
+
+  // start parent pairing service
+  EXPECT_EQ(parent_pairing_manager_->StartPairing(), 0);
+  EXPECT_TRUE(parent_pairing_manager_->IsPairingStarted());
+  EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 1);
+
+  // start child pairing service
   EXPECT_EQ(child_pairing_manager->StartPairing(), 0);
   EXPECT_TRUE(child_pairing_manager->IsPairingStarted());
   EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 2);
 
   // test if child is paired
   sleep(1);
-  EXPECT_TRUE(child_pairing_manager->IsPairingStarted());
+  EXPECT_TRUE(child_pairing_manager->IsPaired());
 
   // stop child pairing service
   EXPECT_EQ(child_pairing_manager->StopPairing(), 0);
   EXPECT_FALSE(child_pairing_manager->IsPairingStarted());
   EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 1);
   delete child_pairing_manager;
+
   // stop parent pairing service
   EXPECT_EQ(parent_pairing_manager_->StopPairing(), 0);
   EXPECT_FALSE(parent_pairing_manager_->IsPairingStarted());

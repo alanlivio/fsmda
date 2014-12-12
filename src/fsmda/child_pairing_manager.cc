@@ -1,13 +1,11 @@
-#include <string>
 #include <iostream>
-#include "fsmda/model/passive_object_interfaces.h"
-#include "fsmda/child_pairing_manager.h"
-#include "fsmda/device_description.h"
-#include "fsmda/device_class_description.h"
-#include "fsmda/communication_services/upnp_active_ccm.h"
-#include "fsmda/communication_services/upnp_mediacapture_ccm.h"
-#include "fsmda/communication_services/upnp_ondemand_ccm.h"
-#include "fsmda/communication_services/upnp_passive_ccm.h"
+#include <string>
+#include <NptConfig.h>
+#include <NptResults.h>
+#include <NptStrings.h>
+#include <PltService.h>
+#include <PltStateVariable.h>
+#include "child_pairing_manager.h"
 
 using std::clog;
 using std::endl;
@@ -70,13 +68,23 @@ bool ChildPairingManager::IsPairingStarted() {
   }
 }
 
+bool ChildPairingManager::IsPaired() {
+  if (upnp_child_pairing_ != NULL &&
+      device_description_->pairing_method() ==
+          DeviceClassDescription::kUpnpPairingProcotol) {
+    return upnp_child_pairing_->IsPaired();
+  } else {
+    return false;
+  }
+}
+
 /*----------------------------------------------------------------------
  |   ChildPairingManager::ClassAnnouncement
  +---------------------------------------------------------------------*/
 void ChildPairingManager::ClassAnnouncement(const string& application_id,
-                                           unsigned int class_index,
-                                           const string& class_desc,
-                                           const string& class_function) {}
+                                            unsigned int class_index,
+                                            const string& class_desc,
+                                            const string& class_function) {}
 /*----------------------------------------------------------------------
  |   ChildPairingManager::CreateActiveCc
  +---------------------------------------------------------------------*/
