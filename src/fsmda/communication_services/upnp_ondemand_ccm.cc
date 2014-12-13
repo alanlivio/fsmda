@@ -40,9 +40,9 @@ int UpnpOnDemandCcm::StartCommunicationService() {
 
   clog << "OnDemandCCM::start_communication_service" << endl;
   PLT_DeviceHostReference device(
-      new PLT_FileMediaServer(this->ondemand_folder_.c_str(),
+      new PLT_FileMediaServer(ondemand_folder_.c_str(),
                               UpnpFsmdaUtils::kOnDemandCcmDeviceFriendlyName,
-                              true, this->uuid_.c_str()));
+                              true, uuid_.c_str()));
   device->m_ModelDescription =
       UpnpFsmdaUtils::kOnDemandCcmDeviceModelDescription;
   device->m_ModelURL = UpnpFsmdaUtils::kOnDemandCcmDeviceModelUrl;

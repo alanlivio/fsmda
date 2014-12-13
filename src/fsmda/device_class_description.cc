@@ -55,10 +55,10 @@ bool DeviceClassDescription::DeviceMeetRequirements(
   if (!initialized_) {
     clog << "device_meets_requirements fail: not initialized_" << endl;
     return false;
-  } else if (this->device_class_type_ != device_desc->device_class_type()) {
+  } else if (device_class_type_ != device_desc->device_class_type()) {
     clog << "device_meets_requirements fail: classType_" << endl;
     return false;
-  } else if (this->pairing_protocol_ != device_desc->pairing_method()) {
+  } else if (pairing_protocol_ != device_desc->pairing_method()) {
     clog << "device_meets_requirements fail: pairingMethod_" << endl;
     return false;
   } else {
@@ -70,11 +70,11 @@ bool DeviceClassDescription::DeviceMeetRequirements(
  |   DeviceClassDescription::InitializeByDefaultDeviceClass
  +---------------------------------------------------------------------*/
 int DeviceClassDescription::InitializeByDeviceClass(DeviceClassType type) {
-  this->device_class_type_ = type;
-  this->min_devices_ = 1;
-  this->max_devices_ = UINT_MAX;
-  this->pairing_protocol_ = DeviceClassDescription::kUpnpPairingProcotol;
-  this->initialized_ = true;
+  device_class_type_ = type;
+  min_devices_ = 1;
+  max_devices_ = UINT_MAX;
+  pairing_protocol_ = DeviceClassDescription::kUpnpPairingProcotol;
+  initialized_ = true;
   return 0;
 }
 
@@ -92,7 +92,7 @@ int DeviceClassDescription::InitializeByRdfFile(const string& rdf_file) {
   xmlInitParser();
   doc_ = xmlParseFile(rdf_file.c_str());
   assert(doc_ != NULL);
-  xpathCtx = xmlXPathNewContext(this->doc_);
+  xpathCtx = xmlXPathNewContext(doc_);
   assert(xpathCtx != NULL);
   ret = xmlXPathRegisterNs(
       xpathCtx, reinterpret_cast<const xmlChar*>("fsmda"),
@@ -106,10 +106,10 @@ int DeviceClassDescription::InitializeByRdfFile(const string& rdf_file) {
   nodes = xpathObj->nodesetval;
   assert(nodes->nodeTab[0]);
   aux = (const char*)nodes->nodeTab[0]->children->content;
-  this->device_class_type_ =
+  device_class_type_ =
       DeviceClassDescription::GetDeviceClassTypeByString(aux);
   clog << "DeviceClassDescription::InitializeByParseRdfFile::classType = "
-       << aux << "(or " << this->device_class_type_ << ")" << endl;
+       << aux << "(or " << device_class_type_ << ")" << endl;
   xmlXPathFreeObject(xpathObj);
 
   // capture min_devices
@@ -119,9 +119,9 @@ int DeviceClassDescription::InitializeByRdfFile(const string& rdf_file) {
   nodes = xpathObj->nodesetval;
   assert(nodes->nodeTab[0]);
   aux = (const char*)nodes->nodeTab[0]->children->content;
-  this->min_devices_ = atoi(aux);
+  min_devices_ = atoi(aux);
   clog << "DeviceClassDescription::InitializeByParseRdfFile::minDevices = "
-       << this->min_devices_ << endl;
+       << min_devices_ << endl;
   xmlXPathFreeObject(xpathObj);
 
   // capture max_devices
@@ -131,9 +131,9 @@ int DeviceClassDescription::InitializeByRdfFile(const string& rdf_file) {
   nodes = xpathObj->nodesetval;
   assert(nodes->nodeTab[0]);
   aux = (const char*)nodes->nodeTab[0]->children->content;
-  this->max_devices_ = atoi(aux);
+  max_devices_ = atoi(aux);
   clog << "DeviceClassDescription::InitializeByParseRdfFile::maxDevices = "
-       << this->max_devices_ << endl;
+       << max_devices_ << endl;
   xmlXPathFreeObject(xpathObj);
 
   // capture pairingMethod
@@ -142,10 +142,10 @@ int DeviceClassDescription::InitializeByRdfFile(const string& rdf_file) {
   assert(xpathObj != NULL);
   nodes = xpathObj->nodesetval;
   assert(nodes->nodeTab[0]);
-  this->pairing_protocol_ = DeviceClassDescription::GetPairingProtocolByString(
+  pairing_protocol_ = DeviceClassDescription::GetPairingProtocolByString(
       (const char*)nodes->nodeTab[0]->children->content);
   clog << "DeviceClassDescription::InitializeByParseRdfFile::pairingMethod = "
-       << this->pairing_protocol_ << endl;
+       << pairing_protocol_ << endl;
   xmlXPathFreeObject(xpathObj);
 
   // release libxml
@@ -154,7 +154,7 @@ int DeviceClassDescription::InitializeByRdfFile(const string& rdf_file) {
   xmlCleanupParser();
   xmlMemoryDump();
 
-  this->initialized_ = true;
+  initialized_ = true;
   return 0;
 }
 

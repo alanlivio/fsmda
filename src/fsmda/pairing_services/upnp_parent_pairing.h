@@ -7,6 +7,7 @@
 
 #include <string>
 #include <vector>
+#include <map>
 #include <NptTypes.h>
 #include <PltDeviceHost.h>
 #include <PltUPnP.h>
@@ -17,6 +18,7 @@
 
 using std::string;
 using std::vector;
+using std::map;
 
 /*----------------------------------------------------------------------
  |   forward definitions
@@ -51,9 +53,11 @@ class UpnpParentPairing : public PLT_DeviceHost,
   // ParentPairingServiceInterface overloaded methods
   // called by ParentPairingManager
   virtual int SetServiceOwner(ParentPairingManager* service_owner);
-  virtual int AddDeviceClassForDiscover(DeviceDescription* device_description);
-  virtual int RemoveDeviceClassForDiscover(
-      DeviceDescription* device_description);
+  virtual int AddDeviceClassForDiscover(
+      const string& application_id, unsigned int class_index,
+      DeviceClassDescription* device_class_description);
+  virtual int RemoveDeviceClassForDiscover(const string& application_id,
+                                           unsigned int class_index);
   virtual int StartPairingService();
   virtual int StopPairingService();
   virtual bool IsPairingServiceStarted() { return m_Started; }
@@ -66,8 +70,9 @@ class UpnpParentPairing : public PLT_DeviceHost,
   PLT_DeviceHostReference* device_host_;
   PLT_Service* device_service_;
   PLT_CtrlPointReference* ctrl_point_;
-  vector<DeviceDescription*> device_classes_for_discover_;
   vector<PLT_DeviceDataReference> discovered_children_;
+  map<const string, map<unsigned int, DeviceClassDescription*> >
+      device_classes_for_discover_map_;
   ParentPairingManager* parent_pairing_manager_;
 };
 

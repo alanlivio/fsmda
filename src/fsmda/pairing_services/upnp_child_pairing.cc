@@ -35,7 +35,7 @@ UpnpChildPairing::UpnpChildPairing()
  |   UpnpChildPairing::~UpnpChildPairing
  +---------------------------------------------------------------------*/
 UpnpChildPairing::~UpnpChildPairing() {
-  this->StopPairingService();
+  StopPairingService();
   delete device_service_;
   ctrl_point_->Detach();
   delete ctrl_point_;

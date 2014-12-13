@@ -54,7 +54,7 @@ int DeviceDescription::InitializeByRdfFile(const string& rdf_file) {
   xmlInitParser();
   doc_ = xmlParseFile(rdf_file.c_str());
   assert(doc_ != NULL);
-  xpathCtx = xmlXPathNewContext(this->doc_);
+  xpathCtx = xmlXPathNewContext(doc_);
   assert(xpathCtx != NULL);
   ret = xmlXPathRegisterNs(
       xpathCtx, reinterpret_cast<const xmlChar*>("fsmda"),
@@ -68,9 +68,9 @@ int DeviceDescription::InitializeByRdfFile(const string& rdf_file) {
   nodes = xpathObj->nodesetval;
   assert(nodes->nodeTab[0]);
   aux = (const char*)nodes->nodeTab[0]->children->content;
-  this->class_type_ = DeviceClassDescription::GetDeviceClassTypeByString(aux);
+  class_type_ = DeviceClassDescription::GetDeviceClassTypeByString(aux);
   clog << "DeviceDescription::InitializeByRdfFile::classType = " << aux
-       << "(or " << this->class_type_ << ")" << endl;
+       << "(or " << class_type_ << ")" << endl;
   xmlXPathFreeObject(xpathObj);
 
   // capture pairingMethod
@@ -79,10 +79,10 @@ int DeviceDescription::InitializeByRdfFile(const string& rdf_file) {
   assert(xpathObj != NULL);
   nodes = xpathObj->nodesetval;
   assert(nodes->nodeTab[0]);
-  this->pairing_method_ = DeviceClassDescription::GetPairingProtocolByString(
+  pairing_method_ = DeviceClassDescription::GetPairingProtocolByString(
       (const char*)nodes->nodeTab[0]->children->content);
   clog << "DeviceDescription::InitializeByRdfFile::pairingMethod = "
-       << this->pairing_method_ << endl;
+       << pairing_method_ << endl;
   xmlXPathFreeObject(xpathObj);
 
   // release libxml
@@ -91,6 +91,6 @@ int DeviceDescription::InitializeByRdfFile(const string& rdf_file) {
   xmlCleanupParser();
   xmlMemoryDump();
 
-  this->initialized_ = true;
+  initialized_ = true;
   return 0;
 }

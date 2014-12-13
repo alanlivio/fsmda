@@ -20,9 +20,10 @@ class ParentPairingServiceInterface {
   // public pure virtual methods
   virtual int SetServiceOwner(ParentPairingManager* service_owner) = 0;
   virtual int AddDeviceClassForDiscover(
-      DeviceDescription* device_description) = 0;
-  virtual int RemoveDeviceClassForDiscover(
-      DeviceDescription* device_description) = 0;
+      const string& application_id, unsigned int class_index,
+      DeviceClassDescription* device_class_description) = 0;
+  virtual int RemoveDeviceClassForDiscover(const string& application_id,
+                                           unsigned int class_index) = 0;
   virtual int StartPairingService() = 0;
   virtual int StopPairingService() = 0;
   virtual bool IsPairingServiceStarted() = 0;
