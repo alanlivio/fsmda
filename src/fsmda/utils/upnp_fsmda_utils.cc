@@ -253,7 +253,7 @@ void UpnpFsmdaUtils::GenerateGUID(std::string* guid) {
 /*----------------------------------------------------------------------
  |   UpnpUtils::RequestUpnpReference
  +---------------------------------------------------------------------*/
-PLT_UPnP* UpnpFsmdaUtils::GetRunningUpnpInstance() {
+PLT_UPnP* UpnpFsmdaUtils::GetRunningInstance() {
   if (UpnpFsmdaUtils::upnp_singleton_ == NULL) {
     // setup Neptune logging
     //    NPT_LogManager::GetDefault().Configure(
@@ -277,7 +277,7 @@ PLT_UPnP* UpnpFsmdaUtils::GetRunningUpnpInstance() {
 /*----------------------------------------------------------------------
  |   UpnpUtils::ReleaseUpnpReference
  +---------------------------------------------------------------------*/
-void UpnpFsmdaUtils::ReleaseUpnpInstance() {
+void UpnpFsmdaUtils::ReleaseInstance() {
   if (UpnpFsmdaUtils::upnp_references_count_ == 0) {
     return;
   } else if (UpnpFsmdaUtils::upnp_references_count_ == 1) {

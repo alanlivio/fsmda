@@ -24,13 +24,23 @@ using std::set;
  |   ParentPairingManager class
  +---------------------------------------------------------------------*/
 class ParentPairingManager : public ClassHandlingPpmInterface,
-                            public DevicePairingPpmInterface {
+                             public DevicePairingPpmInterface {
  public:
   // public constructors & destructors
   ParentPairingManager();
   virtual ~ParentPairingManager();
 
-  // ClassHandlingPpmInterface overloaded methods
+  // public DevicePairingPpmInterface overloaded methods
+  // called by remote ChildPairingManager
+  virtual void AddDeviceToClass(const string& application_id,
+                                const string& device_address,
+                                unsigned int class_index,
+                                const string& device_desc);
+  virtual void GetChildIndex(const string& application_id,
+                             const string& device_address,
+                             unsigned int class_index);
+
+  // public ClassHandlingPpmInterface overloaded methods
   // called by HypermediaEngine
   virtual void AddClass(const string& application_id, unsigned int class_index);
   virtual void RemoveClass(const string& application_id,
@@ -41,14 +51,12 @@ class ParentPairingManager : public ClassHandlingPpmInterface,
       unsigned int min_devices, const string& hardware_requirements,
       const string& software_requirements, const string& network_requirements);
 
-  // Extra ClassHandlingPpmInterface  methods
-  // called by HypermediaEngine
+  // pubic methods called by HypermediaEngine
   virtual void AddClassDescription(
       const string& application_id, unsigned int class_index,
       DeviceClassDescription* device_class_description);
-
-  // Methods for factory parent communication managers
-  // called by HypermediaEngine
+  virtual void SetClassHandlingHPE(const string& application_id,
+                                   ClassHandlingHPEInterface* hpe);
   ActivePcmInterface* CreateActivePcm(const string& application_id,
                                       unsigned int class_index);
   MediaCapturePcmInterface* CreateMediaCapturePcm(const string& application_id,
@@ -57,16 +65,6 @@ class ParentPairingManager : public ClassHandlingPpmInterface,
                                           unsigned int class_index);
   PassivePcmInterface* CreatePassivePcm(const string& application_id,
                                         unsigned int class_index);
-
-  // DevicePairingPpmInterface overloaded methods
-  // called by remote ChildPairingManager
-  virtual void AddDeviceToClass(const string& application_id,
-                                const string& device_address,
-                                unsigned int class_index,
-                                const string& device_desc);
-  virtual void GetChildIndex(const string& application_id,
-                             const string& device_address,
-                             unsigned int class_index);
 
   // Utils methods
   unsigned int GenerateAvaliableIndex(const string& application_id);
@@ -81,6 +79,7 @@ class ParentPairingManager : public ClassHandlingPpmInterface,
   map<const string, map<unsigned int, DeviceClassDescription*> >
       device_class_description_map_;
   UpnpParentPairing* upnp_parent_pairing_;
+  map<const string, ClassHandlingHPEInterface*> hpes_map_;
 };
 
 #endif  // FSMDA_PARENT_PAIRING_MANAGER_H_

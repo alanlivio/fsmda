@@ -28,7 +28,7 @@ UpnpOnDemandCcm::UpnpOnDemandCcm()
  +---------------------------------------------------------------------*/
 UpnpOnDemandCcm::~UpnpOnDemandCcm() {
   if (upnp_reference_ != NULL)
-    upnp_reference_ = UpnpFsmdaUtils::GetRunningUpnpInstance();
+    upnp_reference_ = UpnpFsmdaUtils::GetRunningInstance();
 }
 
 /*----------------------------------------------------------------------
@@ -36,7 +36,7 @@ UpnpOnDemandCcm::~UpnpOnDemandCcm() {
  +---------------------------------------------------------------------*/
 int UpnpOnDemandCcm::StartCommunicationService() {
   if (upnp_reference_ == NULL)
-    upnp_reference_ = UpnpFsmdaUtils::GetRunningUpnpInstance();
+    upnp_reference_ = UpnpFsmdaUtils::GetRunningInstance();
 
   clog << "OnDemandCCM::start_communication_service" << endl;
   PLT_DeviceHostReference device(
@@ -59,7 +59,7 @@ int UpnpOnDemandCcm::StartCommunicationService() {
  |   UpnpOnDemandCcm::Stop
  +---------------------------------------------------------------------*/
 int UpnpOnDemandCcm::StopCommunicationService() {
-  UpnpFsmdaUtils::ReleaseUpnpInstance();
+  UpnpFsmdaUtils::ReleaseInstance();
   upnp_reference_ = NULL;
   service_start_ = false;
   return 0;

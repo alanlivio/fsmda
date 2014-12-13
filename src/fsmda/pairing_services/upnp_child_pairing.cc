@@ -137,7 +137,7 @@ NPT_Result UpnpChildPairing::OnDeviceAdded(PLT_DeviceDataReference &device) {
 int UpnpChildPairing::StartPairingService() {
   clog << "UpnpChildPairing::StartService()" << endl;
   if (upnp_instance_ == NULL) {
-    upnp_instance_ = UpnpFsmdaUtils::GetRunningUpnpInstance();
+    upnp_instance_ = UpnpFsmdaUtils::GetRunningInstance();
   }
   NPT_Result res;
   res = upnp_instance_->AddDevice(*device_host_);
@@ -161,7 +161,7 @@ int UpnpChildPairing::StopPairingService() {
     upnp_instance_->RemoveDevice(*device_host_);
     (*ctrl_point_)->RemoveListener(this);
     upnp_instance_->RemoveCtrlPoint(*ctrl_point_);
-    UpnpFsmdaUtils::ReleaseUpnpInstance();
+    UpnpFsmdaUtils::ReleaseInstance();
     upnp_instance_ = NULL;
   }
   return 0;

@@ -17,11 +17,11 @@ using std::string;
  +---------------------------------------------------------------------*/
 class UpnpFsmdaUtils {
  public:
-  // class fields - upnp fsmda manufacturer
+  // public class fields - upnp fsmda manufacturer
   static const char* kFsmdaManufacturer;
   static const char* kFsmdaManufacturerUrl;
 
-  // class fields - upnp pairing device strings
+  // public class fields - upnp pairing device strings
   static const char* kPpmDeviceType;
   static const char* kPpmDeviceFriendlyName;
   static const char* kPpmDeviceModelDescription;
@@ -43,17 +43,17 @@ class UpnpFsmdaUtils {
   static const char* kCpmServiceName;
   static const char* kCpmServiceScpdXml;
 
-  // class fields - upnp communication devices string for upnp
+  // public class fields - upnp communication devices string for upnp
   static const char* kOnDemandCcmDeviceFriendlyName;
   static const char* kOnDemandCcmDeviceModelDescription;
   static const char* kOnDemandCcmDeviceModelUrl;
   static const char* kOnDemandCcmDeviceModelNumber;
   static const char* kOnDemandCcmDeviceModelName;
 
-  // class methods
+  // public class methods
   static void GenerateGUID(string* guid);
-  static PLT_UPnP* GetRunningUpnpInstance();
-  static void ReleaseUpnpInstance();
+  static PLT_UPnP* GetRunningInstance();
+  static void ReleaseInstance();
   static bool IsUpnpStarted();
   static unsigned int upnp_references_count() {
     return UpnpFsmdaUtils::upnp_references_count_;
