@@ -60,8 +60,7 @@ void PairingWithOneDeviceHelper(
   ChildPairingManager* child_pairing_manager =
       new ChildPairingManager(device_description);
 
-  EXPECT_EQ(device_description.device_class_type(),
-            expected_device_class_type);
+  EXPECT_EQ(device_description.device_class_type(), expected_device_class_type);
   EXPECT_EQ(device_class_description->device_class_type(),
             expected_device_class_type);
 
