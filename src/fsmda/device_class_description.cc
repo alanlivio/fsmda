@@ -13,6 +13,8 @@
 #include <cstdlib>
 #include <cstring>
 #include <iostream>
+#include <sstream>
+#include <fstream>
 #include <string>
 #include "fsmda/device_class_description.h"
 #include "fsmda/device_description.h"
@@ -20,6 +22,7 @@
 using std::clog;
 using std::endl;
 using std::string;
+using std::ifstream;
 using std::strlen;
 
 /*----------------------------------------------------------------------
@@ -43,7 +46,32 @@ const char* DeviceClassDescription::kUpnpCommunicationProcotolString = "UPnP";
 const char* DeviceClassDescription::kHTTPCommunicationProtocolString = "HTTP";
 const char* DeviceClassDescription::kAdHocSocketCommunicationProtocolString =
     "ad hoc socket";
-const char* DeviceClassDescription::kPassiveDeviceDefaultRdfContent = "";
+const char* DeviceClassDescription::kInvalidDeviceDefaultRdfContent =
+    "invalid rdf";
+const char* DeviceClassDescription::kPassiveDeviceDefaultRdfContent =
+    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
+    "<rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\""
+    "xmlns:prf=\"http://www.wapforum.org/profiles/UAPROF/ccppschema-20010430#\""
+    "  xmlns:fsmda=\"http://www.ncl.org.br/fsmda\">"
+    "  <fsmda:classType>passive</fsmda:classType>"
+    "  <fsmda:minDevices>1</fsmda:minDevices>"
+    "  <fsmda:maxDevices>1</fsmda:maxDevices>"
+    "  <fsmda:SoftwareRequirements>"
+    "    <fsmda:softwareParams>"
+    "    </fsmda:softwareParams>"
+    "    <fsmda:supportedMessages>"
+    "      <rdf:Bag>"
+    "        <rdf:li>HTTP</rdf:li>"
+    "      </rdf:Bag>"
+    "    </fsmda:supportedMessages>"
+    "  </fsmda:SoftwareRequirements>"
+    "  <fsmda:NetworkRequirements>"
+    "    <fsmda:pairingMethod>UPnP</fsmda:pairingMethod>"
+    "  </fsmda:NetworkRequirements>"
+    "  <fsmda:HardwareRequirements>"
+    "  </fsmda:HardwareRequirements>"
+    "</rdf:RDF>";
+
 const char* DeviceClassDescription::kActiveDeviceDefaultRdfContent =
     "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
     "<rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\""
@@ -145,6 +173,7 @@ const char* DeviceClassDescription::kMediCaptureDeviceDefaultRdfContent =
  +---------------------------------------------------------------------*/
 DeviceClassDescription::DeviceClassDescription()
     : device_class_type_(kBaseDevice),
+      rdf_content_(""),
       min_devices_(0),
       max_devices_(0),
       initialized_(false) {}
@@ -155,18 +184,22 @@ DeviceClassDescription::DeviceClassDescription()
 DeviceClassDescription::~DeviceClassDescription() {}
 
 /*----------------------------------------------------------------------
- |   DeviceClassDescription::DeviceMeetRequirements
+ |   DeviceClassDescription::IsDeviceCompatible
  +---------------------------------------------------------------------*/
-bool DeviceClassDescription::DeviceMeetRequirements(
+bool DeviceClassDescription::IsDeviceCompatible(
     DeviceDescription* device_desc) {
   if (!initialized_) {
-    clog << "device_meets_requirements fail: not initialized_" << endl;
+    clog
+        << "DeviceClassDescription::IsDeviceCompatible:: fail: not initialized_"
+        << endl;
     return false;
   } else if (device_class_type_ != device_desc->device_class_type()) {
-    clog << "device_meets_requirements fail: classType_" << endl;
+    clog << "DeviceClassDescription::IsDeviceCompatible:: fail: classType_"
+         << endl;
     return false;
   } else if (pairing_protocol_ != device_desc->pairing_method()) {
-    clog << "device_meets_requirements fail: pairingMethod_" << endl;
+    clog << "DeviceClassDescription::IsDeviceCompatible:: pairingMethod_"
+         << endl;
     return false;
   } else {
     return true;
@@ -177,20 +210,15 @@ bool DeviceClassDescription::DeviceMeetRequirements(
  |   DeviceClassDescription::InitializeByDefaultDeviceClass
  +---------------------------------------------------------------------*/
 int DeviceClassDescription::InitializeByDeviceClass(DeviceClassType type) {
-  device_class_type_ = type;
-  min_devices_ = 1;
-  max_devices_ = UINT_MAX;
-  pairing_protocol_ = DeviceClassDescription::kUpnpPairingProcotol;
-  initialized_ = true;
-
-  // initilize libxml
-  xmlInitParser();
 
   // parse file
-  const char* rdf_content = GetDeviceClassRdfDefaultContentByType(type);
-  unsigned int rdf_content_size = strlen(rdf_content);
-  xmlDocPtr xml_doc = xmlParseMemory(rdf_content, rdf_content_size);
-  if (ParseAndReleaseXml(xml_doc) == 0) {
+  const char* rdf_content_aux = GetDeviceClassRdfDefaultContentByType(type);
+  //  clog << " DeviceClassDescription::InitializeByDefaultDeviceClass:: type ="
+  //       << GetDeviceClassTypeStringByEnum(type) << endl;
+  //  clog << " DeviceClassDescription::InitializeByDefaultDeviceClass::
+  // contents =" << rdf_content_aux << endl;
+  if (ParseXmlContent(rdf_content_aux) == 0) {
+    rdf_content_ = rdf_content_aux;
     initialized_ = true;
     return 0;
   } else
@@ -201,27 +229,40 @@ int DeviceClassDescription::InitializeByDeviceClass(DeviceClassType type) {
  |   DeviceClassDescription::InitializeByRdfFile
  +---------------------------------------------------------------------*/
 int DeviceClassDescription::InitializeByRdfFile(const string& rdf_file_path) {
-  // initilize libxml
-  xmlInitParser();
 
-  // parse file
-  xmlDocPtr xml_doc = xmlParseFile(rdf_file_path.c_str());
-  if (ParseAndReleaseXml(xml_doc) == 0) {
+  std::ifstream t;
+  t.open(rdf_file_path.c_str());
+  std::stringstream contents;
+  contents << t.rdbuf();
+
+  //  clog << " DeviceClassDescription::InitializeByRdfFile:: contents ="
+  //       << contents.str().c_str() << endl;
+  if (ParseXmlContent(contents.str().c_str()) == 0) {
     initialized_ = true;
+    rdf_content_ = contents.str().c_str();
     return 0;
   } else
     return -1;
 }
 
-int DeviceClassDescription::ParseAndReleaseXml(xmlDocPtr xml_doc) {
+/*----------------------------------------------------------------------
+ |   DeviceClassDescription::ParseXmlContent
+ +---------------------------------------------------------------------*/
+int DeviceClassDescription::ParseXmlContent(const char* rdf_content) {
   int ret;
+  unsigned int rdf_content_size;
+  const char* aux;
   xmlXPathContextPtr xpathCtx;
   xmlXPathObjectPtr xpathObj;
   xmlNodeSetPtr nodes;
-  const char* aux;
+  xmlDocPtr xml_doc;
 
+//  clog << " DeviceClassDescription::ParseXmlContent:: rdf_content ="
+//       << rdf_content << endl;
   // initilize libxml
   xmlInitParser();
+  rdf_content_size = strlen(rdf_content);
+  xml_doc = xmlParseMemory(rdf_content, rdf_content_size);
 
   // parse xml_doc
   assert(xml_doc != NULL);
@@ -295,7 +336,9 @@ int DeviceClassDescription::ParseAndReleaseXml(xmlDocPtr xml_doc) {
  +---------------------------------------------------------------------*/
 DeviceClassDescription::DeviceClassType
 DeviceClassDescription::GetDeviceClassTypeByString(const string& str) {
-  if (!str.compare(kPassiveDeviceString))
+  if (!str.compare(kBaseDeviceString))
+    return kBaseDevice;
+  else if (!str.compare(kPassiveDeviceString))
     return kPassiveDevice;
   else if (!str.compare(kActiveDeviceString))
     return kActiveDevice;
@@ -303,8 +346,6 @@ DeviceClassDescription::GetDeviceClassTypeByString(const string& str) {
     return kHtmlDevice;
   else if (!str.compare(kOnDemandDeviceString))
     return kOnDemandDevice;
-  else if (!str.compare(kOnDemandDeviceString))
-    return kMediaCaptureDevice;
   else if (!str.compare(kMediaCaptureDeviceString))
     return kMediaCaptureDevice;
   return kInvalidDevice;
@@ -343,8 +384,20 @@ const char* DeviceClassDescription::GetDeviceClassRdfDefaultContentByType(
     case kActiveDevice:
       return kActiveDeviceDefaultRdfContent;
       break;
+    case kPassiveDevice:
+      return kPassiveDeviceDefaultRdfContent;
+      break;
+    case kHtmlDevice:
+      return kHtmlDeviceDefaultRdfContent;
+      break;
+    case kOnDemandDevice:
+      return kOnDemandDeviceDefaultRdfContent;
+      break;
+    case kMediaCaptureDevice:
+      return kMediCaptureDeviceDefaultRdfContent;
+      break;
     default:
-      return "";
+      return kInvalidDeviceDefaultRdfContent;
   }
 }
 /*----------------------------------------------------------------------

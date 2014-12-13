@@ -108,19 +108,24 @@ void PairingWithOnDeviceInDiferentProcessesHelper(
 
 TEST(UpnpPairingServicesTest, PairingWithOnDeviceInSameProcess) {
   PairingWithOnDeviceInSameProcessHelper(DeviceClassDescription::kActiveDevice);
-  //  PairingWithOnDeviceInSameProcess(DeviceClassDescription::kHtmlDevice);
-  //  PairingWithOnDeviceInSameProcess(DeviceClassDescription::kPassiveDevice);
-  //  PairingWithOnDeviceInSameProcess(DeviceClassDescription::kOnDemandDevice);
-  //  PairingWithOnDeviceInSameProcess
-  // (DeviceClassDescription::kMediaCaptureDevice);
+//  PairingWithOnDeviceInSameProcessHelper(
+//      DeviceClassDescription::kPassiveDevice);
+//  PairingWithOnDeviceInSameProcessHelper(DeviceClassDescription::kHtmlDevice);
+//  PairingWithOnDeviceInSameProcessHelper(
+//      DeviceClassDescription::kOnDemandDevice);
+//  PairingWithOnDeviceInSameProcessHelper(
+//      DeviceClassDescription::kMediaCaptureDevice);
 }
 
 TEST(UpnpPairingServicesTest, PairingWithOnDeviceInDiferentProcesses) {
-  PairingWithOnDeviceInDiferentProcessesHelper(
-      DeviceClassDescription::kActiveDevice);
-  //  PairingWithOnDeviceInSameProcess(DeviceClassDescription::kPassiveDevice);
-  //  PairingWithOnDeviceInSameProcess(DeviceClassDescription::kHtmlDevice);
-  //  PairingWithOnDeviceInSameProcess(DeviceClassDescription::kOnDemandDevice);
-  //  PairingWithOnDeviceInSameProcess
-  // (DeviceClassDescription::kMediaCaptureDevice);
+    PairingWithOnDeviceInDiferentProcessesHelper(
+        DeviceClassDescription::kActiveDevice);
+//    PairingWithOnDeviceInDiferentProcessesHelper(
+//        DeviceClassDescription::kPassiveDevice);
+//    PairingWithOnDeviceInDiferentProcessesHelper(
+//        DeviceClassDescription::kHtmlDevice);
+//    PairingWithOnDeviceInDiferentProcessesHelper(
+//        DeviceClassDescription::kOnDemandDevice);
+//    PairingWithOnDeviceInDiferentProcessesHelper(
+//        DeviceClassDescription::kMediaCaptureDevice);
 }

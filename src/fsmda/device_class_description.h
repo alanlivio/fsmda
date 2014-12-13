@@ -58,13 +58,14 @@ class DeviceClassDescription {
   static const char* kHTTPCommunicationProtocolString;
   static const char* kAdHocSocketCommunicationProtocolString;
 
+  static const char* kInvalidDeviceDefaultRdfContent;
   static const char* kPassiveDeviceDefaultRdfContent;
   static const char* kActiveDeviceDefaultRdfContent;
   static const char* kHtmlDeviceDefaultRdfContent;
   static const char* kOnDemandDeviceDefaultRdfContent;
   static const char* kMediCaptureDeviceDefaultRdfContent;
 
-  // public class methods
+  // public static methods
   static DeviceClassType GetDeviceClassTypeByString(const string& str);
   static PairingProtocol GetPairingProtocolByString(const string& str);
   static CommunicationProtocol GetCommunicationProtocoByString(
@@ -80,23 +81,29 @@ class DeviceClassDescription {
   DeviceClassDescription();
   virtual ~DeviceClassDescription();
 
-  // public fields
+  // public getters and setters
   DeviceClassType device_class_type() { return device_class_type_; }
   PairingProtocol pairing_protocol() { return pairing_protocol_; }
   CommunicationProtocol communication_protocol() {
     return communication_protocol_;
   }
+  const string& rdf_content() { return rdf_content_; }
   unsigned int min_devices() { return min_devices_; }
   unsigned int max_devices() { return max_devices_; }
-  bool DeviceMeetRequirements(DeviceDescription* device_desc);
+
+  // public methods
+  bool IsDeviceCompatible(DeviceDescription* device_desc);
   int InitializeByDeviceClass(DeviceClassType type);
   int InitializeByRdfFile(const string& rdf_file_path);
-  int ParseAndReleaseXml(xmlDocPtr xml_doc);
 
  private:
+  // private methods
+  int ParseXmlContent(const char* rdf_conten);
+
   // private fields
   unsigned int min_devices_;
   unsigned int max_devices_;
+  string rdf_content_;
   bool initialized_;
   DeviceClassType device_class_type_;
   PairingProtocol pairing_protocol_;
