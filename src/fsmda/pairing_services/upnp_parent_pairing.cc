@@ -4,6 +4,8 @@
 
 #include <iostream>
 #include <string>
+#include <algorithm>
+#include <vector>
 #include <NptConfig.h>
 #include <NptResults.h>
 #include <NptStrings.h>
@@ -16,6 +18,8 @@
 
 using std::clog;
 using std::endl;
+using std::vector;
+using std::remove;
 
 /*----------------------------------------------------------------------
  |   UpnpParentPairing::UpnpParentPairing
@@ -56,6 +60,23 @@ UpnpParentPairing::~UpnpParentPairing() {
  +---------------------------------------------------------------------*/
 int UpnpParentPairing::SetServiceOwner(ParentPairingManager *service_owner) {
   parent_pairing_manager_ = service_owner;
+}
+
+/*----------------------------------------------------------------------
+ |   UpnpChildPairing::AddDeviceClassForDiscover
+ +---------------------------------------------------------------------*/
+int UpnpParentPairing::AddDeviceClassForDiscover(
+    DeviceDescription *device_description) {
+  device_classes_for_discover_.push_back(device_description);
+}
+
+/*----------------------------------------------------------------------
+ |   UpnpChildPairing::RemoveDeviceClassForDiscover
+ +---------------------------------------------------------------------*/
+int UpnpParentPairing::RemoveDeviceClassForDiscover(
+    DeviceDescription *device_description) {
+  remove(device_classes_for_discover_.begin(),
+         device_classes_for_discover_.end(), device_description);
 }
 
 /*----------------------------------------------------------------------
@@ -126,22 +147,23 @@ NPT_Result UpnpParentPairing::OnActionResponse(NPT_Result res,
 NPT_Result UpnpParentPairing::OnDeviceRemoved(PLT_DeviceDataReference &device) {
 }
 
-NPT_Result UpnpParentPairing::OnDeviceAdded(PLT_DeviceDataReference &device) {
+NPT_Result UpnpParentPairing::OnDeviceAdded(
+    PLT_DeviceDataReference &device_data) {
   clog << "UpnpParentPairing::OnDeviceAdded()::device->GetFriendlyName="
-       << device->GetFriendlyName().GetChars() << endl;
+       << device_data->GetFriendlyName().GetChars() << endl;
   clog << "UpnpParentPairing::OnDeviceAdded()::device->GetType="
-       << device->GetType().GetChars() << endl;
+       << device_data->GetType().GetChars() << endl;
   clog << "UpnpParentPairing::OnDeviceAdded()::device->GetUUID="
-       << device->GetUUID().GetChars() << endl;
+       << device_data->GetUUID().GetChars() << endl;
   clog << "UpnpParentPairing::OnDeviceAdded()::device->GetURLBase()->"
-       << device->GetURLBase().ToString().GetChars() << endl;
+       << device_data->GetURLBase().ToString().GetChars() << endl;
 
   PLT_Service *parent_pairing_service;
-  if (!device->GetType().Compare(UpnpFsmdaUtils::kCpmDeviceType)) {
-    device->FindServiceByType(UpnpFsmdaUtils::kCpmServiceType,
+  if (!device_data->GetType().Compare(UpnpFsmdaUtils::kCpmDeviceType)) {
+    device_data->FindServiceByType(UpnpFsmdaUtils::kCpmServiceType,
                               parent_pairing_service);
     PLT_ActionReference action;
-    (*ctrl_point_)->CreateAction(device, UpnpFsmdaUtils::kCpmServiceType,
+    (*ctrl_point_)->CreateAction(device_data, UpnpFsmdaUtils::kCpmServiceType,
                                  "classAnnouncement", action);
     if (!action.IsNull()) {
       action->SetArgumentValue("applicationId", "applicationId");
@@ -152,7 +174,7 @@ NPT_Result UpnpParentPairing::OnDeviceAdded(PLT_DeviceDataReference &device) {
     }
     clog << "UpnpParentPairing::OnDeviceAdded():: "
             "discoverd_cpm_.push_back(device)" << endl;
-    discovered_children_.push_back(device);
+    discovered_children_.push_back(device_data);
     return NPT_SUCCESS;
   } else {
     return NPT_FAILURE;

@@ -6,6 +6,8 @@
  +---------------------------------------------------------------------*/
 class ParentPairingManager;
 class ChildPairingManager;
+class DeviceDescription;
+class DeviceClassDescription;
 
 /*----------------------------------------------------------------------
  |   PairingServiceInterface class
@@ -17,6 +19,10 @@ class ParentPairingServiceInterface {
 
   // public pure virtual methods
   virtual int SetServiceOwner(ParentPairingManager* service_owner) = 0;
+  virtual int AddDeviceClassForDiscover(
+      DeviceDescription* device_description) = 0;
+  virtual int RemoveDeviceClassForDiscover(
+      DeviceDescription* device_description) = 0;
   virtual int StartPairingService() = 0;
   virtual int StopPairingService() = 0;
   virtual bool IsPairingServiceStarted() = 0;
@@ -33,6 +39,7 @@ class ChildPairingServiceInterface {
 
   // public pure virtual methods
   virtual int SetServiceOwner(ChildPairingManager* service_owner) = 0;
+  virtual int SetDeviceDescription(DeviceDescription* device_description) = 0;
   virtual int StartPairingService() = 0;
   virtual int StopPairingService() = 0;
   virtual bool IsPairingServiceStarted() = 0;

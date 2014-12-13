@@ -51,6 +51,14 @@ int UpnpChildPairing::SetServiceOwner(ChildPairingManager *service_owner) {
 }
 
 /*----------------------------------------------------------------------
+ |   UpnpChildPairing::SetDeviceDescription
+ +---------------------------------------------------------------------*/
+int UpnpChildPairing::SetDeviceDescription(DeviceDescription *device_description)
+{
+
+}
+
+/*----------------------------------------------------------------------
  |   UpnpChildPairing::SetupServices
  +---------------------------------------------------------------------*/
 NPT_Result UpnpChildPairing::SetupServices() {
