@@ -3,6 +3,11 @@
  +---------------------------------------------------------------------*/
 
 #include <iostream>
+#include <map>
+#include <vector>
+#include <string>
+#include <sstream>
+#include <algorithm>
 #include <NptConfig.h>
 #include <NptResults.h>
 #include <NptStrings.h>
@@ -15,6 +20,11 @@
 
 using std::clog;
 using std::endl;
+using std::vector;
+using std::string;
+using std::stringstream;
+using std::map;
+using std::find;
 
 /*----------------------------------------------------------------------
  |   UpnpParentPairing::UpnpParentPairing
@@ -61,20 +71,19 @@ int UpnpParentPairing::SetServiceOwner(ParentPairingManager *service_owner) {
  |   UpnpChildPairing::AddDeviceClassForDiscover
  +---------------------------------------------------------------------*/
 int UpnpParentPairing::AddDeviceClassForDiscover(
-    const string &application_id, unsigned int class_index,
-    DeviceClassDescription *device_class_description) {
-  device_classes_for_discover_map_[application_id][class_index] =
-      device_class_description;
+    DeviceClassDicoverParams *discover_params) {
+  discover_params_list_.push_back(discover_params);
 }
 
 /*----------------------------------------------------------------------
  |   UpnpChildPairing::RemoveDeviceClassForDiscover
  +---------------------------------------------------------------------*/
 int UpnpParentPairing::RemoveDeviceClassForDiscover(
-    const string &application_id, unsigned int class_index) {
+    DeviceClassDicoverParams *discover_params) {
   // TODO(alan@telemidia.puc-rio.br): create tests to this
-  device_classes_for_discover_map_.at(application_id).erase(
-      device_classes_for_discover_map_.at(application_id).find(class_index));
+  discover_params_list_.erase(find(discover_params_list_.begin(),
+                                   discover_params_list_.end(),
+                                   discover_params));
 }
 
 /*----------------------------------------------------------------------
@@ -160,15 +169,27 @@ NPT_Result UpnpParentPairing::OnDeviceAdded(
   if (!device_data->GetType().Compare(UpnpFsmdaUtils::kCpmDeviceType)) {
     device_data->FindServiceByType(UpnpFsmdaUtils::kCpmServiceType,
                                    parent_pairing_service);
-    PLT_ActionReference action;
-    (*ctrl_point_)->CreateAction(device_data, UpnpFsmdaUtils::kCpmServiceType,
-                                 "classAnnouncement", action);
-    if (!action.IsNull()) {
-      action->SetArgumentValue("applicationId", "applicationId");
-      action->SetArgumentValue("classIndex", "applicationId");
+    vector<DeviceClassDicoverParams *>::iterator iter;
+    iter = discover_params_list_.begin();
+    while (iter != discover_params_list_.end()) {
+      PLT_ActionReference action;
+      (*ctrl_point_)->CreateAction(device_data, UpnpFsmdaUtils::kCpmServiceType,
+                                   "classAnnouncement", action);
+      if (action.IsNull()) {
+        iter++;
+        continue;
+      };
+      stringstream aux_string;
+      aux_string << (*iter)->application_id_;
+      action->SetArgumentValue("applicationId", aux_string.str().c_str());
+      aux_string.str("");
+      aux_string << (*iter)->class_index_;
+      action->SetArgumentValue("classIndex", aux_string.str().c_str());
       action->SetArgumentValue("classDesc", "applicationId");
       action->SetArgumentValue("classFunction", "applicationId");
       (*ctrl_point_)->InvokeAction(action, 0);
+
+      iter++;
     }
     clog << "UpnpParentPairing::OnDeviceAdded():: "
             "discoverd_cpm_.push_back(device)" << endl;

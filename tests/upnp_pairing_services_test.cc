@@ -25,8 +25,19 @@ void PairingWithOnDeviceInSameProcessHelper(
   EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 0);
   EXPECT_FALSE(UpnpFsmdaUtils::IsUpnpStarted());
 
-  // start parent pairing service
+  // create parent description
   upnp_parent_pairing = new UpnpParentPairing();
+  DeviceClassDescription* device_class_description =
+      new DeviceClassDescription();
+  device_class_description->InitializeByDeviceClass(device_class_type);
+  string application_id;
+  UpnpFsmdaUtils::GenerateGUID(&application_id);
+  unsigned int class_index = 2;
+  DeviceClassDicoverParams* dicover_params = new DeviceClassDicoverParams(
+      application_id, class_index, device_class_description);
+  upnp_parent_pairing->AddDeviceClassForDiscover(dicover_params);
+
+  // start parent pairing service
   EXPECT_EQ(upnp_parent_pairing->StartPairingService(), 0);
   EXPECT_TRUE(upnp_parent_pairing->IsPairingServiceStarted());
   EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 1);

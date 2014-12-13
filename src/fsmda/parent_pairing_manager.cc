@@ -13,13 +13,15 @@
 using std::clog;
 using std::endl;
 
-ParentPairingManager::ParentPairingManager()
-    : upnp_parent_pairing_(NULL), upnp_registred_classes_size(0) {}
+ParentPairingManager::ParentPairingManager() : upnp_registred_classes_size(0) {
+  upnp_parent_pairing_ = new UpnpParentPairing();
+  upnp_parent_pairing_->SetServiceOwner(this);
+}
 
 ParentPairingManager::~ParentPairingManager() {
-  if (upnp_parent_pairing_ != NULL) delete upnp_parent_pairing_;
+  delete upnp_parent_pairing_;
   // TODO(alan@telemidia.puc-rio.br): delete  device_class_description_map_
-  // content
+  // contents
 }
 
 /*----------------------------------------------------------------------
@@ -61,6 +63,9 @@ void ParentPairingManager::AddClassDescription(
       device_class_description;
   if (device_class_description->pairing_protocol() ==
       DeviceClassDescription::kUpnpPairingProcotol) {
+    DeviceClassDicoverParams* dicover_params = new DeviceClassDicoverParams(
+        application_id, class_index, device_class_description);
+    upnp_parent_pairing_->AddDeviceClassForDiscover(dicover_params);
     upnp_registred_classes_size++;
   }
 }
@@ -107,10 +112,6 @@ void ParentPairingManager::GetChildIndex(const string& application_id,
 int ParentPairingManager::StartPairing() {
   clog << "ParentPairingManager::StartPairing()" << endl;
   if (upnp_registred_classes_size > 0) {
-    if (upnp_parent_pairing_ == NULL) {
-      upnp_parent_pairing_ = new UpnpParentPairing();
-      upnp_parent_pairing_->SetServiceOwner(this);
-    }
     return upnp_parent_pairing_->StartPairingService();
   } else {
     return -1;
@@ -121,21 +122,14 @@ int ParentPairingManager::StartPairing() {
  |   ParentPairingManager::StopPairing
  +---------------------------------------------------------------------*/
 int ParentPairingManager::StopPairing() {
-  if (upnp_parent_pairing_ != NULL) {
-    return upnp_parent_pairing_->StopPairingService();
-  }
-  return 0;
+  return upnp_parent_pairing_->StopPairingService();
 }
 
 /*----------------------------------------------------------------------
  |   ParentPairingManager::IsPairingStarted
  +---------------------------------------------------------------------*/
 bool ParentPairingManager::IsPairingStarted() {
-  if (upnp_parent_pairing_ != NULL) {
-    return upnp_parent_pairing_->IsPairingServiceStarted();
-  } else {
-    return false;
-  }
+  return upnp_parent_pairing_->IsPairingServiceStarted();
 }
 
 /*----------------------------------------------------------------------

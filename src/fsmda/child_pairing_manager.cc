@@ -14,16 +14,17 @@ using std::endl;
  +---------------------------------------------------------------------*/
 ChildPairingManager::ChildPairingManager(DeviceDescription* device_description)
     : upnp_child_pairing_(NULL) {
-
   device_description_ = device_description;
+  upnp_child_pairing_ = new UpnpChildPairing();
+  upnp_child_pairing_->SetServiceOwner(this);
 }
 
 /*----------------------------------------------------------------------
  |   ChildPairingManager::~ChildPairingManager
  +---------------------------------------------------------------------*/
 ChildPairingManager::~ChildPairingManager() {
-  if (upnp_child_pairing_ != NULL) delete upnp_child_pairing_;
   delete device_description_;
+  delete upnp_child_pairing_;
 }
 
 /*----------------------------------------------------------------------
@@ -33,10 +34,6 @@ int ChildPairingManager::StartPairing() {
   clog << "ChildPairingManager::StartPairing()" << endl;
   if (device_description_->pairing_method() ==
       DeviceClassDescription::kUpnpPairingProcotol) {
-    if (upnp_child_pairing_ == NULL) {
-      upnp_child_pairing_ = new UpnpChildPairing();
-      upnp_child_pairing_->SetServiceOwner(this);
-    }
     return upnp_child_pairing_->StartPairingService();
   } else {
     return -1;
@@ -47,9 +44,8 @@ int ChildPairingManager::StartPairing() {
  |   ChildPairingManager::StopPairing
  +---------------------------------------------------------------------*/
 int ChildPairingManager::StopPairing() {
-  if (upnp_child_pairing_ != NULL &&
-      device_description_->pairing_method() ==
-          DeviceClassDescription::kUpnpPairingProcotol) {
+  if (device_description_->pairing_method() ==
+      DeviceClassDescription::kUpnpPairingProcotol) {
     return upnp_child_pairing_->StopPairingService();
   }
   return 0;
@@ -59,9 +55,8 @@ int ChildPairingManager::StopPairing() {
  |   ChildPairingManager::IsPairingStarted
  +---------------------------------------------------------------------*/
 bool ChildPairingManager::IsPairingStarted() {
-  if (upnp_child_pairing_ != NULL &&
-      device_description_->pairing_method() ==
-          DeviceClassDescription::kUpnpPairingProcotol) {
+  if (device_description_->pairing_method() ==
+      DeviceClassDescription::kUpnpPairingProcotol) {
     return upnp_child_pairing_->IsPairingServiceStarted();
   } else {
     return false;
@@ -69,9 +64,8 @@ bool ChildPairingManager::IsPairingStarted() {
 }
 
 bool ChildPairingManager::IsPaired() {
-  if (upnp_child_pairing_ != NULL &&
-      device_description_->pairing_method() ==
-          DeviceClassDescription::kUpnpPairingProcotol) {
+  if (device_description_->pairing_method() ==
+      DeviceClassDescription::kUpnpPairingProcotol) {
     return upnp_child_pairing_->PerformedHandShake();
   } else {
     return false;

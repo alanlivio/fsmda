@@ -18,6 +18,22 @@ class DeviceClassDescription;
 /*----------------------------------------------------------------------
  |   PairingServiceInterface class
  +---------------------------------------------------------------------*/
+class DeviceClassDicoverParams {
+ public:
+  explicit DeviceClassDicoverParams(
+      const string& application_id, unsigned int class_index,
+      DeviceClassDescription* device_class_description)
+      : application_id_(application_id),
+        class_index_(class_index),
+        device_class_description_(device_class_description) {}
+  string application_id_;
+  unsigned int class_index_;
+  DeviceClassDescription* device_class_description_;
+};
+
+/*----------------------------------------------------------------------
+ |   PairingServiceInterface class
+ +---------------------------------------------------------------------*/
 class ParentPairingServiceInterface {
  public:
   // public constructors & destructors
@@ -26,10 +42,9 @@ class ParentPairingServiceInterface {
   // public pure virtual methods
   virtual int SetServiceOwner(ParentPairingManager* service_owner) = 0;
   virtual int AddDeviceClassForDiscover(
-      const string& application_id, unsigned int class_index,
-      DeviceClassDescription* device_class_description) = 0;
-  virtual int RemoveDeviceClassForDiscover(const string& application_id,
-                                           unsigned int class_index) = 0;
+      DeviceClassDicoverParams* discover_params) = 0;
+  virtual int RemoveDeviceClassForDiscover(
+      DeviceClassDicoverParams* discover_params) = 0;
   virtual int StartPairingService() = 0;
   virtual int StopPairingService() = 0;
   virtual bool IsPairingServiceStarted() = 0;
