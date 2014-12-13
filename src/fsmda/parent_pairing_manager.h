@@ -56,7 +56,7 @@ class ParentPairingManager : public ClassHandlingPpmInterface,
       const string& application_id, unsigned int class_index,
       DeviceClassDescription* device_class_description);
   virtual void SetClassHandlingHPE(const string& application_id,
-                                   ClassHandlingHPEInterface* hpe);
+                                   ClassHandlingHpeInterface* hpe);
   ActivePcmInterface* CreateActivePcm(const string& application_id,
                                       unsigned int class_index);
   MediaCapturePcmInterface* CreateMediaCapturePcm(const string& application_id,
@@ -79,7 +79,7 @@ class ParentPairingManager : public ClassHandlingPpmInterface,
   map<const string, map<unsigned int, DeviceClassDescription*> >
       device_class_description_map_;
   UpnpParentPairing* upnp_parent_pairing_;
-  map<const string, ClassHandlingHPEInterface*> hpes_map_;
+  map<const string, ClassHandlingHpeInterface*> hpes_map_;
 };
 
 #endif  // FSMDA_PARENT_PAIRING_MANAGER_H_

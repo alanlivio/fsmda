@@ -14,6 +14,7 @@ using std::vector;
  |   Property class
  +---------------------------------------------------------------------*/
 class Property {
+ public:
   string property_name_;
   string property_value_;
 };
@@ -22,6 +23,7 @@ class Property {
  |   Event class
  +---------------------------------------------------------------------*/
 class Event {
+ public:
   string event_id_;
   string event_type_;
   string event_desc_;

@@ -35,10 +35,10 @@ class ClassHandlingPpmInterface {
 /*----------------------------------------------------------------------
  |   ClassHandlingHPEInterface abstract class
  +---------------------------------------------------------------------*/
-class ClassHandlingHPEInterface {
+class ClassHandlingHpeInterface {
  public:
   // public constructors & destructors
-  virtual ~ClassHandlingHPEInterface() {}
+  virtual ~ClassHandlingHpeInterface() {}
 
   // public pure virtual methods
   virtual void getClassVariableValue(const string& name, const string& value);

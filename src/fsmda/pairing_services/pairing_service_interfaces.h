@@ -1,5 +1,11 @@
 #ifndef FSMDA_PAIRING_SERVICES_PAIRING_SERVICE_INTERFACES_H_
 #define FSMDA_PAIRING_SERVICES_PAIRING_SERVICE_INTERFACES_H_
+/*----------------------------------------------------------------------
+ |   includes
+ +---------------------------------------------------------------------*/
+#include <string>
+
+using std::string;
 
 /*----------------------------------------------------------------------
  |   forward definitions
