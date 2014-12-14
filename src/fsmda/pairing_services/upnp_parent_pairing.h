@@ -54,9 +54,9 @@ class UpnpParentPairing : public PLT_DeviceHost,
   // called by ParentPairingManager
   virtual int SetServiceOwner(ParentPairingManager* service_owner);
   virtual int AddDeviceClassForDiscover(
-      DeviceClassDicoverParams* discover_params);
+      DeviceClassDiscoverParams* discover_params);
   virtual int RemoveDeviceClassForDiscover(
-      DeviceClassDicoverParams* discover_params);
+      DeviceClassDiscoverParams* discover_params);
   virtual int StartPairingService();
   virtual int StopPairingService();
   virtual bool IsPairingServiceStarted() { return m_Started; }
@@ -70,7 +70,7 @@ class UpnpParentPairing : public PLT_DeviceHost,
   PLT_Service* device_service_;
   PLT_CtrlPointReference* ctrl_point_;
   vector<PLT_DeviceDataReference> discovered_children_;
-  vector<DeviceClassDicoverParams*> discover_params_list_;
+  vector<DeviceClassDiscoverParams*> discover_params_list_;
   ParentPairingManager* parent_pairing_manager_;
 };
 

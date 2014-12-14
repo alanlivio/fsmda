@@ -71,7 +71,7 @@ int UpnpParentPairing::SetServiceOwner(ParentPairingManager *service_owner) {
  |   UpnpChildPairing::AddDeviceClassForDiscover
  +---------------------------------------------------------------------*/
 int UpnpParentPairing::AddDeviceClassForDiscover(
-    DeviceClassDicoverParams *discover_params) {
+    DeviceClassDiscoverParams *discover_params) {
   discover_params_list_.push_back(discover_params);
 }
 
@@ -79,7 +79,7 @@ int UpnpParentPairing::AddDeviceClassForDiscover(
  |   UpnpChildPairing::RemoveDeviceClassForDiscover
  +---------------------------------------------------------------------*/
 int UpnpParentPairing::RemoveDeviceClassForDiscover(
-    DeviceClassDicoverParams *discover_params) {
+    DeviceClassDiscoverParams *discover_params) {
   // TODO(alan@telemidia.puc-rio.br): create tests to this
   discover_params_list_.erase(find(discover_params_list_.begin(),
                                    discover_params_list_.end(),
@@ -169,7 +169,7 @@ NPT_Result UpnpParentPairing::OnDeviceAdded(
   if (!device_data->GetType().Compare(UpnpFsmdaUtils::kCpmDeviceType)) {
     device_data->FindServiceByType(UpnpFsmdaUtils::kCpmServiceType,
                                    parent_pairing_service);
-    vector<DeviceClassDicoverParams *>::iterator iter;
+    vector<DeviceClassDiscoverParams *>::iterator iter;
     iter = discover_params_list_.begin();
     while (iter != discover_params_list_.end()) {
       PLT_ActionReference action;
@@ -179,16 +179,17 @@ NPT_Result UpnpParentPairing::OnDeviceAdded(
         iter++;
         continue;
       };
+      DeviceClassDiscoverParams *discover_params = (*iter);
+      action->SetArgumentValue("applicationId",
+                               discover_params->application_id_.c_str());
       stringstream aux_string;
-      aux_string << (*iter)->application_id_;
-      action->SetArgumentValue("applicationId", aux_string.str().c_str());
-      aux_string.str("");
-      aux_string << (*iter)->class_index_;
+      aux_string << discover_params->class_index_;
       action->SetArgumentValue("classIndex", aux_string.str().c_str());
-      action->SetArgumentValue("classDesc", "applicationId");
-      action->SetArgumentValue("classFunction", "applicationId");
+      action->SetArgumentValue(
+          "classDesc",
+          discover_params->device_class_description_->rdf_content().c_str());
+      action->SetArgumentValue("classFunction", "classFunction");
       (*ctrl_point_)->InvokeAction(action, 0);
-
       iter++;
     }
     clog << "UpnpParentPairing::OnDeviceAdded():: "

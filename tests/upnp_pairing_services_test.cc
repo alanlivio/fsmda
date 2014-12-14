@@ -33,7 +33,7 @@ void PairingWithOnDeviceInSameProcessHelper(
   string application_id;
   UpnpFsmdaUtils::GenerateGUID(&application_id);
   unsigned int class_index = 2;
-  DeviceClassDicoverParams* dicover_params = new DeviceClassDicoverParams(
+  DeviceClassDiscoverParams* dicover_params = new DeviceClassDiscoverParams(
       application_id, class_index, device_class_description);
   upnp_parent_pairing->AddDeviceClassForDiscover(dicover_params);
 

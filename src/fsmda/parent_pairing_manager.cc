@@ -63,7 +63,7 @@ void ParentPairingManager::AddClassDescription(
       device_class_description;
   if (device_class_description->pairing_protocol() ==
       DeviceClassDescription::kUpnpPairingProcotol) {
-    DeviceClassDicoverParams* dicover_params = new DeviceClassDicoverParams(
+    DeviceClassDiscoverParams* dicover_params = new DeviceClassDiscoverParams(
         application_id, class_index, device_class_description);
     upnp_parent_pairing_->AddDeviceClassForDiscover(dicover_params);
     upnp_registred_classes_size++;

@@ -87,7 +87,7 @@ NPT_Result UpnpChildPairing::OnAction(PLT_ActionReference &action,
     action->GetArgumentValue("classFunction", class_function);
     clog << "UpnpChildPairing::OnAction receive classAnnouncement("
          << application_id.GetChars() << "," << class_index << ","
-         << class_desc.GetChars() << "," << class_function.GetChars() << ")"
+         << " one_rdf_with_size="<< class_desc.GetLength() << "," << class_function.GetChars() << ")"
          << endl;
     clog << "UpnpChildPairing::OnAction()::paired_with_parent_= true" << endl;
     performed_handshake_ = true;
