@@ -156,9 +156,8 @@ NPT_Result UpnpParentPairing::OnDeviceRemoved(PLT_DeviceDataReference &device) {
 
 NPT_Result UpnpParentPairing::OnDeviceAdded(
     PLT_DeviceDataReference &device_data) {
+  if (!device_data->GetUUID().Compare(m_UUID)) return NPT_SUCCESS;
   clog << "UpnpParentPairing::OnDeviceAdded() " << endl;
-  clog << "UpnpParentPairing::OnDeviceAdded()::device->GetFriendlyName="
-       << device_data->GetFriendlyName().GetChars() << endl;
   clog << "UpnpParentPairing::OnDeviceAdded()::device->GetType="
        << device_data->GetType().GetChars() << endl;
   clog << "UpnpParentPairing::OnDeviceAdded()::device->GetUUID="

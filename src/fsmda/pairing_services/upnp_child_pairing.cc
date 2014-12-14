@@ -112,6 +112,7 @@ NPT_Result UpnpChildPairing::OnActionResponse(NPT_Result res,
 NPT_Result UpnpChildPairing::OnDeviceRemoved(PLT_DeviceDataReference &device) {}
 
 NPT_Result UpnpChildPairing::OnDeviceAdded(PLT_DeviceDataReference &device) {
+  if (!device->GetUUID().Compare(m_UUID)) return NPT_SUCCESS;
   clog << "UpnpChildPairing::OnDeviceAdded() " << endl;
   clog << "UpnpChildPairing::OnDeviceAdded()::device->GetFriendlyName="
        << device->GetFriendlyName().GetChars() << endl;
