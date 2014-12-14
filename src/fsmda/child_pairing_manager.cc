@@ -14,7 +14,7 @@ using std::endl;
  +---------------------------------------------------------------------*/
 ChildPairingManager::ChildPairingManager(
     const DeviceDescription& device_description)
-    : upnp_child_pairing_(NULL) {
+    : upnp_child_pairing_(NULL), paired_(false) {
   device_description_ = new DeviceDescription(device_description);
   upnp_child_pairing_ = new UpnpChildPairing();
   upnp_child_pairing_->SetServiceOwner(this);
@@ -70,7 +70,7 @@ bool ChildPairingManager::IsPairingStarted() {
 bool ChildPairingManager::IsPaired() {
   if (device_description_->pairing_method() ==
       DeviceClassDescription::kUpnpPairingProcotol) {
-    return upnp_child_pairing_->PerformedHandShake();
+    return paired_;
   } else {
     return false;
   }
@@ -85,6 +85,7 @@ void ChildPairingManager::ClassAnnouncement(const string& application_id,
                                             const string& class_function) {
   DeviceClassDescription device_class_description;
   device_class_description.InitializeByRdfContent(class_desc.c_str());
+  paired_ = device_class_description.IsDeviceCompatible(device_description_);
 }
 /*----------------------------------------------------------------------
  |   ChildPairingManager::CreateActiveCc

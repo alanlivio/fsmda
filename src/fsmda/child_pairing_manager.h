@@ -52,6 +52,7 @@ class ChildPairingManager : public DevicePairingCpmInterface {
   map<unsigned int, DeviceClassDescription*> device_class_description_map_;
   DeviceDescription* device_description_;
   UpnpChildPairing* upnp_child_pairing_;
+  bool paired_;
 };
 
 #endif  // FSMDA_CHILD_PAIRING_MANAGER_H_
