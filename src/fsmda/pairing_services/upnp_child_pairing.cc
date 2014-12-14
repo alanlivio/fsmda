@@ -87,8 +87,8 @@ NPT_Result UpnpChildPairing::OnAction(PLT_ActionReference &action,
     action->GetArgumentValue("classFunction", class_function);
     clog << "UpnpChildPairing::OnAction receive classAnnouncement("
          << application_id.GetChars() << "," << class_index << ","
-         << " one_rdf_with_size="<< class_desc.GetLength() << "," << class_function.GetChars() << ")"
-         << endl;
+         << " one_rdf_with_size=" << class_desc.GetLength() << ","
+         << class_function.GetChars() << ")" << endl;
     clog << "UpnpChildPairing::OnAction()::paired_with_parent_= true" << endl;
     performed_handshake_ = true;
     if (child_pairing_manager_ != NULL) {
@@ -112,6 +112,7 @@ NPT_Result UpnpChildPairing::OnActionResponse(NPT_Result res,
 NPT_Result UpnpChildPairing::OnDeviceRemoved(PLT_DeviceDataReference &device) {}
 
 NPT_Result UpnpChildPairing::OnDeviceAdded(PLT_DeviceDataReference &device) {
+  clog << "UpnpChildPairing::OnDeviceAdded() " << endl;
   clog << "UpnpChildPairing::OnDeviceAdded()::device->GetFriendlyName="
        << device->GetFriendlyName().GetChars() << endl;
   clog << "UpnpChildPairing::OnDeviceAdded()::device->GetType="

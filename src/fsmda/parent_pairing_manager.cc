@@ -29,11 +29,12 @@ ParentPairingManager::~ParentPairingManager() {
  +---------------------------------------------------------------------*/
 void ParentPairingManager::AddClass(const string& application_id,
                                     unsigned int class_index) {
-  DeviceClassDescription* device_class_description =
-      new DeviceClassDescription();
-  device_class_description->InitializeByDeviceClass(
-      DeviceClassDescription::kActiveDevice);
-  AddClassDescription(application_id, class_index, device_class_description);
+  // TODO(alan@telemidia.puc-rio.br): implemet this
+//  DeviceClassDescription* device_class_description =
+//      new DeviceClassDescription();
+//  device_class_description->InitializeByDeviceClass(
+//      DeviceClassDescription::kActiveDevice);
+//  AddClassDescription(application_id, class_index, device_class_description);
 }
 
 /*----------------------------------------------------------------------

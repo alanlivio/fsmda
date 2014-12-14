@@ -19,7 +19,7 @@ using std::endl;
 using std::fstream;
 using std::ifstream;
 
-void PairingHandShakeHelper(bool diferent_processes) {
+void HandShakeWithOneDeviceHelper(bool diferent_processes) {
   UpnpParentPairing* upnp_parent_pairing;
   UpnpChildPairing* upnp_child_pairing;
 
@@ -79,10 +79,10 @@ void PairingHandShakeHelper(bool diferent_processes) {
   EXPECT_FALSE(UpnpFsmdaUtils::IsUpnpStarted());
 }
 
-TEST(UpnpPairingServicesTest, HandShakeInSameProcess) {
-  PairingHandShakeHelper(false);
+TEST(UpnpPairingServicesTest, HandShakeWithOneDeviceInSameProcess) {
+  HandShakeWithOneDeviceHelper(false);
 }
 
-TEST(UpnpPairingServicesTest, HandShakeInDiferentProcesses) {
-  PairingHandShakeHelper(true);
+TEST(UpnpPairingServicesTest, HandShakeWithOneDeviceInDiferentProcesses) {
+  HandShakeWithOneDeviceHelper(true);
 }

@@ -156,6 +156,7 @@ NPT_Result UpnpParentPairing::OnDeviceRemoved(PLT_DeviceDataReference &device) {
 
 NPT_Result UpnpParentPairing::OnDeviceAdded(
     PLT_DeviceDataReference &device_data) {
+  clog << "UpnpParentPairing::OnDeviceAdded() " << endl;
   clog << "UpnpParentPairing::OnDeviceAdded()::device->GetFriendlyName="
        << device_data->GetFriendlyName().GetChars() << endl;
   clog << "UpnpParentPairing::OnDeviceAdded()::device->GetType="
