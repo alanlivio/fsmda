@@ -16,7 +16,7 @@
 using std::cout;
 using std::endl;
 
-void PairingWithOnDeviceInSameProcessHelper(
+void HandShakeWithOnDeviceInSameProcessHelper(
     DeviceClassDescription::DeviceClassType device_class_type) {
   UpnpParentPairing* upnp_parent_pairing;
   UpnpChildPairing* upnp_child_pairing;
@@ -71,7 +71,7 @@ void PairingWithOnDeviceInSameProcessHelper(
   EXPECT_FALSE(UpnpFsmdaUtils::IsUpnpStarted());
 }
 
-void PairingWithOnDeviceInDiferentProcessesHelper(
+void HandShakeWithOnDeviceInDiferentProcessesHelper(
     DeviceClassDescription::DeviceClassType device_class_type) {
   UpnpChildPairing* upnp_child_pairing;
 
@@ -106,26 +106,26 @@ void PairingWithOnDeviceInDiferentProcessesHelper(
   EXPECT_FALSE(UpnpFsmdaUtils::IsUpnpStarted());
 }
 
-TEST(UpnpPairingServicesTest, PairingWithOnDeviceInSameProcess) {
-  PairingWithOnDeviceInSameProcessHelper(DeviceClassDescription::kActiveDevice);
-//  PairingWithOnDeviceInSameProcessHelper(
+TEST(UpnpPairingServicesTest, HandShakeWithOnDeviceInSameProcess) {
+  HandShakeWithOnDeviceInSameProcessHelper(DeviceClassDescription::kActiveDevice);
+//  HandShakeWithOnDeviceInSameProcessHelper(
 //      DeviceClassDescription::kPassiveDevice);
-//  PairingWithOnDeviceInSameProcessHelper(DeviceClassDescription::kHtmlDevice);
-//  PairingWithOnDeviceInSameProcessHelper(
+//  HandShakeWithOnDeviceInSameProcessHelper(DeviceClassDescription::kHtmlDevice);
+//  HandShakeWithOnDeviceInSameProcessHelper(
 //      DeviceClassDescription::kOnDemandDevice);
-//  PairingWithOnDeviceInSameProcessHelper(
+//  HandShakeWithOnDeviceInSameProcessHelper(
 //      DeviceClassDescription::kMediaCaptureDevice);
 }
 
-TEST(UpnpPairingServicesTest, PairingWithOnDeviceInDiferentProcesses) {
-    PairingWithOnDeviceInDiferentProcessesHelper(
+TEST(UpnpPairingServicesTest, HandShakeWithOnDeviceInDiferentProcesses) {
+    HandShakeWithOnDeviceInDiferentProcessesHelper(
         DeviceClassDescription::kActiveDevice);
-//    PairingWithOnDeviceInDiferentProcessesHelper(
+//    HandShakeWithOnDeviceInDiferentProcessesHelper(
 //        DeviceClassDescription::kPassiveDevice);
-//    PairingWithOnDeviceInDiferentProcessesHelper(
+//    HandShakeWithOnDeviceInDiferentProcessesHelper(
 //        DeviceClassDescription::kHtmlDevice);
-//    PairingWithOnDeviceInDiferentProcessesHelper(
+//    HandShakeWithOnDeviceInDiferentProcessesHelper(
 //        DeviceClassDescription::kOnDemandDevice);
-//    PairingWithOnDeviceInDiferentProcessesHelper(
+//    HandShakeWithOnDeviceInDiferentProcessesHelper(
 //        DeviceClassDescription::kMediaCaptureDevice);
 }

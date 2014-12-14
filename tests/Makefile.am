@@ -44,6 +44,7 @@ check_PROGRAMS = testsuit_gtest upnp_pairing_services_test_helper
 ### Tests programs sources
 testsuit_gtest_SOURCES = \
   testsuit_gtest.cc\
+  device_class_description_test.cc\
   pairing_managers_test.cc\
   upnp_communication_test.cc\
   upnp_pairing_services_test.cc\
