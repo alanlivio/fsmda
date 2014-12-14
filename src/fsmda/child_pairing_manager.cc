@@ -12,7 +12,8 @@ using std::endl;
 /*----------------------------------------------------------------------
  |   ChildPairingManager::ChildPairingManager
  +---------------------------------------------------------------------*/
-ChildPairingManager::ChildPairingManager(const DeviceDescription& device_description)
+ChildPairingManager::ChildPairingManager(
+    const DeviceDescription& device_description)
     : upnp_child_pairing_(NULL) {
   device_description_ = new DeviceDescription(device_description);
   upnp_child_pairing_ = new UpnpChildPairing();
@@ -63,6 +64,9 @@ bool ChildPairingManager::IsPairingStarted() {
   }
 }
 
+/*----------------------------------------------------------------------
+ |   ChildPairingManager::IsPaired
+ +---------------------------------------------------------------------*/
 bool ChildPairingManager::IsPaired() {
   if (device_description_->pairing_method() ==
       DeviceClassDescription::kUpnpPairingProcotol) {
@@ -78,7 +82,10 @@ bool ChildPairingManager::IsPaired() {
 void ChildPairingManager::ClassAnnouncement(const string& application_id,
                                             unsigned int class_index,
                                             const string& class_desc,
-                                            const string& class_function) {}
+                                            const string& class_function) {
+  DeviceClassDescription device_class_description;
+  device_class_description.InitializeByRdfContent(class_desc.c_str());
+}
 /*----------------------------------------------------------------------
  |   ChildPairingManager::CreateActiveCc
  +---------------------------------------------------------------------*/

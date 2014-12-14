@@ -211,14 +211,22 @@ bool DeviceClassDescription::IsDeviceCompatible(
  +---------------------------------------------------------------------*/
 int DeviceClassDescription::InitializeByDeviceClass(DeviceClassType type) {
 
-  // parse file
   const char* rdf_content_aux = GetDeviceClassRdfDefaultContentByType(type);
-  //  clog << " DeviceClassDescription::InitializeByDefaultDeviceClass:: type ="
-  //       << GetDeviceClassTypeStringByEnum(type) << endl;
-  //  clog << " DeviceClassDescription::InitializeByDefaultDeviceClass::
-  // contents =" << rdf_content_aux << endl;
   if (ParseXmlContent(rdf_content_aux) == 0) {
     rdf_content_ = rdf_content_aux;
+    initialized_ = true;
+    return 0;
+  } else
+    return -1;
+}
+
+/*----------------------------------------------------------------------
+ |   DeviceClassDescription::InitializeByRdfFile
+ +---------------------------------------------------------------------*/
+int DeviceClassDescription::InitializeByRdfContent(const char* content) {
+  // parse file
+  if (ParseXmlContent(content) == 0) {
+    rdf_content_ = content;
     initialized_ = true;
     return 0;
   } else
@@ -257,8 +265,8 @@ int DeviceClassDescription::ParseXmlContent(const char* rdf_content) {
   xmlNodeSetPtr nodes;
   xmlDocPtr xml_doc;
 
-//  clog << " DeviceClassDescription::ParseXmlContent:: rdf_content ="
-//       << rdf_content << endl;
+  //  clog << " DeviceClassDescription::ParseXmlContent:: rdf_content ="
+  //       << rdf_content << endl;
   // initilize libxml
   xmlInitParser();
   rdf_content_size = strlen(rdf_content);

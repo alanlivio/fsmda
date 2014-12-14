@@ -94,6 +94,7 @@ class DeviceClassDescription {
   // public methods
   bool IsDeviceCompatible(DeviceDescription* device_desc);
   int InitializeByDeviceClass(DeviceClassType type);
+  int InitializeByRdfContent(const char* content);
   int InitializeByRdfFile(const string& rdf_file_path);
 
  private:
