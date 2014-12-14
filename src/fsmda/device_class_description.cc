@@ -9,7 +9,6 @@
 #include <libxml/xpath.h>
 #include <libxml/xpathInternals.h>
 #include <cassert>
-#include <climits>
 #include <cstdlib>
 #include <cstring>
 #include <iostream>
@@ -289,8 +288,8 @@ int DeviceClassDescription::ParseXmlContent(const char* rdf_content) {
   assert(nodes->nodeTab[0]);
   aux = (const char*)nodes->nodeTab[0]->children->content;
   device_class_type_ = DeviceClassDescription::GetDeviceClassTypeByString(aux);
-  clog << "DeviceClassDescription::InitializeByParseRdfFile::classType = "
-       << aux << "(or " << device_class_type_ << ")" << endl;
+  clog << "DeviceClassDescription::ParseXmlContent::classType = " << aux
+       << "(or " << device_class_type_ << ")" << endl;
   xmlXPathFreeObject(xpathObj);
 
   // capture min_devices
@@ -301,7 +300,7 @@ int DeviceClassDescription::ParseXmlContent(const char* rdf_content) {
   assert(nodes->nodeTab[0]);
   aux = (const char*)nodes->nodeTab[0]->children->content;
   min_devices_ = atoi(aux);
-  clog << "DeviceClassDescription::InitializeByParseRdfFile::minDevices = "
+  clog << "DeviceClassDescription::ParseXmlContent::minDevices = "
        << min_devices_ << endl;
   xmlXPathFreeObject(xpathObj);
 
@@ -313,7 +312,7 @@ int DeviceClassDescription::ParseXmlContent(const char* rdf_content) {
   assert(nodes->nodeTab[0]);
   aux = (const char*)nodes->nodeTab[0]->children->content;
   max_devices_ = atoi(aux);
-  clog << "DeviceClassDescription::InitializeByParseRdfFile::maxDevices = "
+  clog << "DeviceClassDescription::ParseXmlContent::maxDevices = "
        << max_devices_ << endl;
   xmlXPathFreeObject(xpathObj);
 
@@ -325,7 +324,7 @@ int DeviceClassDescription::ParseXmlContent(const char* rdf_content) {
   assert(nodes->nodeTab[0]);
   pairing_protocol_ = DeviceClassDescription::GetPairingProtocolByString(
       (const char*)nodes->nodeTab[0]->children->content);
-  clog << "DeviceClassDescription::InitializeByParseRdfFile::pairingMethod = "
+  clog << "DeviceClassDescription::ParseXmlContent::pairingMethod = "
        << pairing_protocol_ << endl;
   xmlXPathFreeObject(xpathObj);
 

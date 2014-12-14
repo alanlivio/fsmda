@@ -21,21 +21,25 @@ class DeviceDescription {
 
   // public methods
   DeviceClassDescription::DeviceClassType device_class_type() {
-    return class_type_;
+    return device_class_type_;
   }
   DeviceClassDescription::PairingProtocol pairing_method() {
-    return pairing_method_;
+    return pairing_protocol_;
   }
   bool IsInitialize() { return initialized_; }
-  int InitializeByRdfFile(const string& rdf_file);
-  int InitializeByDeviceClass(
-      DeviceClassDescription::DeviceClassType device_class_type);
+  int InitializeByDeviceClass(DeviceClassDescription::DeviceClassType type);
+  int InitializeByRdfContent(const char* content);
+  int InitializeByRdfFile(const string& rdf_file_path);
 
  private:
+  // private methods
+  int ParseXmlContent(const char* rdf_conten);
+
   // private fields
   bool initialized_;
-  DeviceClassDescription::DeviceClassType class_type_;
-  DeviceClassDescription::PairingProtocol pairing_method_;
+  string rdf_content_;
+  DeviceClassDescription::DeviceClassType device_class_type_;
+  DeviceClassDescription::PairingProtocol pairing_protocol_;
   xmlDocPtr doc_;
 };
 

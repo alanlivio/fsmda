@@ -125,23 +125,23 @@ TEST(PairingManagersTest, PairingWithOneDevice) {
                              "./files/active_class_desc00.xml",
                              DeviceClassDescription::kActiveDevice);
 
-//  // active class description initialize and meet_requirements tests
-//  PairingWithOneDeviceHelper("./files/passive_dev_desc00.xml",
-//                             "./files/passive_class_desc00.xml",
-//                             DeviceClassDescription::kPassiveDevice);
+  // active class description initialize and meet_requirements tests
+  PairingWithOneDeviceHelper("./files/passive_dev_desc00.xml",
+                             "./files/passive_class_desc00.xml",
+                             DeviceClassDescription::kPassiveDevice);
 
-//  // active class description initialize and meet_requirements tests
-//  PairingWithOneDeviceHelper("./files/html_dev_desc00.xml",
-//                             "./files/html_class_desc00.xml",
-//                             DeviceClassDescription::kHtmlDevice);
+  // active class description initialize and meet_requirements tests
+  PairingWithOneDeviceHelper("./files/html_dev_desc00.xml",
+                             "./files/html_class_desc00.xml",
+                             DeviceClassDescription::kHtmlDevice);
 
-//  // active class description initialize and meet_requirements tests
-//  PairingWithOneDeviceHelper("./files/ondemand_dev_desc00.xml",
-//                             "./files/ondemand_class_desc00.xml",
-//                             DeviceClassDescription::kOnDemandDevice);
+  // active class description initialize and meet_requirements tests
+  PairingWithOneDeviceHelper("./files/ondemand_dev_desc00.xml",
+                             "./files/ondemand_class_desc00.xml",
+                             DeviceClassDescription::kOnDemandDevice);
 
-//  // active class description initialize and meet_requirements tests
-//  PairingWithOneDeviceHelper("./files/mediacapture_dev_desc00.xml",
-//                             "./files/mediacapture_class_desc00.xml",
-//                             DeviceClassDescription::kMediaCaptureDevice);
+  // active class description initialize and meet_requirements tests
+  PairingWithOneDeviceHelper("./files/mediacapture_dev_desc00.xml",
+                             "./files/mediacapture_class_desc00.xml",
+                             DeviceClassDescription::kMediaCaptureDevice);
 }
