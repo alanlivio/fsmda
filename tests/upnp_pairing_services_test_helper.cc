@@ -14,15 +14,15 @@ using std::cin;
  |   main
  +---------------------------------------------------------------------*/
 int main(void) {
-  // create parent pairing service
+  // start parent pairing service with fake discover params
+  // only for enable handshake
   UpnpParentPairing* upnp_parent_pairing = new UpnpParentPairing();
+  string application_id = "fake-application-id";
+  unsigned int class_index = 2;
   DeviceClassDescription* device_class_description =
       new DeviceClassDescription();
   device_class_description->InitializeByDeviceClass(
       DeviceClassDescription::kActiveDevice);
-  string application_id;
-  UpnpFsmdaUtils::GenerateGUID(&application_id);
-  unsigned int class_index = 2;
   DeviceClassDiscoverParams* dicover_params = new DeviceClassDiscoverParams(
       application_id, class_index, device_class_description);
   upnp_parent_pairing->AddDeviceClassForDiscover(dicover_params);

@@ -11,7 +11,7 @@
 
 using std::string;
 
-void PairingWithOneDeviceHelper(
+void PairingWithOneDeviceInSameProcessHelper(
     const string& device_rdf, const string& device_class_description_rdf,
     DeviceClassDescription::DeviceClassType expected_device_class_type) {
 
@@ -73,29 +73,29 @@ void PairingWithOneDeviceHelper(
   EXPECT_FALSE(UpnpFsmdaUtils::IsUpnpStarted());
 }
 
-TEST(PairingManagersTest, PairingWithOneDevice) {
+TEST(PairingManagersTest, PairingWithOneDeviceInSameProcess) {
   //   active class description initialize and meet_requirements tests
-  PairingWithOneDeviceHelper("./files/active_dev_desc00.xml",
-                             "./files/active_class_desc00.xml",
-                             DeviceClassDescription::kActiveDevice);
+  PairingWithOneDeviceInSameProcessHelper(
+      "./files/active_dev_desc00.xml", "./files/active_class_desc00.xml",
+      DeviceClassDescription::kActiveDevice);
 
-  // active class description initialize and meet_requirements tests
-  PairingWithOneDeviceHelper("./files/passive_dev_desc00.xml",
-                             "./files/passive_class_desc00.xml",
-                             DeviceClassDescription::kPassiveDevice);
+  //  // passive class description initialize and meet_requirements tests
+  //  PairingWithOneDeviceInSameProcessHelper("./files/passive_dev_desc00.xml",
+  //                             "./files/passive_class_desc00.xml",
+  //                             DeviceClassDescription::kPassiveDevice);
 
-  // active class description initialize and meet_requirements tests
-  PairingWithOneDeviceHelper("./files/html_dev_desc00.xml",
-                             "./files/html_class_desc00.xml",
-                             DeviceClassDescription::kHtmlDevice);
+  //  // html class description initialize and meet_requirements tests
+  //  PairingWithOneDeviceInSameProcessHelper("./files/html_dev_desc00.xml",
+  //                             "./files/html_class_desc00.xml",
+  //                             DeviceClassDescription::kHtmlDevice);
 
-  // active class description initialize and meet_requirements tests
-  PairingWithOneDeviceHelper("./files/ondemand_dev_desc00.xml",
-                             "./files/ondemand_class_desc00.xml",
-                             DeviceClassDescription::kOnDemandDevice);
+  //  // ondemand class description initialize and meet_requirements tests
+  //  PairingWithOneDeviceInSameProcessHelper("./files/ondemand_dev_desc00.xml",
+  //                             "./files/ondemand_class_desc00.xml",
+  //                             DeviceClassDescription::kOnDemandDevice);
 
-  // active class description initialize and meet_requirements tests
-  PairingWithOneDeviceHelper("./files/mediacapture_dev_desc00.xml",
-                             "./files/mediacapture_class_desc00.xml",
-                             DeviceClassDescription::kMediaCaptureDevice);
+  //  // mediacapture class description initialize and meet_requirements tests
+  //  PairingWithOneDeviceInSameProcessHelper("./files/mediacapture_dev_desc00.xml",
+  //                             "./files/mediacapture_class_desc00.xml",
+  //                             DeviceClassDescription::kMediaCaptureDevice);
 }

@@ -16,8 +16,7 @@
 using std::cout;
 using std::endl;
 
-void HandShakeWithOnDeviceInSameProcessHelper(
-    DeviceClassDescription::DeviceClassType device_class_type) {
+void ChildHandShakeInSameProcessHelper() {
   UpnpParentPairing* upnp_parent_pairing;
   UpnpChildPairing* upnp_child_pairing;
 
@@ -25,29 +24,26 @@ void HandShakeWithOnDeviceInSameProcessHelper(
   EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 0);
   EXPECT_FALSE(UpnpFsmdaUtils::IsUpnpStarted());
 
-  // create parent description
-  upnp_parent_pairing = new UpnpParentPairing();
-  DeviceClassDescription* device_class_description =
-      new DeviceClassDescription();
-  device_class_description->InitializeByDeviceClass(device_class_type);
-  string application_id;
-  UpnpFsmdaUtils::GenerateGUID(&application_id);
-  unsigned int class_index = 2;
-  DeviceClassDiscoverParams* dicover_params = new DeviceClassDiscoverParams(
-      application_id, class_index, device_class_description);
-  upnp_parent_pairing->AddDeviceClassForDiscover(dicover_params);
-
-  // start parent pairing service
-  EXPECT_EQ(upnp_parent_pairing->StartPairingService(), 0);
-  EXPECT_TRUE(upnp_parent_pairing->IsPairingServiceStarted());
-  EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 1);
-
   // start child pairing service
-  DeviceDescription* description_aux = new DeviceDescription();
-  description_aux->InitializeByDeviceClass(device_class_type);
   upnp_child_pairing = new UpnpChildPairing();
   EXPECT_EQ(upnp_child_pairing->StartPairingService(), 0);
   EXPECT_TRUE(upnp_child_pairing->IsPairingServiceStarted());
+  EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 1);
+
+  // start parent pairing service with fake discover params
+  // only for enable handshake
+  upnp_parent_pairing = new UpnpParentPairing();
+  string application_id = "fake-application-id";
+  unsigned int class_index = 2;
+  DeviceClassDescription* device_class_description =
+      new DeviceClassDescription();
+  device_class_description->InitializeByDeviceClass(
+      DeviceClassDescription::kActiveDevice);
+  DeviceClassDiscoverParams* dicover_params = new DeviceClassDiscoverParams(
+      application_id, class_index, device_class_description);
+  upnp_parent_pairing->AddDeviceClassForDiscover(dicover_params);
+  EXPECT_EQ(upnp_parent_pairing->StartPairingService(), 0);
+  EXPECT_TRUE(upnp_parent_pairing->IsPairingServiceStarted());
   EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 2);
 
   // test if child is paired
@@ -71,8 +67,7 @@ void HandShakeWithOnDeviceInSameProcessHelper(
   EXPECT_FALSE(UpnpFsmdaUtils::IsUpnpStarted());
 }
 
-void HandShakeWithOnDeviceInDiferentProcessesHelper(
-    DeviceClassDescription::DeviceClassType device_class_type) {
+void ChildHandShakeInDiferentProcessesHelper() {
   UpnpChildPairing* upnp_child_pairing;
 
   // test if upnp is running
@@ -80,8 +75,6 @@ void HandShakeWithOnDeviceInDiferentProcessesHelper(
   EXPECT_FALSE(UpnpFsmdaUtils::IsUpnpStarted());
 
   // start child pairing service
-  DeviceDescription* description_aux = new DeviceDescription();
-  description_aux->InitializeByDeviceClass(device_class_type);
   upnp_child_pairing = new UpnpChildPairing();
   EXPECT_EQ(upnp_child_pairing->StartPairingService(), 0);
   EXPECT_TRUE(upnp_child_pairing->IsPairingServiceStarted());
@@ -93,7 +86,6 @@ void HandShakeWithOnDeviceInDiferentProcessesHelper(
   // test if child is paired
   sleep(1);
   EXPECT_TRUE(upnp_child_pairing->PerformedHandShake());
-  // TODO(alan@telemidia.puc-rio.br): use class_type as program parameter
 
   // stop child pairing service
   EXPECT_EQ(upnp_child_pairing->StopPairingService(), 0);
@@ -106,26 +98,10 @@ void HandShakeWithOnDeviceInDiferentProcessesHelper(
   EXPECT_FALSE(UpnpFsmdaUtils::IsUpnpStarted());
 }
 
-TEST(UpnpPairingServicesTest, HandShakeWithOnDeviceInSameProcess) {
-  HandShakeWithOnDeviceInSameProcessHelper(DeviceClassDescription::kActiveDevice);
-//  HandShakeWithOnDeviceInSameProcessHelper(
-//      DeviceClassDescription::kPassiveDevice);
-//  HandShakeWithOnDeviceInSameProcessHelper(DeviceClassDescription::kHtmlDevice);
-//  HandShakeWithOnDeviceInSameProcessHelper(
-//      DeviceClassDescription::kOnDemandDevice);
-//  HandShakeWithOnDeviceInSameProcessHelper(
-//      DeviceClassDescription::kMediaCaptureDevice);
+TEST(UpnpPairingServicesTest, ChildHandShakeInSameProcess) {
+  ChildHandShakeInSameProcessHelper();
 }
 
-TEST(UpnpPairingServicesTest, HandShakeWithOnDeviceInDiferentProcesses) {
-    HandShakeWithOnDeviceInDiferentProcessesHelper(
-        DeviceClassDescription::kActiveDevice);
-//    HandShakeWithOnDeviceInDiferentProcessesHelper(
-//        DeviceClassDescription::kPassiveDevice);
-//    HandShakeWithOnDeviceInDiferentProcessesHelper(
-//        DeviceClassDescription::kHtmlDevice);
-//    HandShakeWithOnDeviceInDiferentProcessesHelper(
-//        DeviceClassDescription::kOnDemandDevice);
-//    HandShakeWithOnDeviceInDiferentProcessesHelper(
-//        DeviceClassDescription::kMediaCaptureDevice);
+TEST(UpnpPairingServicesTest, ChildHandShakeInDiferentProcesses) {
+  ChildHandShakeInDiferentProcessesHelper();
 }
