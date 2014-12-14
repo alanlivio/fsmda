@@ -4,6 +4,7 @@
 #include "fsmda/communication_services/upnp_ondemand_ccm.h"
 #include <cstdlib>
 #include <iostream>
+#include <fstream>
 #include "fsmda/device_description.h"
 #include "fsmda/device_class_description.h"
 #include "fsmda/parent_pairing_manager.h"
@@ -15,6 +16,8 @@
 
 using std::cout;
 using std::endl;
+using std::fstream;
+using std::ifstream;
 
 void ChildHandShakeInSameProcessHelper() {
   UpnpParentPairing* upnp_parent_pairing;
@@ -81,7 +84,8 @@ void ChildHandShakeInDiferentProcessesHelper() {
   EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 1);
 
   // start parent pairing service
-  ASSERT_TRUE(popen("./upnp_pairing_services_test_helper", "r"));
+  FILE* parent_pipe = popen("./upnp_pairing_services_test_helper", "w");
+  ASSERT_TRUE(parent_pipe);
 
   // test if child is paired
   sleep(1);
@@ -92,6 +96,10 @@ void ChildHandShakeInDiferentProcessesHelper() {
   EXPECT_FALSE(upnp_child_pairing->IsPairingServiceStarted());
   EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 0);
   delete upnp_child_pairing;
+
+  // stop parent pairing service
+  fprintf(parent_pipe, "%s\n", "stop");
+  fclose(parent_pipe);
 
   // test if upnp is running
   EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 0);

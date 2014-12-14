@@ -7,7 +7,6 @@
 #include "fsmda/pairing_services/upnp_parent_pairing.h"
 #include "fsmda/utils/upnp_fsmda_utils.h"
 
-using std::clog;
 using std::cin;
 
 /*----------------------------------------------------------------------
@@ -32,11 +31,12 @@ int main(void) {
   upnp_parent_pairing->IsPairingServiceStarted();
 
   //  wait for a q char
-  char buf[256];
-  while (cin.getline(buf, 255)) {
-    if (*buf == 'q') break;
+  string command;
+  while (cin >> command) {
+    if (command == "stop") break;
   }
   upnp_parent_pairing->StopPairingService();
   delete upnp_parent_pairing;
+
   return 0;
 }
