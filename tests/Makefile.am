@@ -39,7 +39,7 @@ libgmockgtest_la_LDFLAGS =\
   
 ############################# Testes gtests-based ###########################
 ### Tests programs
-check_PROGRAMS = testsuit_gtest upnp_pairing_services_test_helper
+check_PROGRAMS = testsuit_gtest fake_parent_helper
 
 ### Tests programs sources
 testsuit_gtest_SOURCES = \
@@ -54,8 +54,8 @@ testsuit_gtest_SOURCES = \
   testsuit_gtest.cc\
   simple_test.cc
 
-upnp_pairing_services_test_helper_SOURCES = \
-  upnp_pairing_services_test_helper.cc
+fake_parent_helper_SOURCES = \
+  fake_parent_helper.cc
 
 ### Tests programs compiler options
 testsuit_gtest_CPPFLAGS = \
@@ -63,7 +63,7 @@ testsuit_gtest_CPPFLAGS = \
   $(LIBXML2_CFLAGS)\
   $(GMOCKGTEST_CPPFLAGS)
 
-upnp_pairing_services_test_helper_CPPFLAGS = \
+fake_parent_helper_CPPFLAGS = \
   $(PLATINUMKIT_CFLAGS)\
   $(LIBXML2_CFLAGS)
 
@@ -74,7 +74,7 @@ testsuit_gtest_LDADD = \
   $(LIBXML2_LIBS)\
   $(top_srcdir)/tests/libgmockgtest.la
 
-upnp_pairing_services_test_helper_LDADD = \
+fake_parent_helper_LDADD = \
   $(top_srcdir)/src/libfsmda.la\
   $(PLATINUMKIT_LIBS)\
   $(LIBXML2_LIBS)

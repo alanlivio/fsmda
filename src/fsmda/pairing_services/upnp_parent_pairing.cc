@@ -205,7 +205,7 @@ NPT_Result UpnpParentPairing::OnDeviceAdded(
  |   UpnpParentPairing::StartPairingService
  +---------------------------------------------------------------------*/
 int UpnpParentPairing::StartPairingService() {
-  clog << "UpnpParentPairing::StartService" << endl;
+  clog << "UpnpParentPairing::StartPairingService" << endl;
   if (upnp_instance_ == NULL) {
     upnp_instance_ = UpnpFsmdaUtils::GetRunningInstance();
   }
