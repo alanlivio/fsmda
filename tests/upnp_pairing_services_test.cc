@@ -1,7 +1,8 @@
 /*----------------------------------------------------------------------
  |   includes
  +---------------------------------------------------------------------*/
-#include "fsmda/communication_services/upnp_ondemand_ccm.h"
+
+#include "./named_semaphore_helper.h"
 #include <cstdlib>
 #include <iostream>
 #include <fstream>
@@ -14,51 +15,84 @@
 #include "fsmda/utils/upnp_fsmda_utils.h"
 #include "gtest/gtest.h"
 
-using std::cout;
 using std::endl;
+using std::clog;
 using std::fstream;
 using std::ifstream;
 
+class MockUpnpChildPairing : public UpnpChildPairing {
+ public:
+  string expected_app_id;
+  void SetPerformedHandShake(bool performe) {
+    clog << "MockUpnpChildPairing::SetPerformedHandShake():: performe = "
+         << performe << endl;
+    UpnpChildPairing::SetPerformedHandShake(performe);
+    PostnamedSemphoreHelper(expected_app_id);
+  }
+  explicit MockUpnpChildPairing() : UpnpChildPairing() {}
+};
+
 void HandShakeWithOneDeviceHelper(bool diferent_processes) {
   UpnpParentPairing* upnp_parent_pairing;
-  UpnpChildPairing* upnp_child_pairing;
+  MockUpnpChildPairing* upnp_child_pairing;
+  string app_id = "fake-application-id";
 
   // test if upnp is running
   EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 0);
   EXPECT_FALSE(UpnpFsmdaUtils::IsUpnpStarted());
 
   // start child pairing service
-  upnp_child_pairing = new UpnpChildPairing();
+  upnp_child_pairing = new MockUpnpChildPairing();
   EXPECT_EQ(upnp_child_pairing->StartPairingService(), 0);
   EXPECT_TRUE(upnp_child_pairing->IsPairingServiceStarted());
   EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 1);
 
   if (diferent_processes) {
-    // start parent pairing service
+    UpnpFsmdaUtils::GenerateGUID(&app_id);
+    CreateNamedSemphoreHelper(app_id, true);
+    upnp_child_pairing->expected_app_id = app_id;
+
+    // configure and start ParenPaigingManager
+    // by open fake_parent_helper and create pipe to its sdtin
     FILE* parent_pipe = popen("./fake_parent_helper", "w");
     ASSERT_TRUE(parent_pipe);
+
+    // send active as device class type
     fprintf(parent_pipe, "%s\n", "active");
-    fclose(parent_pipe);
+
+    // send app id name to identify semaphore
+    fprintf(parent_pipe, "%s\n", app_id.c_str());
+
+    // close pipe
+    pclose(parent_pipe);
+
+    // child wait for ParentPostSemphoreHelper call
+    WaitNamedSemphoreHelper(app_id);
   } else {
+    UpnpFsmdaUtils::GenerateGUID(&app_id);
+    CreateNamedSemphoreHelper(app_id, false);
+    upnp_child_pairing->expected_app_id = app_id;
     // start parent pairing service with fake discover params
     // only for enable handshake
     upnp_parent_pairing = new UpnpParentPairing();
-    string application_id = "fake-application-id";
     unsigned int class_index = 2;
     DeviceClassDescription* device_class_description =
         new DeviceClassDescription();
     device_class_description->InitializeByDeviceClass(
         DeviceClassDescription::kActiveDevice);
     DeviceClassDiscoverParams* dicover_params = new DeviceClassDiscoverParams(
-        application_id, class_index, device_class_description);
+        app_id, class_index, device_class_description);
     upnp_parent_pairing->AddDeviceClassForDiscover(dicover_params);
     EXPECT_EQ(upnp_parent_pairing->StartPairingService(), 0);
     EXPECT_TRUE(upnp_parent_pairing->IsPairingServiceStarted());
     EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 2);
+
+    // child wait for ParentPostSemphoreHelper call
+    WaitNamedSemphoreHelper(app_id);
   }
   // test if child is paired
-  sleep(1);
   EXPECT_TRUE(upnp_child_pairing->PerformedHandShake());
+  ReleaseNameSemphoreHelper(app_id);
 
   if (diferent_processes == false) {
     // stop parent pairing service

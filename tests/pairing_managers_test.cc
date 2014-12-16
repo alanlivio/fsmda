@@ -52,6 +52,7 @@ void PairingWithOneDeviceHelper(
     UpnpFsmdaUtils::GenerateGUID(&app_id);
     CreateNamedSemphoreHelper(app_id, true);
     child_pairing_manager->expected_app_id = app_id;
+
     // configure and start ParenPaigingManager
     // by open fake_parent_helper and create pipe to its sdtin
     FILE* parent_pipe = popen("./fake_parent_helper", "w");
@@ -98,7 +99,6 @@ void PairingWithOneDeviceHelper(
     WaitNamedSemphoreHelper(app_id);
   }
   // test if child is paired
-  //  sleep(1);
   EXPECT_TRUE(child_pairing_manager->IsPaired());
   ReleaseNameSemphoreHelper(app_id);
 
@@ -124,22 +124,23 @@ TEST(PairingManagersTest, PairingWithOneDeviceInSameProcess) {
   PairingWithOneDeviceHelper("./files/active_dev_desc00.xml",
                              "./files/active_class_desc00.xml",
                              DeviceClassDescription::kActiveDevice, false);
-  PairingWithOneDeviceHelper("./files/active_dev_desc00.xml",
-                             "./files/active_class_desc00.xml",
-                             DeviceClassDescription::kActiveDevice, false);
-  PairingWithOneDeviceHelper("./files/passive_dev_desc00.xml",
-                             "./files/passive_class_desc00.xml",
-                             DeviceClassDescription::kPassiveDevice, false);
-  PairingWithOneDeviceHelper("./files/html_dev_desc00.xml",
-                             "./files/html_class_desc00.xml",
-                             DeviceClassDescription::kHtmlDevice, false);
-  PairingWithOneDeviceHelper("./files/ondemand_dev_desc00.xml",
-                             "./files/ondemand_class_desc00.xml",
-                             DeviceClassDescription::kOnDemandDevice, false);
-  PairingWithOneDeviceHelper("./files/mediacapture_dev_desc00.xml",
-                             "./files/mediacapture_class_desc00.xml",
-                             DeviceClassDescription::kMediaCaptureDevice,
-                             false);
+  //  PairingWithOneDeviceHelper("./files/active_dev_desc00.xml",
+  //                             "./files/active_class_desc00.xml",
+  //                             DeviceClassDescription::kActiveDevice, false);
+  //  PairingWithOneDeviceHelper("./files/passive_dev_desc00.xml",
+  //                             "./files/passive_class_desc00.xml",
+  //                             DeviceClassDescription::kPassiveDevice, false);
+  //  PairingWithOneDeviceHelper("./files/html_dev_desc00.xml",
+  //                             "./files/html_class_desc00.xml",
+  //                             DeviceClassDescription::kHtmlDevice, false);
+  //  PairingWithOneDeviceHelper("./files/ondemand_dev_desc00.xml",
+  //                             "./files/ondemand_class_desc00.xml",
+  //                             DeviceClassDescription::kOnDemandDevice,
+  // false);
+  //  PairingWithOneDeviceHelper("./files/mediacapture_dev_desc00.xml",
+  //                             "./files/mediacapture_class_desc00.xml",
+  //                             DeviceClassDescription::kMediaCaptureDevice,
+  //                             false);
 }
 TEST(PairingManagersTest, PairingWithOneDeviceInDiferentProcess) {
   PairingWithOneDeviceHelper("./files/active_dev_desc00.xml",

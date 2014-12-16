@@ -51,6 +51,9 @@ class UpnpChildPairing : public PLT_DeviceHost,
   virtual int StopPairingService();
   virtual bool IsPairingServiceStarted() { return m_Started; }
   virtual bool PerformedHandShake() { return performed_handshake_; }
+  virtual void SetPerformedHandShake(bool performe) {
+    performed_handshake_ = performe;
+  }
 
  private:
   bool performed_handshake_;

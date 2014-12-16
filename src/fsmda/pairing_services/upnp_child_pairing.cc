@@ -90,7 +90,7 @@ NPT_Result UpnpChildPairing::OnAction(PLT_ActionReference &action,
          << " one_rdf_with_size=" << class_desc.GetLength() << ","
          << class_function.GetChars() << ")" << endl;
     clog << "UpnpChildPairing::OnAction()::paired_with_parent_= true" << endl;
-    performed_handshake_ = true;
+    SetPerformedHandShake(true);
     if (child_pairing_manager_ != NULL) {
       child_pairing_manager_->ClassAnnouncement(
           application_id.GetChars(), class_index, class_desc.GetChars(),
