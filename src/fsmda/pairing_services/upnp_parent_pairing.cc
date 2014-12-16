@@ -157,6 +157,10 @@ NPT_Result UpnpParentPairing::OnDeviceRemoved(PLT_DeviceDataReference &device) {
 NPT_Result UpnpParentPairing::OnDeviceAdded(
     PLT_DeviceDataReference &device_data) {
   if (!device_data->GetUUID().Compare(m_UUID)) return NPT_SUCCESS;
+  //  if
+  // (!device_data->GetType().StartsWith("urn:schemas-upnp-org:service:fsmda-",
+  // true))
+  //    return NPT_SUCCESS;
   clog << "UpnpParentPairing::OnDeviceAdded() " << endl;
   clog << "UpnpParentPairing::OnDeviceAdded()::device->GetFriendlyName="
        << device_data->GetFriendlyName().GetChars() << endl;
@@ -180,7 +184,7 @@ NPT_Result UpnpParentPairing::OnDeviceAdded(
       if (action.IsNull()) {
         iter++;
         continue;
-      };
+      }
       DeviceClassDiscoverParams *discover_params = (*iter);
       action->SetArgumentValue("applicationId",
                                discover_params->application_id_.c_str());

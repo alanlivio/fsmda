@@ -209,14 +209,14 @@ bool DeviceClassDescription::IsDeviceCompatible(
  |   DeviceClassDescription::InitializeByDefaultDeviceClass
  +---------------------------------------------------------------------*/
 int DeviceClassDescription::InitializeByDeviceClass(DeviceClassType type) {
-
   const char* rdf_content_aux = GetDeviceClassRdfDefaultContentByType(type);
   if (ParseXmlContent(rdf_content_aux) == 0) {
     rdf_content_ = rdf_content_aux;
     initialized_ = true;
     return 0;
-  } else
+  } else {
     return -1;
+  }
 }
 
 /*----------------------------------------------------------------------
@@ -228,15 +228,15 @@ int DeviceClassDescription::InitializeByRdfContent(const char* content) {
     rdf_content_ = content;
     initialized_ = true;
     return 0;
-  } else
+  } else {
     return -1;
+  }
 }
 
 /*----------------------------------------------------------------------
  |   DeviceClassDescription::InitializeByRdfFile
  +---------------------------------------------------------------------*/
 int DeviceClassDescription::InitializeByRdfFile(const string& rdf_file_path) {
-
   std::ifstream t;
   t.open(rdf_file_path.c_str());
   std::stringstream contents;
@@ -248,8 +248,9 @@ int DeviceClassDescription::InitializeByRdfFile(const string& rdf_file_path) {
     initialized_ = true;
     rdf_content_ = contents.str().c_str();
     return 0;
-  } else
+  } else {
     return -1;
+  }
 }
 
 /*----------------------------------------------------------------------

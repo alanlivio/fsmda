@@ -79,10 +79,10 @@ void HandShakeWithOneDeviceHelper(bool diferent_processes) {
   EXPECT_FALSE(UpnpFsmdaUtils::IsUpnpStarted());
 }
 
-//TEST(UpnpPairingServicesTest, HandShakeWithOneDeviceInSameProcess) {
-//  HandShakeWithOneDeviceHelper(false);
-//}
+TEST(UpnpPairingServicesTest, HandShakeWithOneDeviceInSameProcess) {
+  HandShakeWithOneDeviceHelper(false);
+}
 
-//TEST(UpnpPairingServicesTest, HandShakeWithOneDeviceInDiferentProcesses) {
-//  HandShakeWithOneDeviceHelper(true);
-//}
+TEST(UpnpPairingServicesTest, HandShakeWithOneDeviceInDiferentProcesses) {
+  HandShakeWithOneDeviceHelper(true);
+}

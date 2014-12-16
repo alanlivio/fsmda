@@ -30,30 +30,29 @@ void DeviceDescriptionMatchingHelper(
   EXPECT_TRUE(device_class_description.IsDeviceCompatible(&device_description));
 }
 
-
 TEST(PairingManagersTest, DeviceDescriptionMatching) {
   // passive class description initialize and meet_requirements tests
-//  DeviceDescriptionMatchingHelper("./files/passive_dev_desc00.xml",
-//                                  "./files/passive_class_desc00.xml",
-//                                  DeviceClassDescription::kPassiveDevice);
+  DeviceDescriptionMatchingHelper("./files/passive_dev_desc00.xml",
+                                  "./files/passive_class_desc00.xml",
+                                  DeviceClassDescription::kPassiveDevice);
 
-//  // active class description initialize and meet_requirements tests
-//  DeviceDescriptionMatchingHelper("./files/active_dev_desc00.xml",
-//                                  "./files/active_class_desc00.xml",
-//                                  DeviceClassDescription::kActiveDevice);
+  // active class description initialize and meet_requirements tests
+  DeviceDescriptionMatchingHelper("./files/active_dev_desc00.xml",
+                                  "./files/active_class_desc00.xml",
+                                  DeviceClassDescription::kActiveDevice);
 
-//  // html class description initialize and meet_requirements tests
-//  DeviceDescriptionMatchingHelper("./files/html_dev_desc00.xml",
-//                                  "./files/html_class_desc00.xml",
-//                                  DeviceClassDescription::kHtmlDevice);
+  // html class description initialize and meet_requirements tests
+  DeviceDescriptionMatchingHelper("./files/html_dev_desc00.xml",
+                                  "./files/html_class_desc00.xml",
+                                  DeviceClassDescription::kHtmlDevice);
 
-//  // ondemand class description initialize and meet_requirements tests
-//  DeviceDescriptionMatchingHelper("./files/ondemand_dev_desc00.xml",
-//                                  "./files/ondemand_class_desc00.xml",
-//                                  DeviceClassDescription::kOnDemandDevice);
+  // ondemand class description initialize and meet_requirements tests
+  DeviceDescriptionMatchingHelper("./files/ondemand_dev_desc00.xml",
+                                  "./files/ondemand_class_desc00.xml",
+                                  DeviceClassDescription::kOnDemandDevice);
 
-//  // mediacapture class description initialize and meet_requirements tests
-//  DeviceDescriptionMatchingHelper("./files/mediacapture_dev_desc00.xml",
-//                                  "./files/mediacapture_class_desc00.xml",
-//                                  DeviceClassDescription::kMediaCaptureDevice);
+  // mediacapture class description initialize and meet_requirements tests
+  DeviceDescriptionMatchingHelper("./files/mediacapture_dev_desc00.xml",
+                                  "./files/mediacapture_class_desc00.xml",
+                                  DeviceClassDescription::kMediaCaptureDevice);
 }

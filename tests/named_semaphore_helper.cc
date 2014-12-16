@@ -13,7 +13,7 @@ using std::clog;
 using std::endl;
 using std::map;
 
-string fsmda_semaphore_base_name = "/fsmda_semaphore_";
+const char* fsmda_semaphore_base_name = "/fsmda_semaphore_";
 map<const string, sem_t*> named_semaphores;
 
 void CreateNamedSemphoreHelper(const string& semaphore_name,
@@ -25,9 +25,9 @@ void CreateNamedSemphoreHelper(const string& semaphore_name,
   // child wait for ParentPostSemphoreHelper call
   sem_t* aux_semaphore =
       sem_open(semname.c_str(), O_CREAT | O_EXCL, S_IRUSR | S_IWUSR, 0);
-  if (aux_semaphore != SEM_FAILED)
+  if (aux_semaphore != SEM_FAILED) {
     clog << "CreateNamedSemphoreHelper::created new semaphore !" << endl;
-  else if (errno == EEXIST) {
+  } else if (errno == EEXIST) {
     clog << "CreateNamedSemphoreHelper::semaphore appears to exist already, "
             "created new semaphore !" << endl;
     aux_semaphore = sem_open(semname.c_str(), O_CREAT, S_IRUSR | S_IWUSR, 0);

@@ -1,10 +1,10 @@
 /*----------------------------------------------------------------------
  |   includes
  +---------------------------------------------------------------------*/
+#include <unistd.h>
 #include <cstdlib>
 #include <iostream>
-#include <unistd.h>
-#include "named_semaphore_helper.h"
+#include "./named_semaphore_helper.h"
 #include "fsmda/parent_pairing_manager.h"
 #include "fsmda/pairing_services/upnp_child_pairing.h"
 #include "fsmda/pairing_services/upnp_parent_pairing.h"
@@ -18,7 +18,6 @@ using std::getline;
  |   main
  +---------------------------------------------------------------------*/
 int main(void) {
-
   //  read device class type by stdin
   string device_class_command;
   getline(cin, device_class_command);
@@ -50,9 +49,9 @@ int main(void) {
   upnp_parent_pairing->IsPairingServiceStarted();
 
   sleep(2);
-//  string parent_named_semaphore = application_id + "_parent";
-//  CreateNamedSemphoreHelper(parent_named_semaphore, true);
-//  WaitNamedSemphoreHelper(parent_named_semaphore);
+  //  string parent_named_semaphore = application_id + "_parent";
+  //  CreateNamedSemphoreHelper(parent_named_semaphore, true);
+  //  WaitNamedSemphoreHelper(parent_named_semaphore);
   upnp_parent_pairing->StopPairingService();
   delete upnp_parent_pairing;
 

@@ -111,21 +111,26 @@ NPT_Result UpnpChildPairing::OnActionResponse(NPT_Result res,
 
 NPT_Result UpnpChildPairing::OnDeviceRemoved(PLT_DeviceDataReference &device) {}
 
-NPT_Result UpnpChildPairing::OnDeviceAdded(PLT_DeviceDataReference &device) {
-  if (!device->GetUUID().Compare(m_UUID)) return NPT_SUCCESS;
+NPT_Result UpnpChildPairing::OnDeviceAdded(
+    PLT_DeviceDataReference &device_data) {
+  if (!device_data->GetUUID().Compare(m_UUID)) return NPT_SUCCESS;
+  //  if
+  // (!device_data->GetType().StartsWith("urn:schemas-upnp-org:service:fsmda-"),
+  //      true)
+  //    return NPT_FAILURE;
   clog << "UpnpChildPairing::OnDeviceAdded() " << endl;
   clog << "UpnpChildPairing::OnDeviceAdded()::device->GetFriendlyName="
-       << device->GetFriendlyName().GetChars() << endl;
+       << device_data->GetFriendlyName().GetChars() << endl;
   clog << "UpnpChildPairing::OnDeviceAdded()::device->GetType="
-       << device->GetType().GetChars() << endl;
+       << device_data->GetType().GetChars() << endl;
   clog << "UpnpChildPairing::OnDeviceAdded()::device->GetUUID="
-       << device->GetUUID().GetChars() << endl;
+       << device_data->GetUUID().GetChars() << endl;
   clog << "UpnpChildPairing::OnDeviceAdded()::device->GetURLBase()->"
-       << device->GetURLBase().ToString().GetChars() << endl;
+       << device_data->GetURLBase().ToString().GetChars() << endl;
 
-  if (!device->GetType().Compare(UpnpFsmdaUtils::kPpmDeviceType)) {
-    device->FindServiceByType(UpnpFsmdaUtils::kPpmServiceType,
-                              parent_pairing_service_);
+  if (!device_data->GetType().Compare(UpnpFsmdaUtils::kPpmDeviceType)) {
+    device_data->FindServiceByType(UpnpFsmdaUtils::kPpmServiceType,
+                                   parent_pairing_service_);
     return NPT_SUCCESS;
   } else {
     return NPT_FAILURE;

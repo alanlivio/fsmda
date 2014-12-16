@@ -1,5 +1,5 @@
-#ifndef NAMED_SEMAPHORE_HELPER_H
-#define NAMED_SEMAPHORE_HELPER_H
+#ifndef NAMED_SEMAPHORE_HELPER_H_
+#define NAMED_SEMAPHORE_HELPER_H_
 
 /*----------------------------------------------------------------------
  |   includes
@@ -11,9 +11,10 @@ using std::string;
 /*----------------------------------------------------------------------
  |   Global functions
  +---------------------------------------------------------------------*/
-void CreateNamedSemphoreHelper(const string& semaphore_name, bool diferent_processes);
+void CreateNamedSemphoreHelper(const string& semaphore_name,
+                               bool diferent_processes);
 void WaitNamedSemphoreHelper(const string& semaphore_name);
 void ReleaseNameSemphoreHelper(const string& semaphore_name);
 void PostnamedSemphoreHelper(const string& semaphore_name);
 
-#endif  // NAMED_SEMAPHORE_HELPER_H
+#endif  // NAMED_SEMAPHORE_HELPER_H_
