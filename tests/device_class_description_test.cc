@@ -33,9 +33,9 @@ void DeviceDescriptionMatchingHelper(
 
 TEST(PairingManagersTest, DeviceDescriptionMatching) {
   // passive class description initialize and meet_requirements tests
-  DeviceDescriptionMatchingHelper("./files/passive_dev_desc00.xml",
-                                  "./files/passive_class_desc00.xml",
-                                  DeviceClassDescription::kPassiveDevice);
+//  DeviceDescriptionMatchingHelper("./files/passive_dev_desc00.xml",
+//                                  "./files/passive_class_desc00.xml",
+//                                  DeviceClassDescription::kPassiveDevice);
 
 //  // active class description initialize and meet_requirements tests
 //  DeviceDescriptionMatchingHelper("./files/active_dev_desc00.xml",

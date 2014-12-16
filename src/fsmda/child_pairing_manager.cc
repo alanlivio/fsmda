@@ -85,7 +85,9 @@ void ChildPairingManager::ClassAnnouncement(const string& application_id,
                                             const string& class_function) {
   DeviceClassDescription device_class_description;
   device_class_description.InitializeByRdfContent(class_desc.c_str());
-  paired_ = device_class_description.IsDeviceCompatible(device_description_);
+  bool paired =
+      device_class_description.IsDeviceCompatible(device_description_);
+  SetPaired(paired);
 }
 /*----------------------------------------------------------------------
  |   ChildPairingManager::CreateActiveCc

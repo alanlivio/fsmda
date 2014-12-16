@@ -48,6 +48,7 @@ testsuit_gtest_SOURCES = \
   pairing_managers_test.cc\
   upnp_communication_test.cc\
   upnp_pairing_services_test.cc\
+  named_semaphore_helper.cc\
   utils_test.cc
 
 #testsuit_gtest_SOURCES = \
@@ -55,7 +56,8 @@ testsuit_gtest_SOURCES = \
   simple_test.cc
 
 fake_parent_helper_SOURCES = \
-  fake_parent_helper.cc
+  fake_parent_helper.cc\
+  named_semaphore_helper.cc
 
 ### Tests programs compiler options
 testsuit_gtest_CPPFLAGS = \
@@ -77,4 +79,5 @@ testsuit_gtest_LDADD = \
 fake_parent_helper_LDADD = \
   $(top_srcdir)/src/libfsmda.la\
   $(PLATINUMKIT_LIBS)\
-  $(LIBXML2_LIBS)
+  $(LIBXML2_LIBS)\
+  $(PTHREAD_LIBS)

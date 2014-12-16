@@ -158,6 +158,8 @@ NPT_Result UpnpParentPairing::OnDeviceAdded(
     PLT_DeviceDataReference &device_data) {
   if (!device_data->GetUUID().Compare(m_UUID)) return NPT_SUCCESS;
   clog << "UpnpParentPairing::OnDeviceAdded() " << endl;
+  clog << "UpnpParentPairing::OnDeviceAdded()::device->GetFriendlyName="
+       << device_data->GetFriendlyName().GetChars() << endl;
   clog << "UpnpParentPairing::OnDeviceAdded()::device->GetType="
        << device_data->GetType().GetChars() << endl;
   clog << "UpnpParentPairing::OnDeviceAdded()::device->GetUUID="
@@ -212,6 +214,8 @@ int UpnpParentPairing::StartPairingService() {
   NPT_Result res = upnp_instance_->AddDevice(*device_host_);
   res = upnp_instance_->AddCtrlPoint(*ctrl_point_);
   (*ctrl_point_)->AddListener(this);
+  clog << "UpnpParentPairing::StartPairingService()::NPT_Result res="
+       << NPT_ResultText(res) << endl;
   if (res != NPT_SUCCESS) {
     return -1;
   } else {

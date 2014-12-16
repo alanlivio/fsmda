@@ -2,6 +2,7 @@
  |   includes
  +---------------------------------------------------------------------*/
 
+#include "named_semaphore_helper.h"
 #include "fsmda/device_class_description.h"
 #include "fsmda/device_description.h"
 #include "fsmda/parent_pairing_manager.h"
@@ -10,12 +11,27 @@
 #include "gtest/gtest.h"
 
 using std::string;
+using std::clog;
+using std::endl;
+
+string used_app_id;
+
+class MockChildPairingManager : public ChildPairingManager {
+ public:
+  void SetPaired(bool paired) {
+    clog << "--->Logging from MockChildPairingManager" << endl;
+    ChildPairingManager::SetPaired(paired);
+    PostnamedSemphoreHelper(used_app_id);
+  };
+  MockChildPairingManager(const DeviceDescription& device_description)
+      : ChildPairingManager(device_description) {};
+};
 
 void PairingWithOneDeviceHelper(
     const string& device_rdf, const string& device_class_description_rdf,
     DeviceClassDescription::DeviceClassType expected_device_class_type,
     bool diferent_processes) {
-  ChildPairingManager* child_pairing_manager;
+  MockChildPairingManager* child_pairing_manager;
   ParentPairingManager* parent_pairing_manager;
 
   EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 0);
@@ -24,7 +40,7 @@ void PairingWithOneDeviceHelper(
   // start ChildPairingManager
   DeviceDescription device_description;
   EXPECT_EQ(device_description.InitializeByRdfFile(device_rdf), 0);
-  child_pairing_manager = new ChildPairingManager(device_description);
+  child_pairing_manager = new MockChildPairingManager(device_description);
   EXPECT_EQ(device_description.device_class_type(), expected_device_class_type);
   EXPECT_EQ(child_pairing_manager->StartPairing(), 0);
   EXPECT_TRUE(child_pairing_manager->IsPairingStarted());
@@ -32,13 +48,32 @@ void PairingWithOneDeviceHelper(
 
   // start ParentPairingManager
   if (diferent_processes) {
+    UpnpFsmdaUtils::GenerateGUID(&used_app_id);
+    CreateNamedSemphoreHelper(used_app_id, true);
+
+    // configure and start ParenPaigingManager
+    // by open fake_parent_helper and create pipe to its sdtin
     FILE* parent_pipe = popen("./fake_parent_helper", "w");
     ASSERT_TRUE(parent_pipe);
+
+    // send active as device class type
     fprintf(parent_pipe, "%s\n",
             DeviceClassDescription::GetDeviceClassTypeStringByEnum(
                 expected_device_class_type));
-    fclose(parent_pipe);
+
+    // send app id name to identify semaphore
+    fprintf(parent_pipe, "%s\n", used_app_id.c_str());
+
+    // close pipe
+    pclose(parent_pipe);
+
+    // child wait for ParentPostSemphoreHelper call
+    WaitNamedSemphoreHelper(used_app_id);
   } else {
+    UpnpFsmdaUtils::GenerateGUID(&used_app_id);
+    CreateNamedSemphoreHelper(used_app_id, false);
+
+    // configure and start ParenPaigingManager
     DeviceClassDescription* device_class_description =
         new DeviceClassDescription();
     EXPECT_EQ(device_class_description->InitializeByRdfFile(
@@ -46,22 +81,25 @@ void PairingWithOneDeviceHelper(
               0);
     EXPECT_EQ(device_class_description->device_class_type(),
               expected_device_class_type);
-    string app_id;
-    UpnpFsmdaUtils::GenerateGUID(&app_id);
     parent_pairing_manager = new ParentPairingManager();
     unsigned int class_index =
-        parent_pairing_manager->GenerateAvaliableIndex(app_id);
+        parent_pairing_manager->GenerateAvaliableIndex(used_app_id);
     //    parent_pairing_manager->AddClass(app_id, class_index);
-    parent_pairing_manager->AddClassDescription(app_id, class_index,
+    parent_pairing_manager->AddClassDescription(used_app_id, class_index,
                                                 device_class_description);
-    EXPECT_EQ(parent_pairing_manager->GetNumberOfRegistredClasses(app_id), 1);
+    EXPECT_EQ(parent_pairing_manager->GetNumberOfRegistredClasses(used_app_id),
+              1);
     EXPECT_EQ(parent_pairing_manager->StartPairing(), 0);
     EXPECT_TRUE(parent_pairing_manager->IsPairingStarted());
     EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 2);
+
+    // child wait for ParentPostSemphoreHelper call
+    WaitNamedSemphoreHelper(used_app_id);
   }
   // test if child is paired
-  sleep(1);
+  //  sleep(1);
   EXPECT_TRUE(child_pairing_manager->IsPaired());
+  ReleaseNameSemphoreHelper(used_app_id);
 
   if (diferent_processes == false) {
     // stop parent pairing service
@@ -85,34 +123,43 @@ TEST(PairingManagersTest, PairingWithOneDeviceInSameProcess) {
   PairingWithOneDeviceHelper("./files/active_dev_desc00.xml",
                              "./files/active_class_desc00.xml",
                              DeviceClassDescription::kActiveDevice, false);
-//  PairingWithOneDeviceHelper("./files/passive_dev_desc00.xml",
-//                             "./files/passive_class_desc00.xml",
-//                             DeviceClassDescription::kPassiveDevice, false);
-//  PairingWithOneDeviceHelper("./files/html_dev_desc00.xml",
-//                             "./files/html_class_desc00.xml",
-//                             DeviceClassDescription::kHtmlDevice, false);
-//  PairingWithOneDeviceHelper("./files/ondemand_dev_desc00.xml",
-//                             "./files/ondemand_class_desc00.xml",
-//                             DeviceClassDescription::kOnDemandDevice, false);
-//  PairingWithOneDeviceHelper("./files/mediacapture_dev_desc00.xml",
-//                             "./files/mediacapture_class_desc00.xml",
-//                             DeviceClassDescription::kMediaCaptureDevice,
-//                             false);
+      PairingWithOneDeviceHelper("./files/active_dev_desc00.xml",
+                                 "./files/active_class_desc00.xml",
+                                 DeviceClassDescription::kActiveDevice,
+     false);
+      PairingWithOneDeviceHelper("./files/passive_dev_desc00.xml",
+                                 "./files/passive_class_desc00.xml",
+                                 DeviceClassDescription::kPassiveDevice,
+     false);
+      PairingWithOneDeviceHelper("./files/html_dev_desc00.xml",
+                                 "./files/html_class_desc00.xml",
+                                 DeviceClassDescription::kHtmlDevice, false);
+      PairingWithOneDeviceHelper("./files/ondemand_dev_desc00.xml",
+                                 "./files/ondemand_class_desc00.xml",
+                                 DeviceClassDescription::kOnDemandDevice,
+     false);
+      PairingWithOneDeviceHelper("./files/mediacapture_dev_desc00.xml",
+                                 "./files/mediacapture_class_desc00.xml",
+                                 DeviceClassDescription::kMediaCaptureDevice,
+                                 false);
 }
 TEST(PairingManagersTest, PairingWithOneDeviceInDiferentProcess) {
-  PairingWithOneDeviceHelper("./files/active_dev_desc00.xml",
-                             "./files/active_class_desc00.xml",
-                             DeviceClassDescription::kActiveDevice, true);
-//  PairingWithOneDeviceHelper("./files/passive_dev_desc00.xml",
-//                             "./files/passive_class_desc00.xml",
-//                             DeviceClassDescription::kPassiveDevice, true);
-//  PairingWithOneDeviceHelper("./files/html_dev_desc00.xml",
-//                             "./files/html_class_desc00.xml",
-//                             DeviceClassDescription::kHtmlDevice, true);
-//  PairingWithOneDeviceHelper("./files/ondemand_dev_desc00.xml",
-//                             "./files/ondemand_class_desc00.xml",
-//                             DeviceClassDescription::kOnDemandDevice, true);
-//  PairingWithOneDeviceHelper("./files/mediacapture_dev_desc00.xml",
-//                             "./files/mediacapture_class_desc00.xml",
-//                             DeviceClassDescription::kMediaCaptureDevice, true);
+    PairingWithOneDeviceHelper("./files/active_dev_desc00.xml",
+                               "./files/active_class_desc00.xml",
+                               DeviceClassDescription::kActiveDevice, true);
+  //    PairingWithOneDeviceHelper("./files/passive_dev_desc00.xml",
+  //                               "./files/passive_class_desc00.xml",
+  //                               DeviceClassDescription::kPassiveDevice,
+  //   true);
+  //    PairingWithOneDeviceHelper("./files/html_dev_desc00.xml",
+  //                               "./files/html_class_desc00.xml",
+  //                               DeviceClassDescription::kHtmlDevice, true);
+  //    PairingWithOneDeviceHelper("./files/ondemand_dev_desc00.xml",
+  //                               "./files/ondemand_class_desc00.xml",
+  //                               DeviceClassDescription::kOnDemandDevice,
+  //   true);
+  //    PairingWithOneDeviceHelper("./files/mediacapture_dev_desc00.xml",
+  //                               "./files/mediacapture_class_desc00.xml",
+  //                               DeviceClassDescription::kMediaCaptureDevice,
+  //   true);
 }

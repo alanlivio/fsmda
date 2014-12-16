@@ -33,6 +33,7 @@ class ChildPairingManager : public DevicePairingCpmInterface {
   int StopPairing();
   bool IsPairingStarted();
   bool IsPaired();
+  virtual void SetPaired(bool paired) { paired_ = paired; }
 
   // public DevicePairingCpmInterface overloaded methods
   // called by ParentPairingManager
