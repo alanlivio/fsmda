@@ -69,9 +69,9 @@ void ReleaseNameSemphoreHelper(const string& semaphore_name) {
   sem_unlink(semname.c_str());
 }
 
-void PostnamedSemphoreHelper(const string& semaphore_name) {
+void PostNamedSemphoreHelper(const string& semaphore_name) {
   string semname = fsmda_semaphore_base_name + semaphore_name;
-  clog << "PostnamedSemphoreHelper::semname=" << semname << endl;
+  clog << "PostNamedSemphoreHelper::semname=" << semname << endl;
   sem_t* aux_semaphore = sem_open(semname.c_str(), 0);
   assert(aux_semaphore != SEM_FAILED);
   sem_post(aux_semaphore);

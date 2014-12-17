@@ -2,6 +2,8 @@
  |   includes
  +---------------------------------------------------------------------*/
 
+#include <ctime>
+#include <sys/time.h>
 #include "./named_semaphore_helper.h"
 #include "fsmda/device_class_description.h"
 #include "fsmda/device_description.h"
@@ -13,6 +15,8 @@
 using std::string;
 using std::clog;
 using std::endl;
+using std::clock_t;
+using std::clock;
 
 class MockChildPairingManager : public ChildPairingManager {
  public:
@@ -21,7 +25,7 @@ class MockChildPairingManager : public ChildPairingManager {
     clog << "MockChildPairingManager::SetPaired():: paired = " << paired
          << endl;
     ChildPairingManager::SetPaired(paired);
-    PostnamedSemphoreHelper(expected_app_id);
+    PostNamedSemphoreHelper(expected_app_id);
   }
   explicit MockChildPairingManager(const DeviceDescription& device_description)
       : ChildPairingManager(device_description) {}
@@ -34,6 +38,8 @@ void PairingWithOneDeviceHelper(
   MockChildPairingManager* child_pairing_manager;
   ParentPairingManager* parent_pairing_manager;
   string app_id;
+  timeval start_time, end_time;
+  double elapsed_time;
 
   EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 0);
   EXPECT_FALSE(UpnpFsmdaUtils::IsUpnpStarted());
@@ -46,6 +52,7 @@ void PairingWithOneDeviceHelper(
   EXPECT_EQ(child_pairing_manager->StartPairing(), 0);
   EXPECT_TRUE(child_pairing_manager->IsPairingStarted());
   EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 1);
+  gettimeofday(&start_time, NULL);
 
   // start ParentPairingManager
   if (diferent_processes) {
@@ -98,6 +105,16 @@ void PairingWithOneDeviceHelper(
     // child wait for ParentPostSemphoreHelper call
     WaitNamedSemphoreHelper(app_id);
   }
+  gettimeofday(&end_time, NULL);
+
+  // sec to ms
+  elapsed_time = (end_time.tv_sec - start_time.tv_sec) * 1000.0;
+  // us to ms
+  elapsed_time += (end_time.tv_usec - start_time.tv_usec) / 1000.0;
+
+  clog << "PairingWithOneDeviceHelper()::elapsed_time " << elapsed_time << " ms"
+       << endl;
+
   // test if child is paired
   EXPECT_TRUE(child_pairing_manager->IsPaired());
   ReleaseNameSemphoreHelper(app_id);

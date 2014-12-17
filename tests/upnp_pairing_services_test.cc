@@ -27,7 +27,7 @@ class MockUpnpChildPairing : public UpnpChildPairing {
     clog << "MockUpnpChildPairing::SetPerformedHandShake():: performe = "
          << performe << endl;
     UpnpChildPairing::SetPerformedHandShake(performe);
-    PostnamedSemphoreHelper(expected_app_id);
+    PostNamedSemphoreHelper(expected_app_id);
   }
   explicit MockUpnpChildPairing() : UpnpChildPairing() {}
 };
