@@ -156,7 +156,7 @@ TEST(PairingManagersTest, PairingWithOneDeviceInSameProcess) {
                              DeviceClassDescription::kMediaCaptureDevice,
                              false);
 }
-TEST(PairingManagersTest, PairingWithOneDeviceInDiferentProcess) {
+TEST(PairingManagersTest, PairingWithOneDeviceInDiferentProcessess) {
   PairingWithOneDeviceHelper("./files/active_dev_desc00.xml",
                              "./files/active_class_desc00.xml",
                              DeviceClassDescription::kActiveDevice, true);
