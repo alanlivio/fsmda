@@ -114,10 +114,9 @@ NPT_Result UpnpChildPairing::OnDeviceRemoved(PLT_DeviceDataReference &device) {}
 NPT_Result UpnpChildPairing::OnDeviceAdded(
     PLT_DeviceDataReference &device_data) {
   if (!device_data->GetUUID().Compare(m_UUID)) return NPT_SUCCESS;
-  //  if
-  // (!device_data->GetType().StartsWith("urn:schemas-upnp-org:service:fsmda-"),
-  //      true)
-  //    return NPT_FAILURE;
+  if (!device_data->GetType().StartsWith("urn:schemas-upnp-org:device:fsmda-"),
+      true)
+    return NPT_FAILURE;
   clog << "UpnpChildPairing::OnDeviceAdded() " << endl;
   clog << "UpnpChildPairing::OnDeviceAdded()::device->GetFriendlyName="
        << device_data->GetFriendlyName().GetChars() << endl;

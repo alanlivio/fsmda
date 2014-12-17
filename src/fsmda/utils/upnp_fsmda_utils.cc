@@ -138,7 +138,7 @@ const char* UpnpFsmdaUtils::kPpmServiceScpdXml =
 
 // CPM UPNP constant strings
 const char* UpnpFsmdaUtils::kCpmDeviceType =
-    "urn:schemas-upnp-org:device:smda-child-pairing-device:1";
+    "urn:schemas-upnp-org:device:fsmda-child-pairing-device:1";
 const char* UpnpFsmdaUtils::kCpmDeviceFriendlyName =
     "fsmda child pairing device friendly name";
 const char* UpnpFsmdaUtils::kCpmDeviceModelName =

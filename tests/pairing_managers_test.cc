@@ -141,41 +141,37 @@ TEST(PairingManagersTest, PairingWithOneDeviceInSameProcess) {
   PairingWithOneDeviceHelper("./files/active_dev_desc00.xml",
                              "./files/active_class_desc00.xml",
                              DeviceClassDescription::kActiveDevice, false);
-  //  PairingWithOneDeviceHelper("./files/active_dev_desc00.xml",
-  //                             "./files/active_class_desc00.xml",
-  //                             DeviceClassDescription::kActiveDevice, false);
-  //  PairingWithOneDeviceHelper("./files/passive_dev_desc00.xml",
-  //                             "./files/passive_class_desc00.xml",
-  //                             DeviceClassDescription::kPassiveDevice, false);
-  //  PairingWithOneDeviceHelper("./files/html_dev_desc00.xml",
-  //                             "./files/html_class_desc00.xml",
-  //                             DeviceClassDescription::kHtmlDevice, false);
-  //  PairingWithOneDeviceHelper("./files/ondemand_dev_desc00.xml",
-  //                             "./files/ondemand_class_desc00.xml",
-  //                             DeviceClassDescription::kOnDemandDevice,
-  // false);
-  //  PairingWithOneDeviceHelper("./files/mediacapture_dev_desc00.xml",
-  //                             "./files/mediacapture_class_desc00.xml",
-  //                             DeviceClassDescription::kMediaCaptureDevice,
-  //                             false);
+  PairingWithOneDeviceHelper("./files/active_dev_desc00.xml",
+                             "./files/active_class_desc00.xml",
+                             DeviceClassDescription::kActiveDevice, false);
+  PairingWithOneDeviceHelper("./files/passive_dev_desc00.xml",
+                             "./files/passive_class_desc00.xml",
+                             DeviceClassDescription::kPassiveDevice, false);
+  PairingWithOneDeviceHelper("./files/html_dev_desc00.xml",
+                             "./files/html_class_desc00.xml",
+                             DeviceClassDescription::kHtmlDevice, false);
+  PairingWithOneDeviceHelper("./files/ondemand_dev_desc00.xml",
+                             "./files/ondemand_class_desc00.xml",
+                             DeviceClassDescription::kOnDemandDevice, false);
+  PairingWithOneDeviceHelper("./files/mediacapture_dev_desc00.xml",
+                             "./files/mediacapture_class_desc00.xml",
+                             DeviceClassDescription::kMediaCaptureDevice,
+                             false);
 }
 TEST(PairingManagersTest, PairingWithOneDeviceInDiferentProcess) {
   PairingWithOneDeviceHelper("./files/active_dev_desc00.xml",
                              "./files/active_class_desc00.xml",
                              DeviceClassDescription::kActiveDevice, true);
-  //    PairingWithOneDeviceHelper("./files/passive_dev_desc00.xml",
-  //                               "./files/passive_class_desc00.xml",
-  //                               DeviceClassDescription::kPassiveDevice,
-  //   true);
-  //    PairingWithOneDeviceHelper("./files/html_dev_desc00.xml",
-  //                               "./files/html_class_desc00.xml",
-  //                               DeviceClassDescription::kHtmlDevice, true);
-  //    PairingWithOneDeviceHelper("./files/ondemand_dev_desc00.xml",
-  //                               "./files/ondemand_class_desc00.xml",
-  //                               DeviceClassDescription::kOnDemandDevice,
-  //   true);
-  //    PairingWithOneDeviceHelper("./files/mediacapture_dev_desc00.xml",
-  //                               "./files/mediacapture_class_desc00.xml",
-  //                               DeviceClassDescription::kMediaCaptureDevice,
-  //   true);
+  PairingWithOneDeviceHelper("./files/passive_dev_desc00.xml",
+                             "./files/passive_class_desc00.xml",
+                             DeviceClassDescription::kPassiveDevice, true);
+  PairingWithOneDeviceHelper("./files/html_dev_desc00.xml",
+                             "./files/html_class_desc00.xml",
+                             DeviceClassDescription::kHtmlDevice, true);
+  PairingWithOneDeviceHelper("./files/ondemand_dev_desc00.xml",
+                             "./files/ondemand_class_desc00.xml",
+                             DeviceClassDescription::kOnDemandDevice, true);
+  PairingWithOneDeviceHelper("./files/mediacapture_dev_desc00.xml",
+                             "./files/mediacapture_class_desc00.xml",
+                             DeviceClassDescription::kMediaCaptureDevice, true);
 }
