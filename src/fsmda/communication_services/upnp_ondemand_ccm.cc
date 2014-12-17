@@ -39,10 +39,9 @@ int UpnpOnDemandCcm::StartCommunicationService() {
     upnp_reference_ = UpnpFsmdaUtils::GetRunningInstance();
 
   clog << "OnDemandCCM::start_communication_service" << endl;
-  PLT_DeviceHostReference device(
-      new PLT_FileMediaServer(ondemand_folder_.c_str(),
-                              UpnpFsmdaUtils::kOnDemandCcmDeviceFriendlyName,
-                              true, uuid_.c_str()));
+  PLT_DeviceHostReference device(new PLT_FileMediaServer(
+      ondemand_folder_.c_str(), UpnpFsmdaUtils::kOnDemandCcmDeviceFriendlyName,
+      true, uuid_.c_str()));
   device->m_ModelDescription =
       UpnpFsmdaUtils::kOnDemandCcmDeviceModelDescription;
   device->m_ModelURL = UpnpFsmdaUtils::kOnDemandCcmDeviceModelUrl;
@@ -65,6 +64,6 @@ int UpnpOnDemandCcm::StopCommunicationService() {
   return 0;
 }
 /*----------------------------------------------------------------------
- |   UpnpOnDemandCcm::IsRunning
+ |   UpnpOnDemandCcm::IsCommunicationServiceStarted
  +---------------------------------------------------------------------*/
 bool UpnpOnDemandCcm::IsCommunicationServiceStarted() { return service_start_; }

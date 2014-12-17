@@ -95,10 +95,13 @@ void ChildPairingManager::ClassAnnouncement(const string& application_id,
 ActiveCcmInterface* ChildPairingManager::CreateActiveCcm(
     unsigned int class_index) {
   if (device_class_description_map_[class_index]->device_class_type() ==
-      DeviceClassDescription::kActiveDevice)
-    return new UpnpActiveCcm();
-  else
+      DeviceClassDescription::kActiveDevice) {
+    UpnpActiveCcm* communication_service = new UpnpActiveCcm();
+    communications_services_map_[class_index] = communication_service;
+    return communication_service;
+  } else {
     return NULL;
+  }
 }
 
 /*----------------------------------------------------------------------
@@ -107,10 +110,13 @@ ActiveCcmInterface* ChildPairingManager::CreateActiveCcm(
 PassiveCcmInterface* ChildPairingManager::CreatePassiveCcm(
     unsigned int class_index) {
   if (device_class_description_map_[class_index]->device_class_type() ==
-      DeviceClassDescription::kPassiveDevice)
-    return new UpnpPassiveCcm();
-  else
+      DeviceClassDescription::kPassiveDevice) {
+    UpnpPassiveCcm* communication_service = new UpnpPassiveCcm();
+    communications_services_map_[class_index] = communication_service;
+    return communication_service;
+  } else {
     return NULL;
+  }
 }
 
 /*----------------------------------------------------------------------
@@ -119,10 +125,13 @@ PassiveCcmInterface* ChildPairingManager::CreatePassiveCcm(
 OnDemandCcmInterface* ChildPairingManager::CreateOndemandCcm(
     unsigned int class_index) {
   if (device_class_description_map_[class_index]->device_class_type() ==
-      DeviceClassDescription::kOnDemandDevice)
-    return new UpnpOnDemandCcm();
-  else
+      DeviceClassDescription::kOnDemandDevice) {
+    UpnpOnDemandCcm* communication_service = new UpnpOnDemandCcm();
+    communications_services_map_[class_index] = communication_service;
+    return communication_service;
+  } else {
     return NULL;
+  }
 }
 
 /*----------------------------------------------------------------------
@@ -131,8 +140,11 @@ OnDemandCcmInterface* ChildPairingManager::CreateOndemandCcm(
 MediaCaptureCcmInterface* ChildPairingManager::CreateMediaCaptureCcm(
     unsigned int class_index) {
   if (device_class_description_map_[class_index]->device_class_type() ==
-      DeviceClassDescription::kMediaCaptureDevice)
-    return new UpnpMediaCaptureCcm();
-  else
+      DeviceClassDescription::kMediaCaptureDevice) {
+    UpnpMediaCaptureCcm* communication_service = new UpnpMediaCaptureCcm();
+    communications_services_map_[class_index] = communication_service;
+    return communication_service;
+  } else {
     return NULL;
+  }
 }

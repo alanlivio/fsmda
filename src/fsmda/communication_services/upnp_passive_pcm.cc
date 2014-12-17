@@ -19,3 +19,18 @@ UpnpPassivePcm::~UpnpPassivePcm() {}
  +---------------------------------------------------------------------*/
 void UpnpPassivePcm::NotifyError(const string& message,
                                  const string& object_id) {}
+
+/*----------------------------------------------------------------------
+ |   UPnPPassivePCM::StartCommunicationService
+ +---------------------------------------------------------------------*/
+int UpnpPassivePcm::StartCommunicationService() {}
+
+/*----------------------------------------------------------------------
+ |   UPnPPassivePCM::StopCommunicationService
+ +---------------------------------------------------------------------*/
+int UpnpPassivePcm::StopCommunicationService() {}
+
+/*----------------------------------------------------------------------
+ |   UPnPPassivePCM::StopCommunicationService
+ +---------------------------------------------------------------------*/
+bool UpnpPassivePcm::IsCommunicationServiceStarted() {}

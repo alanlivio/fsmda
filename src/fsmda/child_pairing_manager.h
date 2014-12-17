@@ -51,6 +51,8 @@ class ChildPairingManager : public DevicePairingCpmInterface {
 
  private:
   map<unsigned int, DeviceClassDescription*> device_class_description_map_;
+  map<unsigned int, CommunicationServiceInterface*>
+      communications_services_map_;
   DeviceDescription* device_description_;
   UpnpChildPairing* upnp_child_pairing_;
   bool paired_;
