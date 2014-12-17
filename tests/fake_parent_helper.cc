@@ -4,6 +4,7 @@
 #include <unistd.h>
 #include <cstdlib>
 #include <iostream>
+#include <fstream>
 #include "./named_semaphore_helper.h"
 #include "fsmda/parent_pairing_manager.h"
 #include "fsmda/pairing_services/upnp_child_pairing.h"
@@ -18,6 +19,11 @@ using std::getline;
  |   main
  +---------------------------------------------------------------------*/
 int main(void) {
+  // redirect clog to /dev/null/
+  static std::ofstream logOutput;
+  logOutput.open("/dev/null");
+  clog.rdbuf(logOutput.rdbuf());
+
   //  read device class type by stdin
   string device_class_command;
   getline(cin, device_class_command);

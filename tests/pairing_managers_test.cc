@@ -13,6 +13,7 @@
 #include "gtest/gtest.h"
 
 using std::string;
+using std::cout;
 using std::clog;
 using std::endl;
 using std::clock_t;
@@ -39,7 +40,7 @@ void PairingWithOneDeviceHelper(
   ParentPairingManager* parent_pairing_manager;
   string app_id;
   timeval start_time, end_time;
-  double elapsed_time;
+  unsigned long long elapsed_time;
 
   EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 0);
   EXPECT_FALSE(UpnpFsmdaUtils::IsUpnpStarted());
@@ -108,11 +109,11 @@ void PairingWithOneDeviceHelper(
   gettimeofday(&end_time, NULL);
 
   // sec to ms
-  elapsed_time = (end_time.tv_sec - start_time.tv_sec) * 1000.0;
+  elapsed_time = (end_time.tv_sec - start_time.tv_sec) * 1000;
   // us to ms
-  elapsed_time += (end_time.tv_usec - start_time.tv_usec) / 1000.0;
+  elapsed_time += (end_time.tv_usec - start_time.tv_usec) / 1000;
 
-  clog << "PairingWithOneDeviceHelper()::elapsed_time " << elapsed_time << " ms"
+  cout << "PairingWithOneDeviceHelper()::elapsed_time " << elapsed_time << " ms"
        << endl;
 
   // test if child is paired
@@ -138,9 +139,6 @@ void PairingWithOneDeviceHelper(
 }
 
 TEST(PairingManagersTest, PairingWithOneDeviceInSameProcess) {
-  PairingWithOneDeviceHelper("./files/active_dev_desc00.xml",
-                             "./files/active_class_desc00.xml",
-                             DeviceClassDescription::kActiveDevice, false);
   PairingWithOneDeviceHelper("./files/active_dev_desc00.xml",
                              "./files/active_class_desc00.xml",
                              DeviceClassDescription::kActiveDevice, false);
