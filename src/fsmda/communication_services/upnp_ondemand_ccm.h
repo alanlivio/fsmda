@@ -5,8 +5,8 @@
  +---------------------------------------------------------------------*/
 #include <string>
 #include <PltUPnP.h>
-#include "fsmda/communication_services/communication_service_interface.h"
 #include "fsmda/model/ondemand_object_interfaces.h"
+#include "fsmda/communication_services/communication_service_interface.h"
 
 using std::string;
 

@@ -85,8 +85,8 @@ void PairingWithOneDeviceHelper(
     child_pairing_manager->expected_app_id = app_id;
 
     // configure and start ParenPaigingManager
-    DeviceClassDescription* device_class_description =
-        new DeviceClassDescription();
+    DeviceClassDescription* device_class_description;
+    device_class_description = new DeviceClassDescription();
     EXPECT_EQ(device_class_description->InitializeByRdfFile(
                   device_class_description_rdf),
               0);
@@ -113,8 +113,9 @@ void PairingWithOneDeviceHelper(
   // us to ms
   elapsed_time += (end_time.tv_usec - start_time.tv_usec) / 1000;
 
-  cout << "PairingWithOneDeviceHelper()::elapsed_time " << elapsed_time << " ms"
-       << endl;
+  cout << "PairingWithOneDeviceHelper(diferent_processes=" << diferent_processes
+       << ", device_class_type=" << expected_device_class_type
+       << ")::elapsed_time=" << elapsed_time << " ms" << endl;
 
   // test if child is paired
   EXPECT_TRUE(child_pairing_manager->IsPaired());
@@ -139,12 +140,12 @@ void PairingWithOneDeviceHelper(
 }
 
 TEST(PairingManagersTest, PairingWithOneDeviceInSameProcess) {
-  PairingWithOneDeviceHelper("./files/active_dev_desc00.xml",
-                             "./files/active_class_desc00.xml",
-                             DeviceClassDescription::kActiveDevice, false);
   PairingWithOneDeviceHelper("./files/passive_dev_desc00.xml",
                              "./files/passive_class_desc00.xml",
                              DeviceClassDescription::kPassiveDevice, false);
+  PairingWithOneDeviceHelper("./files/active_dev_desc00.xml",
+                             "./files/active_class_desc00.xml",
+                             DeviceClassDescription::kActiveDevice, false);
   PairingWithOneDeviceHelper("./files/html_dev_desc00.xml",
                              "./files/html_class_desc00.xml",
                              DeviceClassDescription::kHtmlDevice, false);
@@ -157,12 +158,12 @@ TEST(PairingManagersTest, PairingWithOneDeviceInSameProcess) {
                              false);
 }
 TEST(PairingManagersTest, PairingWithOneDeviceInDiferentProcessess) {
-  PairingWithOneDeviceHelper("./files/active_dev_desc00.xml",
-                             "./files/active_class_desc00.xml",
-                             DeviceClassDescription::kActiveDevice, true);
   PairingWithOneDeviceHelper("./files/passive_dev_desc00.xml",
                              "./files/passive_class_desc00.xml",
                              DeviceClassDescription::kPassiveDevice, true);
+  PairingWithOneDeviceHelper("./files/active_dev_desc00.xml",
+                             "./files/active_class_desc00.xml",
+                             DeviceClassDescription::kActiveDevice, true);
   PairingWithOneDeviceHelper("./files/html_dev_desc00.xml",
                              "./files/html_class_desc00.xml",
                              DeviceClassDescription::kHtmlDevice, true);

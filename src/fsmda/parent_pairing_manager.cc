@@ -30,11 +30,12 @@ ParentPairingManager::~ParentPairingManager() {
 void ParentPairingManager::AddClass(const string& application_id,
                                     unsigned int class_index) {
   // TODO(alan@telemidia.puc-rio.br): implemet this
-//  DeviceClassDescription* device_class_description =
-//      new DeviceClassDescription();
-//  device_class_description->InitializeByDeviceClass(
-//      DeviceClassDescription::kActiveDevice);
-//  AddClassDescription(application_id, class_index, device_class_description);
+  //  DeviceClassDescription* device_class_description =
+  //      new DeviceClassDescription();
+  //  device_class_description->InitializeByDeviceClass(
+  //      DeviceClassDescription::kActiveDevice);
+  //  AddClassDescription(application_id, class_index,
+  // device_class_description);
 }
 
 /*----------------------------------------------------------------------
@@ -134,27 +135,52 @@ bool ParentPairingManager::IsPairingStarted() {
 }
 
 /*----------------------------------------------------------------------
- |   ParentPairingManager::CreateActivePcm
+ |   ParentPairingManager::CreatePassivePcm
  +---------------------------------------------------------------------*/
-ActivePcmInterface* ParentPairingManager::CreateActivePcm(
+PassivePcmInterface* ParentPairingManager::CreatePassivePcm(
     const string& application_id, unsigned int class_index) {
   if (device_class_description_map_[application_id][class_index]
-          ->device_class_type() == DeviceClassDescription::kActiveDevice)
-    return new UpnpActivePcm();
-  else
+          ->device_class_type() == DeviceClassDescription::kPassiveDevice) {
+    UpnpPassivePcm* communication_service = new UpnpPassivePcm();
+    communications_services_map_[application_id][class_index] =
+        communication_service;
+    return communication_service;
+  } else {
     return NULL;
+  }
 }
 
 /*----------------------------------------------------------------------
  |   ParentPairingManager::CreateActivePcm
  +---------------------------------------------------------------------*/
+ActivePcmInterface* ParentPairingManager::CreateActivePcm(
+    const string& application_id, unsigned int class_index) {
+  if (device_class_description_map_[application_id][class_index]
+          ->device_class_type() == DeviceClassDescription::kActiveDevice) {
+    UpnpActivePcm* communication_service = communication_service;
+    communications_services_map_[application_id][class_index] =
+        communication_service;
+    return communication_service;
+  } else {
+    return NULL;
+  }
+}
+
+/*----------------------------------------------------------------------
+ |   ParentPairingManager::CreateMediaCapturePcm
+ +---------------------------------------------------------------------*/
 MediaCapturePcmInterface* ParentPairingManager::CreateMediaCapturePcm(
     const string& application_id, unsigned int class_index) {
   if (device_class_description_map_[application_id][class_index]
-          ->device_class_type() == DeviceClassDescription::kMediaCaptureDevice)
-    return new UpnpMediaCapturePcm();
-  else
+          ->device_class_type() ==
+      DeviceClassDescription::kMediaCaptureDevice) {
+    UpnpMediaCapturePcm* communication_service = communication_service;
+    communications_services_map_[application_id][class_index] =
+        communication_service;
+    return communication_service;
+  } else {
     return NULL;
+  }
 }
 
 /*----------------------------------------------------------------------
@@ -163,22 +189,14 @@ MediaCapturePcmInterface* ParentPairingManager::CreateMediaCapturePcm(
 OnDemandPcmInterface* ParentPairingManager::CreateOnDemandPcm(
     const string& application_id, unsigned int class_index) {
   if (device_class_description_map_[application_id][class_index]
-          ->device_class_type() == DeviceClassDescription::kOnDemandDevice)
-    return new UpnpOnDemandPcm();
-  else
+          ->device_class_type() == DeviceClassDescription::kOnDemandDevice) {
+    UpnpOnDemandPcm* communication_service = new UpnpOnDemandPcm();
+    communications_services_map_[application_id][class_index] =
+        communication_service;
+    return communication_service;
+  } else {
     return NULL;
-}
-
-/*----------------------------------------------------------------------
- |   ParentPairingManager::CreatePassivePcm
- +---------------------------------------------------------------------*/
-PassivePcmInterface* ParentPairingManager::CreatePassivePcm(
-    const string& application_id, unsigned int class_index) {
-  if (device_class_description_map_[application_id][class_index]
-          ->device_class_type() == DeviceClassDescription::kPassiveDevice)
-    return new UpnpPassivePcm();
-  else
-    return NULL;
+  }
 }
 
 /*----------------------------------------------------------------------

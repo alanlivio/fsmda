@@ -16,6 +16,21 @@ UpnpOnDemandPcm::UpnpOnDemandPcm() {}
 UpnpOnDemandPcm::~UpnpOnDemandPcm() {}
 
 /*----------------------------------------------------------------------
+ |   UpnpOnDemandPcm::StartCommunicationService
+ +---------------------------------------------------------------------*/
+int UpnpOnDemandPcm::StartCommunicationService() {}
+
+/*----------------------------------------------------------------------
+ |   UpnpOnDemandPcm::StopCommunicationService
+ +---------------------------------------------------------------------*/
+int UpnpOnDemandPcm::StopCommunicationService() {}
+
+/*----------------------------------------------------------------------
+ |   UpnpOnDemandPcm::IsCommunicationServiceStarted
+ +---------------------------------------------------------------------*/
+bool UpnpOnDemandPcm::IsCommunicationServiceStarted() {}
+
+/*----------------------------------------------------------------------
  |   UPnPOnDemandPCM::NotifyOnDemandContent
  +---------------------------------------------------------------------*/
 void UpnpOnDemandPcm::NotifyOnDemandContent(const string& action,

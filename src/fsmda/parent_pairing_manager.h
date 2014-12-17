@@ -15,6 +15,7 @@
 #include "fsmda/model/class_handling_interfaces.h"
 #include "fsmda/model/device_pairing_interfaces.h"
 #include "fsmda/pairing_services/upnp_parent_pairing.h"
+#include "fsmda/communication_services/communication_service_interface.h"
 
 using std::string;
 using std::map;
@@ -78,6 +79,8 @@ class ParentPairingManager : public ClassHandlingPpmInterface,
   unsigned int upnp_registred_classes_size;
   map<const string, map<unsigned int, DeviceClassDescription*> >
       device_class_description_map_;
+  map<const string, map<unsigned int, CommunicationServiceInterface*> >
+      communications_services_map_;
   UpnpParentPairing* upnp_parent_pairing_;
   map<const string, ClassHandlingHpeInterface*> hpes_map_;
 };

@@ -6,15 +6,22 @@
  +---------------------------------------------------------------------*/
 #include <string>
 #include "fsmda/model/passive_object_interfaces.h"
+#include "fsmda/communication_services/communication_service_interface.h"
 
 /*----------------------------------------------------------------------
  |   UpnpPassiveCcm  class
  +---------------------------------------------------------------------*/
-class UpnpPassiveCcm : public PassiveCcmInterface {
+class UpnpPassiveCcm : public PassiveCcmInterface,
+                       public CommunicationServiceInterface {
  public:
   // public constructors & destructors
   UpnpPassiveCcm();
   virtual ~UpnpPassiveCcm();
+
+  // public CommunicationServiceInterface overload methods
+  virtual int StartCommunicationService();
+  virtual int StopCommunicationService();
+  virtual bool IsCommunicationServiceStarted();
 
   // PassiveCCMInterface overloaded methods
   virtual void Prepare(const string& position);
