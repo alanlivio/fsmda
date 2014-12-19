@@ -2,7 +2,6 @@
  |   includes
  +---------------------------------------------------------------------*/
 
-#include <ctime>
 #include <sys/time.h>
 #include "./named_semaphore_helper.h"
 #include "fsmda/device_class_description.h"
@@ -16,8 +15,6 @@ using std::string;
 using std::cout;
 using std::clog;
 using std::endl;
-using std::clock_t;
-using std::clock;
 
 class MockChildPairingManager : public ChildPairingManager {
  public:
@@ -108,6 +105,10 @@ void PairingWithOneDeviceHelper(
   }
   gettimeofday(&end_time, NULL);
 
+  // test if child is paired
+  EXPECT_TRUE(child_pairing_manager->IsPaired());
+  ReleaseNameSemphoreHelper(app_id);
+
   // sec to ms
   elapsed_time = (end_time.tv_sec - start_time.tv_sec) * 1000;
   // us to ms
@@ -117,9 +118,6 @@ void PairingWithOneDeviceHelper(
        << ", device_class_type=" << expected_device_class_type
        << ")::elapsed_time=" << elapsed_time << " ms" << endl;
 
-  // test if child is paired
-  EXPECT_TRUE(child_pairing_manager->IsPaired());
-  ReleaseNameSemphoreHelper(app_id);
 
   if (diferent_processes == false) {
     // stop parent pairing service

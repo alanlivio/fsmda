@@ -2,6 +2,7 @@
  |   includes
  +---------------------------------------------------------------------*/
 
+#include <sys/time.h>
 #include "./named_semaphore_helper.h"
 #include <cstdlib>
 #include <iostream>
@@ -15,10 +16,10 @@
 #include "fsmda/utils/upnp_fsmda_utils.h"
 #include "gtest/gtest.h"
 
-using std::endl;
+using std::string;
+using std::cout;
 using std::clog;
-using std::fstream;
-using std::ifstream;
+using std::endl;
 
 class MockUpnpChildPairing : public UpnpChildPairing {
  public:
@@ -36,6 +37,8 @@ void HandShakeWithOneDeviceHelper(bool diferent_processes) {
   UpnpParentPairing* upnp_parent_pairing;
   MockUpnpChildPairing* upnp_child_pairing;
   string app_id = "fake-application-id";
+  timeval start_time, end_time;
+  unsigned long long elapsed_time;
 
   // test if upnp is running
   EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 0);
@@ -46,6 +49,7 @@ void HandShakeWithOneDeviceHelper(bool diferent_processes) {
   EXPECT_EQ(upnp_child_pairing->StartPairingService(), 0);
   EXPECT_TRUE(upnp_child_pairing->IsPairingServiceStarted());
   EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 1);
+  gettimeofday(&start_time, NULL);
 
   if (diferent_processes) {
     UpnpFsmdaUtils::GenerateGUID(&app_id);
@@ -90,9 +94,21 @@ void HandShakeWithOneDeviceHelper(bool diferent_processes) {
     // child wait for ParentPostSemphoreHelper call
     WaitNamedSemphoreHelper(app_id);
   }
+  gettimeofday(&end_time, NULL);
+
   // test if child is paired
   EXPECT_TRUE(upnp_child_pairing->PerformedHandShake());
   ReleaseNameSemphoreHelper(app_id);
+
+  // sec to ms
+  elapsed_time = (end_time.tv_sec - start_time.tv_sec) * 1000;
+  // us to ms
+  elapsed_time += (end_time.tv_usec - start_time.tv_usec) / 1000;
+
+  cout << "HandShakeWithOneDeviceHelper(diferent_processes="
+       << diferent_processes
+       << ", device_class_type=any)::elapsed_time=" << elapsed_time << " ms"
+       << endl;
 
   if (diferent_processes == false) {
     // stop parent pairing service
