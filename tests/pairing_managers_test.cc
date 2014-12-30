@@ -37,7 +37,7 @@ void PairingWithOneDeviceHelper(
   ParentPairingManager* parent_pairing_manager;
   string app_id;
   timeval start_time, end_time;
-  unsigned long long elapsed_time;
+  double elapsed_time;
 
   EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 0);
   EXPECT_FALSE(UpnpFsmdaUtils::IsUpnpStarted());

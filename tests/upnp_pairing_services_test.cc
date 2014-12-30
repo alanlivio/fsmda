@@ -3,10 +3,10 @@
  +---------------------------------------------------------------------*/
 
 #include <sys/time.h>
-#include "./named_semaphore_helper.h"
 #include <cstdlib>
 #include <iostream>
 #include <fstream>
+#include "./named_semaphore_helper.h"
 #include "fsmda/device_description.h"
 #include "fsmda/device_class_description.h"
 #include "fsmda/parent_pairing_manager.h"
@@ -30,7 +30,7 @@ class MockUpnpChildPairing : public UpnpChildPairing {
     UpnpChildPairing::SetPerformedHandShake(performe);
     PostNamedSemphoreHelper(expected_app_id);
   }
-  explicit MockUpnpChildPairing() : UpnpChildPairing() {}
+  MockUpnpChildPairing() : UpnpChildPairing() {}
 };
 
 void HandShakeWithOneDeviceHelper(bool diferent_processes) {
@@ -38,7 +38,7 @@ void HandShakeWithOneDeviceHelper(bool diferent_processes) {
   MockUpnpChildPairing* upnp_child_pairing;
   string app_id = "fake-application-id";
   timeval start_time, end_time;
-  unsigned long long elapsed_time;
+  double elapsed_time;
 
   // test if upnp is running
   EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 0);
