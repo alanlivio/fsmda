@@ -51,8 +51,8 @@ void HandShakeWithOneDeviceHelper(bool diferent_processes) {
   EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 1);
   gettimeofday(&start_time, NULL);
 
+  UpnpFsmdaUtils::GenerateGUID(&app_id);
   if (diferent_processes) {
-    UpnpFsmdaUtils::GenerateGUID(&app_id);
     CreateNamedSemphoreHelper(app_id, true);
     upnp_child_pairing->expected_app_id = app_id;
 
@@ -69,11 +69,7 @@ void HandShakeWithOneDeviceHelper(bool diferent_processes) {
 
     // close pipe
     pclose(parent_pipe);
-
-    // child wait for ParentPostSemphoreHelper call
-    WaitNamedSemphoreHelper(app_id);
   } else {
-    UpnpFsmdaUtils::GenerateGUID(&app_id);
     CreateNamedSemphoreHelper(app_id, false);
     upnp_child_pairing->expected_app_id = app_id;
     // start parent pairing service with fake discover params
@@ -90,10 +86,10 @@ void HandShakeWithOneDeviceHelper(bool diferent_processes) {
     EXPECT_EQ(upnp_parent_pairing->StartPairingService(), 0);
     EXPECT_TRUE(upnp_parent_pairing->IsPairingServiceStarted());
     EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 2);
-
-    // child wait for ParentPostSemphoreHelper call
-    WaitNamedSemphoreHelper(app_id);
   }
+
+  // child wait for ParentPostSemphoreHelper call
+  WaitNamedSemphoreHelper(app_id);
   gettimeofday(&end_time, NULL);
 
   // test if child is paired
