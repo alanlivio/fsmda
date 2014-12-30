@@ -14,6 +14,8 @@ using std::endl;
 UpnpChildPairing::UpnpChildPairing()
     : PLT_DeviceHost("/", NULL, UpnpFsmdaUtils::kCpmDeviceType,
                      UpnpFsmdaUtils::kCpmDeviceFriendlyName, true, 0, true),
+      device_host_(this),
+      ctrl_point_(new PLT_CtrlPoint()),
       upnp_instance_(NULL),
       child_pairing_manager_(NULL),
       performed_handshake_(false) {
@@ -23,12 +25,10 @@ UpnpChildPairing::UpnpChildPairing()
   m_ModelName = UpnpFsmdaUtils::kCpmDeviceModelName;
   m_Manufacturer = UpnpFsmdaUtils::kFsmdaManufacturer;
   m_ManufacturerURL = UpnpFsmdaUtils::kFsmdaManufacturerUrl;
-  device_host_ = new PLT_DeviceHostReference(this);
   device_service_ = new PLT_Service(this, UpnpFsmdaUtils::kCpmServiceType,
                                     UpnpFsmdaUtils::kCpmServiceId,
                                     UpnpFsmdaUtils::kCpmServiceName);
   device_service_->SetSCPDXML((const char *)UpnpFsmdaUtils::kCpmServiceScpdXml);
-  ctrl_point_ = new PLT_CtrlPointReference(new PLT_CtrlPoint());
 }
 
 /*----------------------------------------------------------------------
@@ -37,10 +37,8 @@ UpnpChildPairing::UpnpChildPairing()
 UpnpChildPairing::~UpnpChildPairing() {
   StopPairingService();
   delete device_service_;
-  ctrl_point_->Detach();
-  delete ctrl_point_;
-  device_host_->Detach();
-  delete device_host_;
+  ctrl_point_.Detach();
+  device_host_.Detach();
 }
 
 /*----------------------------------------------------------------------
@@ -144,9 +142,9 @@ int UpnpChildPairing::StartPairingService() {
     upnp_instance_ = UpnpFsmdaUtils::GetRunningInstance();
   }
   NPT_Result res;
-  res = upnp_instance_->AddDevice(*device_host_);
-  res = upnp_instance_->AddCtrlPoint(*ctrl_point_);
-  (*ctrl_point_)->AddListener(this);
+  res = upnp_instance_->AddDevice(device_host_);
+  res = upnp_instance_->AddCtrlPoint(ctrl_point_);
+  ctrl_point_->AddListener(this);
   clog << "UpnpChildPairing::StartPairingService()::NPT_Result res="
        << NPT_ResultText(res) << endl;
   if (res == NPT_SUCCESS) {
@@ -162,9 +160,9 @@ int UpnpChildPairing::StartPairingService() {
 int UpnpChildPairing::StopPairingService() {
   if (upnp_instance_ != NULL) {
     RemoveService(device_service_);
-    upnp_instance_->RemoveDevice(*device_host_);
-    (*ctrl_point_)->RemoveListener(this);
-    upnp_instance_->RemoveCtrlPoint(*ctrl_point_);
+    upnp_instance_->RemoveDevice(device_host_);
+    ctrl_point_->RemoveListener(this);
+    upnp_instance_->RemoveCtrlPoint(ctrl_point_);
     UpnpFsmdaUtils::ReleaseInstance();
     upnp_instance_ = NULL;
   }

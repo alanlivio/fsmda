@@ -66,9 +66,9 @@ class UpnpParentPairing : public PLT_DeviceHost,
 
  private:
   PLT_UPnP* upnp_instance_;
-  PLT_DeviceHostReference* device_host_;
+  PLT_DeviceHostReference device_host_;
+  PLT_CtrlPointReference ctrl_point_;
   PLT_Service* device_service_;
-  PLT_CtrlPointReference* ctrl_point_;
   vector<PLT_DeviceDataReference> discovered_children_;
   vector<DeviceClassDiscoverParams*> discover_params_list_;
   ParentPairingManager* parent_pairing_manager_;

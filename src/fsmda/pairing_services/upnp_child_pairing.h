@@ -58,9 +58,9 @@ class UpnpChildPairing : public PLT_DeviceHost,
  private:
   bool performed_handshake_;
   PLT_UPnP* upnp_instance_;
-  PLT_DeviceHostReference* device_host_;
+  PLT_DeviceHostReference device_host_;
+  PLT_CtrlPointReference ctrl_point_;
   PLT_Service* device_service_;
-  PLT_CtrlPointReference* ctrl_point_;
   ChildPairingManager* child_pairing_manager_;
   PLT_Service* parent_pairing_service_;
 };

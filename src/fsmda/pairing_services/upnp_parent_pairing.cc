@@ -32,6 +32,8 @@ using std::find;
 UpnpParentPairing::UpnpParentPairing()
     : PLT_DeviceHost("/", NULL, UpnpFsmdaUtils::kPpmDeviceType,
                      UpnpFsmdaUtils::kPpmDeviceFriendlyName, true, 0, true),
+      device_host_(this),
+      ctrl_point_(new PLT_CtrlPoint()),
       upnp_instance_(NULL),
       parent_pairing_manager_(NULL) {
   m_ModelDescription = UpnpFsmdaUtils::kPpmDeviceModelDescription;
@@ -40,12 +42,10 @@ UpnpParentPairing::UpnpParentPairing()
   m_ModelName = UpnpFsmdaUtils::kPpmDeviceModelName;
   m_Manufacturer = UpnpFsmdaUtils::kFsmdaManufacturer;
   m_ManufacturerURL = UpnpFsmdaUtils::kFsmdaManufacturerUrl;
-  device_host_ = new PLT_DeviceHostReference(this);
   device_service_ = new PLT_Service(this, UpnpFsmdaUtils::kPpmServiceType,
                                     UpnpFsmdaUtils::kPpmServiceId,
                                     UpnpFsmdaUtils::kPpmServiceName);
   device_service_->SetSCPDXML((const char *)UpnpFsmdaUtils::kPpmServiceScpdXml);
-  ctrl_point_ = new PLT_CtrlPointReference(new PLT_CtrlPoint());
 }
 
 /*----------------------------------------------------------------------
@@ -54,10 +54,8 @@ UpnpParentPairing::UpnpParentPairing()
 UpnpParentPairing::~UpnpParentPairing() {
   StopPairingService();
   delete device_service_;
-  ctrl_point_->Detach();
-  delete ctrl_point_;
-  device_host_->Detach();
-  delete device_host_;
+  ctrl_point_.Detach();
+  device_host_.Detach();
 }
 
 /*----------------------------------------------------------------------
@@ -178,8 +176,8 @@ NPT_Result UpnpParentPairing::OnDeviceAdded(
     iter = discover_params_list_.begin();
     while (iter != discover_params_list_.end()) {
       PLT_ActionReference action;
-      (*ctrl_point_)->CreateAction(device_data, UpnpFsmdaUtils::kCpmServiceType,
-                                   "classAnnouncement", action);
+      ctrl_point_->CreateAction(device_data, UpnpFsmdaUtils::kCpmServiceType,
+                                "classAnnouncement", action);
       if (action.IsNull()) {
         iter++;
         continue;
@@ -194,7 +192,7 @@ NPT_Result UpnpParentPairing::OnDeviceAdded(
           "classDesc",
           discover_params->device_class_description_->rdf_content().c_str());
       action->SetArgumentValue("classFunction", "classFunction");
-      (*ctrl_point_)->InvokeAction(action, 0);
+      ctrl_point_->InvokeAction(action, 0);
       iter++;
     }
     clog << "UpnpParentPairing::OnDeviceAdded():: "
@@ -214,9 +212,9 @@ int UpnpParentPairing::StartPairingService() {
   if (upnp_instance_ == NULL) {
     upnp_instance_ = UpnpFsmdaUtils::GetRunningInstance();
   }
-  NPT_Result res = upnp_instance_->AddDevice(*device_host_);
-  res = upnp_instance_->AddCtrlPoint(*ctrl_point_);
-  (*ctrl_point_)->AddListener(this);
+  NPT_Result res = upnp_instance_->AddDevice(device_host_);
+  res = upnp_instance_->AddCtrlPoint(ctrl_point_);
+  ctrl_point_->AddListener(this);
   clog << "UpnpParentPairing::StartPairingService()::NPT_Result res="
        << NPT_ResultText(res) << endl;
   if (res != NPT_SUCCESS) {
@@ -232,9 +230,9 @@ int UpnpParentPairing::StartPairingService() {
 int UpnpParentPairing::StopPairingService() {
   if (upnp_instance_ != NULL) {
     RemoveService(device_service_);
-    upnp_instance_->RemoveDevice(*device_host_);
-    (*ctrl_point_)->RemoveListener(this);
-    upnp_instance_->RemoveCtrlPoint(*ctrl_point_);
+    upnp_instance_->RemoveDevice(device_host_);
+    ctrl_point_->RemoveListener(this);
+    upnp_instance_->RemoveCtrlPoint(ctrl_point_);
     UpnpFsmdaUtils::ReleaseInstance();
     upnp_instance_ = NULL;
   }
