@@ -1,0 +1,14 @@
+src
+src/fsmda
+src/fsmda/communication_services
+src/fsmda/model
+src/fsmda/pairing_services
+src/fsmda/utils
+tests
+tests/gmock/include/gmock
+tests/gmock/include/gmock/internal
+tests/gtest/include/gtest
+tests/gtest/include/gtest/internal
+tests/gtest/src
+/usr/include/libplatinumkit/
+/usr/include/libxml2
