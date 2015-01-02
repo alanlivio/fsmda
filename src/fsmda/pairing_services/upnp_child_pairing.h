@@ -45,7 +45,7 @@ class UpnpChildPairing : public PLT_DeviceHost,
 
   // ParentPairingServiceInterface overloaded methods
   // called by ChildPairingManager
-  virtual int SetServiceOwner(ChildPairingManager* service_owner);
+  virtual int SetServiceOwner(DevicePairingCpmInterface* service_owner);
   virtual int SetDeviceDescription(DeviceDescription* device_description);
   virtual int StartPairingService();
   virtual int StopPairingService();
@@ -61,7 +61,7 @@ class UpnpChildPairing : public PLT_DeviceHost,
   PLT_DeviceHostReference device_host_;
   PLT_CtrlPointReference ctrl_point_;
   PLT_Service* device_service_;
-  ChildPairingManager* child_pairing_manager_;
+  DevicePairingCpmInterface* child_pairing_manager_;
   PLT_Service* parent_pairing_service_;
 };
 
