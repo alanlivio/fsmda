@@ -13,6 +13,7 @@ config.*
 stamp-h1
 *.trs
 *.pc
+*.creator.user
 tests/*_test
 tests/*_helper
 tests/*_gtest
@@ -239,4 +240,42 @@ obj/
 Session.vim
 .netrwhist
 *~
+
+# Created by https://www.gitignore.io
+
+### Qt ###
+# C++ objects and libs
+
+*.slo
+*.lo
+*.o
+*.a
+*.la
+*.lai
+*.so
+*.dll
+*.dylib
+
+# Qt-es
+
+/.qmake.cache
+/.qmake.stash
+*.pro.user
+*.pro.user.*
+*.qbs.user
+*.qbs.user.*
+*.moc
+moc_*.cpp
+qrc_*.cpp
+ui_*.h
+Makefile*
+*-build-*
+
+# QtCreator
+
+*.autosave
+
+#QtCtreator Qml
+*.qmlproject.user
+*.qmlproject.user.*
 
