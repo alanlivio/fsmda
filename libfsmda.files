@@ -1,7 +1,4 @@
-.autotools
-.cproject
 .gitignore
-.project
 AUTHORS
 COPYING
 ChangeLog
@@ -19,6 +16,10 @@ docs/diagrams/model_sequence1.txt
 docs/diagrams/model_sequence2.txt
 docs/diagrams/model_sequence3.txt
 docs/diagrams/model_sequence4.txt
+libfsmda.config
+libfsmda.creator
+libfsmda.files
+libfsmda.includes
 maint.mk
 programs/Makefile.am
 programs/example0.cc
@@ -136,7 +137,6 @@ tests/gtest/src/gtest-test-part.cc
 tests/gtest/src/gtest-typed-test.cc
 tests/gtest/src/gtest.cc
 tests/gtest/src/gtest_main.cc
-tests/killall_tests_semaphores_helper.sh
 tests/named_semaphore_helper.cc
 tests/named_semaphore_helper.h
 tests/pairing_managers_test.cc
