@@ -5,9 +5,7 @@
  |   includes
  +---------------------------------------------------------------------*/
 #include <NptTypes.h>
-#include <PltAction.h>
 #include <PltDeviceHost.h>
-#include <PltHttp.h>
 #include <PltUPnP.h>
 #include <PltCtrlPoint.h>
 #include "fsmda/pairing/pairing_service_interfaces.h"

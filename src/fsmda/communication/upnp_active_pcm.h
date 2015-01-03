@@ -6,9 +6,7 @@
  +---------------------------------------------------------------------*/
 #include <string>
 #include <NptTypes.h>
-#include <PltAction.h>
 #include <PltDeviceHost.h>
-#include <PltHttp.h>
 #include <PltUPnP.h>
 #include <PltCtrlPoint.h>
 #include "fsmda/model/active_object_interfaces.h"

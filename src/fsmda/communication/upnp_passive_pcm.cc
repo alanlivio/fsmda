@@ -5,32 +5,66 @@
 #include "fsmda/communication/upnp_passive_pcm.h"
 
 /*----------------------------------------------------------------------
- |   UPnPPassivePCM::UPnPPassivePCM
+ |   UpnpPassivePcm::UpnpPassivePcm
  +---------------------------------------------------------------------*/
 UpnpPassivePcm::UpnpPassivePcm() {}
 
 /*----------------------------------------------------------------------
- |   UPnPPassivePCM::~UPnPPassivePCM
+ |   UpnpPassivePcm::~UpnpPassivePcm
  +---------------------------------------------------------------------*/
 UpnpPassivePcm::~UpnpPassivePcm() {}
 
 /*----------------------------------------------------------------------
- |   UPnPPassivePCM::NotifyError
+ |   UpnpPassivePcm::NotifyError
  +---------------------------------------------------------------------*/
 void UpnpPassivePcm::NotifyError(const string& message,
                                  const string& object_id) {}
 
 /*----------------------------------------------------------------------
- |   UPnPPassivePCM::StartCommunicationService
+ |   UpnpPassivePcm::StartCommunicationService
  +---------------------------------------------------------------------*/
 int UpnpPassivePcm::StartCommunicationService() {}
 
 /*----------------------------------------------------------------------
- |   UPnPPassivePCM::StopCommunicationService
+ |   UpnpPassivePcm::StopCommunicationService
  +---------------------------------------------------------------------*/
 int UpnpPassivePcm::StopCommunicationService() {}
 
 /*----------------------------------------------------------------------
- |   UPnPPassivePCM::StopCommunicationService
+ |   UpnpPassivePcm::StopCommunicationService
  +---------------------------------------------------------------------*/
 bool UpnpPassivePcm::IsCommunicationServiceStarted() {}
+/*----------------------------------------------------------------------
+ |   UpnpPassivePcm::SetupServices
+ +---------------------------------------------------------------------*/
+NPT_Result UpnpPassivePcm::SetupServices() {}
+
+/*----------------------------------------------------------------------
+ |   UpnpPassivePcm::OnAction
+ +---------------------------------------------------------------------*/
+NPT_Result UpnpPassivePcm::OnAction(
+    PLT_ActionReference& action, const PLT_HttpRequestContext& context) {}
+/*----------------------------------------------------------------------
+ |   UpnpPassivePcm::OnDeviceAdded
+ +---------------------------------------------------------------------*/
+NPT_Result UpnpPassivePcm::OnDeviceAdded(PLT_DeviceDataReference& device) {
+}
+
+/*----------------------------------------------------------------------
+ |   UpnpPassivePcm::OnDeviceRemoved
+ +---------------------------------------------------------------------*/
+NPT_Result UpnpPassivePcm::OnDeviceRemoved(
+    PLT_DeviceDataReference& device) {}
+
+/*----------------------------------------------------------------------
+ |   UpnpPassivePcm::OnActionResponse
+ +---------------------------------------------------------------------*/
+NPT_Result UpnpPassivePcm::OnActionResponse(NPT_Result res,
+                                                 PLT_ActionReference& action,
+                                                 void* userdata) {}
+
+/*----------------------------------------------------------------------
+ |   UpnpPassivePcm::OnEventNotify
+ +---------------------------------------------------------------------*/
+NPT_Result UpnpPassivePcm::OnEventNotify(
+    PLT_Service* service, NPT_List<PLT_StateVariable*>* vars) {}
