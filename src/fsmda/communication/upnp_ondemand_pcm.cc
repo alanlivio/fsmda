@@ -2,35 +2,36 @@
  |   includes
  +---------------------------------------------------------------------*/
 
-#include "fsmda/communication_services/upnp_mediacapture_pcm.h"
+#include "fsmda/communication/upnp_ondemand_pcm.h"
+#include <string>
 
 /*----------------------------------------------------------------------
- |   UpnpMediaCapturePcm::UpnpMediaCapturePcm
+ |   UpnpOnDemandPcm::UPnPOnDemandPCM
  +---------------------------------------------------------------------*/
-UpnpMediaCapturePcm::UpnpMediaCapturePcm() {}
+UpnpOnDemandPcm::UpnpOnDemandPcm() {}
 
 /*----------------------------------------------------------------------
- |   UpnpMediaCapturePcm::~UpnpMediaCapturePcm
+ |   UpnpOnDemandPcm::~UPnPOnDemandPCM
  +---------------------------------------------------------------------*/
-UpnpMediaCapturePcm::~UpnpMediaCapturePcm() {}
+UpnpOnDemandPcm::~UpnpOnDemandPcm() {}
 
 /*----------------------------------------------------------------------
- |   UpnpMediaCapturePcm::SendContent
+ |   UpnpOnDemandPcm::StartCommunicationService
  +---------------------------------------------------------------------*/
-void UpnpMediaCapturePcm::SendContent(char* content, const string& resource_id,
-                                      unsigned int child_index) {}
+int UpnpOnDemandPcm::StartCommunicationService() {}
 
 /*----------------------------------------------------------------------
- |   UpnpMediaCapturePcm::StartCommunicationService
+ |   UpnpOnDemandPcm::StopCommunicationService
  +---------------------------------------------------------------------*/
-int UpnpMediaCapturePcm::StartCommunicationService() {}
+int UpnpOnDemandPcm::StopCommunicationService() {}
 
 /*----------------------------------------------------------------------
- |   UpnpMediaCapturePcm::StopCommunicationService
+ |   UpnpOnDemandPcm::IsCommunicationServiceStarted
  +---------------------------------------------------------------------*/
-int UpnpMediaCapturePcm::StopCommunicationService() {}
+bool UpnpOnDemandPcm::IsCommunicationServiceStarted() {}
 
 /*----------------------------------------------------------------------
- |   UpnpMediaCapturePcm::IsCommunicationServiceStarted
+ |   UPnPOnDemandPCM::NotifyOnDemandContent
  +---------------------------------------------------------------------*/
-bool UpnpMediaCapturePcm::IsCommunicationServiceStarted() {}
+void UpnpOnDemandPcm::NotifyOnDemandContent(const string& action,
+                                            const string& location) {}

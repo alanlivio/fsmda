@@ -14,7 +14,7 @@
 #include <PltCtrlPoint.h>
 #include "fsmda/model/class_handling_interfaces.h"
 #include "fsmda/model/device_pairing_interfaces.h"
-#include "fsmda/pairing_services/pairing_service_interfaces.h"
+#include "fsmda/pairing/pairing_service_interfaces.h"
 
 using std::string;
 using std::vector;

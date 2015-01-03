@@ -7,8 +7,8 @@
 #include <fstream>
 #include "./named_semaphore_helper.h"
 #include "fsmda/parent_pairing_manager.h"
-#include "fsmda/pairing_services/upnp_child_pairing.h"
-#include "fsmda/pairing_services/upnp_parent_pairing.h"
+#include "fsmda/pairing/upnp_child_pairing.h"
+#include "fsmda/pairing/upnp_parent_pairing.h"
 #include "fsmda/utils/upnp_fsmda_utils.h"
 
 using std::cin;

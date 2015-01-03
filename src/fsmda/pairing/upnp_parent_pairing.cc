@@ -15,7 +15,7 @@
 #include <PltService.h>
 #include <PltStateVariable.h>
 #include "fsmda/parent_pairing_manager.h"
-#include "fsmda/pairing_services/upnp_parent_pairing.h"
+#include "fsmda/pairing/upnp_parent_pairing.h"
 #include "fsmda/utils/upnp_fsmda_utils.h"
 
 using std::clog;
@@ -168,10 +168,10 @@ NPT_Result UpnpParentPairing::OnDeviceAdded(
   clog << "UpnpParentPairing::OnDeviceAdded()::device->GetURLBase()->"
        << device_data->GetURLBase().ToString().GetChars() << endl;
 
-  PLT_Service *parent_pairing_service;
+  PLT_Service *parent_pairing;
   if (!device_data->GetType().Compare(UpnpFsmdaUtils::kCpmDeviceType)) {
     device_data->FindServiceByType(UpnpFsmdaUtils::kCpmServiceType,
-                                   parent_pairing_service);
+                                   parent_pairing);
     vector<DeviceClassDiscoverParams *>::iterator iter;
     iter = discover_params_list_.begin();
     while (iter != discover_params_list_.end()) {

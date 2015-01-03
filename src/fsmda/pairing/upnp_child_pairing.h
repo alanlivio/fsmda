@@ -10,7 +10,7 @@
 #include <PltHttp.h>
 #include <PltUPnP.h>
 #include <PltCtrlPoint.h>
-#include "fsmda/pairing_services/pairing_service_interfaces.h"
+#include "fsmda/pairing/pairing_service_interfaces.h"
 #include "fsmda/model/device_pairing_interfaces.h"
 
 /*----------------------------------------------------------------------
@@ -62,7 +62,7 @@ class UpnpChildPairing : public PLT_DeviceHost,
   PLT_CtrlPointReference ctrl_point_;
   PLT_Service* device_service_;
   DevicePairingCpmInterface* child_pairing_manager_;
-  PLT_Service* parent_pairing_service_;
+  PLT_Service* parent_pairing_;
 };
 
 #endif  // FSMDA_PAIRING_SERVICES_UPNP_CHILD_PAIRING_H_

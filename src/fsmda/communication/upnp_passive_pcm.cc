@@ -2,40 +2,35 @@
  |   includes
  +---------------------------------------------------------------------*/
 
-#include "fsmda/communication_services/upnp_passive_ccm.h"
-#include <string>
+#include "fsmda/communication/upnp_passive_pcm.h"
 
 /*----------------------------------------------------------------------
- |   UpnpPassiveCcm::UpnpPassiveCcm
+ |   UPnPPassivePCM::UPnPPassivePCM
  +---------------------------------------------------------------------*/
-UpnpPassiveCcm::UpnpPassiveCcm() {}
+UpnpPassivePcm::UpnpPassivePcm() {}
 
 /*----------------------------------------------------------------------
- |   UpnpPassiveCcm::~UpnpPassiveCcm
+ |   UPnPPassivePCM::~UPnPPassivePCM
  +---------------------------------------------------------------------*/
-UpnpPassiveCcm::~UpnpPassiveCcm() {}
+UpnpPassivePcm::~UpnpPassivePcm() {}
 
 /*----------------------------------------------------------------------
- |   UpnpPassiveCcm::StartCommunicationService
+ |   UPnPPassivePCM::NotifyError
  +---------------------------------------------------------------------*/
-int UpnpPassiveCcm::StartCommunicationService() {}
+void UpnpPassivePcm::NotifyError(const string& message,
+                                 const string& object_id) {}
 
 /*----------------------------------------------------------------------
- |   UpnpPassiveCcm::StopCommunicationService
+ |   UPnPPassivePCM::StartCommunicationService
  +---------------------------------------------------------------------*/
-int UpnpPassiveCcm::StopCommunicationService() {}
+int UpnpPassivePcm::StartCommunicationService() {}
 
 /*----------------------------------------------------------------------
- |   UpnpPassiveCcm::IsCommunicationServiceStarted
+ |   UPnPPassivePCM::StopCommunicationService
  +---------------------------------------------------------------------*/
-bool UpnpPassiveCcm::IsCommunicationServiceStarted() {}
+int UpnpPassivePcm::StopCommunicationService() {}
 
 /*----------------------------------------------------------------------
- |   UpnpPassiveCcm::Prepare
+ |   UPnPPassivePCM::StopCommunicationService
  +---------------------------------------------------------------------*/
-void UpnpPassiveCcm::Prepare(const string& position) {}
-
-/*----------------------------------------------------------------------
- |   UpnpPassiveCcm::SendContent
- +---------------------------------------------------------------------*/
-void UpnpPassiveCcm::SendContent(char* content) {}
+bool UpnpPassivePcm::IsCommunicationServiceStarted() {}

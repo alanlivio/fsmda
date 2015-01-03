@@ -96,9 +96,9 @@ ActiveCcmInterface* ChildPairingManager::CreateActiveCcm(
     unsigned int class_index) {
   if (device_class_description_map_[class_index]->device_class_type() ==
       DeviceClassDescription::kActiveDevice) {
-    UpnpActiveCcm* communication_service = new UpnpActiveCcm();
-    communications_services_map_[class_index] = communication_service;
-    return communication_service;
+    UpnpActiveCcm* communication = new UpnpActiveCcm();
+    communication_services_map_[class_index] = communication;
+    return communication;
   } else {
     return NULL;
   }
@@ -111,9 +111,9 @@ PassiveCcmInterface* ChildPairingManager::CreatePassiveCcm(
     unsigned int class_index) {
   if (device_class_description_map_[class_index]->device_class_type() ==
       DeviceClassDescription::kPassiveDevice) {
-    UpnpPassiveCcm* communication_service = new UpnpPassiveCcm();
-    communications_services_map_[class_index] = communication_service;
-    return communication_service;
+    UpnpPassiveCcm* communication = new UpnpPassiveCcm();
+    communication_services_map_[class_index] = communication;
+    return communication;
   } else {
     return NULL;
   }
@@ -126,9 +126,9 @@ OnDemandCcmInterface* ChildPairingManager::CreateOndemandCcm(
     unsigned int class_index) {
   if (device_class_description_map_[class_index]->device_class_type() ==
       DeviceClassDescription::kOnDemandDevice) {
-    UpnpOnDemandCcm* communication_service = new UpnpOnDemandCcm();
-    communications_services_map_[class_index] = communication_service;
-    return communication_service;
+    UpnpOnDemandCcm* communication = new UpnpOnDemandCcm();
+    communication_services_map_[class_index] = communication;
+    return communication;
   } else {
     return NULL;
   }
@@ -141,9 +141,9 @@ MediaCaptureCcmInterface* ChildPairingManager::CreateMediaCaptureCcm(
     unsigned int class_index) {
   if (device_class_description_map_[class_index]->device_class_type() ==
       DeviceClassDescription::kMediaCaptureDevice) {
-    UpnpMediaCaptureCcm* communication_service = new UpnpMediaCaptureCcm();
-    communications_services_map_[class_index] = communication_service;
-    return communication_service;
+    UpnpMediaCaptureCcm* communication = new UpnpMediaCaptureCcm();
+    communication_services_map_[class_index] = communication;
+    return communication;
   } else {
     return NULL;
   }

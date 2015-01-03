@@ -2,7 +2,7 @@
  |   includes
  +---------------------------------------------------------------------*/
 
-#include "fsmda/communication_services/upnp_active_pcm.h"
+#include "fsmda/communication/upnp_active_pcm.h"
 
 /*----------------------------------------------------------------------
  |   UpnpActivePcm::UpnpActivePcm

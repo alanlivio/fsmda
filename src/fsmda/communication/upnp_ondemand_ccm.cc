@@ -2,7 +2,7 @@
  |   include
  +---------------------------------------------------------------------*/
 
-#include "fsmda/communication_services/upnp_ondemand_ccm.h"
+#include "fsmda/communication/upnp_ondemand_ccm.h"
 #include "fsmda/utils/upnp_fsmda_utils.h"
 #include "NptStrings.h"
 #include "PltDeviceHost.h"
@@ -38,7 +38,7 @@ int UpnpOnDemandCcm::StartCommunicationService() {
   if (upnp_reference_ == NULL)
     upnp_reference_ = UpnpFsmdaUtils::GetRunningInstance();
 
-  clog << "OnDemandCCM::start_communication_service" << endl;
+  clog << "OnDemandCCM::start_communication" << endl;
   PLT_DeviceHostReference device(new PLT_FileMediaServer(
       ondemand_folder_.c_str(), UpnpFsmdaUtils::kOnDemandCcmDeviceFriendlyName,
       true, uuid_.c_str()));

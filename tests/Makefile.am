@@ -47,7 +47,7 @@ testsuit_gtest_SOURCES = \
   device_class_description_test.cc\
   pairing_managers_test.cc\
   upnp_communication_test.cc\
-  upnp_pairing_services_test.cc\
+  upnp_pairing_test.cc\
   named_semaphore_helper.cc\
   utils_test.cc
 

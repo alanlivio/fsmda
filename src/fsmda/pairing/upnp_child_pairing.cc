@@ -127,7 +127,7 @@ NPT_Result UpnpChildPairing::OnDeviceAdded(
 
   if (!device_data->GetType().Compare(UpnpFsmdaUtils::kPpmDeviceType)) {
     device_data->FindServiceByType(UpnpFsmdaUtils::kPpmServiceType,
-                                   parent_pairing_service_);
+                                   parent_pairing_);
     return NPT_SUCCESS;
   } else {
     return NPT_FAILURE;

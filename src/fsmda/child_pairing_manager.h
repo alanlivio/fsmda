@@ -7,13 +7,13 @@
 #include <map>
 #include <string>
 #include "fsmda/model/active_object_interfaces.h"
-#include "fsmda/communication_services/upnp_active_ccm.h"
-#include "fsmda/communication_services/upnp_passive_ccm.h"
-#include "fsmda/communication_services/upnp_ondemand_ccm.h"
-#include "fsmda/communication_services/upnp_mediacapture_ccm.h"
+#include "fsmda/communication/upnp_active_ccm.h"
+#include "fsmda/communication/upnp_passive_ccm.h"
+#include "fsmda/communication/upnp_ondemand_ccm.h"
+#include "fsmda/communication/upnp_mediacapture_ccm.h"
 #include "fsmda/device_class_description.h"
 #include "fsmda/device_description.h"
-#include "fsmda/pairing_services/upnp_child_pairing.h"
+#include "fsmda/pairing/upnp_child_pairing.h"
 
 using std::string;
 using std::map;
@@ -52,7 +52,7 @@ class ChildPairingManager : public DevicePairingCpmInterface {
  private:
   map<unsigned int, DeviceClassDescription*> device_class_description_map_;
   map<unsigned int, CommunicationServiceInterface*>
-      communications_services_map_;
+      communication_services_map_;
   DeviceDescription* device_description_;
   UpnpChildPairing* upnp_child_pairing_;
   bool paired_;

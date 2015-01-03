@@ -2,7 +2,7 @@
  |   includes
  +---------------------------------------------------------------------*/
 
-#include "fsmda/communication_services/upnp_mediacapture_ccm.h"
+#include "fsmda/communication/upnp_mediacapture_ccm.h"
 #include <string>
 
 /*----------------------------------------------------------------------

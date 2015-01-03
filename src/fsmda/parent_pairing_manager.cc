@@ -3,12 +3,12 @@
 #include <iostream>
 #include "fsmda/device_class_description.h"
 #include "fsmda/parent_pairing_manager.h"
-#include "fsmda/communication_services/upnp_active_pcm.h"
-#include "fsmda/communication_services/upnp_mediacapture_pcm.h"
-#include "fsmda/communication_services/upnp_ondemand_pcm.h"
-#include "fsmda/communication_services/upnp_passive_pcm.h"
+#include "fsmda/communication/upnp_active_pcm.h"
+#include "fsmda/communication/upnp_mediacapture_pcm.h"
+#include "fsmda/communication/upnp_ondemand_pcm.h"
+#include "fsmda/communication/upnp_passive_pcm.h"
 #include "fsmda/model/passive_object_interfaces.h"
-#include "fsmda/pairing_services/upnp_parent_pairing.h"
+#include "fsmda/pairing/upnp_parent_pairing.h"
 
 using std::clog;
 using std::endl;
@@ -141,10 +141,10 @@ PassivePcmInterface* ParentPairingManager::CreatePassivePcm(
     const string& application_id, unsigned int class_index) {
   if (device_class_description_map_[application_id][class_index]
           ->device_class_type() == DeviceClassDescription::kPassiveDevice) {
-    UpnpPassivePcm* communication_service = new UpnpPassivePcm();
-    communications_services_map_[application_id][class_index] =
-        communication_service;
-    return communication_service;
+    UpnpPassivePcm* communication = new UpnpPassivePcm();
+    communication_services_map_[application_id][class_index] =
+        communication;
+    return communication;
   } else {
     return NULL;
   }
@@ -157,10 +157,10 @@ ActivePcmInterface* ParentPairingManager::CreateActivePcm(
     const string& application_id, unsigned int class_index) {
   if (device_class_description_map_[application_id][class_index]
           ->device_class_type() == DeviceClassDescription::kActiveDevice) {
-    UpnpActivePcm* communication_service = communication_service;
-    communications_services_map_[application_id][class_index] =
-        communication_service;
-    return communication_service;
+    UpnpActivePcm* communication = communication;
+    communication_services_map_[application_id][class_index] =
+        communication;
+    return communication;
   } else {
     return NULL;
   }
@@ -174,10 +174,10 @@ MediaCapturePcmInterface* ParentPairingManager::CreateMediaCapturePcm(
   if (device_class_description_map_[application_id][class_index]
           ->device_class_type() ==
       DeviceClassDescription::kMediaCaptureDevice) {
-    UpnpMediaCapturePcm* communication_service = communication_service;
-    communications_services_map_[application_id][class_index] =
-        communication_service;
-    return communication_service;
+    UpnpMediaCapturePcm* communication = communication;
+    communication_services_map_[application_id][class_index] =
+        communication;
+    return communication;
   } else {
     return NULL;
   }
@@ -190,10 +190,10 @@ OnDemandPcmInterface* ParentPairingManager::CreateOnDemandPcm(
     const string& application_id, unsigned int class_index) {
   if (device_class_description_map_[application_id][class_index]
           ->device_class_type() == DeviceClassDescription::kOnDemandDevice) {
-    UpnpOnDemandPcm* communication_service = new UpnpOnDemandPcm();
-    communications_services_map_[application_id][class_index] =
-        communication_service;
-    return communication_service;
+    UpnpOnDemandPcm* communication = new UpnpOnDemandPcm();
+    communication_services_map_[application_id][class_index] =
+        communication;
+    return communication;
   } else {
     return NULL;
   }

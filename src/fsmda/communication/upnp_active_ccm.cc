@@ -2,7 +2,7 @@
  |   includes
  +---------------------------------------------------------------------*/
 
-#include "fsmda/communication_services/upnp_active_ccm.h"
+#include "fsmda/communication/upnp_active_ccm.h"
 #include "fsmda/model/active_object_interfaces.h"
 
 /*----------------------------------------------------------------------

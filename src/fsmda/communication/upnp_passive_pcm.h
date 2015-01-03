@@ -6,7 +6,7 @@
  +---------------------------------------------------------------------*/
 #include <string>
 #include "fsmda/model/passive_object_interfaces.h"
-#include "fsmda/communication_services/communication_service_interface.h"
+#include "fsmda/communication/communication_service_interface.h"
 
 using std::string;
 

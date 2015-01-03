@@ -13,7 +13,7 @@
 #include <PltUPnP.h>
 #include <PltCtrlPoint.h>
 #include "fsmda/model/active_object_interfaces.h"
-#include "fsmda/communication_services/communication_service_interface.h"
+#include "fsmda/communication/communication_service_interface.h"
 
 using std::string;
 using std::vector;
