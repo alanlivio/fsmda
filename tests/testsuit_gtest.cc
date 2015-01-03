@@ -30,8 +30,7 @@ int main(int argc, char **argv) {
   //  ::testing::FLAGS_gtest_output = "/tmp/res.xml";
   ::testing::FLAGS_gtest_filter = "*";
 //  ::testing::FLAGS_gtest_filter =
-//      "UpnpPairingServicesTest.HandShakeWithOneDeviceInSameProcess:"
-//      "UpnpUtilsTest.GetRunningUpnpInstance";
+//      "PairingManagersTest.PairingWithOneDeviceInDiferentProcessess:";
   //  ::testing::FLAGS_gtest_repeat = 2;
 
   return RUN_ALL_TESTS();

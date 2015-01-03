@@ -52,11 +52,16 @@ fi
 
 ### Check for PLATINUMKIT
 PKG_CHECK_MODULES([PLATINUMKIT], [libplatinumkit], [],
-    		[AC_MSG_ERROR([The libplatinumkit is required. Try in https://github.com/alanlivio/platinumkit-autotools-library.])])
+  [AC_MSG_ERROR([The libplatinumkit is required.
+  Try in https://github.com/alanlivio/platinumkit-autotools-library.])])
 
 ### Check for LIBXML2
 PKG_CHECK_MODULES([LIBXML2], [libxml-2.0], [],
-    		[AC_MSG_ERROR([The libxml-2.0 is required.])])
+  [AC_MSG_ERROR([The libxml-2.0 is required.])])
+
+### Check for libgflags2
+  PKG_CHECK_MODULES([LIBGFLAGS], [libgflags], [],
+  [AC_MSG_ERROR([The libgflags is required.])])
  
 ############################## Files configuration ############################
 ### Autoconf source configuration

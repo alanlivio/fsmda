@@ -67,6 +67,7 @@ testsuit_gtest_CPPFLAGS = \
 
 fake_parent_helper_CPPFLAGS = \
   $(PLATINUMKIT_CFLAGS)\
+  $(LIBGFLAGS_CFLAGS)\
   $(LIBXML2_CFLAGS)
 
 ### Tests programs linker options
@@ -74,10 +75,11 @@ testsuit_gtest_LDADD = \
   $(top_srcdir)/src/libfsmda.la\
   $(PLATINUMKIT_LIBS)\
   $(LIBXML2_LIBS)\
-  $(top_srcdir)/tests/libgmockgtest.la
+  libgmockgtest.la
 
 fake_parent_helper_LDADD = \
   $(top_srcdir)/src/libfsmda.la\
   $(PLATINUMKIT_LIBS)\
+  $(LIBGFLAGS_LIBS)\
   $(LIBXML2_LIBS)\
   $(PTHREAD_LIBS)

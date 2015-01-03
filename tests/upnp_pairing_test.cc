@@ -57,18 +57,16 @@ void HandShakeWithOneDeviceHelper(bool diferent_processes) {
     upnp_child_pairing->expected_app_id = app_id;
 
     // configure and start ParenPaigingManager
-    // by open fake_parent_helper and create pipe to its sdtin
-    FILE* parent_pipe = popen("./fake_parent_helper", "w");
+    // by popen fake_parent_helper
+    string command = "./fake_parent_helper";
+    command.append(" --device_class=");
+    command.append(DeviceClassDescription::GetDeviceClassTypeStringByEnum(
+        DeviceClassDescription::kActiveDevice));
+    command.append(" --application_id=" + app_id);
+    FILE* parent_pipe = popen(command.c_str(), "w");
     ASSERT_TRUE(parent_pipe);
-
-    // send active as device class type
-    fprintf(parent_pipe, "%s\n", "active");
-
-    // send app id name to identify semaphore
-    fprintf(parent_pipe, "%s\n", app_id.c_str());
-
-    // close pipe
     pclose(parent_pipe);
+
   } else {
     CreateNamedSemphoreHelper(app_id, false);
     upnp_child_pairing->expected_app_id = app_id;

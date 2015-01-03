@@ -5,49 +5,55 @@
 #include <cstdlib>
 #include <iostream>
 #include <fstream>
+#include <gflags/gflags.h>
 #include "./named_semaphore_helper.h"
 #include "fsmda/parent_pairing_manager.h"
 #include "fsmda/pairing/upnp_child_pairing.h"
 #include "fsmda/pairing/upnp_parent_pairing.h"
 #include "fsmda/utils/upnp_fsmda_utils.h"
 
+DEFINE_string(application_id, "", "uuuid application");
+DEFINE_string(device_class, DeviceClassDescription::kInvalidDeviceString,
+              "device class name: passive,active,ondemand or medicapture");
+
 using std::cin;
+using std::cout;
 using std::clog;
 using std::endl;
 using std::getline;
+
 /*----------------------------------------------------------------------
  |   main
  +---------------------------------------------------------------------*/
-int main(void) {
+int main(int argc, char** argv) {
+  google::SetVersionString("0.1");
+  google::SetUsageMessage(
+      "fake_parent --application_id=<UUID> "
+      "--device-class=<passive|active|ondemand|medicapture>");
+  google::ParseCommandLineFlags(&argc, &argv, true);
+
   // redirect clog to /dev/null/
   static std::ofstream logOutput;
   logOutput.open("/dev/null");
   clog.rdbuf(logOutput.rdbuf());
 
-  //  read device class type by stdin
-  string device_class_command;
-  getline(cin, device_class_command);
-  clog << "fake_parent_helper.cc::main():: received device_class_command = "
-       << device_class_command << endl;
-
-  //  read app id by stdin
-  string application_id;
-  getline(cin, application_id);
-  clog << "fake_parent_helper.cc::main():: received app_id = " << application_id
+  clog << "fake_parent_helper.cc::main():: device_class=" << FLAGS_device_class
        << endl;
+  clog << "fake_parent_helper.cc::main():: application_id="
+       << FLAGS_application_id << endl;
 
   // start parent pairing service with fake discover params
   // only for enable handshake
   DeviceClassDescription::DeviceClassType device_class_type;
   device_class_type =
-      DeviceClassDescription::GetDeviceClassTypeByString(device_class_command);
+      DeviceClassDescription::GetDeviceClassTypeByString(FLAGS_device_class);
   UpnpParentPairing* upnp_parent_pairing = new UpnpParentPairing();
   unsigned int class_index = 2;
   DeviceClassDescription* device_class_description =
       new DeviceClassDescription();
   device_class_description->InitializeByDeviceClass(device_class_type);
   DeviceClassDiscoverParams* dicover_params = new DeviceClassDiscoverParams(
-      application_id, class_index, device_class_description);
+      FLAGS_application_id, class_index, device_class_description);
   upnp_parent_pairing->AddDeviceClassForDiscover(dicover_params);
 
   // start parent pairing service

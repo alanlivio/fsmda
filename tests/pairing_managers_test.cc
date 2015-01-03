@@ -59,19 +59,14 @@ void PairingWithOneDeviceHelper(
     child_pairing_manager->expected_app_id = app_id;
 
     // configure and start ParenPaigingManager
-    // by open fake_parent_helper and create pipe to its sdtin
-    FILE* parent_pipe = popen("./fake_parent_helper", "w");
+    // by popen fake_parent_helper
+    string command = "./fake_parent_helper";
+    command.append(" --device_class=");
+    command.append(DeviceClassDescription::GetDeviceClassTypeStringByEnum(
+        expected_device_class_type));
+    command.append(" --application_id=" + app_id);
+    FILE* parent_pipe = popen(command.c_str(), "w");
     ASSERT_TRUE(parent_pipe);
-
-    // send active as device class type
-    fprintf(parent_pipe, "%s\n",
-            DeviceClassDescription::GetDeviceClassTypeStringByEnum(
-                expected_device_class_type));
-
-    // send app id name to identify semaphore
-    fprintf(parent_pipe, "%s\n", app_id.c_str());
-
-    // close pipe
     pclose(parent_pipe);
 
   } else {
