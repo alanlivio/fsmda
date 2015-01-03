@@ -6,7 +6,7 @@
  +---------------------------------------------------------------------*/
 #include <map>
 #include <string>
-#include "fsmda/model/active_object_interfaces.h"
+#include "fsmda/model/active_objects_api.h"
 #include "fsmda/communication/upnp_active_ccm.h"
 #include "fsmda/communication/upnp_passive_ccm.h"
 #include "fsmda/communication/upnp_ondemand_ccm.h"

@@ -8,12 +8,12 @@
 #include <set>
 #include <string>
 #include "fsmda/device_class_description.h"
-#include "fsmda/model/active_object_interfaces.h"
-#include "fsmda/model/mediacapture_object_interfaces.h"
-#include "fsmda/model/ondemand_object_interfaces.h"
-#include "fsmda/model/passive_object_interfaces.h"
-#include "fsmda/model/class_handling_interfaces.h"
-#include "fsmda/model/device_pairing_interfaces.h"
+#include "fsmda/model/active_objects_api.h"
+#include "fsmda/model/mediacapture_objects_api.h"
+#include "fsmda/model/ondemand_objects_api.h"
+#include "fsmda/model/passive_objects_api.h"
+#include "fsmda/model/class_handling_api.h"
+#include "fsmda/model/device_pairing_api.h"
 #include "fsmda/pairing/upnp_parent_pairing.h"
 #include "fsmda/communication/communication_service_interface.h"
 

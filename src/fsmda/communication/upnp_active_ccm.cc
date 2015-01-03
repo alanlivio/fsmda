@@ -3,7 +3,7 @@
  +---------------------------------------------------------------------*/
 
 #include "fsmda/communication/upnp_active_ccm.h"
-#include "fsmda/model/active_object_interfaces.h"
+#include "fsmda/model/active_objects_api.h"
 
 /*----------------------------------------------------------------------
  |   UpnpActiveCcm::UpnpActiveCcm

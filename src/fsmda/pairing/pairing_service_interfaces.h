@@ -4,7 +4,7 @@
  |   includes
  +---------------------------------------------------------------------*/
 #include <string>
-#include <fsmda/model/device_pairing_interfaces.h>
+#include <fsmda/model/device_pairing_api.h>
 
 using std::string;
 

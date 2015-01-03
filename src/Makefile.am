@@ -1,12 +1,12 @@
 ############################## Headers ####################################
 # Headers
 nobase_pkginclude_HEADERS =\
-  fsmda/model/ondemand_object_interfaces.h\
-  fsmda/model/active_object_interfaces.h\
-  fsmda/model/passive_object_interfaces.h\
-  fsmda/model/mediacapture_object_interfaces.h\
-  fsmda/model/class_handling_interfaces.h\
-  fsmda/model/device_pairing_interfaces.h
+  fsmda/model/ondemand_objects_api.h\
+  fsmda/model/active_objects_api.h\
+  fsmda/model/passive_objects_api.h\
+  fsmda/model/mediacapture_objects_api.h\
+  fsmda/model/class_handling_api.h\
+  fsmda/model/device_pairing_api.h
 
 ############################## Libraries ####################################
 # Libraries

@@ -7,7 +7,7 @@
 #include "fsmda/communication/upnp_mediacapture_pcm.h"
 #include "fsmda/communication/upnp_ondemand_pcm.h"
 #include "fsmda/communication/upnp_passive_pcm.h"
-#include "fsmda/model/passive_object_interfaces.h"
+#include "fsmda/model/passive_objects_api.h"
 #include "fsmda/pairing/upnp_parent_pairing.h"
 
 using std::clog;

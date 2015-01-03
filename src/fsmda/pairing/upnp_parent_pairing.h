@@ -12,8 +12,8 @@
 #include <PltDeviceHost.h>
 #include <PltUPnP.h>
 #include <PltCtrlPoint.h>
-#include "fsmda/model/class_handling_interfaces.h"
-#include "fsmda/model/device_pairing_interfaces.h"
+#include "fsmda/model/class_handling_api.h"
+#include "fsmda/model/device_pairing_api.h"
 #include "fsmda/pairing/pairing_service_interfaces.h"
 
 using std::string;
