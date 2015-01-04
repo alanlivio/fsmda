@@ -29,7 +29,7 @@ void CreateNamedSemphoreHelper(const string& semaphore_name,
     clog << "CreateNamedSemphoreHelper::created new semaphore !" << endl;
   } else if (errno == EEXIST) {
     clog << "CreateNamedSemphoreHelper::semaphore appears to exist already, "
-            "created new semaphore !" << endl;
+            "open existing semaphore !" << endl;
     aux_semaphore = sem_open(semname.c_str(), O_CREAT, S_IRUSR | S_IWUSR, 0);
   }
   assert(aux_semaphore != SEM_FAILED);

@@ -22,6 +22,21 @@ using std::clog;
 using std::endl;
 using std::getline;
 
+class MockParentPairingManager : public ParentPairingManager {
+ public:
+  string expected_semaphore;
+  virtual void AddDeviceToClass(const string& application_id,
+                                const string& device_address,
+                                unsigned int class_index,
+                                const string& device_desc) {
+    clog << "MockParentPairingManager::AddDeviceToClass()" << endl;
+    ParentPairingManager::AddDeviceToClass(application_id, device_address,
+                                           class_index, device_desc);
+    string parent_named_semaphore = FLAGS_application_id + "_parent";
+    PostNamedSemphoreHelper(parent_named_semaphore);
+  }
+};
+
 /*----------------------------------------------------------------------
  |   main
  +---------------------------------------------------------------------*/
@@ -33,39 +48,39 @@ int main(int argc, char** argv) {
   google::ParseCommandLineFlags(&argc, &argv, true);
 
   // redirect clog to /dev/null/
-  static std::ofstream logOutput;
-  logOutput.open("/dev/null");
-  clog.rdbuf(logOutput.rdbuf());
+    static std::ofstream logOutput;
+    logOutput.open("/dev/null");
+    clog.rdbuf(logOutput.rdbuf());
 
   clog << "fake_parent_helper.cc::main():: device_class=" << FLAGS_device_class
        << endl;
   clog << "fake_parent_helper.cc::main():: application_id="
        << FLAGS_application_id << endl;
 
-  // start parent pairing service with fake discover params
-  // only for enable handshake
+  // create device_class description
   DeviceClassDescription::DeviceClassType device_class_type;
   device_class_type =
       DeviceClassDescription::GetDeviceClassTypeByString(FLAGS_device_class);
-  UpnpParentPairing* upnp_parent_pairing = new UpnpParentPairing();
+  MockParentPairingManager* parent_pairing_manager =
+      new MockParentPairingManager();
   unsigned int class_index = 2;
   DeviceClassDescription* device_class_description =
       new DeviceClassDescription();
   device_class_description->InitializeByDeviceClass(device_class_type);
-  DeviceClassDiscoverParams* dicover_params = new DeviceClassDiscoverParams(
-      FLAGS_application_id, class_index, device_class_description);
-  upnp_parent_pairing->AddDeviceClassForDiscover(dicover_params);
+  parent_pairing_manager->AddClassDescription(FLAGS_application_id, class_index,
+                                              device_class_description);
 
-  // start parent pairing service
-  upnp_parent_pairing->StartPairingService(), 0;
-  upnp_parent_pairing->IsPairingServiceStarted();
+  // wait for parent prepared and start
+  string parent_named_semaphore = FLAGS_application_id + "_parent";
+  parent_pairing_manager->expected_semaphore = parent_named_semaphore;
+  CreateNamedSemphoreHelper(parent_named_semaphore, false);
+  parent_pairing_manager->StartPairing();
+  WaitNamedSemphoreHelper(parent_named_semaphore);
+  ReleaseNameSemphoreHelper(parent_named_semaphore);
 
-  sleep(2);
-  //  string parent_named_semaphore = application_id + "_parent";
-  //  CreateNamedSemphoreHelper(parent_named_semaphore, true);
-  //  WaitNamedSemphoreHelper(parent_named_semaphore);
-  upnp_parent_pairing->StopPairingService();
-  delete upnp_parent_pairing;
+  // release parent
+  parent_pairing_manager->StopPairing();
+  delete parent_pairing_manager;
 
   return 0;
 }

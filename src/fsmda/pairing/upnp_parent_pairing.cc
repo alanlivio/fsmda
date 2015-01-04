@@ -117,11 +117,14 @@ NPT_Result UpnpParentPairing::OnAction(PLT_ActionReference &action,
     clog << "UpnpParentPairing::OnAction::receive addDeviceToClass("
          << applicationId.GetChars() << "," << deviceAddr.GetChars() << ","
          << classIndex << "," << deviceDesc.GetChars() << ")" << endl;
+
+    // call parent_pairing_manager_->AddDeviceToClass
     if (parent_pairing_manager_ != NULL) {
       parent_pairing_manager_->AddDeviceToClass(
           applicationId.GetChars(), deviceAddr.GetChars(), classIndex,
           deviceDesc.GetChars());
     }
+
     return NPT_SUCCESS;
   } else if (name.Compare("getChildIndex") == 0) {
     // handling getChildIndex call
@@ -149,7 +152,15 @@ NPT_Result UpnpParentPairing::OnEventNotify(
     PLT_Service *service, NPT_List<PLT_StateVariable *> *vars) {}
 NPT_Result UpnpParentPairing::OnActionResponse(NPT_Result res,
                                                PLT_ActionReference &action,
-                                               void *userdata) {}
+                                               void *userdata) {
+  NPT_String name = action->GetActionDesc().GetName();
+  clog << "UpnpParentPairing::OnActionResponse()::action.name="
+       << name.GetChars() << endl;
+  if (name.Compare("classAnnouncement") == 0) {
+    if (parent_pairing_manager_)
+      parent_pairing_manager_->AddDeviceToClass("", "", 0, "");
+  }
+}
 NPT_Result UpnpParentPairing::OnDeviceRemoved(PLT_DeviceDataReference &device) {
 }
 

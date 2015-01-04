@@ -51,8 +51,6 @@ class ParentPairingManager : public ClassHandlingPpmInterface,
       const string& class_type, unsigned int max_devices,
       unsigned int min_devices, const string& hardware_requirements,
       const string& software_requirements, const string& network_requirements);
-
-  // pubic methods called by HypermediaEngine
   virtual void AddClassDescription(
       const string& application_id, unsigned int class_index,
       DeviceClassDescription* device_class_description);

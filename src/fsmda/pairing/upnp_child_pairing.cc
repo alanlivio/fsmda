@@ -74,12 +74,14 @@ NPT_Result UpnpChildPairing::OnAction(PLT_ActionReference &action,
   clog << "UpnpChildPairing::OnAction()::action.name=" << name.GetChars()
        << endl;
 
-  // handling classAnnouncement call
   if (name.Compare("classAnnouncement") == 0) {
+    // handling classAnnouncement call
     NPT_String application_id;
     action->GetArgumentValue("applicationId", application_id);
     NPT_Int32 class_index;
+    NPT_String class_index_str;
     action->GetArgumentValue("classIndex", class_index);
+    action->GetArgumentValue("classIndex", class_index_str);
     NPT_String class_desc;
     action->GetArgumentValue("classDesc", class_desc);
     NPT_String class_function;
@@ -88,14 +90,38 @@ NPT_Result UpnpChildPairing::OnAction(PLT_ActionReference &action,
          << application_id.GetChars() << "," << class_index << ","
          << " one_rdf_with_size=" << class_desc.GetLength() << ","
          << class_function.GetChars() << ")" << endl;
-    clog << "UpnpChildPairing::OnAction()::paired_with_parent_= true" << endl;
-    SetPerformedHandShake(true);
+
+    // call child_pairing_manager_->ClassAnnouncement
     if (child_pairing_manager_ != NULL) {
       child_pairing_manager_->ClassAnnouncement(
           application_id.GetChars(), class_index, class_desc.GetChars(),
           class_function.GetChars());
-      return NPT_SUCCESS;
     }
+
+    // invoke addDeviceToClass
+    //    clog << "UpnpChildPairing::OnAction "
+    //            "last_parent_->GetFriendlyName()="
+    //         << data->GetFriendlyName().GetChars() << endl;
+    //    PLT_ActionReference reponse_action;
+    //    ctrl_point_->CreateAction(data, UpnpFsmdaUtils::kPpmServiceType,
+    //                              "addDeviceToClass", reponse_action);
+    //    if (reponse_action.IsNull()) {
+    //      clog << "UpnpChildPairing::OnAction reponse_action.IsNul" << endl;
+    //      return NPT_FAILURE;
+    //    }
+    //    reponse_action->SetArgumentValue("applicationId", application_id);
+    //    reponse_action->SetArgumentValue("deviceAddr", "localhost");
+    //    reponse_action->SetArgumentValue("classIndex", class_index_str);
+    //    reponse_action->SetArgumentValue("deviceDesc", class_desc);
+    //    ctrl_point_->InvokeAction(reponse_action, 0);
+    //    clog << "UpnpChildPairing::OnAction calling addDeviceToClass("
+    //         << application_id.GetChars() << "," << class_index << ","
+    //         << " one_rdf_with_size=" << class_desc.GetLength() << ","
+    //         << ")" << endl;
+
+    // set pareid
+    SetPerformedHandShake(true);
+    return NPT_SUCCESS;
   }
   action->SetError(501, "Action Failed");
   return NPT_FAILURE;
@@ -112,9 +138,8 @@ NPT_Result UpnpChildPairing::OnDeviceRemoved(PLT_DeviceDataReference &device) {}
 
 NPT_Result UpnpChildPairing::OnDeviceAdded(
     PLT_DeviceDataReference &device_data) {
-  if (!device_data->GetUUID().Compare(m_UUID)) return NPT_SUCCESS;
-  if (!device_data->GetType().StartsWith("urn:schemas-upnp-org:device:fsmda-"),
-      true)
+  if (device_data->GetType().Compare(
+          "urn:schemas-upnp-org:device:fsmda-parent-pairing-device:1"))
     return NPT_FAILURE;
   clog << "UpnpChildPairing::OnDeviceAdded() " << endl;
   clog << "UpnpChildPairing::OnDeviceAdded()::device->GetFriendlyName="
@@ -125,6 +150,10 @@ NPT_Result UpnpChildPairing::OnDeviceAdded(
        << device_data->GetUUID().GetChars() << endl;
   clog << "UpnpChildPairing::OnDeviceAdded()::device->GetURLBase()->"
        << device_data->GetURLBase().ToString().GetChars() << endl;
+
+  //  last_parent_ = PLT_DeviceDataFinder(device_data);
+  //  registred_parents_.Add(device_data);
+  //  last_parent_uuid = device_data->GetUUID();
 
   if (!device_data->GetType().Compare(UpnpFsmdaUtils::kPpmDeviceType)) {
     device_data->FindServiceByType(UpnpFsmdaUtils::kPpmServiceType,

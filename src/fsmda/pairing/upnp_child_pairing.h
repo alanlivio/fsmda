@@ -4,12 +4,17 @@
 /*----------------------------------------------------------------------
  |   includes
  +---------------------------------------------------------------------*/
+#include <map>
+#include <string>
 #include <NptTypes.h>
 #include <PltDeviceHost.h>
 #include <PltUPnP.h>
 #include <PltCtrlPoint.h>
 #include "fsmda/pairing/pairing_service_interfaces.h"
 #include "fsmda/model/device_pairing_api.h"
+
+using std::map;
+using std::string;
 
 /*----------------------------------------------------------------------
  |   forward definitions
@@ -61,6 +66,8 @@ class UpnpChildPairing : public PLT_DeviceHost,
   PLT_Service* device_service_;
   DevicePairingCpmInterface* child_pairing_manager_;
   PLT_Service* parent_pairing_;
+  PLT_DeviceDataReferenceList registred_parents_;
+  NPT_String last_parent_uuid;
 };
 
 #endif  // FSMDA_PAIRING_UPNP_CHILD_PAIRING_H_

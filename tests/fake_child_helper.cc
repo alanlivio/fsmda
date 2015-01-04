@@ -26,12 +26,12 @@ using std::getline;
 
 class MockChildPairingManager : public ChildPairingManager {
  public:
-  string expected_app_id;
+  string expected_semaphore;
   void SetPaired(bool paired) {
     clog << "MockChildPairingManager::SetPaired():: paired = " << paired
          << endl;
     ChildPairingManager::SetPaired(paired);
-    PostNamedSemphoreHelper(expected_app_id);
+    PostNamedSemphoreHelper(expected_semaphore);
   }
   explicit MockChildPairingManager(const DeviceDescription& device_description)
       : ChildPairingManager(device_description) {}
@@ -48,9 +48,9 @@ int main(int argc, char** argv) {
   google::ParseCommandLineFlags(&argc, &argv, true);
 
   // redirect clog to /dev/null/
-//  static std::ofstream logOutput;
-//  logOutput.open("/dev/null");
-//  clog.rdbuf(logOutput.rdbuf());
+  static std::ofstream logOutput;
+  logOutput.open("/dev/null");
+  clog.rdbuf(logOutput.rdbuf());
 
   clog << "fake_parent_helper.cc::main():: device_class=" << FLAGS_device_class
        << endl;
@@ -60,9 +60,8 @@ int main(int argc, char** argv) {
   MockChildPairingManager* child_pairing_manager;
   timeval start_time, end_time;
   double elapsed_time;
-  CreateNamedSemphoreHelper(FLAGS_application_id, true);
 
-  // create description for device_class
+  // create description for device
   DeviceClassDescription::DeviceClassType device_class =
       DeviceClassDescription::GetDeviceClassTypeByString(FLAGS_device_class);
   DeviceDescription device_description;
@@ -70,30 +69,28 @@ int main(int argc, char** argv) {
       DeviceClassDescription::GetDeviceClassRdfDefaultContentByType(
           device_class);
   device_description.InitializeByRdfContent(rdf_content);
-
-  // start ChildPairingManager
   child_pairing_manager = new MockChildPairingManager(device_description);
-  child_pairing_manager->expected_app_id = FLAGS_application_id;
-  child_pairing_manager->StartPairing();
-  gettimeofday(&start_time, NULL);
 
-  // child wait for ParentPostSemphoreHelper call
+  // wait for parent prepared and start
+  child_pairing_manager->expected_semaphore = FLAGS_application_id;
+  CreateNamedSemphoreHelper(FLAGS_application_id, false);
+  gettimeofday(&start_time, NULL);
+  child_pairing_manager->StartPairing();
   WaitNamedSemphoreHelper(FLAGS_application_id);
   gettimeofday(&end_time, NULL);
+  ReleaseNameSemphoreHelper(FLAGS_application_id);
 
-  // sec to ms
+  // calculete elapsed time
   elapsed_time = (end_time.tv_sec - start_time.tv_sec) * 1000;
-  // us to ms
   elapsed_time += (end_time.tv_usec - start_time.tv_usec) / 1000;
-
   cout << "PairingWithOneDeviceHelper(diferent_processes="
        << "yes"
        << ", device_class_type=" << device_class
        << ")::elapsed_time=" << elapsed_time << " ms" << endl;
 
-  // release child
-  child_pairing_manager->StopPairing();
-  delete child_pairing_manager;
+  //  // release child
+  //  child_pairing_manager->StopPairing();
+  //  delete child_pairing_manager;
 
   return 0;
 }

@@ -2,7 +2,6 @@
  |   includes
  +---------------------------------------------------------------------*/
 
-#include <sys/time.h>
 #include "./named_semaphore_helper.h"
 #include "fsmda/device_class_description.h"
 #include "fsmda/device_description.h"
@@ -18,12 +17,12 @@ using std::endl;
 
 class MockChildPairingManager : public ChildPairingManager {
  public:
-  string expected_app_id;
+  string expected_semaphore;
   void SetPaired(bool paired) {
     clog << "MockChildPairingManager::SetPaired():: paired = " << paired
          << endl;
     ChildPairingManager::SetPaired(paired);
-    PostNamedSemphoreHelper(expected_app_id);
+    PostNamedSemphoreHelper(expected_semaphore);
   }
   explicit MockChildPairingManager(const DeviceDescription& device_description)
       : ChildPairingManager(device_description) {}
@@ -36,8 +35,6 @@ void PairingWithOneDeviceHelper(
   MockChildPairingManager* child_pairing_manager;
   ParentPairingManager* parent_pairing_manager;
   string app_id;
-  timeval start_time, end_time;
-  double elapsed_time;
 
   EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 0);
   EXPECT_FALSE(UpnpFsmdaUtils::IsUpnpStarted());
@@ -50,14 +47,13 @@ void PairingWithOneDeviceHelper(
   EXPECT_EQ(child_pairing_manager->StartPairing(), 0);
   EXPECT_TRUE(child_pairing_manager->IsPairingStarted());
   EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 1);
-  gettimeofday(&start_time, NULL);
 
   UpnpFsmdaUtils::GenerateGUID(&app_id);
+  CreateNamedSemphoreHelper(app_id, false);
+  child_pairing_manager->expected_semaphore = app_id;
+
   // start ParentPairingManager
   if (diferent_processes) {
-    CreateNamedSemphoreHelper(app_id, true);
-    child_pairing_manager->expected_app_id = app_id;
-
     // configure and start ParenPaigingManager
     // by popen fake_parent_helper
     string command = "./fake_parent_helper";
@@ -70,9 +66,6 @@ void PairingWithOneDeviceHelper(
     pclose(parent_pipe);
 
   } else {
-    CreateNamedSemphoreHelper(app_id, false);
-    child_pairing_manager->expected_app_id = app_id;
-
     // configure and start ParenPaigingManager
     DeviceClassDescription* device_class_description;
     device_class_description = new DeviceClassDescription();
@@ -94,21 +87,10 @@ void PairingWithOneDeviceHelper(
   }
   // child wait for ParentPostSemphoreHelper call
   WaitNamedSemphoreHelper(app_id);
-  gettimeofday(&end_time, NULL);
 
   // test if child is paired
   EXPECT_TRUE(child_pairing_manager->IsPaired());
   ReleaseNameSemphoreHelper(app_id);
-
-  // sec to ms
-  elapsed_time = (end_time.tv_sec - start_time.tv_sec) * 1000;
-  // us to ms
-  elapsed_time += (end_time.tv_usec - start_time.tv_usec) / 1000;
-
-  cout << "PairingWithOneDeviceHelper(diferent_processes="
-       << (diferent_processes ? "yes" : "no")
-       << ", device_class_type=" << expected_device_class_type
-       << ")::elapsed_time=" << elapsed_time << " ms" << endl;
 
   if (diferent_processes == false) {
     // stop parent pairing service
