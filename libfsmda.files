@@ -145,3 +145,4 @@ tests/testsuit_gtest.cc
 tests/upnp_communication_test.cc
 tests/upnp_pairing_test.cc
 tests/utils_test.cc
+tests/fake_child_helper.cc

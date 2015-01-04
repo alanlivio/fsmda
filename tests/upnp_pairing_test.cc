@@ -100,7 +100,7 @@ void HandShakeWithOneDeviceHelper(bool diferent_processes) {
   elapsed_time += (end_time.tv_usec - start_time.tv_usec) / 1000;
 
   cout << "HandShakeWithOneDeviceHelper(diferent_processes="
-       << diferent_processes
+       << (diferent_processes ? "yes" : "no")
        << ", device_class_type=any)::elapsed_time=" << elapsed_time << " ms"
        << endl;
 
@@ -123,10 +123,10 @@ void HandShakeWithOneDeviceHelper(bool diferent_processes) {
   EXPECT_FALSE(UpnpFsmdaUtils::IsUpnpStarted());
 }
 
-TEST(UpnpPairingServicesTest, HandShakeWithOneDeviceInSameProcess) {
+TEST(UpnpPairing, HandShakeWithOneDeviceInSameProcess) {
   HandShakeWithOneDeviceHelper(false);
 }
 
-TEST(UpnpPairingServicesTest, HandShakeWithOneDeviceInDiferentProcesses) {
+TEST(UpnpPairing, HandShakeWithOneDeviceInDiferentProcesses) {
   HandShakeWithOneDeviceHelper(true);
 }

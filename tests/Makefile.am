@@ -39,7 +39,7 @@ libgmockgtest_la_LDFLAGS =\
   
 ############################# Testes gtests-based ###########################
 ### Tests programs
-check_PROGRAMS = testsuit_gtest fake_parent_helper
+check_PROGRAMS = testsuit_gtest fake_parent_helper fake_child_helper
 
 ### Tests programs sources
 testsuit_gtest_SOURCES = \
@@ -51,21 +51,27 @@ testsuit_gtest_SOURCES = \
   named_semaphore_helper.cc\
   utils_test.cc
 
-#testsuit_gtest_SOURCES = \
-  testsuit_gtest.cc\
-  simple_test.cc
-
 fake_parent_helper_SOURCES = \
   fake_parent_helper.cc\
   named_semaphore_helper.cc
 
+fake_child_helper_SOURCES = \
+  fake_child_helper.cc\
+  named_semaphore_helper.cc
+
 ### Tests programs compiler options
+
 testsuit_gtest_CPPFLAGS = \
   $(PLATINUMKIT_CFLAGS)\
   $(LIBXML2_CFLAGS)\
   $(GMOCKGTEST_CPPFLAGS)
 
 fake_parent_helper_CPPFLAGS = \
+  $(PLATINUMKIT_CFLAGS)\
+  $(LIBGFLAGS_CFLAGS)\
+  $(LIBXML2_CFLAGS)
+
+fake_child_helper_CPPFLAGS = \
   $(PLATINUMKIT_CFLAGS)\
   $(LIBGFLAGS_CFLAGS)\
   $(LIBXML2_CFLAGS)
@@ -78,6 +84,13 @@ testsuit_gtest_LDADD = \
   libgmockgtest.la
 
 fake_parent_helper_LDADD = \
+  $(top_srcdir)/src/libfsmda.la\
+  $(PLATINUMKIT_LIBS)\
+  $(LIBGFLAGS_LIBS)\
+  $(LIBXML2_LIBS)\
+  $(PTHREAD_LIBS)
+
+fake_child_helper_LDADD = \
   $(top_srcdir)/src/libfsmda.la\
   $(PLATINUMKIT_LIBS)\
   $(LIBGFLAGS_LIBS)\

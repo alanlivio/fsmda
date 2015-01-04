@@ -14,7 +14,6 @@ using std::string;
 void DeviceDescriptionMatchingHelper(
     const string& device_rdf, const string& device_class_description_rdf,
     DeviceClassDescription::DeviceClassType expected_device_class_type) {
-
   DeviceDescription device_description;
   DeviceClassDescription device_class_description;
 
@@ -30,27 +29,31 @@ void DeviceDescriptionMatchingHelper(
   EXPECT_TRUE(device_class_description.IsDeviceCompatible(&device_description));
 }
 
-TEST(PairingManagersTest, DeviceDescriptionMatching) {
+TEST(DeviceClassDescription, PassiveDeviceDescriptionMatching) {
   // passive class description initialize and meet_requirements tests
   DeviceDescriptionMatchingHelper("./files/passive_dev_desc00.xml",
                                   "./files/passive_class_desc00.xml",
                                   DeviceClassDescription::kPassiveDevice);
-
+}
+TEST(DeviceClassDescription, ActiveDeviceDescriptionMatching) {
   // active class description initialize and meet_requirements tests
   DeviceDescriptionMatchingHelper("./files/active_dev_desc00.xml",
                                   "./files/active_class_desc00.xml",
                                   DeviceClassDescription::kActiveDevice);
-
+}
+TEST(DeviceClassDescription, ActiveHtmlDeviceDescriptionMatching) {
   // html class description initialize and meet_requirements tests
   DeviceDescriptionMatchingHelper("./files/html_dev_desc00.xml",
                                   "./files/html_class_desc00.xml",
                                   DeviceClassDescription::kHtmlDevice);
-
+}
+TEST(DeviceClassDescription, OnDemandDeviceDescriptionMatching) {
   // ondemand class description initialize and meet_requirements tests
   DeviceDescriptionMatchingHelper("./files/ondemand_dev_desc00.xml",
                                   "./files/ondemand_class_desc00.xml",
                                   DeviceClassDescription::kOnDemandDevice);
-
+}
+TEST(DeviceClassDescription, MediaCatpureDeviceDescriptionMatching) {
   // mediacapture class description initialize and meet_requirements tests
   DeviceDescriptionMatchingHelper("./files/mediacapture_dev_desc00.xml",
                                   "./files/mediacapture_class_desc00.xml",

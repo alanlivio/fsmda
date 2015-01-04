@@ -105,7 +105,8 @@ void PairingWithOneDeviceHelper(
   // us to ms
   elapsed_time += (end_time.tv_usec - start_time.tv_usec) / 1000;
 
-  cout << "PairingWithOneDeviceHelper(diferent_processes=" << diferent_processes
+  cout << "PairingWithOneDeviceHelper(diferent_processes="
+       << (diferent_processes ? "yes" : "no")
        << ", device_class_type=" << expected_device_class_type
        << ")::elapsed_time=" << elapsed_time << " ms" << endl;
 
@@ -127,37 +128,53 @@ void PairingWithOneDeviceHelper(
   EXPECT_FALSE(UpnpFsmdaUtils::IsUpnpStarted());
 }
 
-TEST(PairingManagersTest, PairingWithOneDeviceInSameProcess) {
+TEST(Pairing, PassivePairingWithOneDeviceInSameProcess) {
   PairingWithOneDeviceHelper("./files/passive_dev_desc00.xml",
                              "./files/passive_class_desc00.xml",
                              DeviceClassDescription::kPassiveDevice, false);
+}
+TEST(Pairing, ActivePairingWithOneDeviceInSameProcess) {
   PairingWithOneDeviceHelper("./files/active_dev_desc00.xml",
                              "./files/active_class_desc00.xml",
                              DeviceClassDescription::kActiveDevice, false);
+}
+TEST(Pairing, ActiveHtmlPairingWithOneDeviceInSameProcess) {
   PairingWithOneDeviceHelper("./files/html_dev_desc00.xml",
                              "./files/html_class_desc00.xml",
                              DeviceClassDescription::kHtmlDevice, false);
+}
+TEST(Pairing, OnDemandPairingWithOneDeviceInSameProcess) {
   PairingWithOneDeviceHelper("./files/ondemand_dev_desc00.xml",
                              "./files/ondemand_class_desc00.xml",
                              DeviceClassDescription::kOnDemandDevice, false);
+}
+TEST(Pairing, MediaCapturePairingWithOneDeviceInSameProcess) {
   PairingWithOneDeviceHelper("./files/mediacapture_dev_desc00.xml",
                              "./files/mediacapture_class_desc00.xml",
                              DeviceClassDescription::kMediaCaptureDevice,
                              false);
 }
-TEST(PairingManagersTest, PairingWithOneDeviceInDiferentProcessess) {
+TEST(Pairing, PassivePairingWithOneDeviceInDiferentProcessess) {
   PairingWithOneDeviceHelper("./files/passive_dev_desc00.xml",
                              "./files/passive_class_desc00.xml",
                              DeviceClassDescription::kPassiveDevice, true);
+}
+TEST(Pairing, ActivePairingWithOneDeviceInDiferentProcessess) {
   PairingWithOneDeviceHelper("./files/active_dev_desc00.xml",
                              "./files/active_class_desc00.xml",
                              DeviceClassDescription::kActiveDevice, true);
+}
+TEST(Pairing, ActiveHtmlPairingWithOneDeviceInDiferentProcessess) {
   PairingWithOneDeviceHelper("./files/html_dev_desc00.xml",
                              "./files/html_class_desc00.xml",
                              DeviceClassDescription::kHtmlDevice, true);
+}
+TEST(Pairing, OnDemandPairingWithOneDeviceInDiferentProcessess) {
   PairingWithOneDeviceHelper("./files/ondemand_dev_desc00.xml",
                              "./files/ondemand_class_desc00.xml",
                              DeviceClassDescription::kOnDemandDevice, true);
+}
+TEST(Pairing, MediaCapturePairingWithOneDeviceInDiferentProcessess) {
   PairingWithOneDeviceHelper("./files/mediacapture_dev_desc00.xml",
                              "./files/mediacapture_class_desc00.xml",
                              DeviceClassDescription::kMediaCaptureDevice, true);
