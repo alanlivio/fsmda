@@ -1,5 +1,5 @@
-#ifndef FSMDA_MODEL_ONDEMAND_OBJECT_INTERFACES_H_
-#define FSMDA_MODEL_ONDEMAND_OBJECT_INTERFACES_H_
+#ifndef FSMDA_MODEL_ONDEMAND_OBJECTS_API_H_
+#define FSMDA_MODEL_ONDEMAND_OBJECTS_API_H_
 
 /*----------------------------------------------------------------------
  |   includes
@@ -30,4 +30,4 @@ class OnDemandCcmInterface {
   virtual ~OnDemandCcmInterface() {}
 };
 
-#endif  // FSMDA_MODEL_ONDEMAND_OBJECT_INTERFACES_H_
+#endif  // FSMDA_MODEL_ONDEMAND_OBJECTS_API_H_

@@ -1,5 +1,5 @@
-#ifndef FSMDA_MODEL_DEVICE_PAIRING_INTERFACES_H_
-#define FSMDA_MODEL_DEVICE_PAIRING_INTERFACES_H_
+#ifndef FSMDA_MODEL_DEVICE_PAIRING_API_H_
+#define FSMDA_MODEL_DEVICE_PAIRING_API_H_
 
 /*----------------------------------------------------------------------
  |   includes
@@ -42,4 +42,4 @@ class DevicePairingCpmInterface {
                                  const string& class_function) = 0;
 };
 
-#endif  // FSMDA_MODEL_DEVICE_PAIRING_INTERFACES_H_
+#endif  // FSMDA_MODEL_DEVICE_PAIRING_API_H_

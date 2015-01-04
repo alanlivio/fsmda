@@ -1,5 +1,5 @@
-#ifndef FSMDA_MODEL_MEDIACAPTURE_OBJECT_INTERFACES_H_
-#define FSMDA_MODEL_MEDIACAPTURE_OBJECT_INTERFACES_H_
+#ifndef FSMDA_MODEL_MEDIACAPTURE_OBJECTS_API_H_
+#define FSMDA_MODEL_MEDIACAPTURE_OBJECTS_API_H_
 
 /*----------------------------------------------------------------------
  |   includes
@@ -33,4 +33,4 @@ class MediaCaptureCcmInterface {
   virtual void RequestContent(const string& resource_id,
                               unsigned int device_index) = 0;
 };
-#endif  // FSMDA_MODEL_MEDIACAPTURE_OBJECT_INTERFACES_H_
+#endif  // FSMDA_MODEL_MEDIACAPTURE_OBJECTS_API_H_

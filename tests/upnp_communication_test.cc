@@ -62,7 +62,7 @@ class UpnpCommunicationTest : public ::testing::Test {
   }
 };
 
-//TEST_F(UpnpCommunicationTest, UpnpOnDemandCcm) {
+// TEST_F(UpnpCommunicationTest, UpnpOnDemandCcm) {
 //  //  ondemand class description initialize and meet_requirements tests
 //  EXPECT_EQ(ondemand_ccm_->StartCommunicationService(), 0);
 //  EXPECT_TRUE(ondemand_ccm_->IsCommunicationServiceStarted());

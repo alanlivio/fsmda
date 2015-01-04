@@ -1,5 +1,5 @@
-#ifndef FSMDA_MODEL_ACTIVE_OBJECT_INTERFACES_H_
-#define FSMDA_MODEL_ACTIVE_OBJECT_INTERFACES_H_
+#ifndef FSMDA_MODEL_ACTIVE_OBJECTS_API_H_
+#define FSMDA_MODEL_ACTIVE_OBJECTS_API_H_
 
 /*----------------------------------------------------------------------
  |   includes
@@ -67,4 +67,4 @@ class ActiveCcmInterface {
                                 const string& value, unsigned int duration) = 0;
 };
 
-#endif  // FSMDA_MODEL_ACTIVE_OBJECT_INTERFACES_H_
+#endif  // FSMDA_MODEL_ACTIVE_OBJECTS_API_H_

@@ -44,27 +44,29 @@ NPT_Result UpnpMediaCaptureCcm::SetupServices() {}
 /*----------------------------------------------------------------------
  |   UpnpMediaCaptureCcm::OnAction
  +---------------------------------------------------------------------*/
-NPT_Result UpnpMediaCaptureCcm::OnAction(PLT_ActionReference& action,
-                                   const PLT_HttpRequestContext& context) {}
+NPT_Result UpnpMediaCaptureCcm::OnAction(
+    PLT_ActionReference& action, const PLT_HttpRequestContext& context) {}
 /*----------------------------------------------------------------------
  |   UpnpMediaCaptureCcm::OnDeviceAdded
  +---------------------------------------------------------------------*/
-NPT_Result UpnpMediaCaptureCcm::OnDeviceAdded(PLT_DeviceDataReference& device) {}
+NPT_Result UpnpMediaCaptureCcm::OnDeviceAdded(PLT_DeviceDataReference& device) {
+}
 
 /*----------------------------------------------------------------------
  |   UpnpMediaCaptureCcm::OnDeviceRemoved
  +---------------------------------------------------------------------*/
-NPT_Result UpnpMediaCaptureCcm::OnDeviceRemoved(PLT_DeviceDataReference& device) {}
+NPT_Result UpnpMediaCaptureCcm::OnDeviceRemoved(
+    PLT_DeviceDataReference& device) {}
 
 /*----------------------------------------------------------------------
  |   UpnpMediaCaptureCcm::OnActionResponse
  +---------------------------------------------------------------------*/
 NPT_Result UpnpMediaCaptureCcm::OnActionResponse(NPT_Result res,
-                                           PLT_ActionReference& action,
-                                           void* userdata) {}
+                                                 PLT_ActionReference& action,
+                                                 void* userdata) {}
 
 /*----------------------------------------------------------------------
  |   UpnpMediaCaptureCcm::OnEventNotify
  +---------------------------------------------------------------------*/
-NPT_Result UpnpMediaCaptureCcm::OnEventNotify(PLT_Service* service,
-                                        NPT_List<PLT_StateVariable*>* vars) {}
+NPT_Result UpnpMediaCaptureCcm::OnEventNotify(
+    PLT_Service* service, NPT_List<PLT_StateVariable*>* vars) {}

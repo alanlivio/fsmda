@@ -1,5 +1,5 @@
-#ifndef FSMDA_MODEL_CLASS_HANDLING_INTERFACES_H_
-#define FSMDA_MODEL_CLASS_HANDLING_INTERFACES_H_
+#ifndef FSMDA_MODEL_CLASS_HANDLING_API_H_
+#define FSMDA_MODEL_CLASS_HANDLING_API_H_
 
 /*----------------------------------------------------------------------
  |   includes
@@ -45,4 +45,4 @@ class ClassHandlingHpeInterface {
   virtual void setClassVariableValue(const string& name, const string& value);
 };
 
-#endif  // FSMDA_MODEL_CLASS_HANDLING_INTERFACES_H_
+#endif  // FSMDA_MODEL_CLASS_HANDLING_API_H_

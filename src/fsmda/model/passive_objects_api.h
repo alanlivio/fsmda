@@ -1,5 +1,5 @@
-#ifndef FSMDA_MODEL_PASSIVE_OBJECT_INTERFACES_H_
-#define FSMDA_MODEL_PASSIVE_OBJECT_INTERFACES_H_
+#ifndef FSMDA_MODEL_PASSIVE_OBJECTS_API_H_
+#define FSMDA_MODEL_PASSIVE_OBJECTS_API_H_
 
 /*----------------------------------------------------------------------
  |   includes
@@ -34,4 +34,4 @@ class PassivePcmInterface {
   virtual void NotifyError(const string& message, const string& object_id) = 0;
 };
 
-#endif  // FSMDA_MODEL_PASSIVE_OBJECT_INTERFACES_H_
+#endif  // FSMDA_MODEL_PASSIVE_OBJECTS_API_H_

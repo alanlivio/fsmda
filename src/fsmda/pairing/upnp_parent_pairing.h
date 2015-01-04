@@ -1,5 +1,5 @@
-#ifndef FSMDA_PAIRING_SERVICES_UPNP_PARENT_PAIRING_H_
-#define FSMDA_PAIRING_SERVICES_UPNP_PARENT_PAIRING_H_
+#ifndef FSMDA_PAIRING_UPNP_PARENT_PAIRING_H_
+#define FSMDA_PAIRING_UPNP_PARENT_PAIRING_H_
 
 /*----------------------------------------------------------------------
  |   includes
@@ -74,4 +74,4 @@ class UpnpParentPairing : public PLT_DeviceHost,
   DevicePairingPpmInterface* parent_pairing_manager_;
 };
 
-#endif  // FSMDA_PAIRING_SERVICES_UPNP_PARENT_PAIRING_H_
+#endif  // FSMDA_PAIRING_UPNP_PARENT_PAIRING_H_

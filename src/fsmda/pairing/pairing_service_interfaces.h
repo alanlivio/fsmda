@@ -1,10 +1,10 @@
-#ifndef FSMDA_PAIRING_SERVICES_PAIRING_SERVICE_INTERFACES_H_
-#define FSMDA_PAIRING_SERVICES_PAIRING_SERVICE_INTERFACES_H_
+#ifndef FSMDA_PAIRING_PAIRING_SERVICE_INTERFACES_H_
+#define FSMDA_PAIRING_PAIRING_SERVICE_INTERFACES_H_
 /*----------------------------------------------------------------------
  |   includes
  +---------------------------------------------------------------------*/
-#include <string>
 #include <fsmda/model/device_pairing_api.h>
+#include <string>
 
 using std::string;
 
@@ -69,4 +69,4 @@ class ChildPairingServiceInterface {
   virtual bool PerformedHandShake() = 0;
 };
 
-#endif  // FSMDA_PAIRING_SERVICES_PAIRING_SERVICE_INTERFACES_H_
+#endif  // FSMDA_PAIRING_PAIRING_SERVICE_INTERFACES_H_

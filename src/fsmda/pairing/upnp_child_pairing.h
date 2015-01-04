@@ -1,5 +1,5 @@
-#ifndef FSMDA_PAIRING_SERVICES_UPNP_CHILD_PAIRING_H_
-#define FSMDA_PAIRING_SERVICES_UPNP_CHILD_PAIRING_H_
+#ifndef FSMDA_PAIRING_UPNP_CHILD_PAIRING_H_
+#define FSMDA_PAIRING_UPNP_CHILD_PAIRING_H_
 
 /*----------------------------------------------------------------------
  |   includes
@@ -63,4 +63,4 @@ class UpnpChildPairing : public PLT_DeviceHost,
   PLT_Service* parent_pairing_;
 };
 
-#endif  // FSMDA_PAIRING_SERVICES_UPNP_CHILD_PAIRING_H_
+#endif  // FSMDA_PAIRING_UPNP_CHILD_PAIRING_H_

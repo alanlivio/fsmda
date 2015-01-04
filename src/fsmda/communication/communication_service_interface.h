@@ -1,5 +1,5 @@
-#ifndef FSMDA_COMMUNICATION_SERVICES_COMMUNICATION_SERVICE_INTERFACE_H_
-#define FSMDA_COMMUNICATION_SERVICES_COMMUNICATION_SERVICE_INTERFACE_H_
+#ifndef FSMDA_COMMUNICATION_COMMUNICATION_SERVICE_INTERFACE_H_
+#define FSMDA_COMMUNICATION_COMMUNICATION_SERVICE_INTERFACE_H_
 /*----------------------------------------------------------------------
  |   ServiceCmInterface class
  +---------------------------------------------------------------------*/
@@ -14,4 +14,4 @@ class CommunicationServiceInterface {
   virtual bool IsCommunicationServiceStarted() = 0;
 };
 
-#endif  // FSMDA_COMMUNICATION_SERVICES_COMMUNICATION_SERVICE_INTERFACE_H_
+#endif  // FSMDA_COMMUNICATION_COMMUNICATION_SERVICE_INTERFACE_H_

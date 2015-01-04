@@ -1,5 +1,5 @@
-#ifndef FSMDA_COMMUNICATION_SERVICES_UPNP_ACTIVE_PCM_H_
-#define FSMDA_COMMUNICATION_SERVICES_UPNP_ACTIVE_PCM_H_
+#ifndef FSMDA_COMMUNICATION_UPNP_ACTIVE_PCM_H_
+#define FSMDA_COMMUNICATION_UPNP_ACTIVE_PCM_H_
 
 /*----------------------------------------------------------------------
  |   includes
@@ -54,4 +54,4 @@ class UpnpActivePcm : public PLT_DeviceHost,
                                    NPT_List<PLT_StateVariable*>* vars);
 };
 
-#endif  // FSMDA_COMMUNICATION_SERVICES_UPNP_ACTIVE_PCM_H_
+#endif  // FSMDA_COMMUNICATION_UPNP_ACTIVE_PCM_H_
