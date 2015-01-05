@@ -48,9 +48,9 @@ int main(int argc, char** argv) {
   google::ParseCommandLineFlags(&argc, &argv, true);
 
   // redirect clog to /dev/null/
-    static std::ofstream logOutput;
-    logOutput.open("/dev/null");
-    clog.rdbuf(logOutput.rdbuf());
+  static std::ofstream logOutput;
+  logOutput.open("/dev/null");
+  clog.rdbuf(logOutput.rdbuf());
 
   clog << "fake_parent_helper.cc::main():: device_class=" << FLAGS_device_class
        << endl;

@@ -65,6 +65,7 @@ src/fsmda/utils/upnp_fsmda_utils.h
 src/libfsmda.pc.in
 tests/Makefile.am
 tests/device_class_description_test.cc
+tests/fake_child_helper.cc
 tests/fake_parent_helper.cc
 tests/files/active_class_desc00.xml
 tests/files/active_dev_desc00.xml
@@ -76,6 +77,7 @@ tests/files/ondemand_class_desc00.xml
 tests/files/ondemand_dev_desc00.xml
 tests/files/passive_class_desc00.xml
 tests/files/passive_dev_desc00.xml
+tests/fsmda_profiling.sh
 tests/gmock/include/gmock/gmock-actions.h
 tests/gmock/include/gmock/gmock-cardinalities.h
 tests/gmock/include/gmock/gmock-generated-actions.h
@@ -140,9 +142,9 @@ tests/gtest/src/gtest_main.cc
 tests/named_semaphore_helper.cc
 tests/named_semaphore_helper.h
 tests/pairing_managers_test.cc
+tests/release_fake_child_parent.sh
 tests/simple_test.cc
 tests/testsuit_gtest.cc
 tests/upnp_communication_test.cc
 tests/upnp_pairing_test.cc
 tests/utils_test.cc
-tests/fake_child_helper.cc

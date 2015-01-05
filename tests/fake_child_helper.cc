@@ -83,14 +83,13 @@ int main(int argc, char** argv) {
   // calculete elapsed time
   elapsed_time = (end_time.tv_sec - start_time.tv_sec) * 1000;
   elapsed_time += (end_time.tv_usec - start_time.tv_usec) / 1000;
-  cout << "PairingWithOneDeviceHelper(diferent_processes="
-       << "yes"
-       << ", device_class_type=" << device_class
-       << ")::elapsed_time=" << elapsed_time << " ms" << endl;
+  cout << "fsmda_profiling pairing "
+       << DeviceClassDescription::GetDeviceClassTypeStringByEnum(device_class)
+       << " " << elapsed_time << " ms" << endl;
 
-  //  // release child
-  //  child_pairing_manager->StopPairing();
-  //  delete child_pairing_manager;
+  // release child
+  child_pairing_manager->StopPairing();
+  delete child_pairing_manager;
 
   return 0;
 }
