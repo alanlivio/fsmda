@@ -15,8 +15,8 @@ for class in "${classes[@]}";do
     rm -rf fsmda_pairing_profile.log
     for ((i=1; i<=$n; i++));do
       ./release_fake_child_parent.sh
-      ./fake_parent_helper --device_class=$class --application_id=$app_id 2>&1 &>/dev/null &
-      ./fake_child_helper --device_class=$class --application_id=$app_id >> fsmda_pairing_profile.log
+      ./fake_parent_helper --device_class=$class --application_id=$app_id  2>&1 &>/dev/null &
+      ./fake_child_helper --device_class=$class --application_id=$app_id --enable_profiling >> fsmda_pairing_profile.log
       ./release_fake_child_parent.sh
     done
     grep "fsmda_profiling pairing $class" < fsmda_pairing_profile.log |awk '{ SUM += $4; N += 1} END { print SUM/N }'

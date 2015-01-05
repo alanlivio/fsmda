@@ -14,6 +14,7 @@
 #include "fsmda/child_pairing_manager.h"
 #include "fsmda/utils/upnp_fsmda_utils.h"
 
+DEFINE_bool(enable_profiling, false, "enable profilling");
 DEFINE_string(application_id, "", "uuuid application");
 DEFINE_string(device_class, DeviceClassDescription::kInvalidDeviceString,
               "device class name: passive,active,ondemand or medicapture");
@@ -74,19 +75,20 @@ int main(int argc, char** argv) {
   // wait for parent prepared and start
   child_pairing_manager->expected_semaphore = FLAGS_application_id;
   CreateNamedSemphoreHelper(FLAGS_application_id, false);
-  gettimeofday(&start_time, NULL);
+  if (FLAGS_enable_profiling) gettimeofday(&start_time, NULL);
   child_pairing_manager->StartPairing();
   WaitNamedSemphoreHelper(FLAGS_application_id);
-  gettimeofday(&end_time, NULL);
+  if (FLAGS_enable_profiling) gettimeofday(&end_time, NULL);
   ReleaseNameSemphoreHelper(FLAGS_application_id);
 
   // calculete elapsed time
-  elapsed_time = (end_time.tv_sec - start_time.tv_sec) * 1000;
-  elapsed_time += (end_time.tv_usec - start_time.tv_usec) / 1000;
-  cout << "fsmda_profiling pairing "
-       << DeviceClassDescription::GetDeviceClassTypeStringByEnum(device_class)
-       << " " << elapsed_time << " ms" << endl;
-
+  if (FLAGS_enable_profiling) {
+    elapsed_time = (end_time.tv_sec - start_time.tv_sec) * 1000;
+    elapsed_time += (end_time.tv_usec - start_time.tv_usec) / 1000;
+    cout << "fsmda_profiling pairing "
+         << DeviceClassDescription::GetDeviceClassTypeStringByEnum(device_class)
+         << " " << elapsed_time << " ms" << endl;
+  }
   // release child
   child_pairing_manager->StopPairing();
   delete child_pairing_manager;
