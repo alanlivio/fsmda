@@ -64,6 +64,7 @@ src/fsmda/utils/upnp_fsmda_utils.cc
 src/fsmda/utils/upnp_fsmda_utils.h
 src/libfsmda.pc.in
 tests/Makefile.am
+tests/communication_managers_test.cc
 tests/device_class_description_test.cc
 tests/fake_child_helper.cc
 tests/fake_parent_helper.cc
@@ -145,6 +146,5 @@ tests/pairing_managers_test.cc
 tests/release_fake_child_parent.sh
 tests/simple_test.cc
 tests/testsuit_gtest.cc
-tests/upnp_communication_test.cc
 tests/upnp_pairing_test.cc
 tests/utils_test.cc
