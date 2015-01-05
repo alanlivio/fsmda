@@ -7,6 +7,7 @@
 #include <map>
 #include <set>
 #include <string>
+#include <vector>
 #include "fsmda/device_class_description.h"
 #include "fsmda/model/active_objects_api.h"
 #include "fsmda/model/mediacapture_objects_api.h"
@@ -20,6 +21,18 @@
 using std::string;
 using std::map;
 using std::set;
+using std::vector;
+
+/*----------------------------------------------------------------------
+ |   ApplicationClassData class
+ +---------------------------------------------------------------------*/
+
+class ApplicationClassData {
+ public:
+  DeviceClassDescription* device_class_description_;
+  CommunicationServiceInterface* communication_service;
+  vector<string> registred_devices_;
+};
 
 /*----------------------------------------------------------------------
  |   ParentPairingManager class
@@ -68,6 +81,9 @@ class ParentPairingManager : public ClassHandlingPpmInterface,
   // Utils methods
   unsigned int GenerateAvaliableIndex(const string& application_id);
   unsigned int GetNumberOfRegistredClasses(const string& application_id);
+  virtual unsigned int GetNumberOfRegistredChildren(
+      const string& application_id, unsigned int class_index);
+
   int StartPairing();
   int StopPairing();
   bool IsPairingStarted();
@@ -75,10 +91,8 @@ class ParentPairingManager : public ClassHandlingPpmInterface,
  private:
   // private filds
   unsigned int upnp_registred_classes_size;
-  map<const string, map<unsigned int, DeviceClassDescription*> >
-      device_class_description_map_;
-  map<const string, map<unsigned int, CommunicationServiceInterface*> >
-      communication_services_map_;
+  map<const string, map<unsigned int, ApplicationClassData*> >
+      application_class_data_map_;
   UpnpParentPairing* upnp_parent_pairing_;
   map<const string, ClassHandlingHpeInterface*> hpes_map_;
 };

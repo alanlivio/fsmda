@@ -49,7 +49,7 @@ class ParentPairingServiceInterface {
   virtual int StartPairingService() = 0;
   virtual int StopPairingService() = 0;
   virtual bool IsPairingServiceStarted() = 0;
-  virtual unsigned int GetNumberOfDiscoveredChildren() = 0;
+  virtual unsigned int GetNumberOfRegistredChildren() = 0;
 };
 
 /*----------------------------------------------------------------------

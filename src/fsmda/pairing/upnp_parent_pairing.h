@@ -60,7 +60,7 @@ class UpnpParentPairing : public PLT_DeviceHost,
   virtual int StartPairingService();
   virtual int StopPairingService();
   virtual bool IsPairingServiceStarted() { return m_Started; }
-  virtual unsigned int GetNumberOfDiscoveredChildren() {
+  virtual unsigned int GetNumberOfRegistredChildren() {
     return discovered_children_.size();
   }
 
