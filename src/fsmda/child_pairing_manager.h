@@ -34,6 +34,7 @@ class ChildPairingManager : public DevicePairingCpmInterface {
   bool IsPairingStarted();
   bool IsPaired();
   virtual void SetPaired(bool paired) { paired_ = paired; }
+  DeviceDescription* device_description() { return device_description_; }
 
   // public DevicePairingCpmInterface overloaded methods
   // called by ParentPairingManager
@@ -51,8 +52,7 @@ class ChildPairingManager : public DevicePairingCpmInterface {
 
  private:
   map<unsigned int, DeviceClassDescription*> device_class_description_map_;
-  map<unsigned int, CommunicationServiceInterface*>
-      communication_services_map_;
+  map<unsigned int, CommunicationServiceInterface*> communication_services_map_;
   DeviceDescription* device_description_;
   UpnpChildPairing* upnp_child_pairing_;
   bool paired_;

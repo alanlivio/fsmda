@@ -41,7 +41,7 @@ class ParentPairingServiceInterface {
   virtual ~ParentPairingServiceInterface() {}
 
   // public pure virtual methods
-  virtual int SetServiceOwner(DevicePairingPpmInterface* service_owner) = 0;
+  virtual int SetServiceOwner(ParentPairingManager* service_owner) = 0;
   virtual int AddDeviceClassForDiscover(
       DeviceClassDiscoverParams* discover_params) = 0;
   virtual int RemoveDeviceClassForDiscover(
@@ -61,8 +61,7 @@ class ChildPairingServiceInterface {
   virtual ~ChildPairingServiceInterface() {}
 
   // public pure virtual methods
-  virtual int SetServiceOwner(DevicePairingCpmInterface* service_owner) = 0;
-  virtual int SetDeviceDescription(DeviceDescription* device_description) = 0;
+  virtual int SetServiceOwner(ChildPairingManager* service_owner) = 0;
   virtual int StartPairingService() = 0;
   virtual int StopPairingService() = 0;
   virtual bool IsPairingServiceStarted() = 0;

@@ -45,7 +45,7 @@ UpnpChildPairing::~UpnpChildPairing() {
  |   UpnpChildPairing::SetServiceOwner
  +---------------------------------------------------------------------*/
 int UpnpChildPairing::SetServiceOwner(
-    DevicePairingCpmInterface *service_owner) {
+    ChildPairingManager *service_owner) {
   child_pairing_manager_ = service_owner;
 }
 
