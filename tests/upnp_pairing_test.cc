@@ -23,13 +23,16 @@ using std::endl;
 class MockUpnpChildPairing : public UpnpChildPairing {
  public:
   string expected_semaphore;
-  void set_handshake_performed(bool performed) {
-    clog << "MockUpnpChildPairing::set_handshake_performed():: performe = "
-         << performed << endl;
-    UpnpChildPairing::set_handshake_performed(performed);
-    PostNamedSemphoreHelper(expected_semaphore);
-  }
   MockUpnpChildPairing() : UpnpChildPairing() {}
+
+  NPT_Result OnAction(PLT_ActionReference& action,
+                      const PLT_HttpRequestContext& context) {
+    cout << "MockUpnpChildPairing::OnAction" << endl;
+    NPT_String name = action->GetActionDesc().GetName();
+    if (!name.Compare("classAnnouncement"))
+      PostNamedSemphoreHelper(expected_semaphore);
+    return UpnpChildPairing::OnAction(action, context);
+  }
 };
 
 void HandShakeWithOneDeviceHelper(bool diferent_processes) {
@@ -84,7 +87,6 @@ void HandShakeWithOneDeviceHelper(bool diferent_processes) {
   WaitNamedSemphoreHelper(app_id);
 
   // test if child is paired
-  EXPECT_TRUE(upnp_child_pairing->handshak_performed());
   ReleaseNameSemphoreHelper(app_id);
 
   if (diferent_processes == false) {

@@ -73,8 +73,8 @@ class UpnpChildPairing : public PLT_DeviceHost,
   PLT_Service* device_service_;
   ChildPairingManager* child_pairing_manager_;
   PLT_Service* parent_pairing_;
-  PLT_DeviceDataReferenceList registred_parents_;
-  NPT_String last_parent_uuid;
+  PLT_DeviceDataReference last_parent_;
+  NPT_SharedVariable  last_parent_semaphore;
 };
 
 #endif  // FSMDA_PAIRING_UPNP_CHILD_PAIRING_H_
