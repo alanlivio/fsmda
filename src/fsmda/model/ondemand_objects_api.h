@@ -28,6 +28,8 @@ class OnDemandCcmInterface {
  public:
   // public constructors & destructors
   virtual ~OnDemandCcmInterface() {}
+  // public pure virtual methods
+  virtual void NotifyError(const string& message, const string& object_id) = 0;
 };
 
 #endif  // FSMDA_MODEL_ONDEMAND_OBJECTS_API_H_

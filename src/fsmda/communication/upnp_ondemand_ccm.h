@@ -27,6 +27,9 @@ class UpnpOnDemandCcm : public PLT_DeviceHost,
   UpnpOnDemandCcm();
   virtual ~UpnpOnDemandCcm();
 
+  // public OnDemandCcmInterface overloaded methods
+  virtual void NotifyError(const string& message, const string& object_id);
+
   // public CommunicationServiceInterface overloaded methods
   virtual int StartCommunicationService();
   virtual int StopCommunicationService();

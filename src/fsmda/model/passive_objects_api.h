@@ -13,9 +13,9 @@ using std::string;
  +---------------------------------------------------------------------*/
 class PassiveCcmInterface {
  public:
-  virtual
-      // public constructors & destructors
-      ~PassiveCcmInterface() {}
+  // public constructors & destructors
+  virtual ~PassiveCcmInterface() {}
+
   // public pure virtual methods
   virtual void Prepare(const string& position) = 0;
   virtual void SendContent(char* content) = 0;
@@ -26,9 +26,8 @@ class PassiveCcmInterface {
  +---------------------------------------------------------------------*/
 class PassivePcmInterface {
  public:
-  virtual
-      // public constructors & destructors
-      ~PassivePcmInterface() {}
+  // public constructors & destructors
+  virtual ~PassivePcmInterface() {}
 
   // public pure virtual methods
   virtual void NotifyError(const string& message, const string& object_id) = 0;
