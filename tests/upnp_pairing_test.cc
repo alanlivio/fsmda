@@ -27,7 +27,6 @@ class MockUpnpChildPairing : public UpnpChildPairing {
 
   NPT_Result OnAction(PLT_ActionReference& action,
                       const PLT_HttpRequestContext& context) {
-    cout << "MockUpnpChildPairing::OnAction" << endl;
     NPT_String name = action->GetActionDesc().GetName();
     if (!name.Compare("classAnnouncement"))
       PostNamedSemphoreHelper(expected_semaphore);
@@ -47,7 +46,7 @@ void HandShakeWithOneDeviceHelper(bool diferent_processes) {
   // start child pairing service
   upnp_child_pairing = new MockUpnpChildPairing();
   EXPECT_EQ(upnp_child_pairing->StartPairingService(), 0);
-  EXPECT_TRUE(upnp_child_pairing->pairing_service_started());
+  EXPECT_TRUE(upnp_child_pairing->IsPairingServiceStarted());
   EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 1);
 
   UpnpFsmdaUtils::GenerateGUID(&app_id);
@@ -79,7 +78,7 @@ void HandShakeWithOneDeviceHelper(bool diferent_processes) {
         app_id, class_index, device_class_description);
     upnp_parent_pairing->AddDeviceClassForDiscover(dicover_params);
     EXPECT_EQ(upnp_parent_pairing->StartPairingService(), 0);
-    EXPECT_TRUE(upnp_parent_pairing->pairing_service_started());
+    EXPECT_TRUE(upnp_parent_pairing->IsPairingServiceStarted());
     EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 2);
   }
 
@@ -92,14 +91,14 @@ void HandShakeWithOneDeviceHelper(bool diferent_processes) {
   if (diferent_processes == false) {
     // stop parent pairing service
     EXPECT_EQ(upnp_parent_pairing->StopPairingService(), 0);
-    EXPECT_FALSE(upnp_parent_pairing->pairing_service_started());
+    EXPECT_FALSE(upnp_parent_pairing->IsPairingServiceStarted());
     EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 1);
     delete upnp_parent_pairing;
   }
 
   // stop child pairing service
   EXPECT_EQ(upnp_child_pairing->StopPairingService(), 0);
-  EXPECT_FALSE(upnp_child_pairing->pairing_service_started());
+  EXPECT_FALSE(upnp_child_pairing->IsPairingServiceStarted());
   EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 0);
   delete upnp_child_pairing;
 

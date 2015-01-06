@@ -45,7 +45,7 @@ void PairingWithOneDeviceHelper(
   child_pairing_manager = new MockChildPairingManager(device_description);
   EXPECT_EQ(device_description.device_class_type(), expected_device_class_type);
   EXPECT_EQ(child_pairing_manager->StartPairing(), 0);
-  EXPECT_TRUE(child_pairing_manager->pairing_started());
+  EXPECT_TRUE(child_pairing_manager->IsPairingStarted());
   EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 1);
 
   UpnpFsmdaUtils::GenerateGUID(&app_id);
@@ -102,7 +102,7 @@ void PairingWithOneDeviceHelper(
 
   // stop child pairing service
   EXPECT_EQ(child_pairing_manager->StopPairing(), 0);
-  EXPECT_FALSE(child_pairing_manager->pairing_started());
+  EXPECT_FALSE(child_pairing_manager->IsPairingStarted());
   EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 0);
   delete child_pairing_manager;
 

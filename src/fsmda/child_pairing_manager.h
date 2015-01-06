@@ -31,7 +31,7 @@ class ChildPairingManager : public DevicePairingCpmInterface {
   // called by ParentPairingManager
   int StartPairing();
   int StopPairing();
-  bool pairing_started();
+  bool IsPairingStarted();
   bool paired();
   virtual void set_paired(bool paired_);
   DeviceDescription* device_description();

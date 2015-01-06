@@ -78,12 +78,12 @@ class ParentPairingManager : public ClassHandlingPpmInterface,
   PassivePcmInterface* CreatePassivePcm(const string& application_id,
                                         unsigned int class_index);
 
-  // Utils methods
+  // public methods
+  // called by ParentPairingManager
   unsigned int GenerateAvaliableIndex(const string& application_id);
   unsigned int GetNumberOfRegistredClasses(const string& application_id);
   virtual unsigned int GetNumberOfRegistredChildren(
       const string& application_id, unsigned int class_index);
-
   int StartPairing();
   int StopPairing();
   bool IsPairingStarted();

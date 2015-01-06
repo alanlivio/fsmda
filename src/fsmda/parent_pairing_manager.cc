@@ -142,7 +142,7 @@ int ParentPairingManager::StopPairing() {
  |   ParentPairingManager::IsPairingStarted
  +---------------------------------------------------------------------*/
 bool ParentPairingManager::IsPairingStarted() {
-  return upnp_parent_pairing_->pairing_service_started();
+  return upnp_parent_pairing_->IsPairingServiceStarted();
 }
 
 /*----------------------------------------------------------------------

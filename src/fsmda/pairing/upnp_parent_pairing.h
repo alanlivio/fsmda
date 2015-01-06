@@ -65,7 +65,7 @@ class UpnpParentPairing : public PLT_DeviceHost,
   virtual int StartPairingService();
   virtual int StopPairingService();
   virtual int set_service_owner(ParentPairingManager* service_owner);
-  virtual bool pairing_service_started();
+  virtual bool IsPairingServiceStarted();
   virtual unsigned int registred_children();
 
  private:

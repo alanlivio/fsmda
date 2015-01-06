@@ -128,10 +128,10 @@ MediaCaptureCcmInterface* ChildPairingManager::CreateMediaCaptureCcm(
 /*----------------------------------------------------------------------
  |   ChildPairingManager::pairing_started
  +---------------------------------------------------------------------*/
-bool ChildPairingManager::pairing_started() {
+bool ChildPairingManager::IsPairingStarted() {
   if (device_description_->pairing_method() ==
       DeviceClassDescription::kUpnpPairingProcotol) {
-    return upnp_child_pairing_->pairing_service_started();
+    return upnp_child_pairing_->IsPairingServiceStarted();
   } else {
     return false;
   }

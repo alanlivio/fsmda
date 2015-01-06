@@ -60,10 +60,8 @@ class UpnpChildPairing : public PLT_DeviceHost,
   // called by ChildPairingManager
   virtual int StartPairingService();
   virtual int StopPairingService();
-  virtual bool pairing_service_started();
+  virtual bool IsPairingServiceStarted();
   virtual int set_service_owner(ChildPairingManager* service_owner);
-  virtual bool handshak_performed();
-  virtual void set_handshake_performed(bool performe);
 
  private:
   bool handshake_performed_;
@@ -74,7 +72,7 @@ class UpnpChildPairing : public PLT_DeviceHost,
   ChildPairingManager* child_pairing_manager_;
   PLT_Service* parent_pairing_;
   PLT_DeviceDataReference last_parent_;
-  NPT_SharedVariable  last_parent_semaphore;
+  NPT_SharedVariable last_parent_semaphore;
 };
 
 #endif  // FSMDA_PAIRING_UPNP_CHILD_PAIRING_H_

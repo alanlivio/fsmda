@@ -222,18 +222,6 @@ int UpnpChildPairing::set_service_owner(ChildPairingManager *service_owner) {
 }
 
 /*----------------------------------------------------------------------
- |   UpnpChildPairing::pairing_service_started
+ |   UpnpChildPairing::IsPairingServiceStarted
  +---------------------------------------------------------------------*/
-bool UpnpChildPairing::pairing_service_started() { return m_Started; }
-
-/*----------------------------------------------------------------------
- |   UpnpChildPairing::handshak_performed
- +---------------------------------------------------------------------*/
-bool UpnpChildPairing::handshak_performed() { return handshake_performed_; }
-
-/*----------------------------------------------------------------------
- |   UpnpChildPairing::set_handshake_performed
- +---------------------------------------------------------------------*/
-void UpnpChildPairing::set_handshake_performed(bool performed) {
-  handshake_performed_ = performed;
-}
+bool UpnpChildPairing::IsPairingServiceStarted() { return m_Started; }

@@ -254,7 +254,7 @@ int UpnpParentPairing::StopPairingService() {
 /*----------------------------------------------------------------------
  |   UpnpParentPairing::pairing_service_started
  +---------------------------------------------------------------------*/
-bool UpnpParentPairing::pairing_service_started() { return m_Started; }
+bool UpnpParentPairing::IsPairingServiceStarted() { return m_Started; }
 
 /*----------------------------------------------------------------------
  |   UpnpParentPairing::registred_children

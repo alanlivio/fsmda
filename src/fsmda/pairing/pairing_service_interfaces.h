@@ -47,8 +47,8 @@ class ParentPairingServiceInterface {
       DeviceClassDiscoverParams* discover_params) = 0;
   virtual int StartPairingService() = 0;
   virtual int StopPairingService() = 0;
+  virtual bool IsPairingServiceStarted() = 0;
   virtual int set_service_owner(ParentPairingManager* service_owner) = 0;
-  virtual bool pairing_service_started() = 0;
   virtual unsigned int registred_children() = 0;
 };
 
@@ -63,9 +63,8 @@ class ChildPairingServiceInterface {
   // public pure virtual methods
   virtual int StartPairingService() = 0;
   virtual int StopPairingService() = 0;
-  virtual bool pairing_service_started() = 0;
+  virtual bool IsPairingServiceStarted() = 0;
   virtual int set_service_owner(ChildPairingManager* service_owner) = 0;
-  virtual bool handshak_performed() = 0;
 };
 
 #endif  // FSMDA_PAIRING_PAIRING_SERVICE_INTERFACES_H_
