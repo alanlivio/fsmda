@@ -6,7 +6,7 @@
  +---------------------------------------------------------------------*/
 #include <libxml/tree.h>
 #include <string>
-#include "fsmda/device_class_description.h"
+#include "fsmda/class_handling/device_class_description.h"
 
 using std::string;
 

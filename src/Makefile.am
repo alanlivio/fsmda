@@ -14,8 +14,8 @@ lib_LTLIBRARIES = libfsmda.la
 
 # Libraries sources
 libfsmda_la_SOURCES = \
-  fsmda/device_description.cc\
-  fsmda/device_class_description.cc\
+  fsmda/class_handling/device_description.cc\
+  fsmda/class_handling/device_class_description.cc\
   fsmda/parent_pairing_manager.cc\
   fsmda/child_pairing_manager.cc\
   fsmda/pairing/upnp_parent_pairing.cc\

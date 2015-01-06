@@ -8,8 +8,8 @@
 #include <iostream>
 #include <fstream>
 #include "./named_semaphore_helper.h"
-#include "fsmda/device_class_description.h"
-#include "fsmda/device_description.h"
+#include "fsmda/class_handling/device_class_description.h"
+#include "fsmda/class_handling/device_description.h"
 #include "fsmda/parent_pairing_manager.h"
 #include "fsmda/child_pairing_manager.h"
 #include "fsmda/utils/upnp_fsmda_utils.h"

@@ -1,7 +1,7 @@
 #include <string>
 #include <climits>
 #include <iostream>
-#include "fsmda/device_class_description.h"
+#include "fsmda/class_handling/device_class_description.h"
 #include "fsmda/parent_pairing_manager.h"
 #include "fsmda/communication/upnp_active_pcm.h"
 #include "fsmda/communication/upnp_mediacapture_pcm.h"
