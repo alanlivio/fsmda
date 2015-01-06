@@ -30,11 +30,18 @@ class ParentPairingManager;
  +---------------------------------------------------------------------*/
 class UpnpParentPairing : public PLT_DeviceHost,
                           public PLT_CtrlPointListener,
+                          public DevicePairingCpmInterface,
                           public ParentPairingServiceInterface {
  public:
   // public constructors & destructors
   UpnpParentPairing();
   ~UpnpParentPairing();
+
+  // DevicePairingCpmInterface overloaded methods
+  virtual void ClassAnnouncement(const string& application_id,
+                                 unsigned int class_index,
+                                 const string& class_desc,
+                                 const string& class_function);
 
   // PLT_DeviceHost overloaded methods
   virtual NPT_Result SetupServices();

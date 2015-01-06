@@ -26,11 +26,21 @@ class ChildPairingManager;
  +---------------------------------------------------------------------*/
 class UpnpChildPairing : public PLT_DeviceHost,
                          public PLT_CtrlPointListener,
+                         public DevicePairingPpmInterface,
                          public ChildPairingServiceInterface {
  public:
   // public constructors & destructors
   UpnpChildPairing();
   ~UpnpChildPairing();
+
+  // DevicePairingPpmInterface overloaded methods
+  virtual void AddDeviceToClass(const string& application_id,
+                                const string& device_address,
+                                unsigned int class_index,
+                                const string& device_desc);
+  virtual void GetChildIndex(const string& application_id,
+                             const string& device_address,
+                             unsigned int class_index);
 
   // PLT_DeviceHost overloaded methods
   virtual NPT_Result SetupServices();

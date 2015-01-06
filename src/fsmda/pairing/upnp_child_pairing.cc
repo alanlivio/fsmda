@@ -42,6 +42,21 @@ UpnpChildPairing::~UpnpChildPairing() {
 }
 
 /*----------------------------------------------------------------------
+ |   UpnpChildPairing::AddDeviceToClass
+ +---------------------------------------------------------------------*/
+void UpnpChildPairing::AddDeviceToClass(const std::string &application_id,
+                                        const std::string &device_address,
+                                        unsigned int class_index,
+                                        const std::string &device_desc) {}
+
+/*----------------------------------------------------------------------
+ |   UpnpChildPairing::GetChildIndex
+ +---------------------------------------------------------------------*/
+void UpnpChildPairing::GetChildIndex(const std::string &application_id,
+                                     const std::string &device_address,
+                                     unsigned int class_index) {}
+
+/*----------------------------------------------------------------------
  |   UpnpChildPairing::SetupServices
  +---------------------------------------------------------------------*/
 NPT_Result UpnpChildPairing::SetupServices() {

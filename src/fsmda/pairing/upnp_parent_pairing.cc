@@ -59,6 +59,14 @@ UpnpParentPairing::~UpnpParentPairing() {
 }
 
 /*----------------------------------------------------------------------
+ |   UpnpParentPairing::ClassAnnouncement
+ +---------------------------------------------------------------------*/
+void UpnpParentPairing::ClassAnnouncement(const std::string &application_id,
+                                          unsigned int class_index,
+                                          const std::string &class_desc,
+                                          const std::string &class_function) {}
+
+/*----------------------------------------------------------------------
  |   UpnpChildPairing::AddDeviceClassForDiscover
  +---------------------------------------------------------------------*/
 int UpnpParentPairing::AddDeviceClassForDiscover(
