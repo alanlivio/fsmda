@@ -117,13 +117,13 @@ void CallPrepareWithOneDeviceHelper(
   EXPECT_FALSE(UpnpFsmdaUtils::IsUpnpStarted());
 }
 
-TEST(UpnpCommunication, CallPrepareInSameProcess) {
+TEST(Communication, CallPrepareInSameProcess) {
   CallPrepareWithOneDeviceHelper("./files/active_dev_desc00.xml",
                                  "./files/active_class_desc00.xml",
                                  DeviceClassDescription::kActiveDevice, false);
 }
 
-TEST(UpnpCommunication, CallPrepareOneDeviceInDiferentProcesses) {
+TEST(Communication, CallPrepareOneDeviceInDiferentProcesses) {
   CallPrepareWithOneDeviceHelper("./files/active_dev_desc00.xml",
                                  "./files/active_class_desc00.xml",
                                  DeviceClassDescription::kActiveDevice, true);

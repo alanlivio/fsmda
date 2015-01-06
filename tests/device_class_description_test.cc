@@ -29,31 +29,31 @@ void DeviceDescriptionMatchingHelper(
   EXPECT_TRUE(device_class_description.IsDeviceCompatible(&device_description));
 }
 
-TEST(DeviceClassDescription, PassiveDeviceDescriptionMatching) {
+TEST(ClassHandling, PassiveDeviceDescriptionMatching) {
   // passive class description initialize and meet_requirements tests
   DeviceDescriptionMatchingHelper("./files/passive_dev_desc00.xml",
                                   "./files/passive_class_desc00.xml",
                                   DeviceClassDescription::kPassiveDevice);
 }
-TEST(DeviceClassDescription, ActiveDeviceDescriptionMatching) {
+TEST(ClassHandling, ActiveDeviceDescriptionMatching) {
   // active class description initialize and meet_requirements tests
   DeviceDescriptionMatchingHelper("./files/active_dev_desc00.xml",
                                   "./files/active_class_desc00.xml",
                                   DeviceClassDescription::kActiveDevice);
 }
-TEST(DeviceClassDescription, ActiveHtmlDeviceDescriptionMatching) {
+TEST(ClassHandling, ActiveHtmlDeviceDescriptionMatching) {
   // html class description initialize and meet_requirements tests
   DeviceDescriptionMatchingHelper("./files/html_dev_desc00.xml",
                                   "./files/html_class_desc00.xml",
                                   DeviceClassDescription::kHtmlDevice);
 }
-TEST(DeviceClassDescription, OnDemandDeviceDescriptionMatching) {
+TEST(ClassHandling, OnDemandDeviceDescriptionMatching) {
   // ondemand class description initialize and meet_requirements tests
   DeviceDescriptionMatchingHelper("./files/ondemand_dev_desc00.xml",
                                   "./files/ondemand_class_desc00.xml",
                                   DeviceClassDescription::kOnDemandDevice);
 }
-TEST(DeviceClassDescription, MediaCatpureDeviceDescriptionMatching) {
+TEST(ClassHandling, MediaCatpureDeviceDescriptionMatching) {
   // mediacapture class description initialize and meet_requirements tests
   DeviceDescriptionMatchingHelper("./files/mediacapture_dev_desc00.xml",
                                   "./files/mediacapture_class_desc00.xml",

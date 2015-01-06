@@ -6,7 +6,7 @@
 #include "fsmda/utils/upnp_fsmda_utils.h"
 #include "gtest/gtest.h"
 
-TEST(UpnpUtilsTest, GetRunningUpnpInstance) {
+TEST(Utils, GetRunningUpnpInstance) {
   // test if upnp is running
   EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 0);
   EXPECT_FALSE(UpnpFsmdaUtils::IsUpnpStarted());
