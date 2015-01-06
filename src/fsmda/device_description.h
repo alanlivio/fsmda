@@ -20,13 +20,10 @@ class DeviceDescription {
   virtual ~DeviceDescription();
 
   // public methods
-  DeviceClassDescription::DeviceClassType device_class_type() {
-    return device_class_type_;
-  }
-  DeviceClassDescription::PairingProtocol pairing_method() {
-    return pairing_protocol_;
-  }
-  bool IsInitialize() { return initialized_; }
+  DeviceClassDescription::DeviceClassType device_class_type();
+  DeviceClassDescription::PairingProtocol pairing_method();
+  const string rdf_content();
+  bool initialized();
   int InitializeByDeviceClass(DeviceClassDescription::DeviceClassType type);
   int InitializeByRdfContent(const char* content);
   int InitializeByRdfFile(const string& rdf_file_path);

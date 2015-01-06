@@ -33,7 +33,6 @@ class UpnpParentPairing : public PLT_DeviceHost,
                           public ParentPairingServiceInterface {
  public:
   // public constructors & destructors
-
   UpnpParentPairing();
   ~UpnpParentPairing();
 
@@ -52,17 +51,15 @@ class UpnpParentPairing : public PLT_DeviceHost,
 
   // ParentPairingServiceInterface overloaded methods
   // called by ParentPairingManager
-  virtual int SetServiceOwner(ParentPairingManager* service_owner);
   virtual int AddDeviceClassForDiscover(
       DeviceClassDiscoverParams* discover_params);
   virtual int RemoveDeviceClassForDiscover(
       DeviceClassDiscoverParams* discover_params);
   virtual int StartPairingService();
   virtual int StopPairingService();
-  virtual bool IsPairingServiceStarted() { return m_Started; }
-  virtual unsigned int GetNumberOfRegistredChildren() {
-    return discovered_children_.size();
-  }
+  virtual int set_service_owner(ParentPairingManager* service_owner);
+  virtual bool pairing_service_started();
+  virtual unsigned int registred_children();
 
  private:
   PLT_UPnP* upnp_instance_;

@@ -28,10 +28,10 @@ using std::getline;
 class MockChildPairingManager : public ChildPairingManager {
  public:
   string expected_semaphore;
-  void SetPaired(bool paired) {
+  void set_paired(bool paired) {
     clog << "MockChildPairingManager::SetPaired():: paired = " << paired
          << endl;
-    ChildPairingManager::SetPaired(paired);
+    ChildPairingManager::set_paired(paired);
     PostNamedSemphoreHelper(expected_semaphore);
   }
   explicit MockChildPairingManager(const DeviceDescription& device_description)

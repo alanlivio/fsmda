@@ -183,6 +183,47 @@ DeviceClassDescription::DeviceClassDescription()
 DeviceClassDescription::~DeviceClassDescription() {}
 
 /*----------------------------------------------------------------------
+ |   DeviceClassDescription::device_class_type
+ +---------------------------------------------------------------------*/
+DeviceClassDescription::DeviceClassType
+DeviceClassDescription::device_class_type() {
+  return device_class_type_;
+}
+
+/*----------------------------------------------------------------------
+ |   DeviceClassDescription::pairing_protocol
+ +---------------------------------------------------------------------*/
+DeviceClassDescription::PairingProtocol
+DeviceClassDescription::pairing_protocol() {
+  return pairing_protocol_;
+}
+
+/*----------------------------------------------------------------------
+ |   DeviceClassDescription::communication_protocol
+ +---------------------------------------------------------------------*/
+DeviceClassDescription::CommunicationProtocol
+DeviceClassDescription::communication_protocol() {
+  return communication_protocol_;
+}
+
+/*----------------------------------------------------------------------
+ |   DeviceClassDescription::rdf_content
+ +---------------------------------------------------------------------*/
+const std::string& DeviceClassDescription::rdf_content() {
+  return rdf_content_;
+}
+
+/*----------------------------------------------------------------------
+ |   DeviceClassDescription::min_devices
+ +---------------------------------------------------------------------*/
+unsigned int DeviceClassDescription::min_devices() { return min_devices_; }
+
+/*----------------------------------------------------------------------
+ |   DeviceClassDescription::max_devices
+ +---------------------------------------------------------------------*/
+unsigned int DeviceClassDescription::max_devices() { return max_devices_; }
+
+/*----------------------------------------------------------------------
  |   DeviceClassDescription::IsDeviceCompatible
  +---------------------------------------------------------------------*/
 bool DeviceClassDescription::IsDeviceCompatible(

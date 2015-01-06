@@ -17,7 +17,7 @@ ChildPairingManager::ChildPairingManager(
     : upnp_child_pairing_(NULL), paired_(false) {
   device_description_ = new DeviceDescription(device_description);
   upnp_child_pairing_ = new UpnpChildPairing();
-  upnp_child_pairing_->SetServiceOwner(this);
+  upnp_child_pairing_->set_service_owner(this);
 }
 
 /*----------------------------------------------------------------------
@@ -53,30 +53,6 @@ int ChildPairingManager::StopPairing() {
 }
 
 /*----------------------------------------------------------------------
- |   ChildPairingManager::IsPairingStarted
- +---------------------------------------------------------------------*/
-bool ChildPairingManager::IsPairingStarted() {
-  if (device_description_->pairing_method() ==
-      DeviceClassDescription::kUpnpPairingProcotol) {
-    return upnp_child_pairing_->IsPairingServiceStarted();
-  } else {
-    return false;
-  }
-}
-
-/*----------------------------------------------------------------------
- |   ChildPairingManager::IsPaired
- +---------------------------------------------------------------------*/
-bool ChildPairingManager::IsPaired() {
-  if (device_description_->pairing_method() ==
-      DeviceClassDescription::kUpnpPairingProcotol) {
-    return paired_;
-  } else {
-    return false;
-  }
-}
-
-/*----------------------------------------------------------------------
  |   ChildPairingManager::ClassAnnouncement
  +---------------------------------------------------------------------*/
 void ChildPairingManager::ClassAnnouncement(const string& application_id,
@@ -87,7 +63,7 @@ void ChildPairingManager::ClassAnnouncement(const string& application_id,
   device_class_description.InitializeByRdfContent(class_desc.c_str());
   bool paired =
       device_class_description.IsDeviceCompatible(device_description_);
-  SetPaired(paired);
+  set_paired(paired);
 }
 /*----------------------------------------------------------------------
  |   ChildPairingManager::CreateActiveCc
@@ -147,4 +123,40 @@ MediaCaptureCcmInterface* ChildPairingManager::CreateMediaCaptureCcm(
   } else {
     return NULL;
   }
+}
+
+/*----------------------------------------------------------------------
+ |   ChildPairingManager::pairing_started
+ +---------------------------------------------------------------------*/
+bool ChildPairingManager::pairing_started() {
+  if (device_description_->pairing_method() ==
+      DeviceClassDescription::kUpnpPairingProcotol) {
+    return upnp_child_pairing_->pairing_service_started();
+  } else {
+    return false;
+  }
+}
+
+/*----------------------------------------------------------------------
+ |   ChildPairingManager::paired
+ +---------------------------------------------------------------------*/
+bool ChildPairingManager::paired() {
+  if (device_description_->pairing_method() ==
+      DeviceClassDescription::kUpnpPairingProcotol) {
+    return paired_;
+  } else {
+    return false;
+  }
+}
+
+/*----------------------------------------------------------------------
+ |   ChildPairingManager::set_paired
+ +---------------------------------------------------------------------*/
+void ChildPairingManager::set_paired(bool paired) { paired_ = paired; }
+
+/*----------------------------------------------------------------------
+ |   ChildPairingManager::device_description
+ +---------------------------------------------------------------------*/
+DeviceDescription* ChildPairingManager::device_description() {
+  return device_description_;
 }

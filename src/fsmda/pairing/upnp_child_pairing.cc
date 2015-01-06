@@ -18,7 +18,7 @@ UpnpChildPairing::UpnpChildPairing()
       ctrl_point_(new PLT_CtrlPoint()),
       upnp_instance_(NULL),
       child_pairing_manager_(NULL),
-      performed_handshake_(false) {
+      handshake_performed_(false) {
   m_ModelDescription = UpnpFsmdaUtils::kCpmDeviceModelDescription;
   m_ModelURL = UpnpFsmdaUtils::kCpmDeviceModelUrl;
   m_ModelNumber = UpnpFsmdaUtils::kCpmDeviceModelNumber;
@@ -40,20 +40,6 @@ UpnpChildPairing::~UpnpChildPairing() {
   ctrl_point_.Detach();
   device_host_.Detach();
 }
-
-/*----------------------------------------------------------------------
- |   UpnpChildPairing::SetServiceOwner
- +---------------------------------------------------------------------*/
-int UpnpChildPairing::SetServiceOwner(
-    ChildPairingManager *service_owner) {
-  child_pairing_manager_ = service_owner;
-}
-
-/*----------------------------------------------------------------------
- |   UpnpChildPairing::SetDeviceDescription
- +---------------------------------------------------------------------*/
-int UpnpChildPairing::SetDeviceDescription(
-    DeviceDescription *device_description) {}
 
 /*----------------------------------------------------------------------
  |   UpnpChildPairing::SetupServices
@@ -120,22 +106,34 @@ NPT_Result UpnpChildPairing::OnAction(PLT_ActionReference &action,
     //         << ")" << endl;
 
     // set pareid
-    SetPerformedHandShake(true);
+    set_handshake_performed(true);
     return NPT_SUCCESS;
   }
   action->SetError(501, "Action Failed");
   return NPT_FAILURE;
 }
 
+/*----------------------------------------------------------------------
+ |   UpnpChildPairing::OnEventNotify
+ +---------------------------------------------------------------------*/
 NPT_Result UpnpChildPairing::OnEventNotify(
     PLT_Service *service, NPT_List<PLT_StateVariable *> *vars) {}
 
+/*----------------------------------------------------------------------
+ |   UpnpChildPairing::OnActionResponse
+ +---------------------------------------------------------------------*/
 NPT_Result UpnpChildPairing::OnActionResponse(NPT_Result res,
                                               PLT_ActionReference &action,
                                               void *userdata) {}
 
+/*----------------------------------------------------------------------
+ |   UpnpChildPairing::OnDeviceRemoved
+ +---------------------------------------------------------------------*/
 NPT_Result UpnpChildPairing::OnDeviceRemoved(PLT_DeviceDataReference &device) {}
 
+/*----------------------------------------------------------------------
+ |   UpnpChildPairing::OnDeviceAdded
+ +---------------------------------------------------------------------*/
 NPT_Result UpnpChildPairing::OnDeviceAdded(
     PLT_DeviceDataReference &device_data) {
   if (device_data->GetType().Compare(
@@ -197,4 +195,28 @@ int UpnpChildPairing::StopPairingService() {
     upnp_instance_ = NULL;
   }
   return 0;
+}
+
+/*----------------------------------------------------------------------
+ |   UpnpChildPairing::set_service_owner
+ +---------------------------------------------------------------------*/
+int UpnpChildPairing::set_service_owner(ChildPairingManager *service_owner) {
+  child_pairing_manager_ = service_owner;
+}
+
+/*----------------------------------------------------------------------
+ |   UpnpChildPairing::pairing_service_started
+ +---------------------------------------------------------------------*/
+bool UpnpChildPairing::pairing_service_started() { return m_Started; }
+
+/*----------------------------------------------------------------------
+ |   UpnpChildPairing::handshak_performed
+ +---------------------------------------------------------------------*/
+bool UpnpChildPairing::handshak_performed() { return handshake_performed_; }
+
+/*----------------------------------------------------------------------
+ |   UpnpChildPairing::set_handshake_performed
+ +---------------------------------------------------------------------*/
+void UpnpChildPairing::set_handshake_performed(bool performed) {
+  handshake_performed_ = performed;
 }

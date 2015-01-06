@@ -18,10 +18,10 @@ using std::endl;
 class MockChildPairingManager : public ChildPairingManager {
  public:
   string expected_semaphore;
-  void SetPaired(bool paired) {
-    clog << "MockChildPairingManager::SetPaired():: paired = " << paired
+  void set_paired(bool paired) {
+    clog << "MockChildPairingManager::set_paired():: paired = " << paired
          << endl;
-    ChildPairingManager::SetPaired(paired);
+    ChildPairingManager::set_paired(paired);
     PostNamedSemphoreHelper(expected_semaphore);
   }
   explicit MockChildPairingManager(const DeviceDescription& device_description)
@@ -45,7 +45,7 @@ void PairingWithOneDeviceHelper(
   child_pairing_manager = new MockChildPairingManager(device_description);
   EXPECT_EQ(device_description.device_class_type(), expected_device_class_type);
   EXPECT_EQ(child_pairing_manager->StartPairing(), 0);
-  EXPECT_TRUE(child_pairing_manager->IsPairingStarted());
+  EXPECT_TRUE(child_pairing_manager->pairing_started());
   EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 1);
 
   UpnpFsmdaUtils::GenerateGUID(&app_id);
@@ -89,7 +89,7 @@ void PairingWithOneDeviceHelper(
   WaitNamedSemphoreHelper(app_id);
 
   // test if child is paired
-  EXPECT_TRUE(child_pairing_manager->IsPaired());
+  EXPECT_TRUE(child_pairing_manager->paired());
   ReleaseNameSemphoreHelper(app_id);
 
   if (diferent_processes == false) {
@@ -102,7 +102,7 @@ void PairingWithOneDeviceHelper(
 
   // stop child pairing service
   EXPECT_EQ(child_pairing_manager->StopPairing(), 0);
-  EXPECT_FALSE(child_pairing_manager->IsPairingStarted());
+  EXPECT_FALSE(child_pairing_manager->pairing_started());
   EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 0);
   delete child_pairing_manager;
 

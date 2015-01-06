@@ -48,18 +48,15 @@ class UpnpChildPairing : public PLT_DeviceHost,
 
   // ParentPairingServiceInterface overloaded methods
   // called by ChildPairingManager
-  virtual int SetServiceOwner(ChildPairingManager* service_owner);
-  virtual int SetDeviceDescription(DeviceDescription* device_description);
   virtual int StartPairingService();
   virtual int StopPairingService();
-  virtual bool IsPairingServiceStarted() { return m_Started; }
-  virtual bool PerformedHandShake() { return performed_handshake_; }
-  virtual void SetPerformedHandShake(bool performe) {
-    performed_handshake_ = performe;
-  }
+  virtual bool pairing_service_started();
+  virtual int set_service_owner(ChildPairingManager* service_owner);
+  virtual bool handshak_performed();
+  virtual void set_handshake_performed(bool performe);
 
  private:
-  bool performed_handshake_;
+  bool handshake_performed_;
   PLT_UPnP* upnp_instance_;
   PLT_DeviceHostReference device_host_;
   PLT_CtrlPointReference ctrl_point_;

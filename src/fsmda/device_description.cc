@@ -150,67 +150,26 @@ int DeviceDescription::ParseXmlContent(const char* rdf_content) {
   return 0;
 }
 
-///*----------------------------------------------------------------------
-// |   DeviceDescription::InitializeByDeviceClass
-// +---------------------------------------------------------------------*/
-// int DeviceDescription::InitializeByDeviceClass(
-//    DeviceClassDescription::DeviceClassType device_class_type) {
-//  class_type_ = device_class_type;
-//  pairing_method_ = DeviceClassDescription::kUpnpPairingProcotol;
-//  initialized_ = true;
-//}
+/*----------------------------------------------------------------------
+ |   DeviceDescription::device_class_type
+ +---------------------------------------------------------------------*/
+DeviceClassDescription::DeviceClassType DeviceDescription::device_class_type() {
+  return device_class_type_;
+}
 
-///*----------------------------------------------------------------------
-// |   DeviceDescription::InitializeByRdfFile
-// +---------------------------------------------------------------------*/
-// int DeviceDescription::InitializeByRdfFile(const string& rdf_file) {
-//  int ret;
-//  xmlXPathContextPtr xpathCtx;
-//  xmlXPathObjectPtr xpathObj;
-//  xmlNodeSetPtr nodes;
-//  const char* aux;
+/*----------------------------------------------------------------------
+ |   DeviceDescription::pairing_method
+ +---------------------------------------------------------------------*/
+DeviceClassDescription::PairingProtocol DeviceDescription::pairing_method() {
+  return pairing_protocol_;
+}
 
-//  // initilize libxml
-//  xmlInitParser();
-//  doc_ = xmlParseFile(rdf_file.c_str());
-//  assert(doc_ != NULL);
-//  xpathCtx = xmlXPathNewContext(doc_);
-//  assert(xpathCtx != NULL);
-//  ret = xmlXPathRegisterNs(
-//      xpathCtx, reinterpret_cast<const xmlChar*>("fsmda"),
-//      reinterpret_cast<const xmlChar*>("http://www.ncl.org.br/fsmda"));
-//  assert(ret == 0);
+/*----------------------------------------------------------------------
+ |   DeviceDescription::rdf_content
+ +---------------------------------------------------------------------*/
+const std::string DeviceDescription::rdf_content() { return rdf_content_; }
 
-//  // capture classType
-//  xpathObj = xmlXPathEvalExpression(
-//      reinterpret_cast<const xmlChar*>("//fsmda:classType"), xpathCtx);
-//  assert(xpathObj != NULL);
-//  nodes = xpathObj->nodesetval;
-//  assert(nodes->nodeTab[0]);
-//  aux = (const char*)nodes->nodeTab[0]->children->content;
-//  class_type_ = DeviceClassDescription::GetDeviceClassTypeByString(aux);
-//  clog << "DeviceDescription::InitializeByRdfFile::classType = " << aux
-//       << "(or " << class_type_ << ")" << endl;
-//  xmlXPathFreeObject(xpathObj);
-
-//  // capture pairingMethod
-//  xpathObj = xmlXPathEvalExpression(
-//      reinterpret_cast<const xmlChar*>("//fsmda:pairingMethod"), xpathCtx);
-//  assert(xpathObj != NULL);
-//  nodes = xpathObj->nodesetval;
-//  assert(nodes->nodeTab[0]);
-//  pairing_method_ = DeviceClassDescription::GetPairingProtocolByString(
-//      (const char*)nodes->nodeTab[0]->children->content);
-//  clog << "DeviceDescription::InitializeByRdfFile::pairingMethod = "
-//       << pairing_method_ << endl;
-//  xmlXPathFreeObject(xpathObj);
-
-//  // release libxml
-//  xmlXPathFreeContext(xpathCtx);
-//  xmlFreeDoc(doc_);
-//  xmlCleanupParser();
-//  xmlMemoryDump();
-
-//  initialized_ = true;
-//  return 0;
-//}
+/*----------------------------------------------------------------------
+ |   DeviceDescription::initialized
+ +---------------------------------------------------------------------*/
+bool DeviceDescription::initialized() { return initialized_; }

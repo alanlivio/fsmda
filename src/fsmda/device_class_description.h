@@ -81,21 +81,17 @@ class DeviceClassDescription {
   DeviceClassDescription();
   virtual ~DeviceClassDescription();
 
-  // public getters and setters
-  DeviceClassType device_class_type() { return device_class_type_; }
-  PairingProtocol pairing_protocol() { return pairing_protocol_; }
-  CommunicationProtocol communication_protocol() {
-    return communication_protocol_;
-  }
-  const string& rdf_content() { return rdf_content_; }
-  unsigned int min_devices() { return min_devices_; }
-  unsigned int max_devices() { return max_devices_; }
-
   // public methods
   bool IsDeviceCompatible(DeviceDescription* device_desc);
   int InitializeByDeviceClass(DeviceClassType type);
   int InitializeByRdfContent(const char* content);
   int InitializeByRdfFile(const string& rdf_file_path);
+  DeviceClassType device_class_type();
+  PairingProtocol pairing_protocol();
+  CommunicationProtocol communication_protocol();
+  const string& rdf_content();
+  unsigned int min_devices();
+  unsigned int max_devices();
 
  private:
   // private methods

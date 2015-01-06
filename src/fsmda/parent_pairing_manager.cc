@@ -16,7 +16,7 @@ using std::endl;
 
 ParentPairingManager::ParentPairingManager() : upnp_registred_classes_size(0) {
   upnp_parent_pairing_ = new UpnpParentPairing();
-  upnp_parent_pairing_->SetServiceOwner(this);
+  upnp_parent_pairing_->set_service_owner(this);
 }
 
 ParentPairingManager::~ParentPairingManager() {
@@ -142,7 +142,7 @@ int ParentPairingManager::StopPairing() {
  |   ParentPairingManager::IsPairingStarted
  +---------------------------------------------------------------------*/
 bool ParentPairingManager::IsPairingStarted() {
-  return upnp_parent_pairing_->IsPairingServiceStarted();
+  return upnp_parent_pairing_->pairing_service_started();
 }
 
 /*----------------------------------------------------------------------

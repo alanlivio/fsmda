@@ -21,7 +21,7 @@ using std::cin;
 int main(void) {
   ParentPairingManager* parent_pairing_manager_ = new ParentPairingManager();
   UpnpParentPairing* upnp_parent_pairing = new UpnpParentPairing();
-  upnp_parent_pairing->SetServiceOwner(parent_pairing_manager_);
+  upnp_parent_pairing->set_service_owner(parent_pairing_manager_);
   upnp_parent_pairing->StartPairingService();
 
   char buf[256];

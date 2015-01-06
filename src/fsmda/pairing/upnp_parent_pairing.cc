@@ -59,13 +59,6 @@ UpnpParentPairing::~UpnpParentPairing() {
 }
 
 /*----------------------------------------------------------------------
- |   UpnpChildPairing::SetServiceOwner
- +---------------------------------------------------------------------*/
-int UpnpParentPairing::SetServiceOwner(ParentPairingManager *service_owner) {
-  parent_pairing_manager_ = service_owner;
-}
-
-/*----------------------------------------------------------------------
  |   UpnpChildPairing::AddDeviceClassForDiscover
  +---------------------------------------------------------------------*/
 int UpnpParentPairing::AddDeviceClassForDiscover(
@@ -248,4 +241,23 @@ int UpnpParentPairing::StopPairingService() {
     upnp_instance_ = NULL;
   }
   return 0;
+}
+
+/*----------------------------------------------------------------------
+ |   UpnpParentPairing::pairing_service_started
+ +---------------------------------------------------------------------*/
+bool UpnpParentPairing::pairing_service_started() { return m_Started; }
+
+/*----------------------------------------------------------------------
+ |   UpnpParentPairing::registred_children
+ +---------------------------------------------------------------------*/
+unsigned int UpnpParentPairing::registred_children() {
+  return discovered_children_.size();
+}
+
+/*----------------------------------------------------------------------
+ |   UpnpChildPairing::set_service_owner
+ +---------------------------------------------------------------------*/
+int UpnpParentPairing::set_service_owner(ParentPairingManager *service_owner) {
+  parent_pairing_manager_ = service_owner;
 }
