@@ -20,8 +20,7 @@ UpnpChildPairing::UpnpChildPairing()
       device_host_(this),
       ctrl_point_(new PLT_CtrlPoint()),
       upnp_instance_(NULL),
-      child_pairing_manager_(NULL),
-      handshake_performed_(false) {
+      child_pairing_manager_(NULL) {
   m_ModelDescription = UpnpFsmdaUtils::kCpmDeviceModelDescription;
   m_ModelURL = UpnpFsmdaUtils::kCpmDeviceModelUrl;
   m_ModelNumber = UpnpFsmdaUtils::kCpmDeviceModelNumber;

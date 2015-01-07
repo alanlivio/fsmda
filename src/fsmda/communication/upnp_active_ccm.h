@@ -58,6 +58,15 @@ class UpnpActiveCcm : public PLT_DeviceHost,
                                       void* userdata);
   virtual NPT_Result OnEventNotify(PLT_Service* service,
                                    NPT_List<PLT_StateVariable*>* vars);
+
+ private:
+  PLT_UPnP* upnp_instance_;
+  PLT_DeviceHostReference device_host_;
+  PLT_CtrlPointReference ctrl_point_;
+  PLT_Service* device_service_;
+  PLT_Service* parent_pairing_;
+  PLT_DeviceDataReference last_parent_;
+  NPT_SharedVariable last_parent_semaphore;
 };
 
 #endif  // FSMDA_COMMUNICATION_UPNP_ACTIVE_CCM_H_

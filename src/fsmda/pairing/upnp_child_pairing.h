@@ -64,7 +64,6 @@ class UpnpChildPairing : public PLT_DeviceHost,
   virtual int set_service_owner(ChildPairingManager* service_owner);
 
  private:
-  bool handshake_performed_;
   PLT_UPnP* upnp_instance_;
   PLT_DeviceHostReference device_host_;
   PLT_CtrlPointReference ctrl_point_;

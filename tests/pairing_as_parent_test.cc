@@ -105,21 +105,25 @@ void PairingAsParentHelper(
     PassivePcmInterface* passive_pcm =
         parent_pairing_manager->CreatePassivePcm(app_id, class_index);
     EXPECT_TRUE(passive_pcm);
+    delete passive_pcm;
   } else if (device_class_description->device_class_type() ==
              DeviceClassDescription::kActiveDevice) {
     ActivePcmInterface* active_pcm =
         parent_pairing_manager->CreateActivePcm(app_id, class_index);
     EXPECT_TRUE(active_pcm);
+    delete active_pcm;
   } else if (device_class_description->device_class_type() ==
              DeviceClassDescription::kOnDemandDevice) {
     OnDemandPcmInterface* ondemand_pcm =
         parent_pairing_manager->CreateOnDemandPcm(app_id, class_index);
     EXPECT_TRUE(ondemand_pcm);
+    delete ondemand_pcm;
   } else if (device_class_description->device_class_type() ==
              DeviceClassDescription::kMediaCaptureDevice) {
     MediaCapturePcmInterface* medicapture_pcm =
         parent_pairing_manager->CreateMediaCapturePcm(app_id, class_index);
     EXPECT_TRUE(medicapture_pcm);
+    delete medicapture_pcm;
   } else {
     FAIL();
   }
