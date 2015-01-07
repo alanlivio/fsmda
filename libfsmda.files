@@ -64,7 +64,6 @@ src/fsmda/utils/upnp_fsmda_utils.cc
 src/fsmda/utils/upnp_fsmda_utils.h
 src/libfsmda.pc.in
 tests/Makefile.am
-tests/communication_managers_test.cc
 tests/device_class_description_test.cc
 tests/fake_child_helper.cc
 tests/fake_parent_helper.cc
@@ -142,8 +141,10 @@ tests/gtest/src/gtest.cc
 tests/gtest/src/gtest_main.cc
 tests/named_semaphore_helper.cc
 tests/named_semaphore_helper.h
-tests/pairing_managers_test.cc
+tests/pairing_as_child_test.cc
+tests/pairing_as_parent_test.cc
 tests/release_fake_child_parent.sh
+tests/release_gtest.sh
 tests/testsuit_gtest.cc
 tests/upnp_pairing_test.cc
 tests/utils_test.cc

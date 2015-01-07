@@ -29,7 +29,7 @@ class MockParentPairingManager : public ParentPairingManager {
   }
 };
 
-void CallPrepareWithOneDeviceHelper(
+void PairingAsParentHelper(
     const string& device_rdf, const string& device_class_description_rdf,
     DeviceClassDescription::DeviceClassType expected_device_class_type,
     bool diferent_processes) {
@@ -142,45 +142,43 @@ void CallPrepareWithOneDeviceHelper(
   EXPECT_FALSE(UpnpFsmdaUtils::IsUpnpStarted());
 }
 
-TEST(Communication, PassiveCallPrepareInSameProcess) {
-  CallPrepareWithOneDeviceHelper("./files/passive_dev_desc00.xml",
-                                 "./files/passive_class_desc00.xml",
-                                 DeviceClassDescription::kPassiveDevice, false);
+TEST(PairingAsParent, PassiveInSameProcess) {
+  PairingAsParentHelper("./files/passive_dev_desc00.xml",
+                        "./files/passive_class_desc00.xml",
+                        DeviceClassDescription::kPassiveDevice, false);
 }
-TEST(Communication, ActiveCallPrepareInSameProcess) {
-  CallPrepareWithOneDeviceHelper("./files/active_dev_desc00.xml",
-                                 "./files/active_class_desc00.xml",
-                                 DeviceClassDescription::kActiveDevice, false);
+TEST(PairingAsParent, ActiveInSameProcess) {
+  PairingAsParentHelper("./files/active_dev_desc00.xml",
+                        "./files/active_class_desc00.xml",
+                        DeviceClassDescription::kActiveDevice, false);
 }
-TEST(Communication, OnDemandCallPrepareInSameProcess) {
-  CallPrepareWithOneDeviceHelper(
-      "./files/ondemand_dev_desc00.xml", "./files/ondemand_class_desc00.xml",
-      DeviceClassDescription::kOnDemandDevice, false);
+TEST(PairingAsParent, OnDemandInSameProcess) {
+  PairingAsParentHelper("./files/ondemand_dev_desc00.xml",
+                        "./files/ondemand_class_desc00.xml",
+                        DeviceClassDescription::kOnDemandDevice, false);
 }
-TEST(Communication, MediaCaptureCallPrepareInSameProcess) {
-  CallPrepareWithOneDeviceHelper("./files/mediacapture_dev_desc00.xml",
-                                 "./files/mediacapture_class_desc00.xml",
-                                 DeviceClassDescription::kMediaCaptureDevice,
-                                 false);
+TEST(PairingAsParent, MediaCaptureInSameProcess) {
+  PairingAsParentHelper("./files/mediacapture_dev_desc00.xml",
+                        "./files/mediacapture_class_desc00.xml",
+                        DeviceClassDescription::kMediaCaptureDevice, false);
 }
-TEST(Communication, PassiveCallPrepareInDiferentProcessess) {
-  CallPrepareWithOneDeviceHelper("./files/passive_dev_desc00.xml",
-                                 "./files/passive_class_desc00.xml",
-                                 DeviceClassDescription::kPassiveDevice, true);
+TEST(PairingAsParent, PassiveInDiferentProcessess) {
+  PairingAsParentHelper("./files/passive_dev_desc00.xml",
+                        "./files/passive_class_desc00.xml",
+                        DeviceClassDescription::kPassiveDevice, true);
 }
-TEST(Communication, ActiveCallPrepareInDiferentProcessess) {
-  CallPrepareWithOneDeviceHelper("./files/active_dev_desc00.xml",
-                                 "./files/active_class_desc00.xml",
-                                 DeviceClassDescription::kActiveDevice, true);
+TEST(PairingAsParent, ActiveInDiferentProcessess) {
+  PairingAsParentHelper("./files/active_dev_desc00.xml",
+                        "./files/active_class_desc00.xml",
+                        DeviceClassDescription::kActiveDevice, true);
 }
-TEST(Communication, OnDemandCallPrepareInDiferentProcessess) {
-  CallPrepareWithOneDeviceHelper("./files/ondemand_dev_desc00.xml",
-                                 "./files/ondemand_class_desc00.xml",
-                                 DeviceClassDescription::kOnDemandDevice, true);
+TEST(PairingAsParent, OnDemandInDiferentProcessess) {
+  PairingAsParentHelper("./files/ondemand_dev_desc00.xml",
+                        "./files/ondemand_class_desc00.xml",
+                        DeviceClassDescription::kOnDemandDevice, true);
 }
-TEST(Communication, MediaCaptureCallPrepareInDiferentProcessess) {
-  CallPrepareWithOneDeviceHelper("./files/mediacapture_dev_desc00.xml",
-                                 "./files/mediacapture_class_desc00.xml",
-                                 DeviceClassDescription::kMediaCaptureDevice,
-                                 true);
+TEST(PairingAsParent, MediaCaptureInDiferentProcessess) {
+  PairingAsParentHelper("./files/mediacapture_dev_desc00.xml",
+                        "./files/mediacapture_class_desc00.xml",
+                        DeviceClassDescription::kMediaCaptureDevice, true);
 }

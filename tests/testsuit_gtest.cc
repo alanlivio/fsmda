@@ -4,9 +4,9 @@
 #include <iostream>
 #include <fstream>
 
-using ::std::cout;
-using ::std::clog;
-using ::std::cerr;
+using std::cout;
+using std::clog;
+using std::cerr;
 
 int main(int argc, char **argv) {
   // redirect clog to /dev/null/
@@ -21,7 +21,7 @@ int main(int argc, char **argv) {
   ::testing::FLAGS_gtest_list_tests = false;
   ::testing::FLAGS_gtest_print_time = 0;
   ::testing::FLAGS_gtest_color = "yes";
-//  ::testing::FLAGS_gtest_filter = "UpnpPairing.*";
+  //  ::testing::FLAGS_gtest_filter = "Communication.*";
   //  ::testing::FLAGS_gtest_filter =
   //      "UpnpCommunication.CallPrepareInSameProcess";
   ::testing::InitGoogleTest(&argc, argv);
