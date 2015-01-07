@@ -129,8 +129,9 @@ NPT_Result UpnpChildPairing::OnAction(PLT_ActionReference &action,
           class_function.GetChars());
     }
     return NPT_SUCCESS;
-  } else
+  } else {
     return NPT_FAILURE;
+  }
 }
 
 /*----------------------------------------------------------------------

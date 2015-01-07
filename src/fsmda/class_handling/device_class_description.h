@@ -1,5 +1,5 @@
-#ifndef FSMDA_DEVICE_CLASS_DESCRIPTION_H_
-#define FSMDA_DEVICE_CLASS_DESCRIPTION_H_
+#ifndef FSMDA_CLASS_HANDLING_DEVICE_CLASS_DESCRIPTION_H_
+#define FSMDA_CLASS_HANDLING_DEVICE_CLASS_DESCRIPTION_H_
 
 /*----------------------------------------------------------------------
  |   includes
@@ -107,4 +107,4 @@ class DeviceClassDescription {
   CommunicationProtocol communication_protocol_;
 };
 
-#endif  // FSMDA_DEVICE_CLASS_DESCRIPTION_H_
+#endif  // FSMDA_CLASS_HANDLING_DEVICE_CLASS_DESCRIPTION_H_
