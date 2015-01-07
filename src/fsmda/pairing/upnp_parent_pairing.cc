@@ -19,6 +19,7 @@
 #include "fsmda/utils/upnp_fsmda_utils.h"
 
 using std::clog;
+using std::cout;
 using std::endl;
 using std::vector;
 using std::string;
@@ -116,7 +117,8 @@ NPT_Result UpnpParentPairing::OnAction(PLT_ActionReference &action,
     action->GetArgumentValue("deviceDesc", deviceDesc);
     clog << "UpnpParentPairing::OnAction::receive addDeviceToClass("
          << applicationId.GetChars() << "," << deviceAddr.GetChars() << ","
-         << classIndex << "," << deviceDesc.GetChars() << ")" << endl;
+         << classIndex << ","
+         << "deviceDesc.size()=" << deviceDesc.GetLength() << ")" << endl;
 
     // call parent_pairing_manager_->AddDeviceToClass
     if (parent_pairing_manager_ != NULL) {
@@ -156,10 +158,6 @@ NPT_Result UpnpParentPairing::OnActionResponse(NPT_Result res,
   NPT_String name = action->GetActionDesc().GetName();
   clog << "UpnpParentPairing::OnActionResponse()::action.name="
        << name.GetChars() << endl;
-  if (name.Compare("classAnnouncement") == 0) {
-    if (parent_pairing_manager_)
-      parent_pairing_manager_->AddDeviceToClass("", "", 0, "");
-  }
 }
 NPT_Result UpnpParentPairing::OnDeviceRemoved(PLT_DeviceDataReference &device) {
 }
@@ -227,8 +225,6 @@ int UpnpParentPairing::StartPairingService() {
   NPT_Result res = upnp_instance_->AddDevice(device_host_);
   res = upnp_instance_->AddCtrlPoint(ctrl_point_);
   ctrl_point_->AddListener(this);
-  clog << "UpnpParentPairing::StartPairingService()::NPT_Result res="
-       << NPT_ResultText(res) << endl;
   if (res != NPT_SUCCESS) {
     return -1;
   } else {

@@ -8,6 +8,7 @@
 #include <PltStateVariable.h>
 
 using std::clog;
+using std::cout;
 using std::endl;
 /*----------------------------------------------------------------------
  |   ChildPairingManager::ChildPairingManager
@@ -16,6 +17,8 @@ ChildPairingManager::ChildPairingManager(
     const DeviceDescription& device_description)
     : upnp_child_pairing_(NULL), paired_(false) {
   device_description_ = new DeviceDescription(device_description);
+  clog << "ChildPairingManager::ChildPairingManager(device_class_type="
+       << device_description_->device_class_type() << ")" << endl;
   upnp_child_pairing_ = new UpnpChildPairing();
   upnp_child_pairing_->set_service_owner(this);
 }
@@ -59,11 +62,14 @@ void ChildPairingManager::ClassAnnouncement(const string& application_id,
                                             unsigned int class_index,
                                             const string& class_desc,
                                             const string& class_function) {
+  clog << "ChildPairingManager::ClassAnnouncement" << endl;
   DeviceClassDescription device_class_description;
   device_class_description.InitializeByRdfContent(class_desc.c_str());
   bool paired =
       device_class_description.IsDeviceCompatible(device_description_);
-  set_paired(paired);
+  //  set_paired(paired);
+  upnp_child_pairing_->AddDeviceToClass(application_id, "locahost", class_index,
+                                        class_desc);
 }
 /*----------------------------------------------------------------------
  |   ChildPairingManager::CreateActiveCc

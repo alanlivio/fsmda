@@ -6,6 +6,7 @@
 #include "fsmda/child_pairing_manager.h"
 #include "fsmda/utils/upnp_fsmda_utils.h"
 
+using std::cout;
 using std::clog;
 using std::stringstream;
 using std::endl;
@@ -69,11 +70,15 @@ void UpnpChildPairing::AddDeviceToClass(const std::string &application_id,
   aux_string << class_index;
   reponse_action->SetArgumentValue("classIndex", aux_string.str().c_str());
   reponse_action->SetArgumentValue("deviceDesc", device_desc.c_str());
-  ctrl_point_->InvokeAction(reponse_action, 0);
-  clog << "UpnpChildPairing::OnAction calling addDeviceToClass("
-       << application_id << "," << class_index << ","
-       << " one_rdf_with_size=" << device_desc.size() << ","
-       << ")" << endl;
+  NPT_Result res = ctrl_point_->InvokeAction(reponse_action, 0);
+  if (res == NPT_FAILURE)
+    clog << "UpnpChildPairing::AddDeviceToClass calling addDeviceToClass failed"
+         << endl;
+  else
+    clog << "UpnpChildPairing::AddDeviceToClass calling addDeviceToClass("
+         << application_id << "," << class_index << ","
+         << " one_rdf_with_size=" << device_desc.size() << ","
+         << ")" << endl;
 }
 
 /*----------------------------------------------------------------------
@@ -99,8 +104,7 @@ NPT_Result UpnpChildPairing::SetupServices() {
 NPT_Result UpnpChildPairing::OnAction(PLT_ActionReference &action,
                                       const PLT_HttpRequestContext &context) {
   NPT_String name = action->GetActionDesc().GetName();
-  clog << "UpnpChildPairing::OnAction()::action.name=" << name.GetChars()
-       << endl;
+  clog << "UpnpChildPairing::OnAction()::name=" << name.GetChars() << endl;
 
   if (name.Compare("classAnnouncement") == 0) {
     // handling classAnnouncement call
@@ -114,7 +118,7 @@ NPT_Result UpnpChildPairing::OnAction(PLT_ActionReference &action,
     action->GetArgumentValue("classDesc", class_desc);
     NPT_String class_function;
     action->GetArgumentValue("classFunction", class_function);
-    clog << "UpnpChildPairing::OnAction receive classAnnouncement("
+    clog << "UpnpChildPairing::OnAction()::classAnnouncement("
          << application_id.GetChars() << "," << class_index << ","
          << " one_rdf_with_size=" << class_desc.GetLength() << ","
          << class_function.GetChars() << ")" << endl;
@@ -143,9 +147,10 @@ NPT_Result UpnpChildPairing::OnActionResponse(NPT_Result res,
                                               PLT_ActionReference &action,
                                               void *userdata) {
   NPT_String name = action->GetActionDesc().GetName();
-  clog << "UpnpChildPairing::OnAction()::action.name=" << name.GetChars()
-       << endl;
-  if (name.Compare("AddDeviceToClass")) {
+  clog << "UpnpChildPairing::OnActionResponse()::action.name="
+       << name.GetChars() << endl;
+  if (name.Compare("addDeviceToClass") == 0) {
+    clog << "UpnpChildPairing::OnActionResponse()::calling set_paired" << endl;
     child_pairing_manager_->set_paired(true);
   }
 }
@@ -172,7 +177,8 @@ NPT_Result UpnpChildPairing::OnDeviceAdded(
        << device_data->GetUUID().GetChars() << endl;
   clog << "UpnpChildPairing::OnDeviceAdded()::device->GetURLBase()->"
        << device_data->GetURLBase().ToString().GetChars() << endl;
-
+  clog << "UpnpChildPairing::OnDeviceAdded()::last_parent_ = device_data"
+       << endl;
   last_parent_ = device_data;
   last_parent_semaphore.SetValue(1);
 
@@ -190,8 +196,6 @@ int UpnpChildPairing::StartPairingService() {
   res = upnp_instance_->AddDevice(device_host_);
   res = upnp_instance_->AddCtrlPoint(ctrl_point_);
   ctrl_point_->AddListener(this);
-  clog << "UpnpChildPairing::StartPairingService()::NPT_Result res="
-       << NPT_ResultText(res) << endl;
   if (res == NPT_SUCCESS) {
     return 0;
   } else {

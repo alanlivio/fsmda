@@ -11,7 +11,7 @@
 #include "fsmda/pairing/upnp_parent_pairing.h"
 
 using std::clog;
-using std::clog;
+using std::cout;
 using std::endl;
 
 ParentPairingManager::ParentPairingManager() : upnp_registred_classes_size(0) {
@@ -51,8 +51,6 @@ void ParentPairingManager::AddClassDescription(
       new DeviceClassDescription();
   device_class_description->InitializeByDeviceClass(
       DeviceClassDescription::GetDeviceClassTypeByString(class_type));
-  // TODO(alan@telemidia.puc-rio.br): change  to Initialize using given
-  // paremeters
   AddClassDescription(application_id, class_index, device_class_description);
 }
 
@@ -62,8 +60,10 @@ void ParentPairingManager::AddClassDescription(
 void ParentPairingManager::AddClassDescription(
     const std::string& application_id, unsigned int class_index,
     DeviceClassDescription* device_class_description) {
-  clog << "ParentPairingManager::AddClassDescription:: application_id="
-       << application_id << ",class_index" << class_index << endl;
+  clog << "ParentPairingManager::AddClassDescription(" << application_id
+       << ",class_index" << class_index
+       << ",device_class_type=" << device_class_description->device_class_type()
+       << ")" << endl;
   application_class_data_map_[application_id][class_index] =
       new ApplicationClassData();
   application_class_data_map_[application_id][class_index]
