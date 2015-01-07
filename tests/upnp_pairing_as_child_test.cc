@@ -36,7 +36,7 @@ class MockUpnpChildPairing : public UpnpChildPairing {
   }
 };
 
-void ClassAnnounceHelper(bool diferent_processes) {
+void ClassAnnounceAsChildHelper(bool diferent_processes) {
   UpnpParentPairing* upnp_parent_pairing;
   MockUpnpChildPairing* upnp_child_pairing;
   string app_id;
@@ -48,7 +48,7 @@ void ClassAnnounceHelper(bool diferent_processes) {
   EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 0);
   EXPECT_FALSE(UpnpFsmdaUtils::IsUpnpStarted());
 
-  // start child pairing service
+  // start upnp child pairing service
   upnp_child_pairing = new MockUpnpChildPairing();
   EXPECT_EQ(upnp_child_pairing->StartPairingService(), 0);
   EXPECT_TRUE(upnp_child_pairing->IsPairingServiceStarted());
@@ -89,8 +89,6 @@ void ClassAnnounceHelper(bool diferent_processes) {
 
   // child wait for ParentPostSemphoreHelper call
   WaitNamedSemphoreHelper(app_id);
-
-  // test if child is paired
   ReleaseNameSemphoreHelper(app_id);
 
   if (diferent_processes == false) {
@@ -112,9 +110,11 @@ void ClassAnnounceHelper(bool diferent_processes) {
   EXPECT_FALSE(UpnpFsmdaUtils::IsUpnpStarted());
 }
 
-TEST(UpnpPairing, ClassAnnounceInSameProcess) { ClassAnnounceHelper(false); }
+TEST(UpnpPairingAsChild, ClassAnnounceInSameProcess) {
+  ClassAnnounceAsChildHelper(false);
+}
 
-TEST(UpnpPairing, ClassAnnounceInDiferentProcesses) {
+TEST(UpnpPairingAsChild, ClassAnnounceInDiferentProcesses) {
   // TODO(alan@telemidia.puc-rio.br)
   //  ClassAnnounceHelper(true);
 }

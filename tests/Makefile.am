@@ -44,11 +44,12 @@ check_PROGRAMS = testsuit_gtest fake_parent_helper fake_child_helper
 ### Tests programs sources
 testsuit_gtest_SOURCES = \
   testsuit_gtest.cc\
+  named_semaphore_helper.cc\
   device_class_description_test.cc\
   pairing_as_child_test.cc\
   pairing_as_parent_test.cc\
-  upnp_pairing_test.cc\
-  named_semaphore_helper.cc\
+  upnp_pairing_as_child_test.cc\
+  upnp_pairing_as_parent_test.cc\
   utils_test.cc
 
 fake_parent_helper_SOURCES = \
