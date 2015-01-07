@@ -99,32 +99,32 @@ int main(int argc, char** argv) {
     if (FLAGS_profile_pairing) {
       elapsed_time = (end_time.tv_sec - start_time.tv_sec) * 1000;
       elapsed_time += (end_time.tv_usec - start_time.tv_usec) / 1000;
-      cout << "fsmda_profiling pairing "
+      cout << "fsmda_profiling profile_pairing "
            << DeviceClassDescription::GetDeviceClassTypeStringByEnum(
                   device_class) << " " << elapsed_time << " ms" << endl;
     }
   } else if (FLAGS_profile_prepare) {
-    cout << "fsmda_profiling prepare "
+    cout << "fsmda_profiling profile_prepare "
          << DeviceClassDescription::GetDeviceClassTypeStringByEnum(device_class)
          << " " << elapsed_time << " ms" << endl;
 
   } else if (FLAGS_profile_command) {
-    cout << "fsmda_profiling command "
+    cout << "fsmda_profiling profile_command "
          << DeviceClassDescription::GetDeviceClassTypeStringByEnum(device_class)
          << " " << elapsed_time << " ms" << endl;
 
   } else if (FLAGS_profile_variable) {
-    cout << "fsmda_profiling variable "
+    cout << "fsmda_profiling profile_variable "
          << DeviceClassDescription::GetDeviceClassTypeStringByEnum(device_class)
          << " " << elapsed_time << " ms" << endl;
 
   } else if (FLAGS_profile_remove_device) {
-    cout << "fsmda_profiling remove_device "
+    cout << "fsmda_profiling profile_remove_device "
          << DeviceClassDescription::GetDeviceClassTypeStringByEnum(device_class)
          << " " << elapsed_time << " ms" << endl;
 
   } else if (FLAGS_profile_bufferd_command) {
-    cout << "fsmda_profiling bufferd_comman "
+    cout << "fsmda_profiling profile_bufferd_command "
          << DeviceClassDescription::GetDeviceClassTypeStringByEnum(device_class)
          << " " << elapsed_time << " ms" << endl;
   } else {
