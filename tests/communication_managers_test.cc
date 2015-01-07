@@ -100,6 +100,29 @@ void CallPrepareWithOneDeviceHelper(
       parent_pairing_manager->GetNumberOfRegistredChildren(app_id, class_index),
       1);
   ReleaseNameSemphoreHelper(parent_named_semaphore);
+  if (device_class_description->device_class_type() ==
+      DeviceClassDescription::kPassiveDevice) {
+    PassivePcmInterface* passive_pcm =
+        parent_pairing_manager->CreatePassivePcm(app_id, class_index);
+    EXPECT_TRUE(passive_pcm);
+  } else if (device_class_description->device_class_type() ==
+             DeviceClassDescription::kActiveDevice) {
+    ActivePcmInterface* active_pcm =
+        parent_pairing_manager->CreateActivePcm(app_id, class_index);
+    EXPECT_TRUE(active_pcm);
+  } else if (device_class_description->device_class_type() ==
+             DeviceClassDescription::kOnDemandDevice) {
+    OnDemandPcmInterface* ondemand_pcm =
+        parent_pairing_manager->CreateOnDemandPcm(app_id, class_index);
+    EXPECT_TRUE(ondemand_pcm);
+  } else if (device_class_description->device_class_type() ==
+             DeviceClassDescription::kMediaCaptureDevice) {
+    MediaCapturePcmInterface* medicapture_pcm =
+        parent_pairing_manager->CreateMediaCapturePcm(app_id, class_index);
+    EXPECT_TRUE(medicapture_pcm);
+  } else {
+    FAIL();
+  }
 
   if (diferent_processes == false) {
     // stop child pairing service
@@ -119,14 +142,45 @@ void CallPrepareWithOneDeviceHelper(
   EXPECT_FALSE(UpnpFsmdaUtils::IsUpnpStarted());
 }
 
-TEST(Communication, CallPrepareInSameProcess) {
+TEST(Communication, PassiveCallPrepareInSameProcess) {
+  CallPrepareWithOneDeviceHelper("./files/passive_dev_desc00.xml",
+                                 "./files/passive_class_desc00.xml",
+                                 DeviceClassDescription::kPassiveDevice, false);
+}
+TEST(Communication, ActiveCallPrepareInSameProcess) {
   CallPrepareWithOneDeviceHelper("./files/active_dev_desc00.xml",
                                  "./files/active_class_desc00.xml",
                                  DeviceClassDescription::kActiveDevice, false);
 }
-
-TEST(Communication, CallPrepareOneDeviceInDiferentProcesses) {
+TEST(Communication, OnDemandCallPrepareInSameProcess) {
+  CallPrepareWithOneDeviceHelper(
+      "./files/ondemand_dev_desc00.xml", "./files/ondemand_class_desc00.xml",
+      DeviceClassDescription::kOnDemandDevice, false);
+}
+TEST(Communication, MediaCaptureCallPrepareInSameProcess) {
+  CallPrepareWithOneDeviceHelper("./files/mediacapture_dev_desc00.xml",
+                                 "./files/mediacapture_class_desc00.xml",
+                                 DeviceClassDescription::kMediaCaptureDevice,
+                                 false);
+}
+TEST(Communication, PassiveCallPrepareInDiferentProcessess) {
+  CallPrepareWithOneDeviceHelper("./files/passive_dev_desc00.xml",
+                                 "./files/passive_class_desc00.xml",
+                                 DeviceClassDescription::kPassiveDevice, true);
+}
+TEST(Communication, ActiveCallPrepareInDiferentProcessess) {
   CallPrepareWithOneDeviceHelper("./files/active_dev_desc00.xml",
                                  "./files/active_class_desc00.xml",
                                  DeviceClassDescription::kActiveDevice, true);
+}
+TEST(Communication, OnDemandCallPrepareInDiferentProcessess) {
+  CallPrepareWithOneDeviceHelper("./files/ondemand_dev_desc00.xml",
+                                 "./files/ondemand_class_desc00.xml",
+                                 DeviceClassDescription::kOnDemandDevice, true);
+}
+TEST(Communication, MediaCaptureCallPrepareInDiferentProcessess) {
+  CallPrepareWithOneDeviceHelper("./files/mediacapture_dev_desc00.xml",
+                                 "./files/mediacapture_class_desc00.xml",
+                                 DeviceClassDescription::kMediaCaptureDevice,
+                                 true);
 }

@@ -156,6 +156,7 @@ PassivePcmInterface* ParentPairingManager::CreatePassivePcm(
     UpnpPassivePcm* communication = new UpnpPassivePcm();
     application_class_data_map_[application_id][class_index]
         ->communication_service = communication;
+    communication->StartCommunicationService();
     return communication;
   } else {
     return NULL;
@@ -170,9 +171,10 @@ ActivePcmInterface* ParentPairingManager::CreateActivePcm(
   if (application_class_data_map_[application_id][class_index]
           ->device_class_description_->device_class_type() ==
       DeviceClassDescription::kActiveDevice) {
-    UpnpActivePcm* communication = communication;
+    UpnpActivePcm* communication = new UpnpActivePcm();
     application_class_data_map_[application_id][class_index]
         ->communication_service = communication;
+    communication->StartCommunicationService();
     return communication;
   } else {
     return NULL;
@@ -187,9 +189,10 @@ MediaCapturePcmInterface* ParentPairingManager::CreateMediaCapturePcm(
   if (application_class_data_map_[application_id][class_index]
           ->device_class_description_->device_class_type() ==
       DeviceClassDescription::kMediaCaptureDevice) {
-    UpnpMediaCapturePcm* communication = communication;
+    UpnpMediaCapturePcm* communication = new UpnpMediaCapturePcm();
     application_class_data_map_[application_id][class_index]
         ->communication_service = communication;
+    communication->StartCommunicationService();
     return communication;
   } else {
     return NULL;
@@ -207,6 +210,7 @@ OnDemandPcmInterface* ParentPairingManager::CreateOnDemandPcm(
     UpnpOnDemandPcm* communication = new UpnpOnDemandPcm();
     application_class_data_map_[application_id][class_index]
         ->communication_service = communication;
+    communication->StartCommunicationService();
     return communication;
   } else {
     return NULL;
