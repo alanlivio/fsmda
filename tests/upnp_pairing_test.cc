@@ -27,7 +27,7 @@ class MockUpnpChildPairing : public UpnpChildPairing {
 
   NPT_Result OnAction(PLT_ActionReference& action,
                       const PLT_HttpRequestContext& context) {
-    cout << "MockUpnpChildPairing::OnAction()::name="
+    clog << "MockUpnpChildPairing::OnAction()::name="
          << action->GetActionDesc().GetName().GetChars() << endl;
     NPT_String name = action->GetActionDesc().GetName();
     if (!name.Compare("classAnnouncement"))
@@ -41,7 +41,9 @@ void ClassAnnounceHelper(bool diferent_processes) {
   MockUpnpChildPairing* upnp_child_pairing;
   string app_id;
 
-  system("./release_fake_child_parent.sh");
+  // release fake child and parent
+  int ret = system("./release_fake_child_parent.sh");
+
   // test if upnp is running
   EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 0);
   EXPECT_FALSE(UpnpFsmdaUtils::IsUpnpStarted());

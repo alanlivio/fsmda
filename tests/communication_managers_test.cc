@@ -22,7 +22,7 @@ class MockParentPairingManager : public ParentPairingManager {
                                 const string& device_address,
                                 unsigned int class_index,
                                 const string& device_desc) {
-    // cout << "MockParentPairingManager::AddDeviceToClass()" << endl;
+    clog << "MockParentPairingManager::AddDeviceToClass()" << endl;
     ParentPairingManager::AddDeviceToClass(application_id, device_address,
                                            class_index, device_desc);
     PostNamedSemphoreHelper(expected_semaphore);
@@ -36,6 +36,9 @@ void CallPrepareWithOneDeviceHelper(
   ChildPairingManager* child_pairing_manager;
   MockParentPairingManager* parent_pairing_manager;
   string app_id;
+
+  // release fake child and parent
+  int ret = system("./release_fake_child_parent.sh");
 
   EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 0);
   EXPECT_FALSE(UpnpFsmdaUtils::IsUpnpStarted());
@@ -92,11 +95,10 @@ void CallPrepareWithOneDeviceHelper(
   // parent wait for ParentPostSemphoreHelper call
   WaitNamedSemphoreHelper(parent_named_semaphore);
 
-  // test if child is paired
-  //  EXPECT_EQ(
-  //      parent_pairing_manager->GetNumberOfRegistredChildren(app_id,
-  //      class_index),
-  //      1);
+  //   test if child is paired
+  EXPECT_EQ(
+      parent_pairing_manager->GetNumberOfRegistredChildren(app_id, class_index),
+      1);
   ReleaseNameSemphoreHelper(parent_named_semaphore);
 
   if (diferent_processes == false) {

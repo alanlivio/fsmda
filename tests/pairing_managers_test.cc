@@ -36,6 +36,9 @@ void PairingWithOneDeviceHelper(
   ParentPairingManager* parent_pairing_manager;
   string app_id;
 
+  // release fake child and parent
+  int ret = system("./release_fake_child_parent.sh");
+
   EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 0);
   EXPECT_FALSE(UpnpFsmdaUtils::IsUpnpStarted());
 
