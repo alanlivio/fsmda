@@ -21,9 +21,8 @@ int main(int argc, char **argv) {
   ::testing::FLAGS_gtest_list_tests = false;
   ::testing::FLAGS_gtest_print_time = 0;
   ::testing::FLAGS_gtest_color = "yes";
-  //  ::testing::FLAGS_gtest_filter = "Communication.*";
-  //  ::testing::FLAGS_gtest_filter =
-  //      "UpnpCommunication.CallPrepareInSameProcess";
+  //  ::testing::FLAGS_gtest_filter = "PairingAsParent.*";
+  ::testing::FLAGS_gtest_filter = "ClassHandling.*:*.*InDifferentProcesses";
   ::testing::InitGoogleTest(&argc, argv);
 
   return RUN_ALL_TESTS();

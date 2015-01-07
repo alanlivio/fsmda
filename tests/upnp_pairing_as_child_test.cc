@@ -36,7 +36,7 @@ class MockUpnpChildPairing : public UpnpChildPairing {
   }
 };
 
-void ClassAnnounceAsChildHelper(bool diferent_processes) {
+void ClassAnnounceAsChildHelper(bool different_processes) {
   UpnpParentPairing* upnp_parent_pairing;
   MockUpnpChildPairing* upnp_child_pairing;
   string app_id;
@@ -58,7 +58,7 @@ void ClassAnnounceAsChildHelper(bool diferent_processes) {
   CreateNamedSemphoreHelper(app_id, false);
   upnp_child_pairing->expected_semaphore = app_id;
 
-  if (diferent_processes) {
+  if (different_processes) {
     // configure and start ParenPaigingManager
     // by popen fake_parent_helper
     string command = "./fake_parent_helper";
@@ -91,7 +91,7 @@ void ClassAnnounceAsChildHelper(bool diferent_processes) {
   WaitNamedSemphoreHelper(app_id);
   ReleaseNameSemphoreHelper(app_id);
 
-  if (diferent_processes == false) {
+  if (different_processes == false) {
     // stop parent pairing service
     EXPECT_EQ(upnp_parent_pairing->StopPairingService(), 0);
     EXPECT_FALSE(upnp_parent_pairing->IsPairingServiceStarted());
@@ -114,7 +114,7 @@ TEST(UpnpPairingAsChild, ClassAnnounceInSameProcess) {
   ClassAnnounceAsChildHelper(false);
 }
 
-TEST(UpnpPairingAsChild, ClassAnnounceInDiferentProcesses) {
+TEST(UpnpPairingAsChild, ClassAnnounceInDifferentProcesses) {
   // TODO(alan@telemidia.puc-rio.br)
   //  ClassAnnounceHelper(true);
 }

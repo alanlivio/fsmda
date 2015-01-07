@@ -111,7 +111,7 @@ TEST(UpnpPairingAsParent, ClassAnnounceInSameProcess) {
   ClassAnnounceAsParentHelper(false);
 }
 
-TEST(UpnpPairingAsParent, ClassAnnounceInDiferentProcesses) {
+TEST(UpnpPairingAsParent, ClassAnnounceInDifferentProcesses) {
   // TODO(alan@telemidia.puc-rio.br)
   //  ClassAnnounceHelper(true);
 }

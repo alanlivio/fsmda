@@ -138,27 +138,27 @@ TEST(PairingAsChild, MediaCaptureInSameProcess) {
                        "./files/mediacapture_class_desc00.xml",
                        DeviceClassDescription::kMediaCaptureDevice, false);
 }
-TEST(PairingAsChild, PassiveInDiferentProcessess) {
+TEST(PairingAsChild, PassiveInDifferentProcesses) {
   PairingAsChildHelper("./files/passive_dev_desc00.xml",
                        "./files/passive_class_desc00.xml",
                        DeviceClassDescription::kPassiveDevice, true);
 }
-TEST(PairingAsChild, ActiveInDiferentProcessess) {
+TEST(PairingAsChild, ActiveInDifferentProcesses) {
   PairingAsChildHelper("./files/active_dev_desc00.xml",
                        "./files/active_class_desc00.xml",
                        DeviceClassDescription::kActiveDevice, true);
 }
-TEST(PairingAsChild, ActiveHtmlInDiferentProcessess) {
+TEST(PairingAsChild, ActiveHtmlInDifferentProcesses) {
   PairingAsChildHelper("./files/html_dev_desc00.xml",
                        "./files/html_class_desc00.xml",
                        DeviceClassDescription::kHtmlDevice, true);
 }
-TEST(PairingAsChild, OnDemandInDiferentProcessess) {
+TEST(PairingAsChild, OnDemandInDifferentProcesses) {
   PairingAsChildHelper("./files/ondemand_dev_desc00.xml",
                        "./files/ondemand_class_desc00.xml",
                        DeviceClassDescription::kOnDemandDevice, true);
 }
-TEST(PairingAsChild, MediaCaptureInDiferentProcessess) {
+TEST(PairingAsChild, MediaCaptureInDifferentProcesses) {
   PairingAsChildHelper("./files/mediacapture_dev_desc00.xml",
                        "./files/mediacapture_class_desc00.xml",
                        DeviceClassDescription::kMediaCaptureDevice, true);
