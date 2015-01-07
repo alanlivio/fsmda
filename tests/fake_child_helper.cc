@@ -14,10 +14,22 @@
 #include "fsmda/child_pairing_manager.h"
 #include "fsmda/utils/upnp_fsmda_utils.h"
 
-DEFINE_bool(enable_profiling, false, "enable profilling");
 DEFINE_string(application_id, "", "uuuid application");
 DEFINE_string(device_class, DeviceClassDescription::kInvalidDeviceString,
               "device class name: passive,active,ondemand or medicapture");
+
+// Profile Pairing
+DEFINE_bool(profile_pairing, false, "enable profile_pairing");
+// Profile Data Transfer
+DEFINE_bool(profile_prepare, false, "enable profile_prepare");
+// Profile Command reaction
+DEFINE_bool(profile_command, false, "enable profile_command");
+// Profile Variable changing
+DEFINE_bool(profile_variable, false, "enable profile_variable");
+// Profile Fault tolerance (1)
+DEFINE_bool(profile_remove_device, false, "enable profile_remove_device");
+// Profile Fault tolerance (2)
+DEFINE_bool(profile_bufferd_command, false, "enable profile_bufferd_command");
 
 using std::cin;
 using std::cout;
@@ -60,7 +72,7 @@ int main(int argc, char** argv) {
 
   MockChildPairingManager* child_pairing_manager;
   timeval start_time, end_time;
-  double elapsed_time;
+  double elapsed_time = 0.0;
 
   // create description for device
   DeviceClassDescription::DeviceClassType device_class =
@@ -72,22 +84,52 @@ int main(int argc, char** argv) {
   device_description.InitializeByRdfContent(rdf_content);
   child_pairing_manager = new MockChildPairingManager(device_description);
 
-  // wait for parent prepared and start
   child_pairing_manager->expected_semaphore = FLAGS_application_id;
   CreateNamedSemphoreHelper(FLAGS_application_id, false);
-  if (FLAGS_enable_profiling) gettimeofday(&start_time, NULL);
   child_pairing_manager->StartPairing();
-  WaitNamedSemphoreHelper(FLAGS_application_id);
-  if (FLAGS_enable_profiling) gettimeofday(&end_time, NULL);
-  ReleaseNameSemphoreHelper(FLAGS_application_id);
 
-  // calculete elapsed time
-  if (FLAGS_enable_profiling) {
-    elapsed_time = (end_time.tv_sec - start_time.tv_sec) * 1000;
-    elapsed_time += (end_time.tv_usec - start_time.tv_usec) / 1000;
-    cout << "fsmda_profiling pairing "
+  if (FLAGS_profile_pairing) {
+    // wait for parent prepared and start
+    gettimeofday(&start_time, NULL);
+    WaitNamedSemphoreHelper(FLAGS_application_id);
+    gettimeofday(&end_time, NULL);
+    ReleaseNameSemphoreHelper(FLAGS_application_id);
+
+    // calculete elapsed time
+    if (FLAGS_profile_pairing) {
+      elapsed_time = (end_time.tv_sec - start_time.tv_sec) * 1000;
+      elapsed_time += (end_time.tv_usec - start_time.tv_usec) / 1000;
+      cout << "fsmda_profiling pairing "
+           << DeviceClassDescription::GetDeviceClassTypeStringByEnum(
+                  device_class) << " " << elapsed_time << " ms" << endl;
+    }
+  } else if (FLAGS_profile_prepare) {
+    cout << "fsmda_profiling prepare "
          << DeviceClassDescription::GetDeviceClassTypeStringByEnum(device_class)
          << " " << elapsed_time << " ms" << endl;
+
+  } else if (FLAGS_profile_command) {
+    cout << "fsmda_profiling command "
+         << DeviceClassDescription::GetDeviceClassTypeStringByEnum(device_class)
+         << " " << elapsed_time << " ms" << endl;
+
+  } else if (FLAGS_profile_variable) {
+    cout << "fsmda_profiling variable "
+         << DeviceClassDescription::GetDeviceClassTypeStringByEnum(device_class)
+         << " " << elapsed_time << " ms" << endl;
+
+  } else if (FLAGS_profile_remove_device) {
+    cout << "fsmda_profiling remove_device "
+         << DeviceClassDescription::GetDeviceClassTypeStringByEnum(device_class)
+         << " " << elapsed_time << " ms" << endl;
+
+  } else if (FLAGS_profile_bufferd_command) {
+    cout << "fsmda_profiling bufferd_comman "
+         << DeviceClassDescription::GetDeviceClassTypeStringByEnum(device_class)
+         << " " << elapsed_time << " ms" << endl;
+  } else {
+    WaitNamedSemphoreHelper(FLAGS_application_id);
+    ReleaseNameSemphoreHelper(FLAGS_application_id);
   }
   // release child
   child_pairing_manager->StopPairing();
