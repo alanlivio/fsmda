@@ -135,11 +135,7 @@ TEST(PairingAsChild, ActiveInSameProcess) {
                        "./files/active_class_desc00.xml",
                        DeviceClassDescription::kActiveDevice, false);
 }
-TEST(PairingAsChild, ActiveHtmlInSameProcess) {
-  PairingAsChildHelper("./files/html_dev_desc00.xml",
-                       "./files/html_class_desc00.xml",
-                       DeviceClassDescription::kHtmlDevice, false);
-}
+
 TEST(PairingAsChild, OnDemandInSameProcess) {
   PairingAsChildHelper("./files/ondemand_dev_desc00.xml",
                        "./files/ondemand_class_desc00.xml",
@@ -160,11 +156,7 @@ TEST(PairingAsChild, ActiveInDifferentProcesses) {
                        "./files/active_class_desc00.xml",
                        DeviceClassDescription::kActiveDevice, true);
 }
-TEST(PairingAsChild, ActiveHtmlInDifferentProcesses) {
-  PairingAsChildHelper("./files/html_dev_desc00.xml",
-                       "./files/html_class_desc00.xml",
-                       DeviceClassDescription::kHtmlDevice, true);
-}
+
 TEST(PairingAsChild, OnDemandInDifferentProcesses) {
   PairingAsChildHelper("./files/ondemand_dev_desc00.xml",
                        "./files/ondemand_class_desc00.xml",
