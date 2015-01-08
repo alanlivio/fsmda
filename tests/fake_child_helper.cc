@@ -14,6 +14,12 @@
 #include "fsmda/child_pairing_manager.h"
 #include "fsmda/utils/upnp_fsmda_utils.h"
 
+using std::cin;
+using std::cout;
+using std::clog;
+using std::endl;
+using std::getline;
+
 DEFINE_string(application_id, "", "uuuid application");
 DEFINE_string(device_class, DeviceClassDescription::kInvalidDeviceString,
               "device class name: passive,active,ondemand or medicapture");
@@ -30,12 +36,6 @@ DEFINE_bool(profile_variable, false, "enable profile_variable");
 DEFINE_bool(profile_remove_device, false, "enable profile_remove_device");
 // Profile Fault tolerance (2)
 DEFINE_bool(profile_bufferd_command, false, "enable profile_bufferd_command");
-
-using std::cin;
-using std::cout;
-using std::clog;
-using std::endl;
-using std::getline;
 
 class MockChildPairingManager : public ChildPairingManager {
  public:
@@ -74,7 +74,7 @@ int main(int argc, char** argv) {
   timeval start_time, end_time;
   double elapsed_time = 0.0;
 
-  // create description for device
+  // configure child
   DeviceClassDescription::DeviceClassType device_class =
       DeviceClassDescription::GetDeviceClassTypeByString(FLAGS_device_class);
   DeviceDescription device_description;
@@ -84,25 +84,23 @@ int main(int argc, char** argv) {
   device_description.InitializeByRdfContent(rdf_content);
   child_pairing_manager = new MockChildPairingManager(device_description);
 
+  // start child
   child_pairing_manager->expected_semaphore = FLAGS_application_id;
   CreateNamedSemphoreHelper(FLAGS_application_id, false);
   child_pairing_manager->StartPairing();
 
   if (FLAGS_profile_pairing) {
-    // wait for parent prepared and start
+    // wait for pairing
     gettimeofday(&start_time, NULL);
     WaitNamedSemphoreHelper(FLAGS_application_id);
     gettimeofday(&end_time, NULL);
     ReleaseNameSemphoreHelper(FLAGS_application_id);
 
-    // calculete elapsed time
-    if (FLAGS_profile_pairing) {
-      elapsed_time = (end_time.tv_sec - start_time.tv_sec) * 1000;
-      elapsed_time += (end_time.tv_usec - start_time.tv_usec) / 1000;
-      cout << "fsmda_profiling profile_pairing "
-           << DeviceClassDescription::GetDeviceClassTypeStringByEnum(
-                  device_class) << " " << elapsed_time << " ms" << endl;
-    }
+    elapsed_time = (end_time.tv_sec - start_time.tv_sec) * 1000;
+    elapsed_time += (end_time.tv_usec - start_time.tv_usec) / 1000;
+    cout << "fsmda_profiling profile_pairing "
+         << DeviceClassDescription::GetDeviceClassTypeStringByEnum(device_class)
+         << " " << elapsed_time << " ms" << endl;
   } else if (FLAGS_profile_prepare) {
     cout << "fsmda_profiling profile_prepare "
          << DeviceClassDescription::GetDeviceClassTypeStringByEnum(device_class)
