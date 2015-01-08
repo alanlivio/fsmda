@@ -41,8 +41,10 @@ class ClassHandlingHpeInterface {
   virtual ~ClassHandlingHpeInterface() {}
 
   // public pure virtual methods
-  virtual void getClassVariableValue(const string& name, const string& value);
-  virtual void setClassVariableValue(const string& name, const string& value);
+  virtual void getClassVariableValue(const string& name,
+                                     const string& value) = 0;
+  virtual void setClassVariableValue(const string& name,
+                                     const string& value) = 0;
 };
 
 #endif  // FSMDA_MODEL_CLASS_HANDLING_API_H_
