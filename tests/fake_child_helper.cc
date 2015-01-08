@@ -108,26 +108,36 @@ int main(int argc, char** argv) {
          << DeviceClassDescription::GetDeviceClassTypeStringByEnum(device_class)
          << " " << CalculateElapsedTime(start_time, end_time) << " ms" << endl;
   } else if (FLAGS_profile_prepare) {
+    gettimeofday(&start_time, NULL);
+    gettimeofday(&end_time, NULL);
     cout << "fsmda_child profile_prepare "
          << DeviceClassDescription::GetDeviceClassTypeStringByEnum(device_class)
          << " " << CalculateElapsedTime(start_time, end_time) << " ms" << endl;
 
   } else if (FLAGS_profile_command) {
+    gettimeofday(&start_time, NULL);
+    gettimeofday(&end_time, NULL);
     cout << "fsmda_child profile_command "
          << DeviceClassDescription::GetDeviceClassTypeStringByEnum(device_class)
          << " " << CalculateElapsedTime(start_time, end_time) << " ms" << endl;
 
   } else if (FLAGS_profile_variable) {
+    gettimeofday(&start_time, NULL);
+    gettimeofday(&end_time, NULL);
     cout << "fsmda_child profile_variable "
          << DeviceClassDescription::GetDeviceClassTypeStringByEnum(device_class)
          << " " << CalculateElapsedTime(start_time, end_time) << " ms" << endl;
 
   } else if (FLAGS_profile_remove_device) {
+    gettimeofday(&start_time, NULL);
+    gettimeofday(&end_time, NULL);
     cout << "fsmda_child profile_remove_device "
          << DeviceClassDescription::GetDeviceClassTypeStringByEnum(device_class)
          << " " << CalculateElapsedTime(start_time, end_time) << " ms" << endl;
 
   } else if (FLAGS_profile_bufferd_command) {
+    gettimeofday(&start_time, NULL);
+    gettimeofday(&end_time, NULL);
     cout << "fsmda_child profile_bufferd_command "
          << DeviceClassDescription::GetDeviceClassTypeStringByEnum(device_class)
          << " " << CalculateElapsedTime(start_time, end_time) << " ms" << endl;
