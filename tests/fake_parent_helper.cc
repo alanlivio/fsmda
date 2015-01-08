@@ -51,8 +51,7 @@ class MockParentPairingManager : public ParentPairingManager {
                                 unsigned int class_index,
                                 const string& device_desc) {
     clog << "MockParentPairingManager::AddDeviceToClass()" << endl;
-    if (FLAGS_waiting_pairing || FLAGS_profile_pairing)
-      PostNamedSemphoreHelper(expected_semaphore);
+    PostNamedSemphoreHelper(expected_semaphore);
   }
 };
 
@@ -114,12 +113,12 @@ int main(int argc, char** argv) {
   CreateNamedSemphoreHelper(parent_named_semaphore, false);
   parent_pairing_manager->StartPairing();
 
+  gettimeofday(&start_time, NULL);
+  WaitNamedSemphoreHelper(parent_named_semaphore);
+
   if (FLAGS_profile_pairing) {
     // wait for pairing
-    gettimeofday(&start_time, NULL);
-    WaitNamedSemphoreHelper(parent_named_semaphore);
     gettimeofday(&end_time, NULL);
-    ReleaseNameSemphoreHelper(parent_named_semaphore);
     cout << "fsmda_parent profile_pairing "
          << DeviceClassDescription::GetDeviceClassTypeStringByEnum(
                 device_class_type) << " "
@@ -152,9 +151,10 @@ int main(int argc, char** argv) {
   } else if (FLAGS_profile_remove_device) {
     // wait for pairing
     gettimeofday(&start_time, NULL);
+    cout << "fsmda_parent profile_remove_device waiting for second post"
+         << endl;
     WaitNamedSemphoreHelper(parent_named_semaphore);
     gettimeofday(&end_time, NULL);
-    ReleaseNameSemphoreHelper(parent_named_semaphore);
     cout << "fsmda_parent profile_remove_device "
          << DeviceClassDescription::GetDeviceClassTypeStringByEnum(
                 device_class_type) << " "
@@ -167,13 +167,10 @@ int main(int argc, char** argv) {
          << DeviceClassDescription::GetDeviceClassTypeStringByEnum(
                 device_class_type) << " "
          << CalculateElapsedTime(start_time, end_time) << " ms" << endl;
-
-  } else if (FLAGS_waiting_pairing) {
-    WaitNamedSemphoreHelper(parent_named_semaphore);
-    ReleaseNameSemphoreHelper(parent_named_semaphore);
   }
 
   // release parent
+  ReleaseNameSemphoreHelper(parent_named_semaphore);
   parent_pairing_manager->StopPairing();
   delete parent_pairing_manager;
 

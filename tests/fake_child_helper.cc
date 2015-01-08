@@ -53,8 +53,7 @@ class MockChildPairingManager : public ChildPairingManager {
     clog << "MockChildPairingManager::SetPaired():: paired = " << paired
          << endl;
     ChildPairingManager::set_paired(paired);
-    if (FLAGS_waiting_pairing || FLAGS_profile_pairing)
-      PostNamedSemphoreHelper(expected_semaphore);
+    PostNamedSemphoreHelper(expected_semaphore);
   }
   explicit MockChildPairingManager(const DeviceDescription& device_description)
       : ChildPairingManager(device_description) {}
@@ -98,12 +97,12 @@ int main(int argc, char** argv) {
   CreateNamedSemphoreHelper(FLAGS_application_id, false);
   child_pairing_manager->StartPairing();
 
+  gettimeofday(&start_time, NULL);
+  WaitNamedSemphoreHelper(FLAGS_application_id);
+
   if (FLAGS_profile_pairing) {
     // wait for pairing
-    gettimeofday(&start_time, NULL);
-    WaitNamedSemphoreHelper(FLAGS_application_id);
     gettimeofday(&end_time, NULL);
-    ReleaseNameSemphoreHelper(FLAGS_application_id);
     cout << "fsmda_child profile_pairing "
          << DeviceClassDescription::GetDeviceClassTypeStringByEnum(device_class)
          << " " << CalculateElapsedTime(start_time, end_time) << " ms" << endl;
@@ -141,12 +140,10 @@ int main(int argc, char** argv) {
     cout << "fsmda_child profile_bufferd_command "
          << DeviceClassDescription::GetDeviceClassTypeStringByEnum(device_class)
          << " " << CalculateElapsedTime(start_time, end_time) << " ms" << endl;
-  } else if (FLAGS_waiting_pairing) {
-    WaitNamedSemphoreHelper(FLAGS_application_id);
-    ReleaseNameSemphoreHelper(FLAGS_application_id);
   }
 
   // release child
+  ReleaseNameSemphoreHelper(FLAGS_application_id);
   child_pairing_manager->StopPairing();
   delete child_pairing_manager;
 

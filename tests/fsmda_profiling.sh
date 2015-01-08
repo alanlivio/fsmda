@@ -119,7 +119,7 @@ for class in "${classes[@]}";do
       ./release_fake_child_parent.sh
       ./fake_parent_helper --device_class=$class --application_id=$app_id --profile_remove_device \
          >> fsmda_profiling.log &
-      ./fake_child_helper --device_class=$class --application_id=$app_id --waiting_pairing \
+      ./fake_child_helper --device_class=$class --application_id=$app_id --profile_remove_device \
          >> fsmda_profiling.log
       ./release_fake_child_parent.sh
     done
