@@ -27,6 +27,14 @@ class MockChildPairingManager : public ChildPairingManager {
   explicit MockChildPairingManager(const DeviceDescription& device_description)
       : ChildPairingManager(device_description) {}
 };
+class MockHpe : public ClassHandlingHpeInterface {
+ public:
+  string expected_semaphore;
+
+  // public methods
+  void getClassVariableValue(const string& name, const string& value) {}
+  void setClassVariableValue(const string& name, const string& value) {}
+};
 
 void PairingAsChildHelper(
     const string& device_rdf, const string& device_class_description_rdf,
@@ -71,10 +79,12 @@ void PairingAsChildHelper(
   } else {
     // configure and start ParenPaigingManager
     DeviceClassDescription* device_class_description;
+    MockHpe* mock_hpe;
     device_class_description = new DeviceClassDescription();
     EXPECT_EQ(device_class_description->InitializeByRdfFile(
                   device_class_description_rdf),
               0);
+    mock_hpe = new MockHpe();
     EXPECT_EQ(device_class_description->device_class_type(),
               expected_device_class_type);
     parent_pairing_manager = new ParentPairingManager();
@@ -83,6 +93,7 @@ void PairingAsChildHelper(
     //    parent_pairing_manager->AddClass(app_id, class_index);
     parent_pairing_manager->AddClassDescription(app_id, class_index,
                                                 device_class_description);
+    parent_pairing_manager->SetClassHandlingHPE(app_id, mock_hpe);
     EXPECT_EQ(parent_pairing_manager->GetNumberOfRegistredClasses(app_id), 1);
     EXPECT_EQ(parent_pairing_manager->StartPairing(), 0);
     EXPECT_TRUE(parent_pairing_manager->IsPairingStarted());

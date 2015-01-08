@@ -160,6 +160,10 @@ NPT_Result UpnpParentPairing::OnActionResponse(NPT_Result res,
        << name.GetChars() << endl;
 }
 NPT_Result UpnpParentPairing::OnDeviceRemoved(PLT_DeviceDataReference &device) {
+  string app_id = discover_params_list_.front()->application_id_;
+  if (parent_pairing_manager_ != NULL)
+    parent_pairing_manager_->hpes_map_[app_id]->setClassVariableValue(
+        string("system(2).size"), string("0"));
 }
 
 NPT_Result UpnpParentPairing::OnDeviceAdded(

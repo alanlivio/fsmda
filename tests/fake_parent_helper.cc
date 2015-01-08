@@ -48,11 +48,12 @@ class MockParentPairingManager : public ParentPairingManager {
 class MockHpe : public ClassHandlingHpeInterface {
  public:
   string expected_semaphore;
-  // public pure virtual methods
-  virtual void getClassVariableValue(const string& name, const string& value) {}
-  virtual void setClassVariableValue(const string& name, const string& value) {
+
+  // public methods
+  void getClassVariableValue(const string& name, const string& value) {}
+  void setClassVariableValue(const string& name, const string& value) {
     clog << "MockParentPairingManager::setClassVariableValue()" << endl;
-    PostNamedSemphoreHelper(expected_semaphore);
+    if(FLAGS_profile_remove_device) PostNamedSemphoreHelper(expected_semaphore);
   }
 };
 
@@ -78,6 +79,7 @@ int main(int argc, char** argv) {
 
   DeviceClassDescription* device_class_description;
   MockParentPairingManager* parent_pairing_manager;
+  MockHpe* mock_hpe;
   DeviceClassDescription::DeviceClassType device_class_type;
   timeval start_time, end_time;
   double elapsed_time = 0.0;
@@ -87,10 +89,12 @@ int main(int argc, char** argv) {
   device_class_type =
       DeviceClassDescription::GetDeviceClassTypeByString(FLAGS_device_class);
   parent_pairing_manager = new MockParentPairingManager();
+  mock_hpe = new MockHpe();
   device_class_description = new DeviceClassDescription();
   device_class_description->InitializeByDeviceClass(device_class_type);
   parent_pairing_manager->AddClassDescription(FLAGS_application_id, class_index,
                                               device_class_description);
+  parent_pairing_manager->SetClassHandlingHPE(FLAGS_application_id, mock_hpe);
 
   // start parent
   string parent_named_semaphore = FLAGS_application_id + "_parent";

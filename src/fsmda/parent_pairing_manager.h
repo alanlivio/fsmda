@@ -87,6 +87,7 @@ class ParentPairingManager : public ClassHandlingPpmInterface,
   int StartPairing();
   int StopPairing();
   bool IsPairingStarted();
+  map<const string, ClassHandlingHpeInterface*> hpes_map_;
 
  private:
   // private filds
@@ -94,7 +95,6 @@ class ParentPairingManager : public ClassHandlingPpmInterface,
   map<const string, map<unsigned int, ApplicationClassData*> >
       application_class_data_map_;
   UpnpParentPairing* upnp_parent_pairing_;
-  map<const string, ClassHandlingHpeInterface*> hpes_map_;
 };
 
 #endif  // FSMDA_PARENT_PAIRING_MANAGER_H_

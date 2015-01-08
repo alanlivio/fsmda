@@ -14,6 +14,15 @@ using std::clog;
 using std::cout;
 using std::endl;
 
+class MockHpe : public ClassHandlingHpeInterface {
+ public:
+  string expected_semaphore;
+
+  // public methods
+  void getClassVariableValue(const string& name, const string& value) {}
+  void setClassVariableValue(const string& name, const string& value) {}
+};
+
 ParentPairingManager::ParentPairingManager() : upnp_registred_classes_size(0) {
   upnp_parent_pairing_ = new UpnpParentPairing();
   upnp_parent_pairing_->set_service_owner(this);

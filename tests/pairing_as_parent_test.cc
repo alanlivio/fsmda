@@ -29,12 +29,22 @@ class MockParentPairingManager : public ParentPairingManager {
   }
 };
 
+class MockHpe : public ClassHandlingHpeInterface {
+ public:
+  string expected_semaphore;
+
+  // public methods
+  void getClassVariableValue(const string& name, const string& value) {}
+  void setClassVariableValue(const string& name, const string& value) {}
+};
+
 void PairingAsParentHelper(
     const string& device_rdf, const string& device_class_description_rdf,
     DeviceClassDescription::DeviceClassType expected_device_class_type,
     bool diferent_processes) {
   ChildPairingManager* child_pairing_manager;
   MockParentPairingManager* parent_pairing_manager;
+  MockHpe* mock_hpe;
   string app_id;
 
   // release fake child and parent
@@ -57,11 +67,13 @@ void PairingAsParentHelper(
   EXPECT_EQ(device_class_description->device_class_type(),
             expected_device_class_type);
   parent_pairing_manager = new MockParentPairingManager();
+  mock_hpe = new MockHpe();
   unsigned int class_index =
       parent_pairing_manager->GenerateAvaliableIndex(app_id);
   parent_pairing_manager->expected_semaphore = parent_named_semaphore;
   parent_pairing_manager->AddClassDescription(app_id, class_index,
                                               device_class_description);
+  parent_pairing_manager->SetClassHandlingHPE(app_id, mock_hpe);
   EXPECT_EQ(parent_pairing_manager->GetNumberOfRegistredClasses(app_id), 1);
 
   // start ParenPaigingManager

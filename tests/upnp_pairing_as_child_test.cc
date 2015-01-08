@@ -36,6 +36,7 @@ class MockUpnpChildPairing : public UpnpChildPairing {
   }
 };
 
+
 void ClassAnnounceAsChildHelper(bool different_processes) {
   UpnpParentPairing* upnp_parent_pairing;
   MockUpnpChildPairing* upnp_child_pairing;
