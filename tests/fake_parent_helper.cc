@@ -63,7 +63,7 @@ class MockHpe : public ClassHandlingHpeInterface {
   // public methods
   void getClassVariableValue(const string& name, const string& value) {}
   void setClassVariableValue(const string& name, const string& value) {
-    cout << "MockParentPairingManager::setClassVariableValue()" << endl;
+    clog << "MockParentPairingManager::setClassVariableValue()" << endl;
     if (FLAGS_profile_remove_device)
       PostNamedSemphoreHelper(expected_semaphore);
   }
@@ -120,25 +120,25 @@ int main(int argc, char** argv) {
     WaitNamedSemphoreHelper(parent_named_semaphore);
     gettimeofday(&end_time, NULL);
     ReleaseNameSemphoreHelper(parent_named_semaphore);
-    cout << "fsmda_profiling_parent profile_pairing "
+    cout << "fsmda_parent profile_pairing "
          << DeviceClassDescription::GetDeviceClassTypeStringByEnum(
                 device_class_type) << " "
          << CalculateElapsedTime(start_time, end_time) << " ms" << endl;
 
   } else if (FLAGS_profile_prepare) {
-    cout << "fsmda_profiling_parent profile_prepare "
+    cout << "fsmda_parent profile_prepare "
          << DeviceClassDescription::GetDeviceClassTypeStringByEnum(
                 device_class_type) << " "
          << CalculateElapsedTime(start_time, end_time) << " ms" << endl;
 
   } else if (FLAGS_profile_command) {
-    cout << "fsmda_profiling_parent profile_command "
+    cout << "fsmda_parent profile_command "
          << DeviceClassDescription::GetDeviceClassTypeStringByEnum(
                 device_class_type) << " "
          << CalculateElapsedTime(start_time, end_time) << " ms" << endl;
 
   } else if (FLAGS_profile_variable) {
-    cout << "fsmda_profiling_parent profile_variable "
+    cout << "fsmda_parent profile_variable "
          << DeviceClassDescription::GetDeviceClassTypeStringByEnum(
                 device_class_type) << " "
          << CalculateElapsedTime(start_time, end_time) << " ms" << endl;
@@ -149,13 +149,13 @@ int main(int argc, char** argv) {
     WaitNamedSemphoreHelper(parent_named_semaphore);
     gettimeofday(&end_time, NULL);
     ReleaseNameSemphoreHelper(parent_named_semaphore);
-    cout << "fsmda_profiling_parent profile_remove_device "
+    cout << "fsmda_parent profile_remove_device "
          << DeviceClassDescription::GetDeviceClassTypeStringByEnum(
                 device_class_type) << " "
          << CalculateElapsedTime(start_time, end_time) << " ms" << endl;
 
   } else if (FLAGS_profile_bufferd_command) {
-    cout << "fsmda_profiling_parent profile_bufferd_command "
+    cout << "fsmda_parent profile_bufferd_command "
          << DeviceClassDescription::GetDeviceClassTypeStringByEnum(
                 device_class_type) << " "
          << CalculateElapsedTime(start_time, end_time) << " ms" << endl;
