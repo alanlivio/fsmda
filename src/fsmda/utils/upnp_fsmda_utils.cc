@@ -853,13 +853,17 @@ void UpnpFsmdaUtils::GenerateGUID(std::string* guid) {
 PLT_UPnP* UpnpFsmdaUtils::GetRunningInstance() {
   if (UpnpFsmdaUtils::upnp_singleton_ == NULL) {
     // setup Neptune logging
-    NPT_LogManager::GetDefault().Configure(
-        "plist:.level=;.handlers=ConsoleHandler;"
-        ".ConsoleHandler.colors=off;"
-        ".ConsoleHandler.filter=42");
+    //    NPT_LogManager::GetDefault().Configure(
+    //        "plist:.level=;.handlers=ConsoleHandler;"
+    //        ".ConsoleHandler.colors=off;"
+    //        ".ConsoleHandler.filter=42");
 
     // setup upnp service
-    PLT_Constants::GetInstance().SetDefaultDeviceLease(NPT_TimeInterval(60.));
+    PLT_Constants::GetInstance().SetDefaultDeviceLease(NPT_TimeInterval(10.));
+    PLT_Constants::GetInstance().SetAnnounceMulticastTimeToLive(
+        NPT_TimeInterval(0.7));
+    PLT_Constants::GetInstance().SetSearchMulticastTimeToLive(
+        NPT_TimeInterval(0.7));
     NPT_List<NPT_IpAddress> list;
     PLT_UPnPMessageHelper::GetIPAddresses(list);
     UpnpFsmdaUtils::upnp_singleton_ = new PLT_UPnP();
