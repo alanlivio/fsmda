@@ -44,7 +44,8 @@ class MockParentPairingManager : public ParentPairingManager {
                                 unsigned int class_index,
                                 const string& device_desc) {
     clog << "MockParentPairingManager::AddDeviceToClass()" << endl;
-    if (FLAGS_waiting_pairing) PostNamedSemphoreHelper(expected_semaphore);
+    if (FLAGS_waiting_pairing || FLAGS_profile_pairing)
+      PostNamedSemphoreHelper(expected_semaphore);
   }
 };
 

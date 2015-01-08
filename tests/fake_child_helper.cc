@@ -46,7 +46,8 @@ class MockChildPairingManager : public ChildPairingManager {
     clog << "MockChildPairingManager::SetPaired():: paired = " << paired
          << endl;
     ChildPairingManager::set_paired(paired);
-    if (FLAGS_waiting_pairing) PostNamedSemphoreHelper(expected_semaphore);
+    if (FLAGS_waiting_pairing || FLAGS_profile_pairing)
+      PostNamedSemphoreHelper(expected_semaphore);
   }
   explicit MockChildPairingManager(const DeviceDescription& device_description)
       : ChildPairingManager(device_description) {}
