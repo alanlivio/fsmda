@@ -20,10 +20,10 @@ for profile in "${profiles[@]}";do
         rm -rf fsmda_pairing_profile.log
         for ((i=1; i<=$n; i++));do
           ./release_fake_child_parent.sh
-          ./fake_parent_helper --device_class=$class --application_id=$app_id  2>&1 &>/dev/null &
+          ./fake_parent_helper --device_class=$class --application_id=$app_id --$profile >> fsmda_profiling.log &
           ./fake_child_helper --device_class=$class --application_id=$app_id --$profile >> fsmda_profiling.log
           ./release_fake_child_parent.sh
         done
-        grep "fsmda_profiling $profile $class" < fsmda_profiling.log |awk '{ SUM += $4; N += 1} END { print SUM/N }'
+        grep "fsmda_profiling_child $profile $class" < fsmda_profiling.log |awk '{ SUM += $4; N += 1} END { print SUM/N }'
     done
 done
