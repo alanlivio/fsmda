@@ -17,8 +17,8 @@ rm fsmda_profiling.log
 
 ### profiling
 for class in "${classes[@]}";do
-    ### profile_prepare
-    echo "Running $n times of profile_prepare for $class class..."
+    ### profile_prepare  ########################################
+    echo "Running $n times of profile_pairing..."
     rm -rf fsmda_pairing_profile.log
     for ((i=1; i<=$n; i++));do
       ./release_fake_child_parent.sh
@@ -28,8 +28,26 @@ for class in "${classes[@]}";do
          >> fsmda_profiling.log
       ./release_fake_child_parent.sh
     done
+    echo -n "$class child average="
     grep "fsmda_profiling_child profile_pairing $class" < fsmda_profiling.log \
-     |awk '{ SUM += $4; N += 1} END { printf "child_average=%d\n",SUM/N}'
+      |awk '{ SUM += $4; N += 1} END { printf "%d\n",SUM/N}'
+    echo -n "$class parent average="
     grep "fsmda_profiling_parent profile_pairing $class" < fsmda_profiling.log \
-     |awk '{ SUM += $4; N += 1} END { printf "parent_average=%d\n",SUM/N }'
+      |awk '{ SUM += $4; N += 1} END { printf "%d\n",SUM/N }'
+
+    ### profile_remove_device ########################################
+    echo "Running $n times of profile_remove_device..."
+    rm -rf fsmda_pairing_profile.log
+    for ((i=1; i<=$n; i++));do
+      ./release_fake_child_parent.sh
+      ./fake_parent_helper --device_class=$class --application_id=$app_id --profile_remove_device \
+         >> fsmda_profiling.log &
+      ./fake_child_helper --device_class=$class --application_id=$app_id --waiting_pairing \
+         >> fsmda_profiling.log
+      ./release_fake_child_parent.sh
+    done
+    echo -n "$class parent average="
+    grep "fsmda_profiling_parent profile_remove_device $class" < fsmda_profiling.log \
+      |awk '{ SUM += $4; N += 1} END { printf "%d\n",SUM/N }'
+
 done

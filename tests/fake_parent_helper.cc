@@ -56,7 +56,7 @@ class MockHpe : public ClassHandlingHpeInterface {
   // public methods
   void getClassVariableValue(const string& name, const string& value) {}
   void setClassVariableValue(const string& name, const string& value) {
-    clog << "MockParentPairingManager::setClassVariableValue()" << endl;
+    cout << "MockParentPairingManager::setClassVariableValue()" << endl;
     if (FLAGS_profile_remove_device)
       PostNamedSemphoreHelper(expected_semaphore);
   }
@@ -104,6 +104,7 @@ int main(int argc, char** argv) {
   // start parent
   string parent_named_semaphore = FLAGS_application_id + "_parent";
   parent_pairing_manager->expected_semaphore = parent_named_semaphore;
+  mock_hpe->expected_semaphore = parent_named_semaphore;
   CreateNamedSemphoreHelper(parent_named_semaphore, false);
   parent_pairing_manager->StartPairing();
 
@@ -131,6 +132,13 @@ int main(int argc, char** argv) {
          << DeviceClassDescription::GetDeviceClassTypeStringByEnum(
                 device_class_type) << " " << elapsed_time << " ms" << endl;
   } else if (FLAGS_profile_remove_device) {
+    // wait for pairing
+    gettimeofday(&start_time, NULL);
+    WaitNamedSemphoreHelper(parent_named_semaphore);
+    gettimeofday(&end_time, NULL);
+    ReleaseNameSemphoreHelper(parent_named_semaphore);
+    elapsed_time = (end_time.tv_sec - start_time.tv_sec) * 1000;
+    elapsed_time += (end_time.tv_usec - start_time.tv_usec) / 1000;
     cout << "fsmda_profiling_parent profile_remove_device "
          << DeviceClassDescription::GetDeviceClassTypeStringByEnum(
                 device_class_type) << " " << elapsed_time << " ms" << endl;
