@@ -20,6 +20,9 @@ using std::getline;
 DEFINE_string(application_id, "", "uuuid application");
 DEFINE_string(device_class, DeviceClassDescription::kInvalidDeviceString,
               "device class name: passive,active,ondemand or medicapture");
+
+// Waiting pairing
+DEFINE_bool(waiting_pairing, false, "just waiting for pairing");
 // Profile Pairing
 DEFINE_bool(profile_pairing, false, "enable profile_pairing");
 // Profile Data Transfer
@@ -41,7 +44,7 @@ class MockParentPairingManager : public ParentPairingManager {
                                 unsigned int class_index,
                                 const string& device_desc) {
     clog << "MockParentPairingManager::AddDeviceToClass()" << endl;
-    PostNamedSemphoreHelper(expected_semaphore);
+    if (FLAGS_waiting_pairing) PostNamedSemphoreHelper(expected_semaphore);
   }
 };
 
@@ -53,7 +56,8 @@ class MockHpe : public ClassHandlingHpeInterface {
   void getClassVariableValue(const string& name, const string& value) {}
   void setClassVariableValue(const string& name, const string& value) {
     clog << "MockParentPairingManager::setClassVariableValue()" << endl;
-    if(FLAGS_profile_remove_device) PostNamedSemphoreHelper(expected_semaphore);
+    if (FLAGS_profile_remove_device)
+      PostNamedSemphoreHelper(expected_semaphore);
   }
 };
 
@@ -133,7 +137,7 @@ int main(int argc, char** argv) {
     cout << "fsmda_profiling_parent profile_bufferd_command "
          << DeviceClassDescription::GetDeviceClassTypeStringByEnum(
                 device_class_type) << " " << elapsed_time << " ms" << endl;
-  } else {
+  } else if (FLAGS_waiting_pairing) {
     WaitNamedSemphoreHelper(parent_named_semaphore);
     ReleaseNameSemphoreHelper(parent_named_semaphore);
   }

@@ -24,6 +24,8 @@ DEFINE_string(application_id, "", "uuuid application");
 DEFINE_string(device_class, DeviceClassDescription::kInvalidDeviceString,
               "device class name: passive,active,ondemand or medicapture");
 
+// Waiting pairing
+DEFINE_bool(waiting_pairing, false, "just waiting for pairing");
 // Profile Pairing
 DEFINE_bool(profile_pairing, false, "enable profile_pairing");
 // Profile Data Transfer
@@ -44,7 +46,7 @@ class MockChildPairingManager : public ChildPairingManager {
     clog << "MockChildPairingManager::SetPaired():: paired = " << paired
          << endl;
     ChildPairingManager::set_paired(paired);
-    PostNamedSemphoreHelper(expected_semaphore);
+    if (FLAGS_waiting_pairing) PostNamedSemphoreHelper(expected_semaphore);
   }
   explicit MockChildPairingManager(const DeviceDescription& device_description)
       : ChildPairingManager(device_description) {}
@@ -125,7 +127,7 @@ int main(int argc, char** argv) {
     cout << "fsmda_profiling_child profile_bufferd_command "
          << DeviceClassDescription::GetDeviceClassTypeStringByEnum(device_class)
          << " " << elapsed_time << " ms" << endl;
-  } else {
+  } else if (FLAGS_waiting_pairing) {
     WaitNamedSemphoreHelper(FLAGS_application_id);
     ReleaseNameSemphoreHelper(FLAGS_application_id);
   }

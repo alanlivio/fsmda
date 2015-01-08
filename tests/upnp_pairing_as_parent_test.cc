@@ -75,6 +75,7 @@ void ClassAnnounceAsParentHelper(bool diferent_processes) {
     command.append(DeviceClassDescription::GetDeviceClassTypeStringByEnum(
         DeviceClassDescription::kActiveDevice));
     command.append(" --application_id=" + app_id);
+    command.append(" --waiting_pairing");
     FILE* parent_pipe = popen(command.c_str(), "w");
     ASSERT_TRUE(parent_pipe);
     pclose(parent_pipe);

@@ -72,6 +72,7 @@ void PairingAsChildHelper(
     command.append(DeviceClassDescription::GetDeviceClassTypeStringByEnum(
         expected_device_class_type));
     command.append(" --application_id=" + app_id);
+    command.append(" --waiting_pairing");
     FILE* parent_pipe = popen(command.c_str(), "w");
     ASSERT_TRUE(parent_pipe);
     pclose(parent_pipe);
