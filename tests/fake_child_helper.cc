@@ -39,6 +39,13 @@ DEFINE_bool(profile_remove_device, false, "enable profile_remove_device");
 // Profile Fault tolerance (2)
 DEFINE_bool(profile_bufferd_command, false, "enable profile_bufferd_command");
 
+double CalculateElapsedTime(timeval start_time, timeval end_time) {
+  double elapsed_time;
+  elapsed_time = (end_time.tv_sec - start_time.tv_sec) * 1000.0;
+  elapsed_time += (end_time.tv_usec - start_time.tv_usec) / 1000.0;
+  return elapsed_time;
+}
+
 class MockChildPairingManager : public ChildPairingManager {
  public:
   string expected_semaphore;
@@ -75,7 +82,6 @@ int main(int argc, char** argv) {
 
   MockChildPairingManager* child_pairing_manager;
   timeval start_time, end_time;
-  double elapsed_time = 0.0;
 
   // configure child
   DeviceClassDescription::DeviceClassType device_class =
@@ -98,40 +104,38 @@ int main(int argc, char** argv) {
     WaitNamedSemphoreHelper(FLAGS_application_id);
     gettimeofday(&end_time, NULL);
     ReleaseNameSemphoreHelper(FLAGS_application_id);
-
-    elapsed_time = (end_time.tv_sec - start_time.tv_sec) * 1000;
-    elapsed_time += (end_time.tv_usec - start_time.tv_usec) / 1000;
     cout << "fsmda_profiling_child profile_pairing "
          << DeviceClassDescription::GetDeviceClassTypeStringByEnum(device_class)
-         << " " << elapsed_time << " ms" << endl;
+         << " " << CalculateElapsedTime(start_time, end_time) << " ms" << endl;
   } else if (FLAGS_profile_prepare) {
     cout << "fsmda_profiling_child profile_prepare "
          << DeviceClassDescription::GetDeviceClassTypeStringByEnum(device_class)
-         << " " << elapsed_time << " ms" << endl;
+         << " " << CalculateElapsedTime(start_time, end_time) << " ms" << endl;
 
   } else if (FLAGS_profile_command) {
     cout << "fsmda_profiling_child profile_command "
          << DeviceClassDescription::GetDeviceClassTypeStringByEnum(device_class)
-         << " " << elapsed_time << " ms" << endl;
+         << " " << CalculateElapsedTime(start_time, end_time) << " ms" << endl;
 
   } else if (FLAGS_profile_variable) {
     cout << "fsmda_profiling_child profile_variable "
          << DeviceClassDescription::GetDeviceClassTypeStringByEnum(device_class)
-         << " " << elapsed_time << " ms" << endl;
+         << " " << CalculateElapsedTime(start_time, end_time) << " ms" << endl;
 
   } else if (FLAGS_profile_remove_device) {
     cout << "fsmda_profiling_child profile_remove_device "
          << DeviceClassDescription::GetDeviceClassTypeStringByEnum(device_class)
-         << " " << elapsed_time << " ms" << endl;
+         << " " << CalculateElapsedTime(start_time, end_time) << " ms" << endl;
 
   } else if (FLAGS_profile_bufferd_command) {
     cout << "fsmda_profiling_child profile_bufferd_command "
          << DeviceClassDescription::GetDeviceClassTypeStringByEnum(device_class)
-         << " " << elapsed_time << " ms" << endl;
+         << " " << CalculateElapsedTime(start_time, end_time) << " ms" << endl;
   } else if (FLAGS_waiting_pairing) {
     WaitNamedSemphoreHelper(FLAGS_application_id);
     ReleaseNameSemphoreHelper(FLAGS_application_id);
   }
+
   // release child
   child_pairing_manager->StopPairing();
   delete child_pairing_manager;
