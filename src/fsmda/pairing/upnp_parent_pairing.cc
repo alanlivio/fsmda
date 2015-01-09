@@ -47,10 +47,43 @@ UpnpParentPairing::UpnpParentPairing()
   m_ModelName = UpnpFsmdaUtils::kPpmDeviceModelName;
   m_Manufacturer = UpnpFsmdaUtils::kFsmdaManufacturer;
   m_ManufacturerURL = UpnpFsmdaUtils::kFsmdaManufacturerUrl;
-  device_service_ = new PLT_Service(this, UpnpFsmdaUtils::kPpmServiceType,
-                                    UpnpFsmdaUtils::kPpmServiceId,
-                                    UpnpFsmdaUtils::kPpmServiceName);
-  device_service_->SetSCPDXML((const char *)UpnpFsmdaUtils::kPpmServiceScpdXml);
+
+  // create parent pairing service
+  cpm_service_ = new PLT_Service(this, UpnpFsmdaUtils::kPpmServiceType,
+                                 UpnpFsmdaUtils::kPpmServiceId,
+                                 UpnpFsmdaUtils::kPpmServiceName);
+  cpm_service_->SetSCPDXML((const char *)UpnpFsmdaUtils::kPpmServiceScpdXml);
+
+  // create passive service
+  passive_service_ =
+      new PLT_Service(this, UpnpFsmdaUtils::kPassivePcmServiceType,
+                      UpnpFsmdaUtils::kPassivePcmServiceId,
+                      UpnpFsmdaUtils::kPassivePcmServiceName);
+  passive_service_->SetSCPDXML(
+      (const char *)UpnpFsmdaUtils::kPassivePcmServiceScpdXml);
+
+  // create active service
+  active_service_ = new PLT_Service(this, UpnpFsmdaUtils::kActivePcmServiceType,
+                                    UpnpFsmdaUtils::kActivePcmServiceId,
+                                    UpnpFsmdaUtils::kActivePcmServiceName);
+  active_service_->SetSCPDXML(
+      (const char *)UpnpFsmdaUtils::kActivePcmServiceScpdXml);
+
+  // create ondemand service
+  ondemand_service_ =
+      new PLT_Service(this, UpnpFsmdaUtils::kOnDemandPcmServiceType,
+                      UpnpFsmdaUtils::kOnDemandPcmServiceId,
+                      UpnpFsmdaUtils::kOnDemandPcmServiceName);
+  ondemand_service_->SetSCPDXML(
+      (const char *)UpnpFsmdaUtils::kOnDemandPcmServiceScpdXml);
+
+  // create media catpure service
+  mediacapture_service_ =
+      new PLT_Service(this, UpnpFsmdaUtils::kMediaCapturePcmServiceType,
+                      UpnpFsmdaUtils::kMediaCapturePcmServiceId,
+                      UpnpFsmdaUtils::kMediaCapturePcmServiceName);
+  mediacapture_service_->SetSCPDXML(
+      (const char *)UpnpFsmdaUtils::kMediaCapturePcmServiceScpdXml);
 }
 
 /*----------------------------------------------------------------------
@@ -58,7 +91,7 @@ UpnpParentPairing::UpnpParentPairing()
  +---------------------------------------------------------------------*/
 UpnpParentPairing::~UpnpParentPairing() {
   StopPairingService();
-  delete device_service_;
+  delete cpm_service_;
   ctrl_point_.Detach();
   device_host_.Detach();
 }
@@ -96,7 +129,16 @@ int UpnpParentPairing::RemoveDeviceClassForDiscover(
 NPT_Result UpnpParentPairing::SetupServices() {
   clog << "UpnpParentPairing::SetupServices()" << endl;
   NPT_Result res;
-  res = AddService(device_service_);
+  res = AddService(cpm_service_);
+  if (res == NPT_FAILURE) return NPT_FAILURE;
+  res = AddService(passive_service_);
+  if (res == NPT_FAILURE) return NPT_FAILURE;
+  res = AddService(active_service_);
+  if (res == NPT_FAILURE) return NPT_FAILURE;
+  res = AddService(ondemand_service_);
+  if (res == NPT_FAILURE) return NPT_FAILURE;
+  res = AddService(mediacapture_service_);
+  if (res == NPT_FAILURE) return NPT_FAILURE;
   return res;
 }
 
@@ -249,7 +291,7 @@ int UpnpParentPairing::StartPairingService() {
  +---------------------------------------------------------------------*/
 int UpnpParentPairing::StopPairingService() {
   if (upnp_instance_ != NULL) {
-    RemoveService(device_service_);
+    RemoveService(cpm_service_);
     upnp_instance_->RemoveDevice(device_host_);
     ctrl_point_->RemoveListener(this);
     upnp_instance_->RemoveCtrlPoint(ctrl_point_);

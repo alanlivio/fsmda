@@ -25,8 +25,7 @@ const char* UpnpFsmdaUtils::kFsmdaManufacturerUrl =
 // PPM UPNP constant strings
 const char* UpnpFsmdaUtils::kPpmDeviceType =
     "urn:schemas-upnp-org:device:fsmda-parent-pairing-device:1";
-const char* UpnpFsmdaUtils::kPpmDeviceFriendlyName =
-    "fsmda parent device";
+const char* UpnpFsmdaUtils::kPpmDeviceFriendlyName = "fsmda parent device";
 const char* UpnpFsmdaUtils::kPpmDeviceModelName =
     "fsmda-parent-pairing-device model name";
 const char* UpnpFsmdaUtils::kPpmDeviceModelDescription =
@@ -35,11 +34,11 @@ const char* UpnpFsmdaUtils::kPpmDeviceModelUrl =
     "http://www.ncl.org.br/fsmda/fsmda-parent-device";
 const char* UpnpFsmdaUtils::kPpmDeviceNumber = "1.0";
 const char* UpnpFsmdaUtils::kPpmServiceType =
-    "urn:schemas-upnp-org:service:fsmda-parent-pairing-manager:1";
+    "urn:schemas-upnp-org:service:fsmda-parent-pairing:1";
 const char* UpnpFsmdaUtils::kPpmServiceId =
-    "urn:upnp-org:serviceId:fsmda-parent-pairing-manager";
+    "urn:upnp-org:serviceId:fsmda-parent-pairing";
 const char* UpnpFsmdaUtils::kPpmServiceName =
-    "urn:upnp-org:serviceId:fsmda-parent-pairing-manager";
+    "urn:upnp-org:serviceId:fsmda-parent-pairing";
 const char* UpnpFsmdaUtils::kPpmServiceScpdXml =
     "<?xml version=\"1.0\" ?>"
     "<scpd xmlns=\"urn:schemas-upnp-org:service-1-0\">"
@@ -136,8 +135,7 @@ const char* UpnpFsmdaUtils::kPpmServiceScpdXml =
 // CPM UPNP constant strings
 const char* UpnpFsmdaUtils::kCpmDeviceType =
     "urn:schemas-upnp-org:device:fsmda-child-device:1";
-const char* UpnpFsmdaUtils::kCpmDeviceFriendlyName =
-    "fsmda child device";
+const char* UpnpFsmdaUtils::kCpmDeviceFriendlyName = "fsmda child device";
 const char* UpnpFsmdaUtils::kCpmDeviceModelName =
     "fsmda child device model name";
 const char* UpnpFsmdaUtils::kCpmDeviceModelDescription =
@@ -146,11 +144,11 @@ const char* UpnpFsmdaUtils::kCpmDeviceModelUrl =
     "http://www.ncl.org.br/fsmda/fsmda-child-device";
 const char* UpnpFsmdaUtils::kCpmDeviceModelNumber = "1.0";
 const char* UpnpFsmdaUtils::kCpmServiceType =
-    "urn:schemas-upnp-org:service:fsmda-child-pairing-manager:1";
+    "urn:schemas-upnp-org:service:fsmda-child-pairing:1";
 const char* UpnpFsmdaUtils::kCpmServiceId =
-    "urn:upnp-org:serviceId:fsmda-child-pairing-manager";
+    "urn:upnp-org:serviceId:fsmda-child-pairing";
 const char* UpnpFsmdaUtils::kCpmServiceName =
-    "urn:upnp-org:serviceId:fsmda-child-pairing-manager";
+    "urn:upnp-org:serviceId:fsmda-child-pairing";
 const char* UpnpFsmdaUtils::kCpmServiceScpdXml =
     "<?xml version=\"1.0\" ?>"
     "<scpd xmlns=\"urn:schemas-upnp-org:service-1-0\">"
@@ -231,11 +229,11 @@ const char* UpnpFsmdaUtils::kActivePcmDeviceModelUrl =
     "http://www.ncl.org.br/fsmda/active";
 const char* UpnpFsmdaUtils::kActivePcmDeviceModelNumber = "1.0";
 const char* UpnpFsmdaUtils::kActivePcmServiceType =
-    "urn:schemas-upnp-org:service:fsmda-active-parent-communication-service:1";
+    "urn:schemas-upnp-org:service:fsmda-active-parent-communication:1";
 const char* UpnpFsmdaUtils::kActivePcmServiceId =
-    "urn:upnp-org:serviceId:child-pairing-service001";
+    "urn:upnp-org:serviceId:fsmda-active-parent-communication";
 const char* UpnpFsmdaUtils::kActivePcmServiceName =
-    "urn:upnp-org:serviceId:child-pairing-service001-name";
+    "urn:upnp-org:serviceId:fsmda-active-parent-communication";
 const char* UpnpFsmdaUtils::kActivePcmServiceScpdXml =
     "<?xml version=\"1.0\" ?>"
     "<scpd xmlns=\"urn:schemas-upnp-org:service-1-0\">"
@@ -259,40 +257,6 @@ const char* UpnpFsmdaUtils::kActivePcmServiceScpdXml =
     "         </argument>"
     "       </argumentList>"
     "     </action>"
-    "     <action>"
-    "       <name>NotifyEventTransition</name>"
-    "       <argumentList>"
-    "         <argument>"
-    "           <name>object_id</name>"
-    "           <direction>in</direction>"
-    "<relatedStateVariable>A_ARG_TYPE_object_id</relatedStateVariable>"
-    "         </argument>"
-    "         <argument>"
-    "           <name>event_id</name>"
-    "           <direction>in</direction>"
-    "<relatedStateVariable>A_ARG_TYPE_event_id</relatedStateVariable>"
-    "         </argument>"
-    "           <name>transition</name>"
-    "           <direction>in</direction>"
-    "<relatedStateVariable>A_ARG_TYPE_transition</relatedStateVariable>"
-    "         </argument>"
-    "       </argumentList>"
-    "     </action>"
-    "     <action>"
-    "       <name>NotifyError</name>"
-    "       <argumentList>"
-    "         <argument>"
-    "           <name>object_id</name>"
-    "           <direction>in</direction>"
-    "<relatedStateVariable>A_ARG_TYPE_object_id</relatedStateVariable>"
-    "         </argument>"
-    "         <argument>"
-    "           <name>message</name>"
-    "           <direction>in</direction>"
-    "<relatedStateVariable>A_ARG_TYPE_message</relatedStateVariable>"
-    "         </argument>"
-    "       </argumentList>"
-    "     </action>"
     "   </actionList>"
     "   <serviceStateTable>"
     "     <stateVariable sendEvents=\"no\">"
@@ -302,21 +266,6 @@ const char* UpnpFsmdaUtils::kActivePcmServiceScpdXml =
     "     </stateVariable>"
     "     <stateVariable sendEvents=\"no\">"
     "         <name>A_ARG_TYPE_property_name</name>"
-    "         <dataType>string</dataType>"
-    "         <defaultValue></defaultValue>"
-    "     </stateVariable>"
-    "     <stateVariable sendEvents=\"no\">"
-    "         <name>A_ARG_TYPE_event_id</name>"
-    "         <dataType>string</dataType>"
-    "         <defaultValue></defaultValue>"
-    "     </stateVariable>"
-    "     <stateVariable sendEvents=\"no\">"
-    "         <name>A_ARG_TYPE_transition</name>"
-    "         <dataType>string</dataType>"
-    "         <defaultValue></defaultValue>"
-    "     </stateVariable>"
-    "     <stateVariable sendEvents=\"no\">"
-    "         <name>A_ARG_TYPE_message</name>"
     "         <dataType>string</dataType>"
     "         <defaultValue></defaultValue>"
     "     </stateVariable>"
@@ -341,11 +290,11 @@ const char* UpnpFsmdaUtils::kActiveCcmDeviceModelUrl =
     "http://www.ncl.org.br/fsmda/ondemand";
 const char* UpnpFsmdaUtils::kActiveCcmDeviceModelNumber = "1.0";
 const char* UpnpFsmdaUtils::kActiveCcmServiceType =
-    "urn:schemas-upnp-org:service:fsmda-active-child-communication-service:1";
+    "urn:schemas-upnp-org:service:fsmda-active-child-communication:1";
 const char* UpnpFsmdaUtils::kActiveCcmServiceId =
-    "urn:upnp-org:serviceId:fsmda-active-child-communication-service001";
+    "urn:upnp-org:serviceId:fsmda-active-child-communication";
 const char* UpnpFsmdaUtils::kActiveCcmServiceName =
-    "urn:upnp-org:serviceId:fsmda-active-child-communication-service001-name";
+    "urn:upnp-org:serviceId:fsmda-active-child-communication";
 const char* UpnpFsmdaUtils::kActiveCcmServiceScpdXml =
     "<?xml version=\"1.0\" ?>"
     "<scpd xmlns=\"urn:schemas-upnp-org:service-1-0\">"
@@ -367,7 +316,6 @@ const char* UpnpFsmdaUtils::kActiveCcmServiceScpdXml =
     "           <direction>in</direction>"
     "<relatedStateVariable>A_ARG_TYPE_object_src</relatedStateVariable>"
     "         </argument>"
-    "       </argumentList>"
     "         <argument>"
     "           <name>properties</name>"
     "           <direction>in</direction>"
@@ -395,6 +343,21 @@ const char* UpnpFsmdaUtils::kActiveCcmServiceScpdXml =
     "         </argument>"
     "       </argumentList>"
     "     </action>"
+    "     <action>"
+    "       <name>RemoveEvent</name>"
+    "       <argumentList>"
+    "         <argument>"
+    "           <name>object_id</name>"
+    "           <direction>in</direction>"
+    "<relatedStateVariable>A_ARG_TYPE_object_id</relatedStateVariable>"
+    "         </argument>"
+    "         <argument>"
+    "           <name>evt</name>"
+    "           <direction>in</direction>"
+    "<relatedStateVariable>A_ARG_TYPE_evt_id</relatedStateVariable>"
+    "         </argument>"
+    "       </argumentList>"
+    "     </action>"
     "   </actionList>"
     "   <serviceStateTable>"
     "     <stateVariable sendEvents=\"no\">"
@@ -414,6 +377,11 @@ const char* UpnpFsmdaUtils::kActiveCcmServiceScpdXml =
     "     </stateVariable>"
     "     <stateVariable sendEvents=\"no\">"
     "         <name>A_ARG_TYPE_evt</name>"
+    "         <dataType>string</dataType>"
+    "         <defaultValue></defaultValue>"
+    "     </stateVariable>"
+    "     <stateVariable sendEvents=\"no\">"
+    "         <name>A_ARG_TYPE_evt_id</name>"
     "         <dataType>string</dataType>"
     "         <defaultValue></defaultValue>"
     "     </stateVariable>"
@@ -463,11 +431,11 @@ const char* UpnpFsmdaUtils::kPassivePcmDeviceModelUrl =
     "http://www.ncl.org.br/fsmda/ondemand";
 const char* UpnpFsmdaUtils::kPassivePcmDeviceModelNumber = "1.0";
 const char* UpnpFsmdaUtils::kPassivePcmServiceType =
-    "urn:schemas-upnp-org:service:fsmda-passive-parent-communication-service:1";
+    "urn:schemas-upnp-org:service:fsmda-passive-parent-communication:1";
 const char* UpnpFsmdaUtils::kPassivePcmServiceId =
-    "urn:upnp-org:serviceId:fsmda-passive-parent-communication-service001";
+    "urn:upnp-org:serviceId:fsmda-passive-parent-communication";
 const char* UpnpFsmdaUtils::kPassivePcmServiceName =
-    "urn:upnp-org:serviceId:fsmda-passive-parent-communication-service001-name";
+    "urn:upnp-org:serviceId:fsmda-passive-parent-communication";
 const char* UpnpFsmdaUtils::kPassivePcmServiceScpdXml =
     "<?xml version=\"1.0\" ?>"
     "<scpd xmlns=\"urn:schemas-upnp-org:service-1-0\">"
@@ -524,11 +492,11 @@ const char* UpnpFsmdaUtils::kPassiveCcmDeviceModelUrl =
     "http://www.ncl.org.br/fsmda/ondemand";
 const char* UpnpFsmdaUtils::kPassiveCcmDeviceModelNumber = "1.0";
 const char* UpnpFsmdaUtils::kPassiveCcmServiceType =
-    "urn:schemas-upnp-org:service:fsmda-passive-child-communication-service:1";
+    "urn:schemas-upnp-org:service:fsmda-passive-child-communication:1";
 const char* UpnpFsmdaUtils::kPassiveCcmServiceId =
-    "urn:upnp-org:serviceId:fsmda-passive-child-communication-service001";
+    "urn:upnp-org:serviceId:fsmda-passive-child-communication";
 const char* UpnpFsmdaUtils::kPassiveCcmServiceName =
-    "urn:upnp-org:serviceId:fsmda-passive-child-communication-service001-name";
+    "urn:upnp-org:serviceId:fsmda-passive-child-communication";
 const char* UpnpFsmdaUtils::kPassiveCcmServiceScpdXml =
     "<?xml version=\"1.0\" ?>"
     "<scpd xmlns=\"urn:schemas-upnp-org:service-1-0\">"
@@ -594,9 +562,9 @@ const char* UpnpFsmdaUtils::kMediaCapturePcmServiceType =
     "urn:schemas-upnp-org:service:fsmda-mediacapture-parent-communication-"
     "service:1";
 const char* UpnpFsmdaUtils::kMediaCapturePcmServiceId =
-    "urn:upnp-org:serviceId:fsmda-mediacapture-parent-communication-service001";
+    "urn:upnp-org:serviceId:fsmda-mediacapture-parent-communication";
 const char* UpnpFsmdaUtils::kMediaCapturePcmServiceName =
-    "urn:upnp-org:serviceId:fsmda-mediacapture-parent-communication-service001-"
+    "urn:upnp-org:serviceId:fsmda-mediacapture-parent-communication-"
     "name";
 const char* UpnpFsmdaUtils::kMediaCapturePcmServiceScpdXml =
     "<?xml version=\"1.0\" ?>"
@@ -663,9 +631,9 @@ const char* UpnpFsmdaUtils::kMediaCaptureCcmServiceType =
     "urn:schemas-upnp-org:service:fsmda-mediacapture-child-communication-"
     "service:1";
 const char* UpnpFsmdaUtils::kMediaCaptureCcmServiceId =
-    "urn:upnp-org:serviceId:fsmda-mediacapture-child-communication-service001";
+    "urn:upnp-org:serviceId:fsmda-mediacapture-child-communication";
 const char* UpnpFsmdaUtils::kMediaCaptureCcmServiceName =
-    "urn:upnp-org:serviceId:fsmda-mediacapture-child-communication-service001-"
+    "urn:upnp-org:serviceId:fsmda-mediacapture-child-communication-"
     "name";
 const char* UpnpFsmdaUtils::kMediaCaptureCcmServiceScpdXml =
     "<?xml version=\"1.0\" ?>"
@@ -727,12 +695,12 @@ const char* UpnpFsmdaUtils::kOnDemandPcmDeviceModelUrl =
     "http://www.ncl.org.br/fsmda/ondemand";
 const char* UpnpFsmdaUtils::kOnDemandPcmDeviceModelNumber = "1.0";
 const char* UpnpFsmdaUtils::kOnDemandPcmServiceType =
-    "urn:schemas-upnp-org:service:fsmda-ondemand-parent-communication-service:"
+    "urn:schemas-upnp-org:service:fsmda-ondemand-parent-communication:"
     "1";
 const char* UpnpFsmdaUtils::kOnDemandPcmServiceId =
-    "urn:upnp-org:serviceId:fsmda-ondemand-parent-communication-service001";
+    "urn:upnp-org:serviceId:fsmda-ondemand-parent-communication";
 const char* UpnpFsmdaUtils::kOnDemandPcmServiceName =
-    "urn:upnp-org:serviceId:fsmda-ondemand-parent-communication-service001-"
+    "urn:upnp-org:serviceId:fsmda-ondemand-parent-communication-"
     "name";
 const char* UpnpFsmdaUtils::kOnDemandPcmServiceScpdXml =
     "<?xml version=\"1.0\" ?>"
@@ -790,11 +758,11 @@ const char* UpnpFsmdaUtils::kOnDemandCcmDeviceModelUrl =
     "http://www.ncl.org.br/fsmda/ondemand";
 const char* UpnpFsmdaUtils::kOnDemandCcmDeviceModelNumber = "1.0";
 const char* UpnpFsmdaUtils::kOnDemandCcmServiceType =
-    "urn:schemas-upnp-org:service:fsmda-ondemand-child-communication-service:1";
+    "urn:schemas-upnp-org:service:fsmda-ondemand-child-communication:1";
 const char* UpnpFsmdaUtils::kOnDemandCcmServiceId =
-    "urn:upnp-org:serviceId:fsmda-ondemand-child-communication-service001";
+    "urn:upnp-org:serviceId:fsmda-ondemand-child-communication";
 const char* UpnpFsmdaUtils::kOnDemandCcmServiceName =
-    "urn:upnp-org:serviceId:fsmda-ondemand-child-communication-service001-name";
+    "urn:upnp-org:serviceId:fsmda-ondemand-child-communication";
 const char* UpnpFsmdaUtils::kOnDemandCcmServiceScpdXml =
     "<?xml version=\"1.0\" ?>"
     "<scpd xmlns=\"urn:schemas-upnp-org:service-1-0\">"

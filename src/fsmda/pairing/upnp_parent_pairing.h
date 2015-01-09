@@ -72,7 +72,7 @@ class UpnpParentPairing : public PLT_DeviceHost,
   virtual bool IsPairingServiceStarted();
   virtual unsigned int registred_children();
   ActiveClassInterface* CreateActivePcm(const string& application_id,
-                                                unsigned int class_index);
+                                        unsigned int class_index);
   MediaCaptureClassListenerInterface* CreateMediaCapturePcm(
       const string& application_id, unsigned int class_index);
   OnDemandClassListenerInterface* CreateOnDemandPcm(
@@ -84,7 +84,11 @@ class UpnpParentPairing : public PLT_DeviceHost,
   PLT_UPnP* upnp_instance_;
   PLT_DeviceHostReference device_host_;
   PLT_CtrlPointReference ctrl_point_;
-  PLT_Service* device_service_;
+  PLT_Service* cpm_service_;
+  PLT_Service* passive_service_;
+  PLT_Service* active_service_;
+  PLT_Service* ondemand_service_;
+  PLT_Service* mediacapture_service_;
   vector<PLT_DeviceDataReference> discovered_children_;
   vector<DeviceClassDiscoverParams*> discover_params_list_;
   ParentPairingManager* parent_pairing_manager_;
