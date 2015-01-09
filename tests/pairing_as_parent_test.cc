@@ -121,7 +121,7 @@ void PairingAsParentHelper(
     delete passive_pcm;
   } else if (device_class_description->device_class_type() ==
              DeviceClassDescription::kActiveDevice) {
-    ActiveClassListenerInterface* active_pcm =
+    ActiveClassInterface* active_pcm =
         parent_pairing_manager->CreateActivePcm(app_id, class_index);
     EXPECT_TRUE(active_pcm);
     delete active_pcm;

@@ -290,9 +290,10 @@ PassiveClassListenerInterface *UpnpParentPairing::CreatePassivePcm(
 /*----------------------------------------------------------------------
  |   UpnpParentPairing::CreateActivePcm
  +---------------------------------------------------------------------*/
-ActiveClassListenerInterface *UpnpParentPairing::CreateActivePcm(
+ActiveClassInterface *UpnpParentPairing::CreateActivePcm(
     const string &application_id, unsigned int class_index) {
-  UpnpActivePcm *communication = new UpnpActivePcm();
+  UpnpActivePcm *communication =
+      new UpnpActivePcm(PLT_DeviceHostReference(this), ctrl_point_);
   return communication;
 }
 

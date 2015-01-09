@@ -69,14 +69,14 @@ class ParentPairingManager : public ParentClassHandlingInterface,
       DeviceClassDescription* device_class_description);
   virtual void SetClassHandlingHPE(const string& application_id,
                                    HpeClassHandlingInterface* hpe);
-  ActiveClassListenerInterface* CreateActivePcm(const string& application_id,
-                                      unsigned int class_index);
-  MediaCaptureClassListenerInterface* CreateMediaCapturePcm(const string& application_id,
-                                                  unsigned int class_index);
-  OnDemandClassListenerInterface* CreateOnDemandPcm(const string& application_id,
-                                          unsigned int class_index);
-  PassiveClassListenerInterface* CreatePassivePcm(const string& application_id,
+  ActiveClassInterface* CreateActivePcm(const string& application_id,
                                         unsigned int class_index);
+  MediaCaptureClassListenerInterface* CreateMediaCapturePcm(
+      const string& application_id, unsigned int class_index);
+  OnDemandClassListenerInterface* CreateOnDemandPcm(
+      const string& application_id, unsigned int class_index);
+  PassiveClassListenerInterface* CreatePassivePcm(const string& application_id,
+                                                  unsigned int class_index);
 
   // public methods
   // called by ParentPairingManager

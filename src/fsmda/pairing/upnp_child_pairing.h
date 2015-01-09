@@ -67,7 +67,7 @@ class UpnpChildPairing : public PLT_DeviceHost,
   virtual int StopPairingService();
   virtual bool IsPairingServiceStarted();
   virtual int set_service_owner(ChildPairingManager* service_owner);
-  ActiveClassInterface* CreateActiveCcm(const string& application_id,
+  ActiveClassListenerInterface* CreateActiveCcm(const string& application_id,
                                         unsigned int class_index);
   MediaCaptureClassInterface* CreateMediaCaptureCcm(
       const string& application_id, unsigned int class_index);

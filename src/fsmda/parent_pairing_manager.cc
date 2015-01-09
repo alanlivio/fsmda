@@ -169,7 +169,7 @@ PassiveClassListenerInterface* ParentPairingManager::CreatePassivePcm(
 /*----------------------------------------------------------------------
  |   ParentPairingManager::CreateActivePcm
  +---------------------------------------------------------------------*/
-ActiveClassListenerInterface* ParentPairingManager::CreateActivePcm(
+ActiveClassInterface* ParentPairingManager::CreateActivePcm(
     const string& application_id, unsigned int class_index) {
   if (application_class_data_map_[application_id][class_index]
           ->device_class_description_->device_class_type() ==

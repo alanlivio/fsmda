@@ -86,7 +86,7 @@ PassiveClassInterface* ChildPairingManager::CreatePassiveCcm(
 /*----------------------------------------------------------------------
  |   ChildPairingManager::CreateActiveCc
  +---------------------------------------------------------------------*/
-ActiveClassInterface* ChildPairingManager::CreateActiveCcm(
+ActiveClassListenerInterface* ChildPairingManager::CreateActiveCcm(
     const string& application_id, unsigned int class_index) {
   if (device_class_description_map_[class_index]->device_class_type() ==
       DeviceClassDescription::kActiveDevice) {

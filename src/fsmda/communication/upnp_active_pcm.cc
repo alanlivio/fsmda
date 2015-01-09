@@ -15,104 +15,69 @@ using std::endl;
 /*----------------------------------------------------------------------
  |   UpnpActivePcm::UpnpActivePcm
  +---------------------------------------------------------------------*/
-UpnpActivePcm::UpnpActivePcm()
-    : PLT_DeviceHost("/", NULL, UpnpFsmdaUtils::kActivePcmDeviceType,
-                     UpnpFsmdaUtils::kActivePcmDeviceFriendlyName, true, 0,
-                     true),
-      device_host_(this),
-      ctrl_point_(new PLT_CtrlPoint()),
-      upnp_instance_(NULL) {
-  m_ModelDescription = UpnpFsmdaUtils::kActivePcmDeviceModelDescription;
-  m_ModelURL = UpnpFsmdaUtils::kActivePcmDeviceModelUrl;
-  m_ModelNumber = UpnpFsmdaUtils::kActivePcmDeviceModelNumber;
-  m_ModelName = UpnpFsmdaUtils::kActivePcmDeviceModelName;
-  m_Manufacturer = UpnpFsmdaUtils::kFsmdaManufacturer;
-  m_ManufacturerURL = UpnpFsmdaUtils::kFsmdaManufacturerUrl;
-  device_service_ = new PLT_Service(this, UpnpFsmdaUtils::kActivePcmServiceType,
-                                    UpnpFsmdaUtils::kActivePcmServiceId,
-                                    UpnpFsmdaUtils::kActivePcmServiceName);
-  device_service_->SetSCPDXML(
-      (const char *)UpnpFsmdaUtils::kActivePcmServiceScpdXml);
+UpnpActivePcm::UpnpActivePcm(PLT_DeviceHostReference device_host,
+                             PLT_CtrlPointReference ctrl_point) {
+  device_host_ = device_host;
+  ctrl_point_ = ctrl_point;
+  //  ctrl_point_->AddListener(this);
 }
 
 /*----------------------------------------------------------------------
  |   UpnpActivePcm::~UpnpActivePcm
  +---------------------------------------------------------------------*/
 UpnpActivePcm::~UpnpActivePcm() {
-  StopCommunicationService();
-  delete device_service_;
   ctrl_point_.Detach();
   device_host_.Detach();
 }
 
 /*----------------------------------------------------------------------
- |   UpnpActivePcm::StartCommunicationService
+ |   UpnpActivePcm::Prepare
  +---------------------------------------------------------------------*/
-int UpnpActivePcm::StartCommunicationService() {
-  clog << "UpnpActiveCcm::StartCommunicationService()" << endl;
-  if (upnp_instance_ == NULL) {
-    upnp_instance_ = UpnpFsmdaUtils::GetRunningInstance();
-  }
-  NPT_Result res;
-  res = upnp_instance_->AddDevice(device_host_);
-  res = upnp_instance_->AddCtrlPoint(ctrl_point_);
-  ctrl_point_->AddListener(this);
-  if (res == NPT_SUCCESS) {
-    return 0;
-  } else {
-    return -1;
-  }
-}
+void UpnpActivePcm::Prepare(const string &object_id, const string &object_src,
+                            vector<Property> properties, vector<Event> evts) {}
 
 /*----------------------------------------------------------------------
- |   UpnpActivePcm::StopCommunicationService
+ |   UpnpActivePcm::AddEvent
  +---------------------------------------------------------------------*/
-int UpnpActivePcm::StopCommunicationService() {
-  if (upnp_instance_ != NULL) {
-    RemoveService(device_service_);
-    upnp_instance_->RemoveDevice(device_host_);
-    ctrl_point_->RemoveListener(this);
-    upnp_instance_->RemoveCtrlPoint(ctrl_point_);
-    UpnpFsmdaUtils::ReleaseInstance();
-    upnp_instance_ = NULL;
-  }
-  return 0;
-}
+void UpnpActivePcm::AddEvent(const string &object_id, Event evt) {}
 
 /*----------------------------------------------------------------------
- |   UpnpActivePcm::IsCommunicationServiceStarted
+ |   UpnpActivePcm::RemoveEvent
  +---------------------------------------------------------------------*/
-bool UpnpActivePcm::IsCommunicationServiceStarted() { return m_Started; }
+void UpnpActivePcm::RemoveEvent(const string &object_id,
+                                const string &event_id) {}
 
 /*----------------------------------------------------------------------
- |   UpnpActivePcm::RequestPropertyValue
+ |   UpnpActivePcm::PostAction
  +---------------------------------------------------------------------*/
-void UpnpActivePcm::RequestPropertyValue(const string &object_id,
-                                         const string &name) {}
+void UpnpActivePcm::PostAction(const string &object_id, const string &event_id,
+                               const string &action) {}
 
 /*----------------------------------------------------------------------
- |   UpnpActivePcm::NotifyEventTransition
+ |   UpnpActivePcm::ReportPropertyValue
  +---------------------------------------------------------------------*/
-void UpnpActivePcm::NotifyEventTransition(const string &object_id,
-                                          const string &event_id,
-                                          const string &transition) {}
+void UpnpActivePcm::ReportPropertyValue(const string &object_id,
+                                        const string &name,
+                                        const string &value) {}
 
 /*----------------------------------------------------------------------
- |   UpnpActivePcm::NotifyError
+ |   UpnpActivePcm::SetPropertyValue
  +---------------------------------------------------------------------*/
-void UpnpActivePcm::NotifyError(const string &object_id,
-                                const string &message) {}
-
-/*----------------------------------------------------------------------
- |   UpnpActivePcm::SetupServices
- +---------------------------------------------------------------------*/
-NPT_Result UpnpActivePcm::SetupServices() {}
-
+void UpnpActivePcm::SetPropertyValue(const string &object_id,
+                                     const string &name, const string &value,
+                                     unsigned int duration) {}
 /*----------------------------------------------------------------------
  |   UpnpActivePcm::OnAction
  +---------------------------------------------------------------------*/
 NPT_Result UpnpActivePcm::OnAction(PLT_ActionReference &action,
                                    const PLT_HttpRequestContext &context) {}
+
+/*----------------------------------------------------------------------
+ |   UpnpActivePcm::RegistryPlayer
+ +---------------------------------------------------------------------*/
+void UpnpActivePcm::SetHostHpe(ActiveClassListenerInterface *hpe) {
+  hpe_ = hpe;
+}
 
 /*----------------------------------------------------------------------
  |   UpnpActivePcm::OnDeviceAdded

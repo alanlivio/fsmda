@@ -30,6 +30,11 @@ class Event {
 };
 
 /*----------------------------------------------------------------------
+ |   forward definitions
+ +---------------------------------------------------------------------*/
+class ActiveClassInterface;
+
+/*----------------------------------------------------------------------
  |   ActiveClassListenerInterface abstract class
  +---------------------------------------------------------------------*/
 class ActiveClassListenerInterface {
@@ -44,6 +49,8 @@ class ActiveClassListenerInterface {
                                      const string& event_id,
                                      const string& transition) = 0;
   virtual void NotifyError(const string& object_id, const string& message) = 0;
+
+  virtual void SetPlayer(ActiveClassInterface* player) = 0;
 };
 
 /*----------------------------------------------------------------------
@@ -65,6 +72,7 @@ class ActiveClassInterface {
                                    const string& value) = 0;
   virtual void SetPropertyValue(const string& object_id, const string& name,
                                 const string& value, unsigned int duration) = 0;
+  virtual void SetHostHpe(ActiveClassListenerInterface* hpe) = 0;
 };
 
 #endif  // FSMDA_MODEL_ACTIVE_OBJECTS_API_H_

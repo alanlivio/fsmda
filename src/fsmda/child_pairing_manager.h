@@ -45,7 +45,7 @@ class ChildPairingManager : public ChildPairingInterface {
 
   // Method for factory child communication managers
   // called by ParentPairingManager
-  ActiveClassInterface* CreateActiveCcm(const string& application_id,
+  ActiveClassListenerInterface* CreateActiveCcm(const string& application_id,
                                         unsigned int class_index);
   MediaCaptureClassInterface* CreateMediaCaptureCcm(
       const string& application_id, unsigned int class_index);
