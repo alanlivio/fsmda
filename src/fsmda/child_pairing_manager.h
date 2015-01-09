@@ -45,14 +45,17 @@ class ChildPairingManager : public ChildPairingInterface {
 
   // Method for factory child communication managers
   // called by ParentPairingManager
-  ActiveClassInterface* CreateActiveCcm(unsigned int class_index);
-  MediaCaptureClassInterface* CreateMediaCaptureCcm(unsigned int class_index);
-  PassiveClassInterface* CreatePassiveCcm(unsigned int class_index);
-  OnDemandClassInterface* CreateOndemandCcm(unsigned int class_index);
+  ActiveClassInterface* CreateActiveCcm(const string& application_id,
+                                        unsigned int class_index);
+  MediaCaptureClassInterface* CreateMediaCaptureCcm(
+      const string& application_id, unsigned int class_index);
+  PassiveClassInterface* CreatePassiveCcm(const string& application_id,
+                                          unsigned int class_index);
+  OnDemandClassInterface* CreateOndemandCcm(const string& application_id,
+                                            unsigned int class_index);
 
  private:
   map<unsigned int, DeviceClassDescription*> device_class_description_map_;
-  map<unsigned int, CommunicationServiceInterface*> communication_services_map_;
   DeviceDescription* device_description_;
   UpnpChildPairing* upnp_child_pairing_;
   bool paired_;

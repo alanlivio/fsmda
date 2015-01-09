@@ -162,13 +162,7 @@ PassiveClassListenerInterface* ParentPairingManager::CreatePassivePcm(
   if (application_class_data_map_[application_id][class_index]
           ->device_class_description_->device_class_type() ==
       DeviceClassDescription::kPassiveDevice) {
-    UpnpPassivePcm* communication = new UpnpPassivePcm();
-    application_class_data_map_[application_id][class_index]
-        ->communication_service = communication;
-    communication->StartCommunicationService();
-    return communication;
-  } else {
-    return NULL;
+    return upnp_parent_pairing_->CreatePassivePcm(application_id, class_index);
   }
 }
 
@@ -180,13 +174,7 @@ ActiveClassListenerInterface* ParentPairingManager::CreateActivePcm(
   if (application_class_data_map_[application_id][class_index]
           ->device_class_description_->device_class_type() ==
       DeviceClassDescription::kActiveDevice) {
-    UpnpActivePcm* communication = new UpnpActivePcm();
-    application_class_data_map_[application_id][class_index]
-        ->communication_service = communication;
-    communication->StartCommunicationService();
-    return communication;
-  } else {
-    return NULL;
+    return upnp_parent_pairing_->CreateActivePcm(application_id, class_index);
   }
 }
 
@@ -198,13 +186,8 @@ MediaCaptureClassListenerInterface* ParentPairingManager::CreateMediaCapturePcm(
   if (application_class_data_map_[application_id][class_index]
           ->device_class_description_->device_class_type() ==
       DeviceClassDescription::kMediaCaptureDevice) {
-    UpnpMediaCapturePcm* communication = new UpnpMediaCapturePcm();
-    application_class_data_map_[application_id][class_index]
-        ->communication_service = communication;
-    communication->StartCommunicationService();
-    return communication;
-  } else {
-    return NULL;
+    return upnp_parent_pairing_->CreateMediaCapturePcm(application_id,
+                                                       class_index);
   }
 }
 
@@ -216,13 +199,7 @@ OnDemandClassListenerInterface* ParentPairingManager::CreateOnDemandPcm(
   if (application_class_data_map_[application_id][class_index]
           ->device_class_description_->device_class_type() ==
       DeviceClassDescription::kOnDemandDevice) {
-    UpnpOnDemandPcm* communication = new UpnpOnDemandPcm();
-    application_class_data_map_[application_id][class_index]
-        ->communication_service = communication;
-    communication->StartCommunicationService();
-    return communication;
-  } else {
-    return NULL;
+    return upnp_parent_pairing_->CreateOnDemandPcm(application_id, class_index);
   }
 }
 
@@ -251,8 +228,9 @@ unsigned int ParentPairingManager::GetNumberOfRegistredClasses(
  +---------------------------------------------------------------------*/
 unsigned int ParentPairingManager::GetNumberOfRegistredChildren(
     const std::string& application_id, unsigned int class_index) {
-  clog << "ParentPairingManager::GetNumberOfRegistredChildren:: application_id="
-       << application_id << ",class_index" << class_index << endl;
+  clog << "ParentPairingManager::GetNumberOfRegistredChildren:: "
+          "application_id=" << application_id << ",class_index" << class_index
+       << endl;
   if (application_class_data_map_[application_id].find(class_index) !=
       application_class_data_map_[application_id].end())
     return application_class_data_map_[application_id][class_index]

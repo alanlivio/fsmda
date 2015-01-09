@@ -17,6 +17,10 @@
 #include "fsmda/parent_pairing_manager.h"
 #include "fsmda/pairing/upnp_parent_pairing.h"
 #include "fsmda/utils/upnp_fsmda_utils.h"
+#include "fsmda/communication/upnp_passive_pcm.h"
+#include "fsmda/communication/upnp_active_pcm.h"
+#include "fsmda/communication/upnp_ondemand_pcm.h"
+#include "fsmda/communication/upnp_mediacapture_pcm.h"
 
 using std::clog;
 using std::cout;
@@ -272,4 +276,40 @@ unsigned int UpnpParentPairing::registred_children() {
  +---------------------------------------------------------------------*/
 int UpnpParentPairing::set_service_owner(ParentPairingManager *service_owner) {
   parent_pairing_manager_ = service_owner;
+}
+
+/*----------------------------------------------------------------------
+ |   UpnpParentPairing::CreatePassivePcm
+ +---------------------------------------------------------------------*/
+PassiveClassListenerInterface *UpnpParentPairing::CreatePassivePcm(
+    const string &application_id, unsigned int class_index) {
+  UpnpPassivePcm *communication = new UpnpPassivePcm();
+  return communication;
+}
+
+/*----------------------------------------------------------------------
+ |   UpnpParentPairing::CreateActivePcm
+ +---------------------------------------------------------------------*/
+ActiveClassListenerInterface *UpnpParentPairing::CreateActivePcm(
+    const string &application_id, unsigned int class_index) {
+  UpnpActivePcm *communication = new UpnpActivePcm();
+  return communication;
+}
+
+/*----------------------------------------------------------------------
+ |   UpnpParentPairing::CreateMediaCapturePcm
+ +---------------------------------------------------------------------*/
+MediaCaptureClassListenerInterface *UpnpParentPairing::CreateMediaCapturePcm(
+    const string &application_id, unsigned int class_index) {
+  UpnpMediaCapturePcm *communication = new UpnpMediaCapturePcm();
+  return communication;
+}
+
+/*----------------------------------------------------------------------
+ |   UpnpParentPairing::CreateOnDemandPcm
+ +---------------------------------------------------------------------*/
+OnDemandClassListenerInterface *UpnpParentPairing::CreateOnDemandPcm(
+    const string &application_id, unsigned int class_index) {
+  UpnpOnDemandPcm *communication = new UpnpOnDemandPcm();
+  return communication;
 }

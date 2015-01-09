@@ -228,3 +228,39 @@ int UpnpChildPairing::set_service_owner(ChildPairingManager *service_owner) {
  |   UpnpChildPairing::IsPairingServiceStarted
  +---------------------------------------------------------------------*/
 bool UpnpChildPairing::IsPairingServiceStarted() { return m_Started; }
+
+/*----------------------------------------------------------------------
+ |   UpnpChildPairing::CreatePassiveCcm
+ +---------------------------------------------------------------------*/
+PassiveClassInterface *UpnpChildPairing::CreatePassiveCcm(
+    const string &application_id, unsigned int class_index) {
+  UpnpPassiveCcm *communication = new UpnpPassiveCcm();
+  return communication;
+}
+
+/*----------------------------------------------------------------------
+ |   UpnpChildPairing::CreateActiveCcm
+ +---------------------------------------------------------------------*/
+ActiveClassInterface *UpnpChildPairing::CreateActiveCcm(
+    const string &application_id, unsigned int class_index) {
+  UpnpActiveCcm *communication = new UpnpActiveCcm();
+  return communication;
+}
+
+/*----------------------------------------------------------------------
+ |   UpnpChildPairing::CreateMediaCaptureCcm
+ +---------------------------------------------------------------------*/
+MediaCaptureClassInterface *UpnpChildPairing::CreateMediaCaptureCcm(
+    const string &application_id, unsigned int class_index) {
+  UpnpMediaCaptureCcm *communication = new UpnpMediaCaptureCcm();
+  return communication;
+}
+
+/*----------------------------------------------------------------------
+ |   UpnpChildPairing::CreateOnDemandCcm
+ +---------------------------------------------------------------------*/
+OnDemandClassInterface *UpnpChildPairing::CreateOnDemandCcm(
+    const string &application_id, unsigned int class_index) {
+  UpnpOnDemandCcm *communication = new UpnpOnDemandCcm();
+  return communication;
+}

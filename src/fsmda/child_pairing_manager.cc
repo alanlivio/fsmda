@@ -71,33 +71,26 @@ void ChildPairingManager::ClassAnnouncement(const string& application_id,
   upnp_child_pairing_->AddDeviceToClass(application_id, "locahost", class_index,
                                         class_desc);
 }
-/*----------------------------------------------------------------------
- |   ChildPairingManager::CreateActiveCc
- +---------------------------------------------------------------------*/
-ActiveClassInterface* ChildPairingManager::CreateActiveCcm(
-    unsigned int class_index) {
-  if (device_class_description_map_[class_index]->device_class_type() ==
-      DeviceClassDescription::kActiveDevice) {
-    UpnpActiveCcm* communication = new UpnpActiveCcm();
-    communication_services_map_[class_index] = communication;
-    return communication;
-  } else {
-    return NULL;
-  }
-}
 
 /*----------------------------------------------------------------------
  |  ChildPairingManager::CreatePassiveCcm
  +---------------------------------------------------------------------*/
 PassiveClassInterface* ChildPairingManager::CreatePassiveCcm(
-    unsigned int class_index) {
+    const string& application_id, unsigned int class_index) {
   if (device_class_description_map_[class_index]->device_class_type() ==
       DeviceClassDescription::kPassiveDevice) {
-    UpnpPassiveCcm* communication = new UpnpPassiveCcm();
-    communication_services_map_[class_index] = communication;
-    return communication;
-  } else {
-    return NULL;
+    return upnp_child_pairing_->CreatePassiveCcm(application_id, class_index);
+  }
+}
+
+/*----------------------------------------------------------------------
+ |   ChildPairingManager::CreateActiveCc
+ +---------------------------------------------------------------------*/
+ActiveClassInterface* ChildPairingManager::CreateActiveCcm(
+    const string& application_id, unsigned int class_index) {
+  if (device_class_description_map_[class_index]->device_class_type() ==
+      DeviceClassDescription::kActiveDevice) {
+    return upnp_child_pairing_->CreateActiveCcm(application_id, class_index);
   }
 }
 
@@ -105,14 +98,10 @@ PassiveClassInterface* ChildPairingManager::CreatePassiveCcm(
  |   ChildPairingManager::CreateOndemandCcm
  +---------------------------------------------------------------------*/
 OnDemandClassInterface* ChildPairingManager::CreateOndemandCcm(
-    unsigned int class_index) {
+    const string& application_id, unsigned int class_index) {
   if (device_class_description_map_[class_index]->device_class_type() ==
       DeviceClassDescription::kOnDemandDevice) {
-    UpnpOnDemandCcm* communication = new UpnpOnDemandCcm();
-    communication_services_map_[class_index] = communication;
-    return communication;
-  } else {
-    return NULL;
+    return upnp_child_pairing_->CreateOnDemandCcm(application_id, class_index);
   }
 }
 
@@ -120,14 +109,11 @@ OnDemandClassInterface* ChildPairingManager::CreateOndemandCcm(
  |   ChildPairingManager::CreateMediaCaptureCcm
  +---------------------------------------------------------------------*/
 MediaCaptureClassInterface* ChildPairingManager::CreateMediaCaptureCcm(
-    unsigned int class_index) {
+    const string& application_id, unsigned int class_index) {
   if (device_class_description_map_[class_index]->device_class_type() ==
       DeviceClassDescription::kMediaCaptureDevice) {
-    UpnpMediaCaptureCcm* communication = new UpnpMediaCaptureCcm();
-    communication_services_map_[class_index] = communication;
-    return communication;
-  } else {
-    return NULL;
+    return upnp_child_pairing_->CreateMediaCaptureCcm(application_id,
+                                                      class_index);
   }
 }
 

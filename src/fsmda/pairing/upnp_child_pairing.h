@@ -12,6 +12,11 @@
 #include <PltCtrlPoint.h>
 #include "fsmda/pairing/pairing_service_interfaces.h"
 #include "fsmda/model/device_pairing_api.h"
+#include "fsmda/model/class_handling_api.h"
+#include "fsmda/model/passive_objects_api.h"
+#include "fsmda/model/active_objects_api.h"
+#include "fsmda/model/ondemand_objects_api.h"
+#include "fsmda/model/mediacapture_objects_api.h"
 
 using std::map;
 using std::string;
@@ -62,6 +67,14 @@ class UpnpChildPairing : public PLT_DeviceHost,
   virtual int StopPairingService();
   virtual bool IsPairingServiceStarted();
   virtual int set_service_owner(ChildPairingManager* service_owner);
+  ActiveClassInterface* CreateActiveCcm(const string& application_id,
+                                        unsigned int class_index);
+  MediaCaptureClassInterface* CreateMediaCaptureCcm(
+      const string& application_id, unsigned int class_index);
+  OnDemandClassInterface* CreateOnDemandCcm(const string& application_id,
+                                            unsigned int class_index);
+  PassiveClassInterface* CreatePassiveCcm(const string& application_id,
+                                          unsigned int class_index);
 
  private:
   PLT_UPnP* upnp_instance_;
