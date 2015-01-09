@@ -30,9 +30,23 @@ class Event {
 };
 
 /*----------------------------------------------------------------------
- |   forward definitions
+ |   ActivePlayerInterface abstract class
  +---------------------------------------------------------------------*/
-class ActiveClassInterface;
+class ActivePlayerInterface {
+ public:
+  // public constructors & destructors
+  virtual ~ActivePlayerInterface() {}
+
+  // public pure virtual methods
+  virtual void Prepare(const string& object_src, vector<Property> properties,
+                       vector<Event> events) = 0;
+  virtual void AddEvent(Event evt) = 0;
+  virtual void RemoveEvent(const string& event_id) = 0;
+  virtual void PostAction(const string& event_id, const string& action) = 0;
+  virtual void ReportPropertyValue(const string& name, const string& value) = 0;
+  virtual void SetPropertyValue(const string& name, const string& value,
+                                unsigned int duration) = 0;
+};
 
 /*----------------------------------------------------------------------
  |   ActiveClassListenerInterface abstract class
@@ -50,7 +64,7 @@ class ActiveClassListenerInterface {
                                      const string& transition) = 0;
   virtual void NotifyError(const string& object_id, const string& message) = 0;
 
-  virtual void SetPlayer(ActiveClassInterface* player) = 0;
+  virtual void SetActivePlayer(ActivePlayerInterface* player) = 0;
 };
 
 /*----------------------------------------------------------------------

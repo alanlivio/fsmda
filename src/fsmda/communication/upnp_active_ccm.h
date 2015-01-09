@@ -50,13 +50,13 @@ class UpnpActiveCcm : public ActiveClassListenerInterface,
                               const PLT_HttpRequestContext& context);
 
   // public methods
-  virtual void SetPlayer(ActiveClassInterface* player);
+  virtual void SetActivePlayer(ActivePlayerInterface* player);
 
  private:
   PLT_DeviceHostReference device_host_;
   PLT_CtrlPointReference ctrl_point_;
   PLT_DeviceDataReference last_parent_;
-  ActiveClassInterface* player_;
+  ActivePlayerInterface* player_;
 };
 
 #endif  // FSMDA_COMMUNICATION_UPNP_ACTIVE_CCM_H_

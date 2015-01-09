@@ -56,9 +56,9 @@ NPT_Result UpnpActiveCcm::OnAction(PLT_ActionReference& action,
                                    const PLT_HttpRequestContext& context) {}
 
 /*----------------------------------------------------------------------
- |   UpnpActiveCcm::SetPlayer
+ |   UpnpActiveCcm::SetActivePlayer
  +---------------------------------------------------------------------*/
-void UpnpActiveCcm::SetPlayer(ActiveClassInterface* player) {
+void UpnpActiveCcm::SetActivePlayer(ActivePlayerInterface* player) {
   player_ = player;
 }
 /*----------------------------------------------------------------------
