@@ -17,8 +17,9 @@ using std::cout;
 using std::clog;
 using std::endl;
 using std::getline;
-DEFINE_string(application_id, "", "uuuid application");
-DEFINE_string(device_class, DeviceClassDescription::kInvalidDeviceString,
+DEFINE_string(application_id, "dc05b236-0cce-4f1d-996b-edd11a66d907",
+              "uuuid application");
+DEFINE_string(device_class, DeviceClassDescription::kActiveDeviceString,
               "device class name: passive,active,ondemand or medicapture");
 
 // Waiting pairing
@@ -83,10 +84,8 @@ int main(int argc, char** argv) {
   logOutput.open("/dev/null");
   clog.rdbuf(logOutput.rdbuf());
 
-  clog << "fake_parent_helper.cc::main():: device_class=" << FLAGS_device_class
-       << endl;
-  clog << "fake_parent_helper.cc::main():: application_id="
-       << FLAGS_application_id << endl;
+  clog << "Running parent_helper with device_class=" << FLAGS_device_class
+       << " and application_id=" << FLAGS_application_id << endl;
 
   DeviceClassDescription* device_class_description;
   MockParentPairingManager* parent_pairing_manager;
