@@ -27,7 +27,7 @@ class MockChildPairingManager : public ChildPairingManager {
   explicit MockChildPairingManager(const DeviceDescription& device_description)
       : ChildPairingManager(device_description) {}
 };
-class MockHpe : public ClassHandlingHpeInterface {
+class MockHpe : public HpeClassHandlingInterface {
  public:
   string expected_semaphore;
 

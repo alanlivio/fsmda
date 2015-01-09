@@ -12,10 +12,10 @@ using std::string;
 /*----------------------------------------------------------------------
  |   ClassHandlingPPMInterface abstract class
  +---------------------------------------------------------------------*/
-class ClassHandlingPpmInterface {
+class ParentClassHandlingInterface {
  public:
   // public constructors & destructors
-  virtual ~ClassHandlingPpmInterface() {}
+  virtual ~ParentClassHandlingInterface() {}
 
   // public pure virtual methods
   virtual void AddClass(const string& application_id,
@@ -35,10 +35,10 @@ class ClassHandlingPpmInterface {
 /*----------------------------------------------------------------------
  |   ClassHandlingHPEInterface abstract class
  +---------------------------------------------------------------------*/
-class ClassHandlingHpeInterface {
+class HpeClassHandlingInterface {
  public:
   // public constructors & destructors
-  virtual ~ClassHandlingHpeInterface() {}
+  virtual ~HpeClassHandlingInterface() {}
 
   // public pure virtual methods
   virtual void getClassVariableValue(const string& name,

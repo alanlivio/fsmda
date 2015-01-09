@@ -14,7 +14,7 @@ using std::clog;
 using std::cout;
 using std::endl;
 
-class MockHpe : public ClassHandlingHpeInterface {
+class MockHpe : public HpeClassHandlingInterface {
  public:
   string expected_semaphore;
 
@@ -90,7 +90,7 @@ void ParentPairingManager::AddClassDescription(
  |   ParentPairingManager::SetClassHandlingHPE
  +---------------------------------------------------------------------*/
 void ParentPairingManager::SetClassHandlingHPE(
-    const std::string& application_id, ClassHandlingHpeInterface* hpe) {
+    const std::string& application_id, HpeClassHandlingInterface* hpe) {
   // TODO(alan@telemidia.puc-rio.br): create tests to this
   hpes_map_[application_id] = hpe;
 }

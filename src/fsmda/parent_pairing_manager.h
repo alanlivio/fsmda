@@ -37,14 +37,14 @@ class ApplicationClassData {
 /*----------------------------------------------------------------------
  |   ParentPairingManager class
  +---------------------------------------------------------------------*/
-class ParentPairingManager : public ClassHandlingPpmInterface,
-                             public DevicePairingPpmInterface {
+class ParentPairingManager : public ParentClassHandlingInterface,
+                             public ParentPairingInterface {
  public:
   // public constructors & destructors
   ParentPairingManager();
   virtual ~ParentPairingManager();
 
-  // public DevicePairingPpmInterface overloaded methods
+  // public ParentPairingInterface overloaded methods
   // called by remote ChildPairingManager
   virtual void AddDeviceToClass(const string& application_id,
                                 const string& device_address,
@@ -54,7 +54,7 @@ class ParentPairingManager : public ClassHandlingPpmInterface,
                              const string& device_address,
                              unsigned int class_index);
 
-  // public ClassHandlingPpmInterface overloaded methods
+  // public ParentClassHandlingInterface overloaded methods
   // called by HypermediaEngine
   virtual void AddClass(const string& application_id, unsigned int class_index);
   virtual void RemoveClass(const string& application_id,
@@ -68,7 +68,7 @@ class ParentPairingManager : public ClassHandlingPpmInterface,
       const string& application_id, unsigned int class_index,
       DeviceClassDescription* device_class_description);
   virtual void SetClassHandlingHPE(const string& application_id,
-                                   ClassHandlingHpeInterface* hpe);
+                                   HpeClassHandlingInterface* hpe);
   ActivePcmInterface* CreateActivePcm(const string& application_id,
                                       unsigned int class_index);
   MediaCapturePcmInterface* CreateMediaCapturePcm(const string& application_id,
@@ -87,7 +87,7 @@ class ParentPairingManager : public ClassHandlingPpmInterface,
   int StartPairing();
   int StopPairing();
   bool IsPairingStarted();
-  map<const string, ClassHandlingHpeInterface*> hpes_map_;
+  map<const string, HpeClassHandlingInterface*> hpes_map_;
 
  private:
   // private filds

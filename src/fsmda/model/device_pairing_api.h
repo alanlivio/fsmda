@@ -10,12 +10,12 @@
 using std::string;
 
 /*----------------------------------------------------------------------
- |   DevicePairingCpmInterface abstract class
+ |   ChildPairingInterface abstract class
  +---------------------------------------------------------------------*/
-class DevicePairingPpmInterface {
+class ParentPairingInterface {
  public:
   // public constructors & destructors
-  virtual ~DevicePairingPpmInterface() {}
+  virtual ~ParentPairingInterface() {}
 
   // public pure virtual methods
   virtual void AddDeviceToClass(const string& application_id,
@@ -28,12 +28,12 @@ class DevicePairingPpmInterface {
 };
 
 /*----------------------------------------------------------------------
- |   DevicePairingCpmInterface abstract class
+ |   ChildPairingInterface abstract class
  +---------------------------------------------------------------------*/
-class DevicePairingCpmInterface {
+class ChildPairingInterface {
  public:
   // public constructors & destructors
-  virtual ~DevicePairingCpmInterface() {}
+  virtual ~ChildPairingInterface() {}
 
   // public pure virtual methods
   virtual void ClassAnnouncement(const string& application_id,

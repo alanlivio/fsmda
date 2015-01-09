@@ -56,7 +56,7 @@ class MockParentPairingManager : public ParentPairingManager {
   }
 };
 
-class MockHpe : public ClassHandlingHpeInterface {
+class MockHpe : public HpeClassHandlingInterface {
  public:
   string expected_semaphore;
 

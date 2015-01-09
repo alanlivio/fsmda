@@ -21,7 +21,7 @@ using std::map;
 /*----------------------------------------------------------------------
  |   ChildPairingManager class
  +---------------------------------------------------------------------*/
-class ChildPairingManager : public DevicePairingCpmInterface {
+class ChildPairingManager : public ChildPairingInterface {
  public:
   // public constructors & destructors
   explicit ChildPairingManager(const DeviceDescription&);
@@ -36,7 +36,7 @@ class ChildPairingManager : public DevicePairingCpmInterface {
   virtual void set_paired(bool paired_);
   DeviceDescription* device_description();
 
-  // public DevicePairingCpmInterface overloaded methods
+  // public ChildPairingInterface overloaded methods
   // called by ParentPairingManager
   virtual void ClassAnnouncement(const string& application_id,
                                  unsigned int class_index,
