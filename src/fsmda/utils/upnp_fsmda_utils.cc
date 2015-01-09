@@ -26,20 +26,20 @@ const char* UpnpFsmdaUtils::kFsmdaManufacturerUrl =
 const char* UpnpFsmdaUtils::kPpmDeviceType =
     "urn:schemas-upnp-org:device:fsmda-parent-pairing-device:1";
 const char* UpnpFsmdaUtils::kPpmDeviceFriendlyName =
-    "fsmda parent pairing device friendly name";
+    "fsmda parent device";
 const char* UpnpFsmdaUtils::kPpmDeviceModelName =
     "fsmda-parent-pairing-device model name";
 const char* UpnpFsmdaUtils::kPpmDeviceModelDescription =
-    "fsmda parent pairing model description";
+    "fsmda parent device model description";
 const char* UpnpFsmdaUtils::kPpmDeviceModelUrl =
-    "http://www.ncl.org.br/fsmda/fsmda-parent-pairing-device";
+    "http://www.ncl.org.br/fsmda/fsmda-parent-device";
 const char* UpnpFsmdaUtils::kPpmDeviceNumber = "1.0";
 const char* UpnpFsmdaUtils::kPpmServiceType =
-    "urn:schemas-upnp-org:service:fsmda-parent-pairing-service:1";
+    "urn:schemas-upnp-org:service:fsmda-parent-pairing-manager:1";
 const char* UpnpFsmdaUtils::kPpmServiceId =
-    "urn:upnp-org:serviceId:parent-pairing-service001";
+    "urn:upnp-org:serviceId:fsmda-parent-pairing-manager";
 const char* UpnpFsmdaUtils::kPpmServiceName =
-    "urn:upnp-org:serviceId:parent-pairing-service001-name";
+    "urn:upnp-org:serviceId:fsmda-parent-pairing-manager";
 const char* UpnpFsmdaUtils::kPpmServiceScpdXml =
     "<?xml version=\"1.0\" ?>"
     "<scpd xmlns=\"urn:schemas-upnp-org:service-1-0\">"
@@ -135,22 +135,22 @@ const char* UpnpFsmdaUtils::kPpmServiceScpdXml =
 
 // CPM UPNP constant strings
 const char* UpnpFsmdaUtils::kCpmDeviceType =
-    "urn:schemas-upnp-org:device:fsmda-child-pairing-device:1";
+    "urn:schemas-upnp-org:device:fsmda-child-device:1";
 const char* UpnpFsmdaUtils::kCpmDeviceFriendlyName =
-    "fsmda child pairing device friendly name";
+    "fsmda child device";
 const char* UpnpFsmdaUtils::kCpmDeviceModelName =
-    "fsmda-child-pairing-device model name";
+    "fsmda child device model name";
 const char* UpnpFsmdaUtils::kCpmDeviceModelDescription =
-    "fsmda child pairing model description";
+    "fsmda child device model description";
 const char* UpnpFsmdaUtils::kCpmDeviceModelUrl =
-    "http://www.ncl.org.br/fsmda/ondemand";
+    "http://www.ncl.org.br/fsmda/fsmda-child-device";
 const char* UpnpFsmdaUtils::kCpmDeviceModelNumber = "1.0";
 const char* UpnpFsmdaUtils::kCpmServiceType =
-    "urn:schemas-upnp-org:service:fsmda-child-pairing-service:1";
+    "urn:schemas-upnp-org:service:fsmda-child-pairing-manager:1";
 const char* UpnpFsmdaUtils::kCpmServiceId =
-    "urn:upnp-org:serviceId:child-pairing-service001";
+    "urn:upnp-org:serviceId:fsmda-child-pairing-manager";
 const char* UpnpFsmdaUtils::kCpmServiceName =
-    "urn:upnp-org:serviceId:child-pairing-service001-name";
+    "urn:upnp-org:serviceId:fsmda-child-pairing-manager";
 const char* UpnpFsmdaUtils::kCpmServiceScpdXml =
     "<?xml version=\"1.0\" ?>"
     "<scpd xmlns=\"urn:schemas-upnp-org:service-1-0\">"
@@ -222,7 +222,7 @@ const char* UpnpFsmdaUtils::kCpmServiceScpdXml =
 const char* UpnpFsmdaUtils::kActivePcmDeviceType =
     "urn:schemas-upnp-org:device:fsmda-active-parent-communication-device:1";
 const char* UpnpFsmdaUtils::kActivePcmDeviceFriendlyName =
-    "fsmda active parent communication device friendly name";
+    "fsmda active parent communication device";
 const char* UpnpFsmdaUtils::kActivePcmDeviceModelName =
     "fsmda-active-parent-communication-device model name";
 const char* UpnpFsmdaUtils::kActivePcmDeviceModelDescription =
@@ -332,7 +332,7 @@ const char* UpnpFsmdaUtils::kActivePcmServiceScpdXml =
 const char* UpnpFsmdaUtils::kActiveCcmDeviceType =
     "urn:schemas-upnp-org:device:fsmda-active-child-communication-device:1";
 const char* UpnpFsmdaUtils::kActiveCcmDeviceFriendlyName =
-    "fsmda active child communication device friendly name";
+    "fsmda active child communication device";
 const char* UpnpFsmdaUtils::kActiveCcmDeviceModelName =
     "fsmda-active-child-communication-device model name";
 const char* UpnpFsmdaUtils::kActiveCcmDeviceModelDescription =
@@ -454,7 +454,7 @@ const char* UpnpFsmdaUtils::kActiveCcmServiceScpdXml =
 const char* UpnpFsmdaUtils::kPassivePcmDeviceType =
     "urn:schemas-upnp-org:device:fsmda-passive-parent-communication-device:1";
 const char* UpnpFsmdaUtils::kPassivePcmDeviceFriendlyName =
-    "fsmda passive parent communication device friendly name";
+    "fsmda passive parent communication device";
 const char* UpnpFsmdaUtils::kPassivePcmDeviceModelName =
     "fsmda-passive-parent-communication-device model name";
 const char* UpnpFsmdaUtils::kPassivePcmDeviceModelDescription =
@@ -515,7 +515,7 @@ const char* UpnpFsmdaUtils::kPassivePcmServiceScpdXml =
 const char* UpnpFsmdaUtils::kPassiveCcmDeviceType =
     "urn:schemas-upnp-org:device:fsmda-passive-child-communication-device:1";
 const char* UpnpFsmdaUtils::kPassiveCcmDeviceFriendlyName =
-    "fsmda passive child communication device friendly name";
+    "fsmda passive child communication device";
 const char* UpnpFsmdaUtils::kPassiveCcmDeviceModelName =
     "fsmda-passive-child-communication-device model name";
 const char* UpnpFsmdaUtils::kPassiveCcmDeviceModelDescription =
@@ -582,7 +582,7 @@ const char* UpnpFsmdaUtils::kMediaCapturePcmDeviceType =
     "urn:schemas-upnp-org:device:fsmda-mediacapture-parent-communication-"
     "device:1";
 const char* UpnpFsmdaUtils::kMediaCapturePcmDeviceFriendlyName =
-    "fsmda mediacapture parent communication device friendly name";
+    "fsmda mediacapture parent communication device";
 const char* UpnpFsmdaUtils::kMediaCapturePcmDeviceModelName =
     "fsmda-mediacapture-parent-communication-device model name";
 const char* UpnpFsmdaUtils::kMediaCapturePcmDeviceModelDescription =
@@ -651,7 +651,7 @@ const char* UpnpFsmdaUtils::kMediaCaptureCcmDeviceType =
     "urn:schemas-upnp-org:device:fsmda-mediacapture-child-communication-device:"
     "1";
 const char* UpnpFsmdaUtils::kMediaCaptureCcmDeviceFriendlyName =
-    "fsmda mediacapture child communication device friendly name";
+    "fsmda mediacapture child communication device";
 const char* UpnpFsmdaUtils::kMediaCaptureCcmDeviceModelName =
     "fsmda-mediacapture-child-communication-device model name";
 const char* UpnpFsmdaUtils::kMediaCaptureCcmDeviceModelDescription =
@@ -718,7 +718,7 @@ const char* UpnpFsmdaUtils::kMediaCaptureCcmServiceScpdXml =
 const char* UpnpFsmdaUtils::kOnDemandPcmDeviceType =
     "urn:schemas-upnp-org:device:fsmda-ondemand-parent-communication-device:1";
 const char* UpnpFsmdaUtils::kOnDemandPcmDeviceFriendlyName =
-    "fsmda ondemand parent communication device friendly name";
+    "fsmda ondemand parent communication device";
 const char* UpnpFsmdaUtils::kOnDemandPcmDeviceModelName =
     "fsmda-ondemand-parent-communication-device model name";
 const char* UpnpFsmdaUtils::kOnDemandPcmDeviceModelDescription =
@@ -781,7 +781,7 @@ const char* UpnpFsmdaUtils::kOnDemandPcmServiceScpdXml =
 const char* UpnpFsmdaUtils::kOnDemandCcmDeviceType =
     "urn:schemas-upnp-org:device:fsmda-ondemand-child-communication-device:1";
 const char* UpnpFsmdaUtils::kOnDemandCcmDeviceFriendlyName =
-    "fsmda ondemand child communication device friendly name";
+    "fsmda ondemand child communication device";
 const char* UpnpFsmdaUtils::kOnDemandCcmDeviceModelName =
     "fsmda-ondemand-child-communication-device model name";
 const char* UpnpFsmdaUtils::kOnDemandCcmDeviceModelDescription =

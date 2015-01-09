@@ -162,8 +162,7 @@ NPT_Result UpnpParentPairing::OnActionResponse(NPT_Result res,
 NPT_Result UpnpParentPairing::OnDeviceRemoved(PLT_DeviceDataReference &device) {
   clog << "UpnpParentPairing::OnDeviceRemoved()::device->GetType="
        << device->GetType().GetChars() << endl;
-  if (!device->GetType().Compare(
-          "urn:schemas-upnp-org:device:fsmda-child-pairing-device:1")) {
+  if (!device->GetType().Compare(UpnpFsmdaUtils::kCpmDeviceType)) {
     string app_id = discover_params_list_.front()->application_id_;
     if (parent_pairing_manager_ != NULL)
       parent_pairing_manager_->hpes_map_[app_id]->setClassVariableValue(

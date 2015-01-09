@@ -165,8 +165,7 @@ NPT_Result UpnpChildPairing::OnDeviceRemoved(PLT_DeviceDataReference &device) {}
  +---------------------------------------------------------------------*/
 NPT_Result UpnpChildPairing::OnDeviceAdded(
     PLT_DeviceDataReference &device_data) {
-  if (device_data->GetType().Compare(
-          "urn:schemas-upnp-org:device:fsmda-parent-pairing-device:1"))
+  if (device_data->GetType().Compare(UpnpFsmdaUtils::kPpmDeviceType))
     return NPT_FAILURE;
   clog << "UpnpChildPairing::OnDeviceAdded() " << endl;
   clog << "UpnpChildPairing::OnDeviceAdded()::device->GetFriendlyName="
