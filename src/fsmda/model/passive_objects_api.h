@@ -9,12 +9,12 @@
 using std::string;
 
 /*----------------------------------------------------------------------
- |   PassiveCcmInterface abstract class
+ |   PassiveClassInterface abstract class
  +---------------------------------------------------------------------*/
-class PassiveCcmInterface {
+class PassiveClassInterface {
  public:
   // public constructors & destructors
-  virtual ~PassiveCcmInterface() {}
+  virtual ~PassiveClassInterface() {}
 
   // public pure virtual methods
   virtual void Prepare(const string& position) = 0;
@@ -22,12 +22,12 @@ class PassiveCcmInterface {
 };
 
 /*----------------------------------------------------------------------
- |   PassivePcmInterface abstract class
+ |   PassiveClassListenerInterface abstract class
  +---------------------------------------------------------------------*/
-class PassivePcmInterface {
+class PassiveClassListenerInterface {
  public:
   // public constructors & destructors
-  virtual ~PassivePcmInterface() {}
+  virtual ~PassiveClassListenerInterface() {}
 
   // public pure virtual methods
   virtual void NotifyError(const string& message, const string& object_id) = 0;

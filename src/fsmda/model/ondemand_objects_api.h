@@ -9,12 +9,12 @@
 using std::string;
 
 /*----------------------------------------------------------------------
- |   OnDemandPcmInterface abstract class
+ |   OnDemandClassListenerInterface abstract class
  +---------------------------------------------------------------------*/
-class OnDemandPcmInterface {
+class OnDemandClassListenerInterface {
  public:
   // public constructors & destructors
-  virtual ~OnDemandPcmInterface() {}
+  virtual ~OnDemandClassListenerInterface() {}
 
   // public pure virtual methods
   virtual void NotifyOnDemandContent(const string& action,
@@ -22,12 +22,12 @@ class OnDemandPcmInterface {
 };
 
 /*----------------------------------------------------------------------
- |   OnDemandCcmInterface abstract class
+ |   OnDemandClassInterface abstract class
  +---------------------------------------------------------------------*/
-class OnDemandCcmInterface {
+class OnDemandClassInterface {
  public:
   // public constructors & destructors
-  virtual ~OnDemandCcmInterface() {}
+  virtual ~OnDemandClassInterface() {}
   // public pure virtual methods
   virtual void NotifyError(const string& message, const string& object_id) = 0;
 };

@@ -19,7 +19,7 @@ using std::string;
  +---------------------------------------------------------------------*/
 class UpnpOnDemandPcm : public PLT_DeviceHost,
                         public PLT_CtrlPointListener,
-                        public OnDemandPcmInterface,
+                        public OnDemandClassListenerInterface,
                         public CommunicationServiceInterface {
  public:
   // public constructors & destructors

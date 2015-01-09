@@ -19,7 +19,7 @@ using std::string;
  +---------------------------------------------------------------------*/
 class UpnpPassivePcm : public PLT_DeviceHost,
                        public PLT_CtrlPointListener,
-                       public PassivePcmInterface,
+                       public PassiveClassListenerInterface,
                        public CommunicationServiceInterface {
  public:
   // public constructors & destructors

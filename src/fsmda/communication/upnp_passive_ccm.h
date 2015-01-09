@@ -17,7 +17,7 @@
  +---------------------------------------------------------------------*/
 class UpnpPassiveCcm : public PLT_DeviceHost,
                        public PLT_CtrlPointListener,
-                       public PassiveCcmInterface,
+                       public PassiveClassInterface,
                        public CommunicationServiceInterface {
  public:
   // public constructors & destructors

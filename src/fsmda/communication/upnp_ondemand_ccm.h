@@ -18,7 +18,7 @@ using std::string;
  +---------------------------------------------------------------------*/
 class UpnpOnDemandCcm : public PLT_DeviceHost,
                         public PLT_CtrlPointListener,
-                        public OnDemandCcmInterface,
+                        public OnDemandClassInterface,
                         public CommunicationServiceInterface {
  public:
   // class fields and methods
@@ -27,7 +27,7 @@ class UpnpOnDemandCcm : public PLT_DeviceHost,
   UpnpOnDemandCcm();
   virtual ~UpnpOnDemandCcm();
 
-  // public OnDemandCcmInterface overloaded methods
+  // public OnDemandClassInterface overloaded methods
   virtual void NotifyError(const string& message, const string& object_id);
 
   // public CommunicationServiceInterface overloaded methods

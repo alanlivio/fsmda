@@ -157,7 +157,7 @@ bool ParentPairingManager::IsPairingStarted() {
 /*----------------------------------------------------------------------
  |   ParentPairingManager::CreatePassivePcm
  +---------------------------------------------------------------------*/
-PassivePcmInterface* ParentPairingManager::CreatePassivePcm(
+PassiveClassListenerInterface* ParentPairingManager::CreatePassivePcm(
     const string& application_id, unsigned int class_index) {
   if (application_class_data_map_[application_id][class_index]
           ->device_class_description_->device_class_type() ==
@@ -175,7 +175,7 @@ PassivePcmInterface* ParentPairingManager::CreatePassivePcm(
 /*----------------------------------------------------------------------
  |   ParentPairingManager::CreateActivePcm
  +---------------------------------------------------------------------*/
-ActivePcmInterface* ParentPairingManager::CreateActivePcm(
+ActiveClassListenerInterface* ParentPairingManager::CreateActivePcm(
     const string& application_id, unsigned int class_index) {
   if (application_class_data_map_[application_id][class_index]
           ->device_class_description_->device_class_type() ==
@@ -193,7 +193,7 @@ ActivePcmInterface* ParentPairingManager::CreateActivePcm(
 /*----------------------------------------------------------------------
  |   ParentPairingManager::CreateMediaCapturePcm
  +---------------------------------------------------------------------*/
-MediaCapturePcmInterface* ParentPairingManager::CreateMediaCapturePcm(
+MediaCaptureClassListenerInterface* ParentPairingManager::CreateMediaCapturePcm(
     const string& application_id, unsigned int class_index) {
   if (application_class_data_map_[application_id][class_index]
           ->device_class_description_->device_class_type() ==
@@ -211,7 +211,7 @@ MediaCapturePcmInterface* ParentPairingManager::CreateMediaCapturePcm(
 /*----------------------------------------------------------------------
  |   ParentPairingManager::CreateOnDemandPcm
  +---------------------------------------------------------------------*/
-OnDemandPcmInterface* ParentPairingManager::CreateOnDemandPcm(
+OnDemandClassListenerInterface* ParentPairingManager::CreateOnDemandPcm(
     const string& application_id, unsigned int class_index) {
   if (application_class_data_map_[application_id][class_index]
           ->device_class_description_->device_class_type() ==

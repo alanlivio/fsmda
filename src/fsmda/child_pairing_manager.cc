@@ -74,7 +74,7 @@ void ChildPairingManager::ClassAnnouncement(const string& application_id,
 /*----------------------------------------------------------------------
  |   ChildPairingManager::CreateActiveCc
  +---------------------------------------------------------------------*/
-ActiveCcmInterface* ChildPairingManager::CreateActiveCcm(
+ActiveClassInterface* ChildPairingManager::CreateActiveCcm(
     unsigned int class_index) {
   if (device_class_description_map_[class_index]->device_class_type() ==
       DeviceClassDescription::kActiveDevice) {
@@ -89,7 +89,7 @@ ActiveCcmInterface* ChildPairingManager::CreateActiveCcm(
 /*----------------------------------------------------------------------
  |  ChildPairingManager::CreatePassiveCcm
  +---------------------------------------------------------------------*/
-PassiveCcmInterface* ChildPairingManager::CreatePassiveCcm(
+PassiveClassInterface* ChildPairingManager::CreatePassiveCcm(
     unsigned int class_index) {
   if (device_class_description_map_[class_index]->device_class_type() ==
       DeviceClassDescription::kPassiveDevice) {
@@ -104,7 +104,7 @@ PassiveCcmInterface* ChildPairingManager::CreatePassiveCcm(
 /*----------------------------------------------------------------------
  |   ChildPairingManager::CreateOndemandCcm
  +---------------------------------------------------------------------*/
-OnDemandCcmInterface* ChildPairingManager::CreateOndemandCcm(
+OnDemandClassInterface* ChildPairingManager::CreateOndemandCcm(
     unsigned int class_index) {
   if (device_class_description_map_[class_index]->device_class_type() ==
       DeviceClassDescription::kOnDemandDevice) {
@@ -119,7 +119,7 @@ OnDemandCcmInterface* ChildPairingManager::CreateOndemandCcm(
 /*----------------------------------------------------------------------
  |   ChildPairingManager::CreateMediaCaptureCcm
  +---------------------------------------------------------------------*/
-MediaCaptureCcmInterface* ChildPairingManager::CreateMediaCaptureCcm(
+MediaCaptureClassInterface* ChildPairingManager::CreateMediaCaptureCcm(
     unsigned int class_index) {
   if (device_class_description_map_[class_index]->device_class_type() ==
       DeviceClassDescription::kMediaCaptureDevice) {

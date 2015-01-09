@@ -30,12 +30,12 @@ class Event {
 };
 
 /*----------------------------------------------------------------------
- |   ActivePcmInterface abstract class
+ |   ActiveClassListenerInterface abstract class
  +---------------------------------------------------------------------*/
-class ActivePcmInterface {
+class ActiveClassListenerInterface {
  public:
   // public constructors & destructors
-  virtual ~ActivePcmInterface() {}
+  virtual ~ActiveClassListenerInterface() {}
 
   // public pure virtual methods
   virtual void RequestPropertyValue(const string& object_id,
@@ -47,12 +47,12 @@ class ActivePcmInterface {
 };
 
 /*----------------------------------------------------------------------
- |   ActiveCcmInterface abstract class
+ |   ActiveClassInterface abstract class
  +---------------------------------------------------------------------*/
-class ActiveCcmInterface {
+class ActiveClassInterface {
  public:
   // public constructors & destructors
-  virtual ~ActiveCcmInterface() {}
+  virtual ~ActiveClassInterface() {}
 
   // public pure virtual methods
   virtual void Prepare(const string& object_id, const string& object_src,

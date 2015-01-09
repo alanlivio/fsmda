@@ -21,7 +21,7 @@ using std::vector;
  +---------------------------------------------------------------------*/
 class UpnpActiveCcm : public PLT_DeviceHost,
                       public PLT_CtrlPointListener,
-                      public ActiveCcmInterface,
+                      public ActiveClassInterface,
                       public CommunicationServiceInterface {
  public:
   // public constructors & destructors
@@ -33,7 +33,7 @@ class UpnpActiveCcm : public PLT_DeviceHost,
   virtual int StopCommunicationService();
   virtual bool IsCommunicationServiceStarted();
 
-  // ActiveCcmInterface overloaded methods
+  // ActiveClassInterface overloaded methods
   virtual void Prepare(const string& object_id, const string& object_src,
                        vector<Property> properties, vector<Event> evts);
   virtual void AddEvent(const string& object_id, Event evt);

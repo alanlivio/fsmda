@@ -19,7 +19,7 @@ using std::string;
  +---------------------------------------------------------------------*/
 class UpnpActivePcm : public PLT_DeviceHost,
                       public PLT_CtrlPointListener,
-                      public ActivePcmInterface,
+                      public ActiveClassListenerInterface,
                       public CommunicationServiceInterface {
  public:
   // public constructors & destructors
@@ -31,7 +31,7 @@ class UpnpActivePcm : public PLT_DeviceHost,
   virtual int StopCommunicationService();
   virtual bool IsCommunicationServiceStarted();
 
-  // ActivePcmInterface overloaded methods
+  // ActiveClassListenerInterface overloaded methods
   virtual void RequestPropertyValue(const string& object_id,
                                     const string& name);
   virtual void NotifyEventTransition(const string& object_id,

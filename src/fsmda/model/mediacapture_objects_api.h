@@ -9,12 +9,12 @@
 using std::string;
 
 /*----------------------------------------------------------------------
- |   MediaCapturePcmInterface abstract class
+ |   MediaCaptureClassListenerInterface abstract class
  +---------------------------------------------------------------------*/
-class MediaCapturePcmInterface {
+class MediaCaptureClassListenerInterface {
  public:
   // public constructors & destructors
-  virtual ~MediaCapturePcmInterface() {}
+  virtual ~MediaCaptureClassListenerInterface() {}
 
   // public pure virtual methods
   virtual void SendContent(char* content, const string& resource_id,
@@ -22,12 +22,12 @@ class MediaCapturePcmInterface {
 };
 
 /*----------------------------------------------------------------------
- |   MediaCaptureCcmInterface abstract class
+ |   MediaCaptureClassInterface abstract class
  +---------------------------------------------------------------------*/
-class MediaCaptureCcmInterface {
+class MediaCaptureClassInterface {
  public:
   // public constructors & destructors
-  virtual ~MediaCaptureCcmInterface() {}
+  virtual ~MediaCaptureClassInterface() {}
 
   // public pure virtual methods
   virtual void RequestContent(const string& resource_id,

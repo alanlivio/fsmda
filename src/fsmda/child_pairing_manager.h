@@ -45,10 +45,10 @@ class ChildPairingManager : public ChildPairingInterface {
 
   // Method for factory child communication managers
   // called by ParentPairingManager
-  ActiveCcmInterface* CreateActiveCcm(unsigned int class_index);
-  MediaCaptureCcmInterface* CreateMediaCaptureCcm(unsigned int class_index);
-  PassiveCcmInterface* CreatePassiveCcm(unsigned int class_index);
-  OnDemandCcmInterface* CreateOndemandCcm(unsigned int class_index);
+  ActiveClassInterface* CreateActiveCcm(unsigned int class_index);
+  MediaCaptureClassInterface* CreateMediaCaptureCcm(unsigned int class_index);
+  PassiveClassInterface* CreatePassiveCcm(unsigned int class_index);
+  OnDemandClassInterface* CreateOndemandCcm(unsigned int class_index);
 
  private:
   map<unsigned int, DeviceClassDescription*> device_class_description_map_;
