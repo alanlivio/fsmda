@@ -10,7 +10,7 @@
 using std::string;
 
 /*----------------------------------------------------------------------
- |   HpeClassHandlingInterface abstract class
+ |   HpeClassHandlingInterface interface
  +---------------------------------------------------------------------*/
 class HpeClassHandlingInterface {
  public:
@@ -25,7 +25,7 @@ class HpeClassHandlingInterface {
 };
 
 /*----------------------------------------------------------------------
- |   ParentClassHandlingInterface abstract class
+ |   ParentClassHandlingInterface interface
  +---------------------------------------------------------------------*/
 class ParentClassHandlingInterface {
  public:

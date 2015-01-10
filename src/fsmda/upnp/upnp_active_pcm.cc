@@ -73,9 +73,10 @@ NPT_Result UpnpActivePcm::OnAction(PLT_ActionReference &action,
                                    const PLT_HttpRequestContext &context) {}
 
 /*----------------------------------------------------------------------
- |   UpnpActivePcm::RegistryPlayer
+ |   UpnpActivePcm::RegistryActiveClassListener
  +---------------------------------------------------------------------*/
-void UpnpActivePcm::SetHostHpe(ActiveClassListenerInterface *hpe) {
+void UpnpActivePcm::RegistryActiveClassListener(
+    ActiveClassListenerInterface *hpe) {
   hpe_ = hpe;
 }
 

@@ -36,7 +36,6 @@ class UpnpActiveCcm : public ActiveClassListenerInterface,
                                      const string& event_id,
                                      const string& transition);
   virtual void NotifyError(const string& object_id, const string& message);
-  virtual void SetActivePlayer(ActivePlayerInterface* player);
 
   // PLT_CtrlPointListener overloaded methods
   virtual NPT_Result OnDeviceAdded(PLT_DeviceDataReference& device);

@@ -30,8 +30,22 @@ class Event {
 };
 
 /*----------------------------------------------------------------------
- |   ActivePlayerInterface abstract class
+ |   ActivePlayerInterface and ActivePlayerListenerInterface interfaces.
+ |   It is use between Active Child Communication Manager
+ |   and RemotePlayer
  +---------------------------------------------------------------------*/
+class ActivePlayerListenerInterface {
+ public:
+  // public constructors & destructors
+  virtual ~ActivePlayerListenerInterface() {}
+
+  // public pure virtual methods
+  virtual void RequestPropertyValue(const string& name) = 0;
+  virtual void NotifyEventTransition(const string& event_id,
+                                     const string& transition) = 0;
+  virtual void NotifyError(const string& message) = 0;
+};
+
 class ActivePlayerInterface {
  public:
   // public constructors & destructors
@@ -46,10 +60,16 @@ class ActivePlayerInterface {
   virtual void ReportPropertyValue(const string& name, const string& value) = 0;
   virtual void SetPropertyValue(const string& name, const string& value,
                                 unsigned int duration) = 0;
+  virtual void RegistryPlayerListener(
+      ActivePlayerListenerInterface* listener) = 0;
 };
 
 /*----------------------------------------------------------------------
- |   ActiveClassListenerInterface abstract class
+ |   ActiveClassListenerInterface and ActiveClassInterface interfaces.
+ |   It is use in two cases:
+ |   1. Between HostHpe and Active Parent Communication Manager.
+ |   2. Between Active Parent Communication Manager and Active Child
+ |   Communication Manager.
  +---------------------------------------------------------------------*/
 class ActiveClassListenerInterface {
  public:
@@ -63,13 +83,8 @@ class ActiveClassListenerInterface {
                                      const string& event_id,
                                      const string& transition) = 0;
   virtual void NotifyError(const string& object_id, const string& message) = 0;
-
-  virtual void SetActivePlayer(ActivePlayerInterface* player) = 0;
 };
 
-/*----------------------------------------------------------------------
- |   ActiveClassInterface abstract class
- +---------------------------------------------------------------------*/
 class ActiveClassInterface {
  public:
   // public constructors & destructors
@@ -86,7 +101,8 @@ class ActiveClassInterface {
                                    const string& value) = 0;
   virtual void SetPropertyValue(const string& object_id, const string& name,
                                 const string& value, unsigned int duration) = 0;
-  virtual void SetHostHpe(ActiveClassListenerInterface* hpe) = 0;
+  virtual void RegistryActiveClassListener(
+      ActiveClassListenerInterface* listener) = 0;
 };
 
 #endif  // FSMDA_MODEL_ACTIVE_OBJECTS_API_H_

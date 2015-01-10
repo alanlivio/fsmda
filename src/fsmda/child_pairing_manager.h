@@ -28,7 +28,7 @@ class ChildPairingManager : public ChildPairingInterface {
   virtual ~ChildPairingManager();
 
   // public ChildPairingInterface overloaded methods
-  // called by ParentPairingManager
+  // called by Remote ParentPairingManager
   virtual void ClassAnnouncement(const string& application_id,
                                  unsigned int class_index,
                                  const string& class_desc,

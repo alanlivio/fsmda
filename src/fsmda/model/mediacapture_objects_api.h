@@ -9,7 +9,7 @@
 using std::string;
 
 /*----------------------------------------------------------------------
- |   MediaCaptureClassListenerInterface abstract class
+ |   MediaCaptureClassListenerInterface interface
  +---------------------------------------------------------------------*/
 class MediaCaptureClassListenerInterface {
  public:
@@ -22,7 +22,7 @@ class MediaCaptureClassListenerInterface {
 };
 
 /*----------------------------------------------------------------------
- |   MediaCaptureClassInterface abstract class
+ |   MediaCaptureClassInterface interface
  +---------------------------------------------------------------------*/
 class MediaCaptureClassInterface {
  public:

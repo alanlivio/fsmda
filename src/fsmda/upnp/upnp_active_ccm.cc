@@ -56,12 +56,6 @@ NPT_Result UpnpActiveCcm::OnAction(PLT_ActionReference& action,
                                    const PLT_HttpRequestContext& context) {}
 
 /*----------------------------------------------------------------------
- |   UpnpActiveCcm::SetActivePlayer
- +---------------------------------------------------------------------*/
-void UpnpActiveCcm::SetActivePlayer(ActivePlayerInterface* player) {
-  player_ = player;
-}
-/*----------------------------------------------------------------------
  |   UpnpActiveCcm::OnDeviceAdded
  +---------------------------------------------------------------------*/
 NPT_Result UpnpActiveCcm::OnDeviceAdded(PLT_DeviceDataReference& device) {}

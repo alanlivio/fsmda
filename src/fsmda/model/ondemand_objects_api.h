@@ -9,7 +9,7 @@
 using std::string;
 
 /*----------------------------------------------------------------------
- |   OnDemandClassListenerInterface abstract class
+ |   OnDemandClassListenerInterface interface
  +---------------------------------------------------------------------*/
 class OnDemandClassListenerInterface {
  public:
@@ -22,7 +22,7 @@ class OnDemandClassListenerInterface {
 };
 
 /*----------------------------------------------------------------------
- |   OnDemandClassInterface abstract class
+ |   OnDemandClassInterface interface
  +---------------------------------------------------------------------*/
 class OnDemandClassInterface {
  public:

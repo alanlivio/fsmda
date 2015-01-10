@@ -9,7 +9,7 @@
 using std::string;
 
 /*----------------------------------------------------------------------
- |   PassiveClassInterface abstract class
+ |   PassiveClassInterface interface
  +---------------------------------------------------------------------*/
 class PassiveClassInterface {
  public:
@@ -22,7 +22,7 @@ class PassiveClassInterface {
 };
 
 /*----------------------------------------------------------------------
- |   PassiveClassListenerInterface abstract class
+ |   PassiveClassListenerInterface interface
  +---------------------------------------------------------------------*/
 class PassiveClassListenerInterface {
  public:
