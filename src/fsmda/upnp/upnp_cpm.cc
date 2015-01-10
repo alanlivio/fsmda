@@ -80,9 +80,9 @@ UpnpCpm::~UpnpCpm() {
  |   UpnpCpm::AddDeviceToClass
  +---------------------------------------------------------------------*/
 void UpnpCpm::AddDeviceToClass(const std::string &application_id,
-                                        const std::string &device_address,
-                                        unsigned int class_index,
-                                        const std::string &device_desc) {
+                               const std::string &device_address,
+                               unsigned int class_index,
+                               const std::string &device_desc) {
   clog << "UpnpCpm::AddDeviceToClass " << endl;
 
   // invoke addDeviceToClass
@@ -104,8 +104,7 @@ void UpnpCpm::AddDeviceToClass(const std::string &application_id,
   reponse_action->SetArgumentValue("deviceDesc", device_desc.c_str());
   NPT_Result res = ctrl_point_->InvokeAction(reponse_action, 0);
   if (res == NPT_FAILURE)
-    clog << "UpnpCpm::AddDeviceToClass calling addDeviceToClass failed"
-         << endl;
+    clog << "UpnpCpm::AddDeviceToClass calling addDeviceToClass failed" << endl;
   else
     clog << "UpnpCpm::AddDeviceToClass calling addDeviceToClass("
          << application_id << "," << class_index << ","
@@ -117,8 +116,8 @@ void UpnpCpm::AddDeviceToClass(const std::string &application_id,
  |   UpnpCpm::GetChildIndex
  +---------------------------------------------------------------------*/
 void UpnpCpm::GetChildIndex(const std::string &application_id,
-                                     const std::string &device_address,
-                                     unsigned int class_index) {}
+                            const std::string &device_address,
+                            unsigned int class_index) {}
 
 /*----------------------------------------------------------------------
  |   UpnpCpm::SetupServices
@@ -144,7 +143,7 @@ NPT_Result UpnpCpm::SetupServices() {
  |   UpnpCpm::OnAction
  +---------------------------------------------------------------------*/
 NPT_Result UpnpCpm::OnAction(PLT_ActionReference &action,
-                                      const PLT_HttpRequestContext &context) {
+                             const PLT_HttpRequestContext &context) {
   NPT_String name = action->GetActionDesc().GetName();
   clog << "UpnpCpm::OnAction()::name=" << name.GetChars() << endl;
 
@@ -167,9 +166,12 @@ NPT_Result UpnpCpm::OnAction(PLT_ActionReference &action,
 
     // call child_class_handler_->ClassAnnouncement
     if (child_class_handler_ != NULL) {
-      child_class_handler_->ClassAnnouncement(
-          application_id.GetChars(), class_index, class_desc.GetChars(),
-          class_function.GetChars());
+      DeviceClassDescription device_class_description;
+      device_class_description.InitializeByRdfContent(class_desc.GetChars());
+      bool paired = device_class_description.IsDeviceCompatible(
+          child_class_handler_->device_description());
+      AddDeviceToClass(application_id.GetChars(), "localhost", class_index,
+                       class_desc.GetChars());
     }
   }
   return NPT_SUCCESS;
@@ -178,18 +180,18 @@ NPT_Result UpnpCpm::OnAction(PLT_ActionReference &action,
 /*----------------------------------------------------------------------
  |   UpnpCpm::OnEventNotify
  +---------------------------------------------------------------------*/
-NPT_Result UpnpCpm::OnEventNotify(
-    PLT_Service *service, NPT_List<PLT_StateVariable *> *vars) {}
+NPT_Result UpnpCpm::OnEventNotify(PLT_Service *service,
+                                  NPT_List<PLT_StateVariable *> *vars) {}
 
 /*----------------------------------------------------------------------
  |   UpnpCpm::OnActionResponse
  +---------------------------------------------------------------------*/
 NPT_Result UpnpCpm::OnActionResponse(NPT_Result res,
-                                              PLT_ActionReference &action,
-                                              void *userdata) {
+                                     PLT_ActionReference &action,
+                                     void *userdata) {
   NPT_String name = action->GetActionDesc().GetName();
-  clog << "UpnpCpm::OnActionResponse()::action.name="
-       << name.GetChars() << endl;
+  clog << "UpnpCpm::OnActionResponse()::action.name=" << name.GetChars()
+       << endl;
   if (name.Compare("addDeviceToClass") == 0) {
     clog << "UpnpCpm::OnActionResponse()::calling set_paired" << endl;
     child_class_handler_->set_paired(true);
@@ -204,8 +206,7 @@ NPT_Result UpnpCpm::OnDeviceRemoved(PLT_DeviceDataReference &device) {}
 /*----------------------------------------------------------------------
  |   UpnpCpm::OnDeviceAdded
  +---------------------------------------------------------------------*/
-NPT_Result UpnpCpm::OnDeviceAdded(
-    PLT_DeviceDataReference &device_data) {
+NPT_Result UpnpCpm::OnDeviceAdded(PLT_DeviceDataReference &device_data) {
   if (device_data->GetType().Compare(UpnpFsmdaUtils::kPpmDeviceType))
     return NPT_FAILURE;
   clog << "UpnpCpm::OnDeviceAdded() " << endl;
@@ -217,8 +218,7 @@ NPT_Result UpnpCpm::OnDeviceAdded(
        << device_data->GetUUID().GetChars() << endl;
   clog << "UpnpCpm::OnDeviceAdded()::device->GetURLBase()->"
        << device_data->GetURLBase().ToString().GetChars() << endl;
-  clog << "UpnpCpm::OnDeviceAdded()::last_parent_ = device_data"
-       << endl;
+  clog << "UpnpCpm::OnDeviceAdded()::last_parent_ = device_data" << endl;
   last_parent_ = device_data;
   last_parent_semaphore.SetValue(1);
 
@@ -273,8 +273,8 @@ bool UpnpCpm::IsPairingServiceStarted() { return m_Started; }
 /*----------------------------------------------------------------------
  |   UpnpCpm::CreatePassiveCcm
  +---------------------------------------------------------------------*/
-PassiveClassInterface *UpnpCpm::CreatePassiveCcm(
-    const string &application_id, unsigned int class_index) {
+PassiveClassInterface *UpnpCpm::CreatePassiveCcm(const string &application_id,
+                                                 unsigned int class_index) {
   UpnpPassiveCcm *communication = new UpnpPassiveCcm();
   return communication;
 }
@@ -301,8 +301,8 @@ MediaCaptureClassInterface *UpnpCpm::CreateMediaCaptureCcm(
 /*----------------------------------------------------------------------
  |   UpnpCpm::CreateOnDemandCcm
  +---------------------------------------------------------------------*/
-OnDemandClassInterface *UpnpCpm::CreateOnDemandCcm(
-    const string &application_id, unsigned int class_index) {
+OnDemandClassInterface *UpnpCpm::CreateOnDemandCcm(const string &application_id,
+                                                   unsigned int class_index) {
   UpnpOnDemandCcm *communication = new UpnpOnDemandCcm();
   return communication;
 }

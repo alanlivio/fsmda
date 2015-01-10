@@ -29,8 +29,8 @@ class ChildClassHandler;
  |   UpnpCpm class
  +---------------------------------------------------------------------*/
 class UpnpCpm : public PLT_DeviceHost,
-                         public PLT_CtrlPointListener,
-                         public ParentPairingInterface {
+                public PLT_CtrlPointListener,
+                public ParentPairingInterface {
  public:
   // public constructors & destructors
   UpnpCpm();

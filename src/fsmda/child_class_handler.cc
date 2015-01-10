@@ -56,23 +56,6 @@ int ChildClassHandler::StopPairing() {
 }
 
 /*----------------------------------------------------------------------
- |   ChildClassHandler::ClassAnnouncement
- +---------------------------------------------------------------------*/
-void ChildClassHandler::ClassAnnouncement(const string& application_id,
-                                            unsigned int class_index,
-                                            const string& class_desc,
-                                            const string& class_function) {
-  clog << "ChildClassHandler::ClassAnnouncement" << endl;
-  DeviceClassDescription device_class_description;
-  device_class_description.InitializeByRdfContent(class_desc.c_str());
-  bool paired =
-      device_class_description.IsDeviceCompatible(device_description_);
-  //  set_paired(paired);
-  upnp_cpm_->AddDeviceToClass(application_id, "locahost", class_index,
-                                        class_desc);
-}
-
-/*----------------------------------------------------------------------
  |  ChildClassHandler::CreatePassiveCcm
  +---------------------------------------------------------------------*/
 PassiveClassInterface* ChildClassHandler::CreatePassiveCcm(
@@ -112,8 +95,7 @@ MediaCaptureClassInterface* ChildClassHandler::CreateMediaCaptureCcm(
     const string& application_id, unsigned int class_index) {
   if (device_class_description_map_[class_index]->device_class_type() ==
       DeviceClassDescription::kMediaCaptureDevice) {
-    return upnp_cpm_->CreateMediaCaptureCcm(application_id,
-                                                      class_index);
+    return upnp_cpm_->CreateMediaCaptureCcm(application_id, class_index);
   }
 }
 

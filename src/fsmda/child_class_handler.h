@@ -21,18 +21,11 @@ using std::map;
 /*----------------------------------------------------------------------
  |   ChildClassHandler class
  +---------------------------------------------------------------------*/
-class ChildClassHandler : public ChildPairingInterface {
+class ChildClassHandler {
  public:
   // public constructors & destructors
   explicit ChildClassHandler(const DeviceDescription&);
   virtual ~ChildClassHandler();
-
-  // public ChildPairingInterface overloaded methods
-  // called by Remote ParentClassHandler
-  virtual void ClassAnnouncement(const string& application_id,
-                                 unsigned int class_index,
-                                 const string& class_desc,
-                                 const string& class_function);
 
   // public methods
   // called Remote Player
