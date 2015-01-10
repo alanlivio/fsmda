@@ -23,13 +23,16 @@ using std::set;
 using std::vector;
 
 /*----------------------------------------------------------------------
- |   ApplicationClassData class
+ |   DeviceClassData class
  +---------------------------------------------------------------------*/
 
-class ApplicationClassData {
+class DeviceClassData {
  public:
+  DeviceClassData()
+      : device_class_description_(NULL), number_of_registred_children_(0) {}
   DeviceClassDescription* device_class_description_;
   vector<string> registred_devices_;
+  unsigned int number_of_registred_children_;
 };
 
 /*----------------------------------------------------------------------
@@ -87,9 +90,8 @@ class ParentClassHandler : public ParentClassHandlingInterface {
   // private filds
   map<const string, HpeClassHandlingInterface*> hpes_map_;
   unsigned int number_of_registred_classes_;
-  unsigned int number_of_registred_children_;
-  map<const string, map<unsigned int, ApplicationClassData*> >
-      application_class_data_map_;
+  map<const string, map<unsigned int, DeviceClassData*> >
+      device_class_data_map_;
   UpnpPpm* upnp_ppm_;
 };
 

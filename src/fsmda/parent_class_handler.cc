@@ -17,7 +17,6 @@ using std::endl;
 ParentClassHandler::ParentClassHandler() : number_of_registred_classes_(0) {
   upnp_ppm_ = new UpnpPpm();
   upnp_ppm_->set_service_owner(this);
-  number_of_registred_children_ = 0;
 }
 
 ParentClassHandler::~ParentClassHandler() {
@@ -58,9 +57,8 @@ void ParentClassHandler::AddClassDescription(
        << ",class_index" << class_index
        << ",device_class_type=" << device_class_description->device_class_type()
        << ")" << endl;
-  application_class_data_map_[application_id][class_index] =
-      new ApplicationClassData();
-  application_class_data_map_[application_id][class_index]
+  device_class_data_map_[application_id][class_index] = new DeviceClassData();
+  device_class_data_map_[application_id][class_index]
       ->device_class_description_ = device_class_description;
   if (device_class_description->pairing_protocol() ==
       DeviceClassDescription::kUpnpPairingProcotol) {
@@ -94,8 +92,8 @@ HpeClassHandlingInterface* ParentClassHandler::GetClassHandlingHpe(
 void ParentClassHandler::RemoveClass(const string& application_id,
                                      unsigned int class_index) {
   // TODO(alan@telemidia.puc-rio.br): create tests to this
-  application_class_data_map_[application_id].erase(
-      application_class_data_map_[application_id].find(class_index));
+  device_class_data_map_[application_id].erase(
+      device_class_data_map_[application_id].find(class_index));
 }
 
 /*----------------------------------------------------------------------
@@ -105,7 +103,8 @@ void ParentClassHandler::ReportAddDeviceToClass(const string& application_id,
                                                 unsigned int class_index) {
   // TODO(alan@telemidia.puc-rio.br): create tests to this
   clog << "ParentClassHandler::AddDeviceToClass" << endl;
-  number_of_registred_children_++;
+  device_class_data_map_[application_id][class_index]
+      ->number_of_registred_children_++;
 }
 /*----------------------------------------------------------------------
  |   ParentClassHandler::GetAvaliableChildIndex
@@ -147,7 +146,7 @@ bool ParentClassHandler::IsPairingStarted() {
  +---------------------------------------------------------------------*/
 PassiveClassListenerInterface* ParentClassHandler::CreatePassivePcm(
     const string& application_id, unsigned int class_index) {
-  if (application_class_data_map_[application_id][class_index]
+  if (device_class_data_map_[application_id][class_index]
           ->device_class_description_->device_class_type() ==
       DeviceClassDescription::kPassiveDevice) {
     return upnp_ppm_->CreatePassivePcm(application_id, class_index);
@@ -159,7 +158,7 @@ PassiveClassListenerInterface* ParentClassHandler::CreatePassivePcm(
  +---------------------------------------------------------------------*/
 ActiveClassInterface* ParentClassHandler::CreateActivePcm(
     const string& application_id, unsigned int class_index) {
-  if (application_class_data_map_[application_id][class_index]
+  if (device_class_data_map_[application_id][class_index]
           ->device_class_description_->device_class_type() ==
       DeviceClassDescription::kActiveDevice) {
     return upnp_ppm_->CreateActivePcm(application_id, class_index);
@@ -171,7 +170,7 @@ ActiveClassInterface* ParentClassHandler::CreateActivePcm(
  +---------------------------------------------------------------------*/
 MediaCaptureClassListenerInterface* ParentClassHandler::CreateMediaCapturePcm(
     const string& application_id, unsigned int class_index) {
-  if (application_class_data_map_[application_id][class_index]
+  if (device_class_data_map_[application_id][class_index]
           ->device_class_description_->device_class_type() ==
       DeviceClassDescription::kMediaCaptureDevice) {
     return upnp_ppm_->CreateMediaCapturePcm(application_id, class_index);
@@ -183,7 +182,7 @@ MediaCaptureClassListenerInterface* ParentClassHandler::CreateMediaCapturePcm(
  +---------------------------------------------------------------------*/
 OnDemandClassListenerInterface* ParentClassHandler::CreateOnDemandPcm(
     const string& application_id, unsigned int class_index) {
-  if (application_class_data_map_[application_id][class_index]
+  if (device_class_data_map_[application_id][class_index]
           ->device_class_description_->device_class_type() ==
       DeviceClassDescription::kOnDemandDevice) {
     return upnp_ppm_->CreateOnDemandPcm(application_id, class_index);
@@ -196,8 +195,8 @@ OnDemandClassListenerInterface* ParentClassHandler::CreateOnDemandPcm(
 unsigned int ParentClassHandler::GenerateAvaliableIndex(
     const string& application_id) {
   for (int i = 0; i < UINT_MAX; i++) {
-    if (application_class_data_map_[application_id].find(i) ==
-        application_class_data_map_[application_id].end())
+    if (device_class_data_map_[application_id].find(i) ==
+        device_class_data_map_[application_id].end())
       return i;
   }
 }
@@ -207,7 +206,7 @@ unsigned int ParentClassHandler::GenerateAvaliableIndex(
  +---------------------------------------------------------------------*/
 unsigned int ParentClassHandler::number_of_registred_classes(
     const string& application_id) {
-  return application_class_data_map_[application_id].size();
+  return device_class_data_map_[application_id].size();
 }
 
 /*----------------------------------------------------------------------
@@ -218,5 +217,6 @@ unsigned int ParentClassHandler::number_of_registred_children(
   clog << "ParentClassHandler::GetNumberOfRegistredChildren:: "
           "application_id=" << application_id << ",class_index" << class_index
        << endl;
-  return number_of_registred_children_;
+  return device_class_data_map_[application_id][class_index]
+      ->number_of_registred_children_;
 }
