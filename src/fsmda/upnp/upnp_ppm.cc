@@ -167,9 +167,8 @@ NPT_Result UpnpPpm::OnAction(PLT_ActionReference &action,
 
     // call parent_class_handler_->AddDeviceToClass
     if (parent_class_handler_ != NULL) {
-      parent_class_handler_->AddDeviceToClass(applicationId.GetChars(),
-                                              deviceAddr.GetChars(), classIndex,
-                                              deviceDesc.GetChars());
+      parent_class_handler_->ReportAddDeviceToClass(applicationId.GetChars(),
+                                                    classIndex);
     }
 
     return NPT_SUCCESS;
@@ -186,8 +185,8 @@ NPT_Result UpnpPpm::OnAction(PLT_ActionReference &action,
          << class_index << ")" << endl;
     action->SetArgumentValue("ret", "100");
     if (parent_class_handler_ != NULL) {
-      parent_class_handler_->GetChildIndex(application_id.GetChars(),
-                                           device_addr.GetChars(), class_index);
+      parent_class_handler_->GetAvaliableChildIndex(application_id.GetChars(),
+                                                    class_index);
     }
     return NPT_SUCCESS;
   }

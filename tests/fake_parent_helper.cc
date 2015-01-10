@@ -47,10 +47,8 @@ double CalculateElapsedTime(timeval start_time, timeval end_time) {
 class MockParentClassHandler : public ParentClassHandler {
  public:
   string expected_semaphore;
-  virtual void AddDeviceToClass(const string& application_id,
-                                const string& device_address,
-                                unsigned int class_index,
-                                const string& device_desc) {
+  virtual void ReportAddDeviceToClass(const string& application_id,
+                                      unsigned int class_index) {
     clog << "MockParentClassHandler::AddDeviceToClass()" << endl;
     PostNamedSemphoreHelper(expected_semaphore);
   }
@@ -102,7 +100,7 @@ int main(int argc, char** argv) {
   device_class_description = new DeviceClassDescription();
   device_class_description->InitializeByDeviceClass(device_class_type);
   parent_class_handler->AddClassDescription(FLAGS_application_id, class_index,
-                                              device_class_description);
+                                            device_class_description);
   parent_class_handler->SetClassHandlingHpe(FLAGS_application_id, mock_hpe);
 
   // start parent

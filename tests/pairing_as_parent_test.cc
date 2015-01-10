@@ -18,13 +18,10 @@ using std::endl;
 class MockParentClassHandler : public ParentClassHandler {
  public:
   string expected_semaphore;
-  virtual void AddDeviceToClass(const string& application_id,
-                                const string& device_address,
-                                unsigned int class_index,
-                                const string& device_desc) {
+  virtual void ReportAddDeviceToClass(const string& application_id,
+                                      unsigned int class_index) {
     clog << "MockParentClassHandler::AddDeviceToClass()" << endl;
-    ParentClassHandler::AddDeviceToClass(application_id, device_address,
-                                           class_index, device_desc);
+    ParentClassHandler::ReportAddDeviceToClass(application_id, class_index);
     PostNamedSemphoreHelper(expected_semaphore);
   }
 };
@@ -89,9 +86,9 @@ void PairingAsParentHelper(
       parent_class_handler->GenerateAvaliableIndex(app_id);
   parent_class_handler->expected_semaphore = parent_named_semaphore;
   parent_class_handler->AddClassDescription(app_id, class_index,
-                                              device_class_description);
+                                            device_class_description);
   parent_class_handler->SetClassHandlingHpe(app_id, mock_hpe);
-  EXPECT_EQ(parent_class_handler->GetNumberOfRegistredClasses(app_id), 1);
+  EXPECT_EQ(parent_class_handler->number_of_registred_classes(app_id), 1);
 
   // start ParenPaigingManager
   EXPECT_EQ(parent_class_handler->StartPairing(), 0);
@@ -127,7 +124,7 @@ void PairingAsParentHelper(
 
   // test if child is paired
   EXPECT_EQ(
-      parent_class_handler->GetNumberOfRegistredChildren(app_id, class_index),
+      parent_class_handler->number_of_registred_children(app_id, class_index),
       1);
   ReleaseNameSemphoreHelper(parent_named_semaphore);
   if (device_class_description->device_class_type() ==

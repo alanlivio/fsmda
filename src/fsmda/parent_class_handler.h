@@ -60,8 +60,8 @@ class ParentClassHandler : public ParentClassHandlingInterface {
   // public methods
   // called by HypermediaEngine
   unsigned int GenerateAvaliableIndex(const string& application_id);
-  unsigned int GetNumberOfRegistredClasses(const string& application_id);
-  unsigned int GetNumberOfRegistredChildren(const string& application_id,
+  unsigned int number_of_registred_classes(const string& application_id);
+  unsigned int number_of_registred_children(const string& application_id,
                                             unsigned int class_index);
   int StartPairing();
   int StopPairing();
@@ -78,18 +78,16 @@ class ParentClassHandler : public ParentClassHandlingInterface {
   // public methods
   // called by Ppm
   HpeClassHandlingInterface* GetClassHandlingHpe(const string& application_id);
-  virtual void AddDeviceToClass(const string& application_id,
-                                const string& device_address,
-                                unsigned int class_index,
-                                const string& device_desc);
-  virtual void GetChildIndex(const string& application_id,
-                             const string& device_address,
-                             unsigned int class_index);
+  virtual void ReportAddDeviceToClass(const string& application_id,
+                                      unsigned int class_index);
+  virtual unsigned int GetAvaliableChildIndex(const string& application_id,
+                                              unsigned int class_index);
 
  private:
   // private filds
   map<const string, HpeClassHandlingInterface*> hpes_map_;
-  unsigned int upnp_registred_classes_size;
+  unsigned int number_of_registred_classes_;
+  unsigned int number_of_registred_children_;
   map<const string, map<unsigned int, ApplicationClassData*> >
       application_class_data_map_;
   UpnpPpm* upnp_ppm_;

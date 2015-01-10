@@ -95,7 +95,7 @@ void PairingAsChildHelper(
     parent_class_handler->AddClassDescription(app_id, class_index,
                                                 device_class_description);
     parent_class_handler->SetClassHandlingHpe(app_id, mock_hpe);
-    EXPECT_EQ(parent_class_handler->GetNumberOfRegistredClasses(app_id), 1);
+    EXPECT_EQ(parent_class_handler->number_of_registred_classes(app_id), 1);
     EXPECT_EQ(parent_class_handler->StartPairing(), 0);
     EXPECT_TRUE(parent_class_handler->IsPairingStarted());
     EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 2);
