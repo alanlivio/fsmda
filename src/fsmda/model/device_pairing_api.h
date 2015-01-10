@@ -10,7 +10,7 @@
 using std::string;
 
 /*----------------------------------------------------------------------
- |   ChildPairingInterface abstract class
+ |   ParentPairingInterface abstract class
  +---------------------------------------------------------------------*/
 class ParentPairingInterface {
  public:

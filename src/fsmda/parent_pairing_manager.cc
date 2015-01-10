@@ -89,7 +89,7 @@ void ParentPairingManager::AddClassDescription(
 /*----------------------------------------------------------------------
  |   ParentPairingManager::SetClassHandlingHPE
  +---------------------------------------------------------------------*/
-void ParentPairingManager::SetClassHandlingHPE(
+void ParentPairingManager::SetClassHandlingHpe(
     const std::string& application_id, HpeClassHandlingInterface* hpe) {
   // TODO(alan@telemidia.puc-rio.br): create tests to this
   hpes_map_[application_id] = hpe;

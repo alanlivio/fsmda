@@ -67,19 +67,11 @@ class ParentPairingManager : public ParentClassHandlingInterface,
   virtual void AddClassDescription(
       const string& application_id, unsigned int class_index,
       DeviceClassDescription* device_class_description);
-  virtual void SetClassHandlingHPE(const string& application_id,
+  virtual void SetClassHandlingHpe(const string& application_id,
                                    HpeClassHandlingInterface* hpe);
-  ActiveClassInterface* CreateActivePcm(const string& application_id,
-                                        unsigned int class_index);
-  MediaCaptureClassListenerInterface* CreateMediaCapturePcm(
-      const string& application_id, unsigned int class_index);
-  OnDemandClassListenerInterface* CreateOnDemandPcm(
-      const string& application_id, unsigned int class_index);
-  PassiveClassListenerInterface* CreatePassivePcm(const string& application_id,
-                                                  unsigned int class_index);
 
   // public methods
-  // called by ParentPairingManager
+  // called by HypermediaEngine
   unsigned int GenerateAvaliableIndex(const string& application_id);
   unsigned int GetNumberOfRegistredClasses(const string& application_id);
   virtual unsigned int GetNumberOfRegistredChildren(
@@ -87,6 +79,15 @@ class ParentPairingManager : public ParentClassHandlingInterface,
   int StartPairing();
   int StopPairing();
   bool IsPairingStarted();
+  PassiveClassListenerInterface* CreatePassivePcm(const string& application_id,
+                                                  unsigned int class_index);
+  ActiveClassInterface* CreateActivePcm(const string& application_id,
+                                        unsigned int class_index);
+  MediaCaptureClassListenerInterface* CreateMediaCapturePcm(
+      const string& application_id, unsigned int class_index);
+  OnDemandClassListenerInterface* CreateOnDemandPcm(
+      const string& application_id, unsigned int class_index);
+
   map<const string, HpeClassHandlingInterface*> hpes_map_;
 
  private:

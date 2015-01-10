@@ -103,7 +103,7 @@ int main(int argc, char** argv) {
   device_class_description->InitializeByDeviceClass(device_class_type);
   parent_pairing_manager->AddClassDescription(FLAGS_application_id, class_index,
                                               device_class_description);
-  parent_pairing_manager->SetClassHandlingHPE(FLAGS_application_id, mock_hpe);
+  parent_pairing_manager->SetClassHandlingHpe(FLAGS_application_id, mock_hpe);
 
   // start parent
   string parent_named_semaphore = FLAGS_application_id + "_parent";

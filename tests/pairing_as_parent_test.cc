@@ -73,7 +73,7 @@ void PairingAsParentHelper(
   parent_pairing_manager->expected_semaphore = parent_named_semaphore;
   parent_pairing_manager->AddClassDescription(app_id, class_index,
                                               device_class_description);
-  parent_pairing_manager->SetClassHandlingHPE(app_id, mock_hpe);
+  parent_pairing_manager->SetClassHandlingHpe(app_id, mock_hpe);
   EXPECT_EQ(parent_pairing_manager->GetNumberOfRegistredClasses(app_id), 1);
 
   // start ParenPaigingManager

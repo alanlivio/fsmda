@@ -41,6 +41,7 @@ class UpnpActivePcm : public ActiveClassInterface,
 
       const string& object_id, const string& name, const string& value,
       unsigned int duration);
+  void SetHostHpe(ActiveClassListenerInterface* hpe);
 
   // PLT_CtrlPointListener overloaded methods
   virtual NPT_Result OnDeviceAdded(PLT_DeviceDataReference& device);
@@ -51,12 +52,10 @@ class UpnpActivePcm : public ActiveClassInterface,
   virtual NPT_Result OnEventNotify(PLT_Service* service,
                                    NPT_List<PLT_StateVariable*>* vars);
 
-  // called by PLT_DeviceHost
+  // public methods
+  // called by UpnpParentPairingManager
   virtual NPT_Result OnAction(PLT_ActionReference& action,
                               const PLT_HttpRequestContext& context);
-
-  // public methods
-  void SetHostHpe(ActiveClassListenerInterface* hpe);
 
  private:
   PLT_DeviceHostReference device_host_;

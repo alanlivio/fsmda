@@ -29,12 +29,14 @@ class UpnpActiveCcm : public ActiveClassListenerInterface,
   virtual ~UpnpActiveCcm();
 
   // ActiveClassListenerInterface overloaded methods
+  // called by RemotePlayer
   virtual void RequestPropertyValue(const string& object_id,
                                     const string& name);
   virtual void NotifyEventTransition(const string& object_id,
                                      const string& event_id,
                                      const string& transition);
   virtual void NotifyError(const string& object_id, const string& message);
+  virtual void SetActivePlayer(ActivePlayerInterface* player);
 
   // PLT_CtrlPointListener overloaded methods
   virtual NPT_Result OnDeviceAdded(PLT_DeviceDataReference& device);
@@ -45,12 +47,10 @@ class UpnpActiveCcm : public ActiveClassListenerInterface,
   virtual NPT_Result OnEventNotify(PLT_Service* service,
                                    NPT_List<PLT_StateVariable*>* vars);
 
-  // called by PLT_DeviceHost
+  // public methods
+  // called by UpnpChildPairingManger
   virtual NPT_Result OnAction(PLT_ActionReference& action,
                               const PLT_HttpRequestContext& context);
-
-  // public methods
-  virtual void SetActivePlayer(ActivePlayerInterface* player);
 
  private:
   PLT_DeviceHostReference device_host_;

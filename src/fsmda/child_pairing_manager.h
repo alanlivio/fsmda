@@ -27,15 +27,6 @@ class ChildPairingManager : public ChildPairingInterface {
   explicit ChildPairingManager(const DeviceDescription&);
   virtual ~ChildPairingManager();
 
-  // public methods
-  // called by ParentPairingManager
-  int StartPairing();
-  int StopPairing();
-  bool IsPairingStarted();
-  bool paired();
-  virtual void set_paired(bool paired_);
-  DeviceDescription* device_description();
-
   // public ChildPairingInterface overloaded methods
   // called by ParentPairingManager
   virtual void ClassAnnouncement(const string& application_id,
@@ -43,10 +34,16 @@ class ChildPairingManager : public ChildPairingInterface {
                                  const string& class_desc,
                                  const string& class_function);
 
-  // Method for factory child communication managers
-  // called by ParentPairingManager
+  // public methods
+  // called Remote Player
+  int StartPairing();
+  int StopPairing();
+  bool IsPairingStarted();
+  bool paired();
+  virtual void set_paired(bool paired_);
+  DeviceDescription* device_description();
   ActiveClassListenerInterface* CreateActiveCcm(const string& application_id,
-                                        unsigned int class_index);
+                                                unsigned int class_index);
   MediaCaptureClassInterface* CreateMediaCaptureCcm(
       const string& application_id, unsigned int class_index);
   PassiveClassInterface* CreatePassiveCcm(const string& application_id,

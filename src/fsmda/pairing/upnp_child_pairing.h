@@ -39,6 +39,7 @@ class UpnpChildPairing : public PLT_DeviceHost,
   ~UpnpChildPairing();
 
   // ParentPairingInterface overloaded methods
+  // called byParentPairingManager
   virtual void AddDeviceToClass(const string& application_id,
                                 const string& device_address,
                                 unsigned int class_index,
