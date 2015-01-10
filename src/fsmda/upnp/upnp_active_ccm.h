@@ -26,7 +26,8 @@ class UpnpActiveCcm : public ActiveClassListenerInterface,
   // public constructors & destructors
   UpnpActiveCcm(PLT_DeviceHostReference host_device,
                 PLT_DeviceDataReference& remote_device,
-                PLT_CtrlPointReference ctrl_point);
+                PLT_CtrlPointReference ctrl_point, const string& application_id,
+                unsigned int class_index);
   virtual ~UpnpActiveCcm();
 
   // ActiveClassListenerInterface overloaded methods
@@ -59,6 +60,8 @@ class UpnpActiveCcm : public ActiveClassListenerInterface,
   PLT_CtrlPointReference ctrl_point_;
   PLT_DeviceDataReference last_parent_;
   ActivePlayerInterface* player_;
+  string application_id_;
+  unsigned int class_index_;
 };
 
 #endif  // FSMDA_COMMUNICATION_UPNP_ACTIVE_CCM_H_

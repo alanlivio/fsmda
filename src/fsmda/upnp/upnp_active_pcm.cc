@@ -9,6 +9,7 @@
 
 using std::cout;
 using std::clog;
+using std::string;
 using std::stringstream;
 using std::endl;
 
@@ -17,10 +18,14 @@ using std::endl;
  +---------------------------------------------------------------------*/
 UpnpActivePcm::UpnpActivePcm(PLT_DeviceHostReference device_host,
                              PLT_DeviceDataReference &remote_device,
-                             PLT_CtrlPointReference ctrl_point) {
+                             PLT_CtrlPointReference ctrl_point,
+                             const string &application_id,
+                             unsigned int class_index) {
   device_host_ = device_host;
   remote_device_ = remote_device;
   ctrl_point_ = ctrl_point;
+  application_id_ = string(application_id);
+  class_index_ = class_index;
   //  ctrl_point_->AddListener(this);
 }
 
@@ -53,7 +58,9 @@ void UpnpActivePcm::RemoveEvent(const string &object_id,
  |   UpnpActivePcm::PostAction
  +---------------------------------------------------------------------*/
 void UpnpActivePcm::PostAction(const string &object_id, const string &event_id,
-                               const string &action) {}
+                               const string &action) {
+  clog << "UpnpActivePcm::PostAction():: " << endl;
+}
 
 /*----------------------------------------------------------------------
  |   UpnpActivePcm::RequestPropertyValue
@@ -85,7 +92,7 @@ void UpnpActivePcm::RegistryActiveClassListener(
  +---------------------------------------------------------------------*/
 NPT_Result UpnpActivePcm::OnDeviceAdded(PLT_DeviceDataReference &device) {}
 
-/*----------------------------------------------------------------------
+/*---------------------------------------------------------------------
  |   UpnpActivePcm::OnDeviceRemoved
  +---------------------------------------------------------------------*/
 NPT_Result UpnpActivePcm::OnDeviceRemoved(PLT_DeviceDataReference &device) {}

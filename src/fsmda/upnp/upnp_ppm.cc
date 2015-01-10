@@ -99,10 +99,10 @@ UpnpPpm::~UpnpPpm() {
 /*----------------------------------------------------------------------
  |   UpnpPpm::ClassAnnouncement
  +---------------------------------------------------------------------*/
-void UpnpPpm::ClassAnnouncement(const std::string &application_id,
+void UpnpPpm::ClassAnnouncement(const string &application_id,
                                 unsigned int class_index,
-                                const std::string &class_desc,
-                                const std::string &class_function) {}
+                                const string &class_desc,
+                                const string &class_function) {}
 
 /*----------------------------------------------------------------------
  |   UpnpCpm::AddDeviceClassForDiscover
@@ -229,10 +229,9 @@ NPT_Result UpnpPpm::OnDeviceAdded(PLT_DeviceDataReference &device_data) {
   clog << "UpnpPpm::OnDeviceAdded()::device->GetURLBase()->"
        << device_data->GetURLBase().ToString().GetChars() << endl;
 
-  PLT_Service *parent_pairing;
+  PLT_Service *service;
   if (!device_data->GetType().Compare(UpnpFsmdaUtils::kCpmDeviceType)) {
-    device_data->FindServiceByType(UpnpFsmdaUtils::kCpmServiceType,
-                                   parent_pairing);
+    device_data->FindServiceByType(UpnpFsmdaUtils::kCpmServiceType, service);
     vector<DeviceClassDiscoverParams *>::iterator iter;
     iter = discover_params_list_.begin();
     while (iter != discover_params_list_.end()) {
@@ -332,7 +331,8 @@ PassiveClassListenerInterface *UpnpPpm::CreatePassivePcm(
 ActiveClassInterface *UpnpPpm::CreateActivePcm(const string &application_id,
                                                unsigned int class_index) {
   UpnpActivePcm *communication = new UpnpActivePcm(
-      PLT_DeviceHostReference(this), discovered_children_.back(), ctrl_point_);
+      PLT_DeviceHostReference(this), discovered_children_.back(), ctrl_point_,
+      application_id, class_index);
   return communication;
 }
 

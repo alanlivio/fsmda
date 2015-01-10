@@ -284,8 +284,9 @@ PassiveClassInterface *UpnpCpm::CreatePassiveCcm(const string &application_id,
  +---------------------------------------------------------------------*/
 ActiveClassListenerInterface *UpnpCpm::CreateActiveCcm(
     const string &application_id, unsigned int class_index) {
-  UpnpActiveCcm *communication = new UpnpActiveCcm(
-      PLT_DeviceHostReference(this), last_parent_, ctrl_point_);
+  UpnpActiveCcm *communication =
+      new UpnpActiveCcm(PLT_DeviceHostReference(this), last_parent_,
+                        ctrl_point_, application_id, class_index);
   return communication;
 }
 
