@@ -10,8 +10,8 @@
 #include "./named_semaphore_helper.h"
 #include "fsmda//device_class_description.h"
 #include "fsmda//device_description.h"
-#include "fsmda/parent_pairing_manager.h"
-#include "fsmda/child_pairing_manager.h"
+#include "fsmda/parent_class_handler.h"
+#include "fsmda/child_class_handler.h"
 #include "fsmda/upnp/upnp_fsmda_utils.h"
 
 using std::cin;
@@ -47,17 +47,17 @@ double CalculateElapsedTime(timeval start_time, timeval end_time) {
   return elapsed_time;
 }
 
-class MockChildPairingManager : public ChildPairingManager {
+class MockChildClassHandler : public ChildClassHandler {
  public:
   string expected_semaphore;
   void set_paired(bool paired) {
-    clog << "MockChildPairingManager::SetPaired():: paired = " << paired
+    clog << "MockChildClassHandler::SetPaired():: paired = " << paired
          << endl;
-    ChildPairingManager::set_paired(paired);
+    ChildClassHandler::set_paired(paired);
     PostNamedSemphoreHelper(expected_semaphore);
   }
-  explicit MockChildPairingManager(const DeviceDescription& device_description)
-      : ChildPairingManager(device_description) {}
+  explicit MockChildClassHandler(const DeviceDescription& device_description)
+      : ChildClassHandler(device_description) {}
 };
 
 /*----------------------------------------------------------------------
@@ -78,7 +78,7 @@ int main(int argc, char** argv) {
   clog << "Running fake_child_helper with device_class=" << FLAGS_device_class
        << " and application_id=" << FLAGS_application_id << endl;
 
-  MockChildPairingManager* child_pairing_manager;
+  MockChildClassHandler* child_class_handler;
   timeval start_time, end_time;
 
   // configure child
@@ -89,12 +89,12 @@ int main(int argc, char** argv) {
       DeviceClassDescription::GetDeviceClassRdfDefaultContentByType(
           device_class);
   device_description.InitializeByRdfContent(rdf_content);
-  child_pairing_manager = new MockChildPairingManager(device_description);
+  child_class_handler = new MockChildClassHandler(device_description);
 
   // start child
-  child_pairing_manager->expected_semaphore = FLAGS_application_id;
+  child_class_handler->expected_semaphore = FLAGS_application_id;
   CreateNamedSemphoreHelper(FLAGS_application_id, false);
-  child_pairing_manager->StartPairing();
+  child_class_handler->StartPairing();
 
   gettimeofday(&start_time, NULL);
   WaitNamedSemphoreHelper(FLAGS_application_id);
@@ -143,8 +143,8 @@ int main(int argc, char** argv) {
 
   // release child
   ReleaseNameSemphoreHelper(FLAGS_application_id);
-  child_pairing_manager->StopPairing();
-  delete child_pairing_manager;
+  child_class_handler->StopPairing();
+  delete child_class_handler;
 
   return 0;
 }

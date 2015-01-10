@@ -13,22 +13,22 @@
 #include "fsmda/upnp/upnp_mediacapture_ccm.h"
 #include "fsmda//device_class_description.h"
 #include "fsmda//device_description.h"
-#include "fsmda/upnp/upnp_child_pairing.h"
+#include "fsmda/upnp/upnp_cpm.h"
 
 using std::string;
 using std::map;
 
 /*----------------------------------------------------------------------
- |   ChildPairingManager class
+ |   ChildClassHandler class
  +---------------------------------------------------------------------*/
-class ChildPairingManager : public ChildPairingInterface {
+class ChildClassHandler : public ChildPairingInterface {
  public:
   // public constructors & destructors
-  explicit ChildPairingManager(const DeviceDescription&);
-  virtual ~ChildPairingManager();
+  explicit ChildClassHandler(const DeviceDescription&);
+  virtual ~ChildClassHandler();
 
   // public ChildPairingInterface overloaded methods
-  // called by Remote ParentPairingManager
+  // called by Remote ParentClassHandler
   virtual void ClassAnnouncement(const string& application_id,
                                  unsigned int class_index,
                                  const string& class_desc,
@@ -54,7 +54,7 @@ class ChildPairingManager : public ChildPairingInterface {
  private:
   map<unsigned int, DeviceClassDescription*> device_class_description_map_;
   DeviceDescription* device_description_;
-  UpnpChildPairing* upnp_child_pairing_;
+  UpnpCpm* upnp_cpm_;
   bool paired_;
 };
 

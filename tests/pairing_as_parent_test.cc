@@ -5,8 +5,8 @@
 #include "./named_semaphore_helper.h"
 #include "fsmda//device_class_description.h"
 #include "fsmda//device_description.h"
-#include "fsmda/parent_pairing_manager.h"
-#include "fsmda/child_pairing_manager.h"
+#include "fsmda/parent_class_handler.h"
+#include "fsmda/child_class_handler.h"
 #include "fsmda/upnp/upnp_fsmda_utils.h"
 #include "gtest/gtest.h"
 
@@ -15,15 +15,15 @@ using std::cout;
 using std::clog;
 using std::endl;
 
-class MockParentPairingManager : public ParentPairingManager {
+class MockParentClassHandler : public ParentClassHandler {
  public:
   string expected_semaphore;
   virtual void AddDeviceToClass(const string& application_id,
                                 const string& device_address,
                                 unsigned int class_index,
                                 const string& device_desc) {
-    clog << "MockParentPairingManager::AddDeviceToClass()" << endl;
-    ParentPairingManager::AddDeviceToClass(application_id, device_address,
+    clog << "MockParentClassHandler::AddDeviceToClass()" << endl;
+    ParentClassHandler::AddDeviceToClass(application_id, device_address,
                                            class_index, device_desc);
     PostNamedSemphoreHelper(expected_semaphore);
   }
@@ -36,25 +36,31 @@ class MockHpe : public HpeClassHandlingInterface,
 
   // ActiveClassListenerInterface interface
   virtual void ReportPropertyValue(const string& object_id, const string& name,
-                                   const string& value) {}
+                                   const string& value) {
+    cout << "MockParentClassHandler::ReportPropertyValue()" << endl;
+  }
   void NotifyEventTransition(const std::string& object_id,
                              const std::string& event_id,
-                             const std::string& transition) {}
+                             const std::string& transition) {
+    cout << "MockParentClassHandler::NotifyEventTransition()" << endl;
+  }
   void NotifyError(const std::string& object_id, const std::string& message) {}
 
   // HpeClassHandlingInterface interface
   void getClassVariableValue(const std::string& name,
                              const std::string& value) {}
   void setClassVariableValue(const std::string& name,
-                             const std::string& value) {}
+                             const std::string& value) {
+    cout << "MockParentClassHandler::setClassVariableValue()" << endl;
+  }
 };
 
 void PairingAsParentHelper(
     const string& device_rdf, const string& device_class_description_rdf,
     DeviceClassDescription::DeviceClassType expected_device_class_type,
     bool diferent_processes) {
-  ChildPairingManager* child_pairing_manager;
-  MockParentPairingManager* parent_pairing_manager;
+  ChildClassHandler* child_class_handler;
+  MockParentClassHandler* parent_class_handler;
   MockHpe* mock_hpe;
   string app_id;
 
@@ -77,22 +83,22 @@ void PairingAsParentHelper(
             0);
   EXPECT_EQ(device_class_description->device_class_type(),
             expected_device_class_type);
-  parent_pairing_manager = new MockParentPairingManager();
+  parent_class_handler = new MockParentClassHandler();
   mock_hpe = new MockHpe();
   unsigned int class_index =
-      parent_pairing_manager->GenerateAvaliableIndex(app_id);
-  parent_pairing_manager->expected_semaphore = parent_named_semaphore;
-  parent_pairing_manager->AddClassDescription(app_id, class_index,
+      parent_class_handler->GenerateAvaliableIndex(app_id);
+  parent_class_handler->expected_semaphore = parent_named_semaphore;
+  parent_class_handler->AddClassDescription(app_id, class_index,
                                               device_class_description);
-  parent_pairing_manager->SetClassHandlingHpe(app_id, mock_hpe);
-  EXPECT_EQ(parent_pairing_manager->GetNumberOfRegistredClasses(app_id), 1);
+  parent_class_handler->SetClassHandlingHpe(app_id, mock_hpe);
+  EXPECT_EQ(parent_class_handler->GetNumberOfRegistredClasses(app_id), 1);
 
   // start ParenPaigingManager
-  EXPECT_EQ(parent_pairing_manager->StartPairing(), 0);
-  EXPECT_TRUE(parent_pairing_manager->IsPairingStarted());
+  EXPECT_EQ(parent_class_handler->StartPairing(), 0);
+  EXPECT_TRUE(parent_class_handler->IsPairingStarted());
   EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 1);
 
-  // start ParentPairingManager
+  // start ParentClassHandler
   if (diferent_processes) {
     // configure and start ParenPaigingManager
     // by popen fake_parent_helper
@@ -109,44 +115,45 @@ void PairingAsParentHelper(
   } else {
     DeviceDescription device_description;
     EXPECT_EQ(device_description.InitializeByRdfFile(device_rdf), 0);
-    child_pairing_manager = new ChildPairingManager(device_description);
+    child_class_handler = new ChildClassHandler(device_description);
     EXPECT_EQ(device_description.device_class_type(),
               expected_device_class_type);
-    EXPECT_EQ(child_pairing_manager->StartPairing(), 0);
-    EXPECT_TRUE(child_pairing_manager->IsPairingStarted());
+    EXPECT_EQ(child_class_handler->StartPairing(), 0);
+    EXPECT_TRUE(child_class_handler->IsPairingStarted());
     EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 2);
   }
   // parent wait for ParentPostSemphoreHelper call
   WaitNamedSemphoreHelper(parent_named_semaphore);
 
-  //   test if child is paired
+  // test if child is paired
   EXPECT_EQ(
-      parent_pairing_manager->GetNumberOfRegistredChildren(app_id, class_index),
+      parent_class_handler->GetNumberOfRegistredChildren(app_id, class_index),
       1);
   ReleaseNameSemphoreHelper(parent_named_semaphore);
   if (device_class_description->device_class_type() ==
       DeviceClassDescription::kPassiveDevice) {
     PassiveClassListenerInterface* passive_pcm =
-        parent_pairing_manager->CreatePassivePcm(app_id, class_index);
+        parent_class_handler->CreatePassivePcm(app_id, class_index);
     EXPECT_TRUE(passive_pcm);
     delete passive_pcm;
   } else if (device_class_description->device_class_type() ==
              DeviceClassDescription::kActiveDevice) {
     ActiveClassInterface* active_pcm =
-        parent_pairing_manager->CreateActivePcm(app_id, class_index);
+        parent_class_handler->CreateActivePcm(app_id, class_index);
     active_pcm->RegistryActiveClassListener(mock_hpe);
+    active_pcm->PostAction("media01", "evt01", "start");
     EXPECT_TRUE(active_pcm);
     delete active_pcm;
   } else if (device_class_description->device_class_type() ==
              DeviceClassDescription::kOnDemandDevice) {
     OnDemandClassListenerInterface* ondemand_pcm =
-        parent_pairing_manager->CreateOnDemandPcm(app_id, class_index);
+        parent_class_handler->CreateOnDemandPcm(app_id, class_index);
     EXPECT_TRUE(ondemand_pcm);
     delete ondemand_pcm;
   } else if (device_class_description->device_class_type() ==
              DeviceClassDescription::kMediaCaptureDevice) {
     MediaCaptureClassListenerInterface* medicapture_pcm =
-        parent_pairing_manager->CreateMediaCapturePcm(app_id, class_index);
+        parent_class_handler->CreateMediaCapturePcm(app_id, class_index);
     EXPECT_TRUE(medicapture_pcm);
     delete medicapture_pcm;
   } else {
@@ -155,17 +162,17 @@ void PairingAsParentHelper(
 
   if (diferent_processes == false) {
     // stop child pairing service
-    EXPECT_EQ(child_pairing_manager->StopPairing(), 0);
-    EXPECT_FALSE(child_pairing_manager->IsPairingStarted());
+    EXPECT_EQ(child_class_handler->StopPairing(), 0);
+    EXPECT_FALSE(child_class_handler->IsPairingStarted());
     EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 1);
-    delete child_pairing_manager;
+    delete child_class_handler;
   }
 
   // stop parent pairing service
-  EXPECT_EQ(parent_pairing_manager->StopPairing(), 0);
-  EXPECT_FALSE(parent_pairing_manager->IsPairingStarted());
+  EXPECT_EQ(parent_class_handler->StopPairing(), 0);
+  EXPECT_FALSE(parent_class_handler->IsPairingStarted());
   EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 0);
-  delete parent_pairing_manager;
+  delete parent_class_handler;
 
   EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 0);
   EXPECT_FALSE(UpnpFsmdaUtils::IsUpnpStarted());

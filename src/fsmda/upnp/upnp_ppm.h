@@ -26,7 +26,7 @@ using std::map;
 /*----------------------------------------------------------------------
  |   forward definitions
  +---------------------------------------------------------------------*/
-class ParentPairingManager;
+class ParentClassHandler;
 
 /*----------------------------------------------------------------------
  |   PairingServiceInterface class
@@ -47,13 +47,13 @@ class DeviceClassDiscoverParams {
 /*----------------------------------------------------------------------
  |   UpnpPpm class
  +---------------------------------------------------------------------*/
-class UpnpParentPairing : public PLT_DeviceHost,
+class UpnpPpm : public PLT_DeviceHost,
                           public PLT_CtrlPointListener,
                           public ChildPairingInterface {
  public:
   // public constructors & destructors
-  UpnpParentPairing();
-  ~UpnpParentPairing();
+  UpnpPpm();
+  ~UpnpPpm();
 
   // ChildPairingInterface overloaded methods
   virtual void ClassAnnouncement(const string& application_id,
@@ -75,14 +75,14 @@ class UpnpParentPairing : public PLT_DeviceHost,
                                    NPT_List<PLT_StateVariable*>* vars);
 
   // ParentPairingServiceInterface overloaded methods
-  // called by ParentPairingManager
+  // called by ParentClassHandler
   virtual int AddDeviceClassForDiscover(
       DeviceClassDiscoverParams* discover_params);
   virtual int RemoveDeviceClassForDiscover(
       DeviceClassDiscoverParams* discover_params);
   virtual int StartPairingService();
   virtual int StopPairingService();
-  virtual int set_service_owner(ParentPairingManager* service_owner);
+  virtual int set_service_owner(ParentClassHandler* service_owner);
   virtual bool IsPairingServiceStarted();
   virtual unsigned int registred_children();
   ActiveClassInterface* CreateActivePcm(const string& application_id,
@@ -105,7 +105,7 @@ class UpnpParentPairing : public PLT_DeviceHost,
   PLT_Service* mediacapture_service_;
   vector<PLT_DeviceDataReference> discovered_children_;
   vector<DeviceClassDiscoverParams*> discover_params_list_;
-  ParentPairingManager* parent_pairing_manager_;
+  ParentClassHandler* parent_class_handler_;
 };
 
 #endif  // FSMDA_PAIRING_UPNP_PARENT_PAIRING_H_

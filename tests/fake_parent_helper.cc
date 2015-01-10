@@ -8,9 +8,9 @@
 #include <iostream>
 #include <fstream>
 #include "./named_semaphore_helper.h"
-#include "fsmda/parent_pairing_manager.h"
-#include "fsmda/upnp/upnp_child_pairing.h"
-#include "fsmda/upnp/upnp_parent_pairing.h"
+#include "fsmda/parent_class_handler.h"
+#include "fsmda/upnp/upnp_cpm.h"
+#include "fsmda/upnp/upnp_ppm.h"
 #include "fsmda/upnp/upnp_fsmda_utils.h"
 using std::cin;
 using std::cout;
@@ -44,14 +44,14 @@ double CalculateElapsedTime(timeval start_time, timeval end_time) {
   return elapsed_time;
 }
 
-class MockParentPairingManager : public ParentPairingManager {
+class MockParentClassHandler : public ParentClassHandler {
  public:
   string expected_semaphore;
   virtual void AddDeviceToClass(const string& application_id,
                                 const string& device_address,
                                 unsigned int class_index,
                                 const string& device_desc) {
-    clog << "MockParentPairingManager::AddDeviceToClass()" << endl;
+    clog << "MockParentClassHandler::AddDeviceToClass()" << endl;
     PostNamedSemphoreHelper(expected_semaphore);
   }
 };
@@ -63,7 +63,7 @@ class MockHpe : public HpeClassHandlingInterface {
   // public methods
   void getClassVariableValue(const string& name, const string& value) {}
   void setClassVariableValue(const string& name, const string& value) {
-    clog << "MockParentPairingManager::setClassVariableValue()" << endl;
+    clog << "MockParentClassHandler::setClassVariableValue()" << endl;
     if (FLAGS_profile_remove_device)
       PostNamedSemphoreHelper(expected_semaphore);
   }
@@ -88,7 +88,7 @@ int main(int argc, char** argv) {
        << " and application_id=" << FLAGS_application_id << endl;
 
   DeviceClassDescription* device_class_description;
-  MockParentPairingManager* parent_pairing_manager;
+  MockParentClassHandler* parent_class_handler;
   MockHpe* mock_hpe;
   DeviceClassDescription::DeviceClassType device_class_type;
   timeval start_time, end_time;
@@ -97,20 +97,20 @@ int main(int argc, char** argv) {
   // configure parent
   device_class_type =
       DeviceClassDescription::GetDeviceClassTypeByString(FLAGS_device_class);
-  parent_pairing_manager = new MockParentPairingManager();
+  parent_class_handler = new MockParentClassHandler();
   mock_hpe = new MockHpe();
   device_class_description = new DeviceClassDescription();
   device_class_description->InitializeByDeviceClass(device_class_type);
-  parent_pairing_manager->AddClassDescription(FLAGS_application_id, class_index,
+  parent_class_handler->AddClassDescription(FLAGS_application_id, class_index,
                                               device_class_description);
-  parent_pairing_manager->SetClassHandlingHpe(FLAGS_application_id, mock_hpe);
+  parent_class_handler->SetClassHandlingHpe(FLAGS_application_id, mock_hpe);
 
   // start parent
   string parent_named_semaphore = FLAGS_application_id + "_parent";
-  parent_pairing_manager->expected_semaphore = parent_named_semaphore;
+  parent_class_handler->expected_semaphore = parent_named_semaphore;
   mock_hpe->expected_semaphore = parent_named_semaphore;
   CreateNamedSemphoreHelper(parent_named_semaphore, false);
-  parent_pairing_manager->StartPairing();
+  parent_class_handler->StartPairing();
 
   gettimeofday(&start_time, NULL);
   WaitNamedSemphoreHelper(parent_named_semaphore);
@@ -170,8 +170,8 @@ int main(int argc, char** argv) {
 
   // release parent
   ReleaseNameSemphoreHelper(parent_named_semaphore);
-  parent_pairing_manager->StopPairing();
-  delete parent_pairing_manager;
+  parent_class_handler->StopPairing();
+  delete parent_class_handler;
 
   return 0;
 }

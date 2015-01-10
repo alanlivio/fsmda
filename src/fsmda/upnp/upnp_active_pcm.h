@@ -23,7 +23,8 @@ class UpnpActivePcm : public ActiveClassInterface,
                       public PLT_CtrlPointListener {
  public:
   // public constructors & destructors
-  UpnpActivePcm(PLT_DeviceHostReference device_host,
+  UpnpActivePcm(PLT_DeviceHostReference host_device,
+                PLT_DeviceDataReference& remote_device,
                 PLT_CtrlPointReference ctrl_point);
   virtual ~UpnpActivePcm();
 
@@ -50,13 +51,14 @@ class UpnpActivePcm : public ActiveClassInterface,
                                    NPT_List<PLT_StateVariable*>* vars);
 
   // public methods
-  // called by UpnpParentPairingManager
+  // called by UpnpParentClassHandler
   virtual NPT_Result OnAction(PLT_ActionReference& action,
                               const PLT_HttpRequestContext& context);
 
  private:
   PLT_DeviceHostReference device_host_;
   PLT_CtrlPointReference ctrl_point_;
+  PLT_DeviceDataReference remote_device_;
   PLT_DeviceDataReference last_parent_;
   ActiveClassListenerInterface* hpe_;
 };

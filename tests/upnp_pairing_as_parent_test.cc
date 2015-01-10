@@ -8,10 +8,10 @@
 #include "./named_semaphore_helper.h"
 #include "fsmda//device_description.h"
 #include "fsmda//device_class_description.h"
-#include "fsmda/parent_pairing_manager.h"
-#include "fsmda/child_pairing_manager.h"
-#include "fsmda/upnp/upnp_child_pairing.h"
-#include "fsmda/upnp/upnp_parent_pairing.h"
+#include "fsmda/parent_class_handler.h"
+#include "fsmda/child_class_handler.h"
+#include "fsmda/upnp/upnp_cpm.h"
+#include "fsmda/upnp/upnp_ppm.h"
 #include "fsmda/upnp/upnp_fsmda_utils.h"
 #include "gtest/gtest.h"
 
@@ -20,23 +20,23 @@ using std::cout;
 using std::clog;
 using std::endl;
 
-class MockUpnpParentPairing : public UpnpParentPairing {
+class MockUpnpPpm : public UpnpPpm {
  public:
   string expected_semaphore;
   NPT_Result OnActionResponse(NPT_Result res, PLT_ActionReference& action,
                               void* userdata) {
     NPT_String name = action->GetActionDesc().GetName();
-    clog << "MockUpnpChildPairing::OnActionResponse()::action.name="
+    clog << "MockUpnpCpm::OnActionResponse()::action.name="
          << name.GetChars() << endl;
     if (!name.Compare("classAnnouncement"))
       PostNamedSemphoreHelper(expected_semaphore);
-    return UpnpParentPairing::OnActionResponse(res, action, userdata);
+    return UpnpPpm::OnActionResponse(res, action, userdata);
   }
 };
 
 void ClassAnnounceAsParentHelper(bool diferent_processes) {
-  UpnpChildPairing* upnp_child_pairing;
-  MockUpnpParentPairing* upnp_parent_pairing;
+  UpnpCpm* upnp_cpm;
+  MockUpnpPpm* upnp_ppm;
   string app_id;
 
   // release fake child and parent
@@ -52,8 +52,8 @@ void ClassAnnounceAsParentHelper(bool diferent_processes) {
   CreateNamedSemphoreHelper(parent_named_semaphore, false);
 
   // start upnp parent pairing service
-  upnp_parent_pairing = new MockUpnpParentPairing();
-  upnp_parent_pairing->expected_semaphore = parent_named_semaphore;
+  upnp_ppm = new MockUpnpPpm();
+  upnp_ppm->expected_semaphore = parent_named_semaphore;
   unsigned int class_index = DeviceClassDescription::kActiveDevice;
   DeviceClassDescription* device_class_description =
       new DeviceClassDescription();
@@ -61,9 +61,9 @@ void ClassAnnounceAsParentHelper(bool diferent_processes) {
       DeviceClassDescription::kActiveDevice);
   DeviceClassDiscoverParams* dicover_params = new DeviceClassDiscoverParams(
       app_id, class_index, device_class_description);
-  upnp_parent_pairing->AddDeviceClassForDiscover(dicover_params);
-  EXPECT_EQ(upnp_parent_pairing->StartPairingService(), 0);
-  EXPECT_TRUE(upnp_parent_pairing->IsPairingServiceStarted());
+  upnp_ppm->AddDeviceClassForDiscover(dicover_params);
+  EXPECT_EQ(upnp_ppm->StartPairingService(), 0);
+  EXPECT_TRUE(upnp_ppm->IsPairingServiceStarted());
   EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 1);
 
   // start upnp child pairing service
@@ -81,9 +81,9 @@ void ClassAnnounceAsParentHelper(bool diferent_processes) {
     pclose(parent_pipe);
 
   } else {
-    upnp_child_pairing = new UpnpChildPairing();
-    EXPECT_EQ(upnp_child_pairing->StartPairingService(), 0);
-    EXPECT_TRUE(upnp_child_pairing->IsPairingServiceStarted());
+    upnp_cpm = new UpnpCpm();
+    EXPECT_EQ(upnp_cpm->StartPairingService(), 0);
+    EXPECT_TRUE(upnp_cpm->IsPairingServiceStarted());
     EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 2);
   }
   // parent wait for ParentPostSemphoreHelper call
@@ -92,17 +92,17 @@ void ClassAnnounceAsParentHelper(bool diferent_processes) {
 
   if (diferent_processes == false) {
     // stop child pairing service
-    EXPECT_EQ(upnp_child_pairing->StopPairingService(), 0);
-    EXPECT_FALSE(upnp_child_pairing->IsPairingServiceStarted());
+    EXPECT_EQ(upnp_cpm->StopPairingService(), 0);
+    EXPECT_FALSE(upnp_cpm->IsPairingServiceStarted());
     EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 1);
-    delete upnp_child_pairing;
+    delete upnp_cpm;
   }
 
   // stop parent pairing service
-  EXPECT_EQ(upnp_parent_pairing->StopPairingService(), 0);
-  EXPECT_FALSE(upnp_parent_pairing->IsPairingServiceStarted());
+  EXPECT_EQ(upnp_ppm->StopPairingService(), 0);
+  EXPECT_FALSE(upnp_ppm->IsPairingServiceStarted());
   EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 0);
-  delete upnp_parent_pairing;
+  delete upnp_ppm;
 
   EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 0);
   EXPECT_FALSE(UpnpFsmdaUtils::IsUpnpStarted());

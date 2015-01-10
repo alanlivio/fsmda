@@ -1,4 +1,4 @@
-#include "fsmda/child_pairing_manager.h"
+#include "fsmda/child_class_handler.h"
 #include <iostream>
 #include <string>
 #include <NptConfig.h>
@@ -11,128 +11,128 @@ using std::clog;
 using std::cout;
 using std::endl;
 /*----------------------------------------------------------------------
- |   ChildPairingManager::ChildPairingManager
+ |   ChildClassHandler::ChildClassHandler
  +---------------------------------------------------------------------*/
-ChildPairingManager::ChildPairingManager(
+ChildClassHandler::ChildClassHandler(
     const DeviceDescription& device_description)
-    : upnp_child_pairing_(NULL), paired_(false) {
+    : upnp_cpm_(NULL), paired_(false) {
   device_description_ = new DeviceDescription(device_description);
-  clog << "ChildPairingManager::ChildPairingManager(device_class_type="
+  clog << "ChildClassHandler::ChildClassHandler(device_class_type="
        << device_description_->device_class_type() << ")" << endl;
-  upnp_child_pairing_ = new UpnpChildPairing();
-  upnp_child_pairing_->set_service_owner(this);
+  upnp_cpm_ = new UpnpCpm();
+  upnp_cpm_->set_service_owner(this);
 }
 
 /*----------------------------------------------------------------------
- |   ChildPairingManager::~ChildPairingManager
+ |   ChildClassHandler::~ChildClassHandler
  +---------------------------------------------------------------------*/
-ChildPairingManager::~ChildPairingManager() {
+ChildClassHandler::~ChildClassHandler() {
   delete device_description_;
-  delete upnp_child_pairing_;
+  delete upnp_cpm_;
 }
 
 /*----------------------------------------------------------------------
- |   ChildPairingManager::StartPairing
+ |   ChildClassHandler::StartPairing
  +---------------------------------------------------------------------*/
-int ChildPairingManager::StartPairing() {
-  clog << "ChildPairingManager::StartPairing()" << endl;
+int ChildClassHandler::StartPairing() {
+  clog << "ChildClassHandler::StartPairing()" << endl;
   if (device_description_->pairing_method() ==
       DeviceClassDescription::kUpnpPairingProcotol) {
-    return upnp_child_pairing_->StartPairingService();
+    return upnp_cpm_->StartPairingService();
   } else {
     return -1;
   }
 }
 
 /*----------------------------------------------------------------------
- |   ChildPairingManager::StopPairing
+ |   ChildClassHandler::StopPairing
  +---------------------------------------------------------------------*/
-int ChildPairingManager::StopPairing() {
+int ChildClassHandler::StopPairing() {
   if (device_description_->pairing_method() ==
       DeviceClassDescription::kUpnpPairingProcotol) {
-    return upnp_child_pairing_->StopPairingService();
+    return upnp_cpm_->StopPairingService();
   }
   return 0;
 }
 
 /*----------------------------------------------------------------------
- |   ChildPairingManager::ClassAnnouncement
+ |   ChildClassHandler::ClassAnnouncement
  +---------------------------------------------------------------------*/
-void ChildPairingManager::ClassAnnouncement(const string& application_id,
+void ChildClassHandler::ClassAnnouncement(const string& application_id,
                                             unsigned int class_index,
                                             const string& class_desc,
                                             const string& class_function) {
-  clog << "ChildPairingManager::ClassAnnouncement" << endl;
+  clog << "ChildClassHandler::ClassAnnouncement" << endl;
   DeviceClassDescription device_class_description;
   device_class_description.InitializeByRdfContent(class_desc.c_str());
   bool paired =
       device_class_description.IsDeviceCompatible(device_description_);
   //  set_paired(paired);
-  upnp_child_pairing_->AddDeviceToClass(application_id, "locahost", class_index,
+  upnp_cpm_->AddDeviceToClass(application_id, "locahost", class_index,
                                         class_desc);
 }
 
 /*----------------------------------------------------------------------
- |  ChildPairingManager::CreatePassiveCcm
+ |  ChildClassHandler::CreatePassiveCcm
  +---------------------------------------------------------------------*/
-PassiveClassInterface* ChildPairingManager::CreatePassiveCcm(
+PassiveClassInterface* ChildClassHandler::CreatePassiveCcm(
     const string& application_id, unsigned int class_index) {
   if (device_class_description_map_[class_index]->device_class_type() ==
       DeviceClassDescription::kPassiveDevice) {
-    return upnp_child_pairing_->CreatePassiveCcm(application_id, class_index);
+    return upnp_cpm_->CreatePassiveCcm(application_id, class_index);
   }
 }
 
 /*----------------------------------------------------------------------
- |   ChildPairingManager::CreateActiveCc
+ |   ChildClassHandler::CreateActiveCc
  +---------------------------------------------------------------------*/
-ActiveClassListenerInterface* ChildPairingManager::CreateActiveCcm(
+ActiveClassListenerInterface* ChildClassHandler::CreateActiveCcm(
     const string& application_id, unsigned int class_index) {
   if (device_class_description_map_[class_index]->device_class_type() ==
       DeviceClassDescription::kActiveDevice) {
-    return upnp_child_pairing_->CreateActiveCcm(application_id, class_index);
+    return upnp_cpm_->CreateActiveCcm(application_id, class_index);
   }
 }
 
 /*----------------------------------------------------------------------
- |   ChildPairingManager::CreateOndemandCcm
+ |   ChildClassHandler::CreateOndemandCcm
  +---------------------------------------------------------------------*/
-OnDemandClassInterface* ChildPairingManager::CreateOndemandCcm(
+OnDemandClassInterface* ChildClassHandler::CreateOndemandCcm(
     const string& application_id, unsigned int class_index) {
   if (device_class_description_map_[class_index]->device_class_type() ==
       DeviceClassDescription::kOnDemandDevice) {
-    return upnp_child_pairing_->CreateOnDemandCcm(application_id, class_index);
+    return upnp_cpm_->CreateOnDemandCcm(application_id, class_index);
   }
 }
 
 /*----------------------------------------------------------------------
- |   ChildPairingManager::CreateMediaCaptureCcm
+ |   ChildClassHandler::CreateMediaCaptureCcm
  +---------------------------------------------------------------------*/
-MediaCaptureClassInterface* ChildPairingManager::CreateMediaCaptureCcm(
+MediaCaptureClassInterface* ChildClassHandler::CreateMediaCaptureCcm(
     const string& application_id, unsigned int class_index) {
   if (device_class_description_map_[class_index]->device_class_type() ==
       DeviceClassDescription::kMediaCaptureDevice) {
-    return upnp_child_pairing_->CreateMediaCaptureCcm(application_id,
+    return upnp_cpm_->CreateMediaCaptureCcm(application_id,
                                                       class_index);
   }
 }
 
 /*----------------------------------------------------------------------
- |   ChildPairingManager::pairing_started
+ |   ChildClassHandler::pairing_started
  +---------------------------------------------------------------------*/
-bool ChildPairingManager::IsPairingStarted() {
+bool ChildClassHandler::IsPairingStarted() {
   if (device_description_->pairing_method() ==
       DeviceClassDescription::kUpnpPairingProcotol) {
-    return upnp_child_pairing_->IsPairingServiceStarted();
+    return upnp_cpm_->IsPairingServiceStarted();
   } else {
     return false;
   }
 }
 
 /*----------------------------------------------------------------------
- |   ChildPairingManager::paired
+ |   ChildClassHandler::paired
  +---------------------------------------------------------------------*/
-bool ChildPairingManager::paired() {
+bool ChildClassHandler::paired() {
   if (device_description_->pairing_method() ==
       DeviceClassDescription::kUpnpPairingProcotol) {
     return paired_;
@@ -142,13 +142,13 @@ bool ChildPairingManager::paired() {
 }
 
 /*----------------------------------------------------------------------
- |   ChildPairingManager::set_paired
+ |   ChildClassHandler::set_paired
  +---------------------------------------------------------------------*/
-void ChildPairingManager::set_paired(bool paired) { paired_ = paired; }
+void ChildClassHandler::set_paired(bool paired) { paired_ = paired; }
 
 /*----------------------------------------------------------------------
- |   ChildPairingManager::device_description
+ |   ChildClassHandler::device_description
  +---------------------------------------------------------------------*/
-DeviceDescription* ChildPairingManager::device_description() {
+DeviceDescription* ChildClassHandler::device_description() {
   return device_description_;
 }

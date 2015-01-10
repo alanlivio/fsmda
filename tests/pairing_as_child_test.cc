@@ -5,8 +5,8 @@
 #include "./named_semaphore_helper.h"
 #include "fsmda//device_class_description.h"
 #include "fsmda//device_description.h"
-#include "fsmda/parent_pairing_manager.h"
-#include "fsmda/child_pairing_manager.h"
+#include "fsmda/parent_class_handler.h"
+#include "fsmda/child_class_handler.h"
 #include "fsmda/upnp/upnp_fsmda_utils.h"
 #include "gtest/gtest.h"
 
@@ -15,17 +15,17 @@ using std::cout;
 using std::clog;
 using std::endl;
 
-class MockChildPairingManager : public ChildPairingManager {
+class MockChildClassHandler : public ChildClassHandler {
  public:
   string expected_semaphore;
   void set_paired(bool paired) {
-    clog << "MockChildPairingManager::set_paired():: paired = " << paired
+    clog << "MockChildClassHandler::set_paired():: paired = " << paired
          << endl;
-    ChildPairingManager::set_paired(paired);
+    ChildClassHandler::set_paired(paired);
     PostNamedSemphoreHelper(expected_semaphore);
   }
-  explicit MockChildPairingManager(const DeviceDescription& device_description)
-      : ChildPairingManager(device_description) {}
+  explicit MockChildClassHandler(const DeviceDescription& device_description)
+      : ChildClassHandler(device_description) {}
 };
 class MockHpe : public HpeClassHandlingInterface {
  public:
@@ -40,8 +40,8 @@ void PairingAsChildHelper(
     const string& device_rdf, const string& device_class_description_rdf,
     DeviceClassDescription::DeviceClassType expected_device_class_type,
     bool diferent_processes) {
-  MockChildPairingManager* child_pairing_manager;
-  ParentPairingManager* parent_pairing_manager;
+  MockChildClassHandler* child_class_handler;
+  ParentClassHandler* parent_class_handler;
   string app_id;
 
   // release fake child and parent
@@ -50,20 +50,20 @@ void PairingAsChildHelper(
   EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 0);
   EXPECT_FALSE(UpnpFsmdaUtils::IsUpnpStarted());
 
-  // start ChildPairingManager
+  // start ChildClassHandler
   DeviceDescription device_description;
   EXPECT_EQ(device_description.InitializeByRdfFile(device_rdf), 0);
-  child_pairing_manager = new MockChildPairingManager(device_description);
+  child_class_handler = new MockChildClassHandler(device_description);
   EXPECT_EQ(device_description.device_class_type(), expected_device_class_type);
-  EXPECT_EQ(child_pairing_manager->StartPairing(), 0);
-  EXPECT_TRUE(child_pairing_manager->IsPairingStarted());
+  EXPECT_EQ(child_class_handler->StartPairing(), 0);
+  EXPECT_TRUE(child_class_handler->IsPairingStarted());
   EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 1);
 
   UpnpFsmdaUtils::GenerateGUID(&app_id);
   CreateNamedSemphoreHelper(app_id, false);
-  child_pairing_manager->expected_semaphore = app_id;
+  child_class_handler->expected_semaphore = app_id;
 
-  // start ParentPairingManager
+  // start ParentClassHandler
   if (diferent_processes) {
     // configure and start ParenPaigingManager
     // by popen fake_parent_helper
@@ -88,38 +88,38 @@ void PairingAsChildHelper(
     mock_hpe = new MockHpe();
     EXPECT_EQ(device_class_description->device_class_type(),
               expected_device_class_type);
-    parent_pairing_manager = new ParentPairingManager();
+    parent_class_handler = new ParentClassHandler();
     unsigned int class_index =
-        parent_pairing_manager->GenerateAvaliableIndex(app_id);
-    //    parent_pairing_manager->AddClass(app_id, class_index);
-    parent_pairing_manager->AddClassDescription(app_id, class_index,
+        parent_class_handler->GenerateAvaliableIndex(app_id);
+    //    parent_class_handler->AddClass(app_id, class_index);
+    parent_class_handler->AddClassDescription(app_id, class_index,
                                                 device_class_description);
-    parent_pairing_manager->SetClassHandlingHpe(app_id, mock_hpe);
-    EXPECT_EQ(parent_pairing_manager->GetNumberOfRegistredClasses(app_id), 1);
-    EXPECT_EQ(parent_pairing_manager->StartPairing(), 0);
-    EXPECT_TRUE(parent_pairing_manager->IsPairingStarted());
+    parent_class_handler->SetClassHandlingHpe(app_id, mock_hpe);
+    EXPECT_EQ(parent_class_handler->GetNumberOfRegistredClasses(app_id), 1);
+    EXPECT_EQ(parent_class_handler->StartPairing(), 0);
+    EXPECT_TRUE(parent_class_handler->IsPairingStarted());
     EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 2);
   }
   // child wait for ParentPostSemphoreHelper call
   WaitNamedSemphoreHelper(app_id);
 
   // test if child is paired
-  EXPECT_TRUE(child_pairing_manager->paired());
+  EXPECT_TRUE(child_class_handler->paired());
   ReleaseNameSemphoreHelper(app_id);
 
   if (diferent_processes == false) {
     // stop parent pairing service
-    EXPECT_EQ(parent_pairing_manager->StopPairing(), 0);
-    EXPECT_FALSE(parent_pairing_manager->IsPairingStarted());
+    EXPECT_EQ(parent_class_handler->StopPairing(), 0);
+    EXPECT_FALSE(parent_class_handler->IsPairingStarted());
     EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 1);
-    delete parent_pairing_manager;
+    delete parent_class_handler;
   }
 
   // stop child pairing service
-  EXPECT_EQ(child_pairing_manager->StopPairing(), 0);
-  EXPECT_FALSE(child_pairing_manager->IsPairingStarted());
+  EXPECT_EQ(child_class_handler->StopPairing(), 0);
+  EXPECT_FALSE(child_class_handler->IsPairingStarted());
   EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 0);
-  delete child_pairing_manager;
+  delete child_class_handler;
 
   EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 0);
   EXPECT_FALSE(UpnpFsmdaUtils::IsUpnpStarted());

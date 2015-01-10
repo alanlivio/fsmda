@@ -15,7 +15,7 @@
 #include "fsmda/model/passive_objects_api.h"
 #include "fsmda/model/class_handling_api.h"
 #include "fsmda/model/device_pairing_api.h"
-#include "fsmda/upnp/upnp_parent_pairing.h"
+#include "fsmda/upnp/upnp_ppm.h"
 
 using std::string;
 using std::map;
@@ -33,17 +33,17 @@ class ApplicationClassData {
 };
 
 /*----------------------------------------------------------------------
- |   ParentPairingManager class
+ |   ParentClassHandler class
  +---------------------------------------------------------------------*/
-class ParentPairingManager : public ParentClassHandlingInterface,
+class ParentClassHandler : public ParentClassHandlingInterface,
                              public ParentPairingInterface {
  public:
   // public constructors & destructors
-  ParentPairingManager();
-  virtual ~ParentPairingManager();
+  ParentClassHandler();
+  virtual ~ParentClassHandler();
 
   // public ParentPairingInterface overloaded methods
-  // called by remote ChildPairingManager
+  // called by remote ChildClassHandler
   virtual void AddDeviceToClass(const string& application_id,
                                 const string& device_address,
                                 unsigned int class_index,
@@ -93,7 +93,7 @@ class ParentPairingManager : public ParentClassHandlingInterface,
   unsigned int upnp_registred_classes_size;
   map<const string, map<unsigned int, ApplicationClassData*> >
       application_class_data_map_;
-  UpnpParentPairing* upnp_parent_pairing_;
+  UpnpPpm* upnp_ppm_;
 };
 
 #endif  // FSMDA_PARENT_PAIRING_MANAGER_H_

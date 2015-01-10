@@ -24,7 +24,8 @@ class UpnpActiveCcm : public ActiveClassListenerInterface,
                       public PLT_CtrlPointListener {
  public:
   // public constructors & destructors
-  UpnpActiveCcm(PLT_DeviceHostReference device_host,
+  UpnpActiveCcm(PLT_DeviceHostReference host_device,
+                PLT_DeviceDataReference& remote_device,
                 PLT_CtrlPointReference ctrl_point);
   virtual ~UpnpActiveCcm();
 
@@ -48,12 +49,13 @@ class UpnpActiveCcm : public ActiveClassListenerInterface,
                                    NPT_List<PLT_StateVariable*>* vars);
 
   // public methods
-  // called by UpnpChildPairingManger
+  // called by UpnpCpmManger
   virtual NPT_Result OnAction(PLT_ActionReference& action,
                               const PLT_HttpRequestContext& context);
 
  private:
-  PLT_DeviceHostReference device_host_;
+  PLT_DeviceHostReference host_device_;
+  PLT_DeviceDataReference remote_device_;
   PLT_CtrlPointReference ctrl_point_;
   PLT_DeviceDataReference last_parent_;
   ActivePlayerInterface* player_;

@@ -16,8 +16,10 @@ using std::endl;
  |   UpnpActivePcm::UpnpActivePcm
  +---------------------------------------------------------------------*/
 UpnpActivePcm::UpnpActivePcm(PLT_DeviceHostReference device_host,
+                             PLT_DeviceDataReference &remote_device,
                              PLT_CtrlPointReference ctrl_point) {
   device_host_ = device_host;
+  remote_device_ = remote_device;
   ctrl_point_ = ctrl_point;
   //  ctrl_point_->AddListener(this);
 }

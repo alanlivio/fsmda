@@ -15,9 +15,11 @@ using std::endl;
 /*----------------------------------------------------------------------
  |   UpnpActiveCcm::UpnpActiveCcm
  +---------------------------------------------------------------------*/
-UpnpActiveCcm::UpnpActiveCcm(PLT_DeviceHostReference device_host,
+UpnpActiveCcm::UpnpActiveCcm(PLT_DeviceHostReference host_device,
+                             PLT_DeviceDataReference& remote_device,
                              PLT_CtrlPointReference ctrl_point) {
-  device_host_ = device_host;
+  host_device_ = host_device;
+  remote_device_ = remote_device;
   ctrl_point_ = ctrl_point;
   //  ctrl_point_->AddListener(this);
 }
@@ -27,9 +29,9 @@ UpnpActiveCcm::UpnpActiveCcm(PLT_DeviceHostReference device_host,
  +---------------------------------------------------------------------*/
 UpnpActiveCcm::~UpnpActiveCcm() {
   ctrl_point_.Detach();
-  device_host_.Detach();
+  host_device_.Detach();
+  remote_device_.Detach();
 }
-
 
 /*----------------------------------------------------------------------
  |   UpnpActiveCcm::ReportPropertyValue

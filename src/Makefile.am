@@ -16,10 +16,10 @@ lib_LTLIBRARIES = libfsmda.la
 libfsmda_la_SOURCES = \
   fsmda//device_description.cc\
   fsmda//device_class_description.cc\
-  fsmda/parent_pairing_manager.cc\
-  fsmda/child_pairing_manager.cc\
-  fsmda/upnp/upnp_parent_pairing.cc\
-  fsmda/upnp/upnp_child_pairing.cc\
+  fsmda/parent_class_handler.cc\
+  fsmda/child_class_handler.cc\
+  fsmda/upnp/upnp_ppm.cc\
+  fsmda/upnp/upnp_cpm.cc\
   fsmda/upnp/upnp_passive_ccm.cc\
   fsmda/upnp/upnp_passive_pcm.cc\
   fsmda/upnp/upnp_active_ccm.cc\

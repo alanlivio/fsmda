@@ -23,21 +23,21 @@ using std::string;
 /*----------------------------------------------------------------------
  |   forward definitions
  +---------------------------------------------------------------------*/
-class ChildPairingManager;
+class ChildClassHandler;
 
 /*----------------------------------------------------------------------
- |   UpnpChildPairing class
+ |   UpnpCpm class
  +---------------------------------------------------------------------*/
-class UpnpChildPairing : public PLT_DeviceHost,
+class UpnpCpm : public PLT_DeviceHost,
                          public PLT_CtrlPointListener,
                          public ParentPairingInterface {
  public:
   // public constructors & destructors
-  UpnpChildPairing();
-  ~UpnpChildPairing();
+  UpnpCpm();
+  ~UpnpCpm();
 
   // ParentPairingInterface overloaded methods
-  // called byParentPairingManager
+  // called byParentClassHandler
   virtual void AddDeviceToClass(const string& application_id,
                                 const string& device_address,
                                 unsigned int class_index,
@@ -61,11 +61,11 @@ class UpnpChildPairing : public PLT_DeviceHost,
                                    NPT_List<PLT_StateVariable*>* vars);
 
   // ParentPairingServiceInterface overloaded methods
-  // called by ChildPairingManager
+  // called by ChildClassHandler
   virtual int StartPairingService();
   virtual int StopPairingService();
   virtual bool IsPairingServiceStarted();
-  virtual int set_service_owner(ChildPairingManager* service_owner);
+  virtual int set_service_owner(ChildClassHandler* service_owner);
   ActiveClassListenerInterface* CreateActiveCcm(const string& application_id,
                                                 unsigned int class_index);
   MediaCaptureClassInterface* CreateMediaCaptureCcm(
@@ -84,7 +84,7 @@ class UpnpChildPairing : public PLT_DeviceHost,
   PLT_Service* active_service_;
   PLT_Service* ondemand_service_;
   PLT_Service* mediacapture_service_;
-  ChildPairingManager* child_pairing_manager_;
+  ChildClassHandler* child_class_handler_;
   PLT_DeviceDataReference last_parent_;
   NPT_SharedVariable last_parent_semaphore;
 };
