@@ -10,15 +10,13 @@
 #include <PltUPnP.h>
 #include <PltCtrlPoint.h>
 #include "fsmda/model/passive_objects_api.h"
-#include "fsmda/upnp/communication_service_interface.h"
 
 /*----------------------------------------------------------------------
  |   UpnpPassiveCcm  class
  +---------------------------------------------------------------------*/
 class UpnpPassiveCcm : public PLT_DeviceHost,
                        public PLT_CtrlPointListener,
-                       public PassiveClassInterface,
-                       public CommunicationServiceInterface {
+                       public PassiveClassInterface {
  public:
   // public constructors & destructors
   UpnpPassiveCcm();

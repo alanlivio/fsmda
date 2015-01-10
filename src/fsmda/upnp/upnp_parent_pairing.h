@@ -18,7 +18,6 @@
 #include "fsmda/model/active_objects_api.h"
 #include "fsmda/model/ondemand_objects_api.h"
 #include "fsmda/model/mediacapture_objects_api.h"
-#include "fsmda/upnp/pairing_service_interfaces.h"
 
 using std::string;
 using std::vector;
@@ -30,12 +29,27 @@ using std::map;
 class ParentPairingManager;
 
 /*----------------------------------------------------------------------
+ |   PairingServiceInterface class
+ +---------------------------------------------------------------------*/
+class DeviceClassDiscoverParams {
+ public:
+  explicit DeviceClassDiscoverParams(
+      const string& application_id, unsigned int class_index,
+      DeviceClassDescription* device_class_description)
+      : application_id_(application_id),
+        class_index_(class_index),
+        device_class_description_(device_class_description) {}
+  string application_id_;
+  unsigned int class_index_;
+  DeviceClassDescription* device_class_description_;
+};
+
+/*----------------------------------------------------------------------
  |   UpnpPpm class
  +---------------------------------------------------------------------*/
 class UpnpParentPairing : public PLT_DeviceHost,
                           public PLT_CtrlPointListener,
-                          public ChildPairingInterface,
-                          public ParentPairingServiceInterface {
+                          public ChildPairingInterface {
  public:
   // public constructors & destructors
   UpnpParentPairing();

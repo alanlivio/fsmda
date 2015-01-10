@@ -10,7 +10,6 @@
 #include <PltUPnP.h>
 #include <PltCtrlPoint.h>
 #include "fsmda/model/mediacapture_objects_api.h"
-#include "fsmda/upnp/communication_service_interface.h"
 
 using std::string;
 
@@ -19,8 +18,7 @@ using std::string;
  +---------------------------------------------------------------------*/
 class UpnpMediaCaptureCcm : public PLT_DeviceHost,
                             public PLT_CtrlPointListener,
-                            public MediaCaptureClassInterface,
-                            public CommunicationServiceInterface {
+                            public MediaCaptureClassInterface {
  public:
   // public constructors & destructors
   UpnpMediaCaptureCcm();

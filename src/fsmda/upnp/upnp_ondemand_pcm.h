@@ -10,7 +10,6 @@
 #include <PltUPnP.h>
 #include <PltCtrlPoint.h>
 #include "fsmda/model/ondemand_objects_api.h"
-#include "fsmda/upnp/communication_service_interface.h"
 
 using std::string;
 
@@ -19,8 +18,7 @@ using std::string;
  +---------------------------------------------------------------------*/
 class UpnpOnDemandPcm : public PLT_DeviceHost,
                         public PLT_CtrlPointListener,
-                        public OnDemandClassListenerInterface,
-                        public CommunicationServiceInterface {
+                        public OnDemandClassListenerInterface {
  public:
   // public constructors & destructors
   UpnpOnDemandPcm();

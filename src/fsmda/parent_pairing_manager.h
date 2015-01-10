@@ -16,7 +16,6 @@
 #include "fsmda/model/class_handling_api.h"
 #include "fsmda/model/device_pairing_api.h"
 #include "fsmda/upnp/upnp_parent_pairing.h"
-#include "fsmda/upnp/communication_service_interface.h"
 
 using std::string;
 using std::map;
@@ -30,7 +29,6 @@ using std::vector;
 class ApplicationClassData {
  public:
   DeviceClassDescription* device_class_description_;
-  CommunicationServiceInterface* communication_service;
   vector<string> registred_devices_;
 };
 

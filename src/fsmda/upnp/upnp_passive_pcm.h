@@ -10,7 +10,6 @@
 #include <PltUPnP.h>
 #include <PltCtrlPoint.h>
 #include "fsmda/model/passive_objects_api.h"
-#include "fsmda/upnp/communication_service_interface.h"
 
 using std::string;
 
@@ -19,8 +18,7 @@ using std::string;
  +---------------------------------------------------------------------*/
 class UpnpPassivePcm : public PLT_DeviceHost,
                        public PLT_CtrlPointListener,
-                       public PassiveClassListenerInterface,
-                       public CommunicationServiceInterface {
+                       public PassiveClassListenerInterface {
  public:
   // public constructors & destructors
   UpnpPassivePcm();
