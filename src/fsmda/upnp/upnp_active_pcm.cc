@@ -4,8 +4,8 @@
 
 #include <iostream>
 #include <sstream>
-#include "fsmda/communication/upnp_active_pcm.h"
-#include "fsmda/utils/upnp_fsmda_utils.h"
+#include "fsmda/upnp/upnp_active_pcm.h"
+#include "fsmda/upnp/upnp_fsmda_utils.h"
 
 using std::cout;
 using std::clog;

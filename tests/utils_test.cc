@@ -3,7 +3,7 @@
  +---------------------------------------------------------------------*/
 #include <cstdlib>
 #include <iostream>
-#include "fsmda/utils/upnp_fsmda_utils.h"
+#include "fsmda/upnp/upnp_fsmda_utils.h"
 #include "gtest/gtest.h"
 
 TEST(Utils, GetRunningUpnpInstance) {

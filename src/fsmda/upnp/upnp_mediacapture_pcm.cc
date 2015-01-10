@@ -2,69 +2,70 @@
  |   includes
  +---------------------------------------------------------------------*/
 
-#include "fsmda/communication/upnp_passive_pcm.h"
+#include "fsmda/upnp/upnp_mediacapture_pcm.h"
 
 /*----------------------------------------------------------------------
- |   UpnpPassivePcm::UpnpPassivePcm
+ |   UpnpMediaCapturePcm::UpnpMediaCapturePcm
  +---------------------------------------------------------------------*/
-UpnpPassivePcm::UpnpPassivePcm() {}
+UpnpMediaCapturePcm::UpnpMediaCapturePcm() {}
 
 /*----------------------------------------------------------------------
- |   UpnpPassivePcm::~UpnpPassivePcm
+ |   UpnpMediaCapturePcm::~UpnpMediaCapturePcm
  +---------------------------------------------------------------------*/
-UpnpPassivePcm::~UpnpPassivePcm() {}
+UpnpMediaCapturePcm::~UpnpMediaCapturePcm() {}
 
 /*----------------------------------------------------------------------
- |   UpnpPassivePcm::NotifyError
+ |   UpnpMediaCapturePcm::SendContent
  +---------------------------------------------------------------------*/
-void UpnpPassivePcm::NotifyError(const string& message,
-                                 const string& object_id) {}
+void UpnpMediaCapturePcm::SendContent(char* content, const string& resource_id,
+                                      unsigned int child_index) {}
 
 /*----------------------------------------------------------------------
- |   UpnpPassivePcm::StartCommunicationService
+ |   UpnpMediaCapturePcm::StartCommunicationService
  +---------------------------------------------------------------------*/
-int UpnpPassivePcm::StartCommunicationService() {}
+int UpnpMediaCapturePcm::StartCommunicationService() {}
 
 /*----------------------------------------------------------------------
- |   UpnpPassivePcm::StopCommunicationService
+ |   UpnpMediaCapturePcm::StopCommunicationService
  +---------------------------------------------------------------------*/
-int UpnpPassivePcm::StopCommunicationService() {}
+int UpnpMediaCapturePcm::StopCommunicationService() {}
 
 /*----------------------------------------------------------------------
- |   UpnpPassivePcm::StopCommunicationService
+ |   UpnpMediaCapturePcm::IsCommunicationServiceStarted
  +---------------------------------------------------------------------*/
-bool UpnpPassivePcm::IsCommunicationServiceStarted() {}
+bool UpnpMediaCapturePcm::IsCommunicationServiceStarted() {}
 /*----------------------------------------------------------------------
- |   UpnpPassivePcm::SetupServices
+ |   UpnpMediaCapturePcm::SetupServices
  +---------------------------------------------------------------------*/
-NPT_Result UpnpPassivePcm::SetupServices() {}
+NPT_Result UpnpMediaCapturePcm::SetupServices() {}
 
 /*----------------------------------------------------------------------
- |   UpnpPassivePcm::OnAction
+ |   UpnpMediaCapturePcm::OnAction
  +---------------------------------------------------------------------*/
-NPT_Result UpnpPassivePcm::OnAction(
+NPT_Result UpnpMediaCapturePcm::OnAction(
     PLT_ActionReference& action, const PLT_HttpRequestContext& context) {}
+
 /*----------------------------------------------------------------------
- |   UpnpPassivePcm::OnDeviceAdded
+ |   UpnpMediaCapturePcm::OnDeviceAdded
  +---------------------------------------------------------------------*/
-NPT_Result UpnpPassivePcm::OnDeviceAdded(PLT_DeviceDataReference& device) {
+NPT_Result UpnpMediaCapturePcm::OnDeviceAdded(PLT_DeviceDataReference& device) {
 }
 
 /*----------------------------------------------------------------------
- |   UpnpPassivePcm::OnDeviceRemoved
+ |   UpnpMediaCapturePcm::OnDeviceRemoved
  +---------------------------------------------------------------------*/
-NPT_Result UpnpPassivePcm::OnDeviceRemoved(
+NPT_Result UpnpMediaCapturePcm::OnDeviceRemoved(
     PLT_DeviceDataReference& device) {}
 
 /*----------------------------------------------------------------------
- |   UpnpPassivePcm::OnActionResponse
+ |   UpnpMediaCapturePcm::OnActionResponse
  +---------------------------------------------------------------------*/
-NPT_Result UpnpPassivePcm::OnActionResponse(NPT_Result res,
+NPT_Result UpnpMediaCapturePcm::OnActionResponse(NPT_Result res,
                                                  PLT_ActionReference& action,
                                                  void* userdata) {}
 
 /*----------------------------------------------------------------------
- |   UpnpPassivePcm::OnEventNotify
+ |   UpnpMediaCapturePcm::OnEventNotify
  +---------------------------------------------------------------------*/
-NPT_Result UpnpPassivePcm::OnEventNotify(
+NPT_Result UpnpMediaCapturePcm::OnEventNotify(
     PLT_Service* service, NPT_List<PLT_StateVariable*>* vars) {}

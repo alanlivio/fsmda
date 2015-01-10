@@ -1,5 +1,5 @@
-#ifndef FSMDA_COMMUNICATION_UPNP_MEDIACAPTURE_PCM_H_
-#define FSMDA_COMMUNICATION_UPNP_MEDIACAPTURE_PCM_H_
+#ifndef FSMDA_COMMUNICATION_UPNP_PASSIVE_CCM_H_
+#define FSMDA_COMMUNICATION_UPNP_PASSIVE_CCM_H_
 
 /*----------------------------------------------------------------------
  |   includes
@@ -9,31 +9,29 @@
 #include <PltDeviceHost.h>
 #include <PltUPnP.h>
 #include <PltCtrlPoint.h>
-#include "fsmda/model/mediacapture_objects_api.h"
-#include "fsmda/communication/communication_service_interface.h"
-
-using std::string;
+#include "fsmda/model/passive_objects_api.h"
+#include "fsmda/upnp/communication_service_interface.h"
 
 /*----------------------------------------------------------------------
- |   UpnpMediaCapturePcm class
+ |   UpnpPassiveCcm  class
  +---------------------------------------------------------------------*/
-class UpnpMediaCapturePcm : public PLT_DeviceHost,
-                            public PLT_CtrlPointListener,
-                            public MediaCaptureClassListenerInterface,
-                            public CommunicationServiceInterface {
+class UpnpPassiveCcm : public PLT_DeviceHost,
+                       public PLT_CtrlPointListener,
+                       public PassiveClassInterface,
+                       public CommunicationServiceInterface {
  public:
   // public constructors & destructors
-  UpnpMediaCapturePcm();
-  virtual ~UpnpMediaCapturePcm();
+  UpnpPassiveCcm();
+  virtual ~UpnpPassiveCcm();
 
   // public CommunicationServiceInterface overload methods
   virtual int StartCommunicationService();
   virtual int StopCommunicationService();
   virtual bool IsCommunicationServiceStarted();
 
-  // MediaCaptureClassListenerInterface overloaded methods
-  virtual void SendContent(char* content, const string& resource_id,
-                           unsigned int child_index);
+  // PassiveCCMInterface overloaded methods
+  virtual void Prepare(const string& position);
+  virtual void SendContent(char* content);
 
   // PLT_DeviceHost overloaded methods
   virtual NPT_Result SetupServices();
@@ -50,4 +48,4 @@ class UpnpMediaCapturePcm : public PLT_DeviceHost,
                                    NPT_List<PLT_StateVariable*>* vars);
 };
 
-#endif  // FSMDA_COMMUNICATION_UPNP_MEDIACAPTURE_PCM_H_
+#endif  // FSMDA_COMMUNICATION_UPNP_PASSIVE_CCM_H_

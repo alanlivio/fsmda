@@ -9,7 +9,7 @@
 #include <PltUPnP.h>
 #include <PltCtrlPoint.h>
 #include "fsmda/model/ondemand_objects_api.h"
-#include "fsmda/communication/communication_service_interface.h"
+#include "fsmda/upnp/communication_service_interface.h"
 
 using std::string;
 

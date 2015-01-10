@@ -2,7 +2,7 @@
  |   includes
  +---------------------------------------------------------------------*/
 
-#include "fsmda/communication/upnp_ondemand_pcm.h"
+#include "fsmda/upnp/upnp_ondemand_pcm.h"
 #include <string>
 
 /*----------------------------------------------------------------------

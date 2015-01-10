@@ -7,13 +7,13 @@
 #include <map>
 #include <string>
 #include "fsmda/model/active_objects_api.h"
-#include "fsmda/communication/upnp_active_ccm.h"
-#include "fsmda/communication/upnp_passive_ccm.h"
-#include "fsmda/communication/upnp_ondemand_ccm.h"
-#include "fsmda/communication/upnp_mediacapture_ccm.h"
-#include "fsmda/class_handling/device_class_description.h"
-#include "fsmda/class_handling/device_description.h"
-#include "fsmda/pairing/upnp_child_pairing.h"
+#include "fsmda/upnp/upnp_active_ccm.h"
+#include "fsmda/upnp/upnp_passive_ccm.h"
+#include "fsmda/upnp/upnp_ondemand_ccm.h"
+#include "fsmda/upnp/upnp_mediacapture_ccm.h"
+#include "fsmda//device_class_description.h"
+#include "fsmda//device_description.h"
+#include "fsmda/upnp/upnp_child_pairing.h"
 
 using std::string;
 using std::map;

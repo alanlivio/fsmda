@@ -2,7 +2,7 @@
  |   includes
  +---------------------------------------------------------------------*/
 
-#include "fsmda/utils/upnp_fsmda_utils.h"
+#include "fsmda/upnp/upnp_fsmda_utils.h"
 #include "NptNetwork.h"
 #include "NptTime.h"
 #include "PltConstants.h"

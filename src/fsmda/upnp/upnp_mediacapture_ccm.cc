@@ -2,70 +2,71 @@
  |   includes
  +---------------------------------------------------------------------*/
 
-#include "fsmda/communication/upnp_mediacapture_pcm.h"
+#include "fsmda/upnp/upnp_mediacapture_ccm.h"
+#include <string>
 
 /*----------------------------------------------------------------------
- |   UpnpMediaCapturePcm::UpnpMediaCapturePcm
+ |   UpnpMediaCaptureCcm::~UpnpMediaCaptureCcm
  +---------------------------------------------------------------------*/
-UpnpMediaCapturePcm::UpnpMediaCapturePcm() {}
+UpnpMediaCaptureCcm::UpnpMediaCaptureCcm() {}
 
 /*----------------------------------------------------------------------
- |   UpnpMediaCapturePcm::~UpnpMediaCapturePcm
+ |   UpnpMediaCaptureCcm::~UpnpMediaCaptureCcm
  +---------------------------------------------------------------------*/
-UpnpMediaCapturePcm::~UpnpMediaCapturePcm() {}
+UpnpMediaCaptureCcm::~UpnpMediaCaptureCcm() {}
 
 /*----------------------------------------------------------------------
- |   UpnpMediaCapturePcm::SendContent
+ |   UpnpMediaCaptureCcm::StartCommunicationService
  +---------------------------------------------------------------------*/
-void UpnpMediaCapturePcm::SendContent(char* content, const string& resource_id,
-                                      unsigned int child_index) {}
+int UpnpMediaCaptureCcm::StartCommunicationService() {}
 
 /*----------------------------------------------------------------------
- |   UpnpMediaCapturePcm::StartCommunicationService
+ |   UpnpMediaCaptureCcm::StopCommunicationService
  +---------------------------------------------------------------------*/
-int UpnpMediaCapturePcm::StartCommunicationService() {}
+int UpnpMediaCaptureCcm::StopCommunicationService() {}
 
 /*----------------------------------------------------------------------
- |   UpnpMediaCapturePcm::StopCommunicationService
+ |   UpnpMediaCaptureCcm::IsCommunicationServiceStarted
  +---------------------------------------------------------------------*/
-int UpnpMediaCapturePcm::StopCommunicationService() {}
+bool UpnpMediaCaptureCcm::IsCommunicationServiceStarted() {}
 
 /*----------------------------------------------------------------------
- |   UpnpMediaCapturePcm::IsCommunicationServiceStarted
+ |   UpnpMediaCaptureCcm::~RequestContent
  +---------------------------------------------------------------------*/
-bool UpnpMediaCapturePcm::IsCommunicationServiceStarted() {}
-/*----------------------------------------------------------------------
- |   UpnpMediaCapturePcm::SetupServices
- +---------------------------------------------------------------------*/
-NPT_Result UpnpMediaCapturePcm::SetupServices() {}
+void UpnpMediaCaptureCcm::RequestContent(const string& resource_id,
+                                         unsigned int device_index) {}
 
 /*----------------------------------------------------------------------
- |   UpnpMediaCapturePcm::OnAction
+ |   UpnpMediaCaptureCcm::SetupServices
  +---------------------------------------------------------------------*/
-NPT_Result UpnpMediaCapturePcm::OnAction(
+NPT_Result UpnpMediaCaptureCcm::SetupServices() {}
+
+/*----------------------------------------------------------------------
+ |   UpnpMediaCaptureCcm::OnAction
+ +---------------------------------------------------------------------*/
+NPT_Result UpnpMediaCaptureCcm::OnAction(
     PLT_ActionReference& action, const PLT_HttpRequestContext& context) {}
-
 /*----------------------------------------------------------------------
- |   UpnpMediaCapturePcm::OnDeviceAdded
+ |   UpnpMediaCaptureCcm::OnDeviceAdded
  +---------------------------------------------------------------------*/
-NPT_Result UpnpMediaCapturePcm::OnDeviceAdded(PLT_DeviceDataReference& device) {
+NPT_Result UpnpMediaCaptureCcm::OnDeviceAdded(PLT_DeviceDataReference& device) {
 }
 
 /*----------------------------------------------------------------------
- |   UpnpMediaCapturePcm::OnDeviceRemoved
+ |   UpnpMediaCaptureCcm::OnDeviceRemoved
  +---------------------------------------------------------------------*/
-NPT_Result UpnpMediaCapturePcm::OnDeviceRemoved(
+NPT_Result UpnpMediaCaptureCcm::OnDeviceRemoved(
     PLT_DeviceDataReference& device) {}
 
 /*----------------------------------------------------------------------
- |   UpnpMediaCapturePcm::OnActionResponse
+ |   UpnpMediaCaptureCcm::OnActionResponse
  +---------------------------------------------------------------------*/
-NPT_Result UpnpMediaCapturePcm::OnActionResponse(NPT_Result res,
+NPT_Result UpnpMediaCaptureCcm::OnActionResponse(NPT_Result res,
                                                  PLT_ActionReference& action,
                                                  void* userdata) {}
 
 /*----------------------------------------------------------------------
- |   UpnpMediaCapturePcm::OnEventNotify
+ |   UpnpMediaCaptureCcm::OnEventNotify
  +---------------------------------------------------------------------*/
-NPT_Result UpnpMediaCapturePcm::OnEventNotify(
+NPT_Result UpnpMediaCaptureCcm::OnEventNotify(
     PLT_Service* service, NPT_List<PLT_StateVariable*>* vars) {}

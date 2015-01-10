@@ -1,14 +1,14 @@
 #include <string>
 #include <climits>
 #include <iostream>
-#include "fsmda/class_handling/device_class_description.h"
+#include "fsmda//device_class_description.h"
 #include "fsmda/parent_pairing_manager.h"
-#include "fsmda/communication/upnp_active_pcm.h"
-#include "fsmda/communication/upnp_mediacapture_pcm.h"
-#include "fsmda/communication/upnp_ondemand_pcm.h"
-#include "fsmda/communication/upnp_passive_pcm.h"
+#include "fsmda/upnp/upnp_active_pcm.h"
+#include "fsmda/upnp/upnp_mediacapture_pcm.h"
+#include "fsmda/upnp/upnp_ondemand_pcm.h"
+#include "fsmda/upnp/upnp_passive_pcm.h"
 #include "fsmda/model/passive_objects_api.h"
-#include "fsmda/pairing/upnp_parent_pairing.h"
+#include "fsmda/upnp/upnp_parent_pairing.h"
 
 using std::clog;
 using std::cout;

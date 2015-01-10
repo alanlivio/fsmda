@@ -4,7 +4,7 @@
 #include <iostream>
 #include <sstream>
 #include "fsmda/child_pairing_manager.h"
-#include "fsmda/utils/upnp_fsmda_utils.h"
+#include "fsmda/upnp/upnp_fsmda_utils.h"
 
 using std::cout;
 using std::clog;

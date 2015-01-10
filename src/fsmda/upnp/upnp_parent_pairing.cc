@@ -15,12 +15,12 @@
 #include <PltService.h>
 #include <PltStateVariable.h>
 #include "fsmda/parent_pairing_manager.h"
-#include "fsmda/pairing/upnp_parent_pairing.h"
-#include "fsmda/utils/upnp_fsmda_utils.h"
-#include "fsmda/communication/upnp_passive_pcm.h"
-#include "fsmda/communication/upnp_active_pcm.h"
-#include "fsmda/communication/upnp_ondemand_pcm.h"
-#include "fsmda/communication/upnp_mediacapture_pcm.h"
+#include "fsmda/upnp/upnp_parent_pairing.h"
+#include "fsmda/upnp/upnp_fsmda_utils.h"
+#include "fsmda/upnp/upnp_passive_pcm.h"
+#include "fsmda/upnp/upnp_active_pcm.h"
+#include "fsmda/upnp/upnp_ondemand_pcm.h"
+#include "fsmda/upnp/upnp_mediacapture_pcm.h"
 
 using std::clog;
 using std::cout;

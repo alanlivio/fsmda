@@ -2,8 +2,8 @@
  |   include
  +---------------------------------------------------------------------*/
 
-#include "fsmda/communication/upnp_ondemand_ccm.h"
-#include "fsmda/utils/upnp_fsmda_utils.h"
+#include "fsmda/upnp/upnp_ondemand_ccm.h"
+#include "fsmda/upnp/upnp_fsmda_utils.h"
 #include "NptStrings.h"
 #include "PltDeviceHost.h"
 #include "PltFileMediaServer.h"

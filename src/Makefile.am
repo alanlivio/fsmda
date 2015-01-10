@@ -14,21 +14,21 @@ lib_LTLIBRARIES = libfsmda.la
 
 # Libraries sources
 libfsmda_la_SOURCES = \
-  fsmda/class_handling/device_description.cc\
-  fsmda/class_handling/device_class_description.cc\
+  fsmda//device_description.cc\
+  fsmda//device_class_description.cc\
   fsmda/parent_pairing_manager.cc\
   fsmda/child_pairing_manager.cc\
-  fsmda/pairing/upnp_parent_pairing.cc\
-  fsmda/pairing/upnp_child_pairing.cc\
-  fsmda/communication/upnp_passive_ccm.cc\
-  fsmda/communication/upnp_passive_pcm.cc\
-  fsmda/communication/upnp_active_ccm.cc\
-  fsmda/communication/upnp_active_pcm.cc\
-  fsmda/communication/upnp_mediacapture_pcm.cc\
-  fsmda/communication/upnp_mediacapture_ccm.cc\
-  fsmda/communication/upnp_ondemand_pcm.cc\
-  fsmda/communication/upnp_ondemand_ccm.cc\
-  fsmda/utils/upnp_fsmda_utils.cc
+  fsmda/upnp/upnp_parent_pairing.cc\
+  fsmda/upnp/upnp_child_pairing.cc\
+  fsmda/upnp/upnp_passive_ccm.cc\
+  fsmda/upnp/upnp_passive_pcm.cc\
+  fsmda/upnp/upnp_active_ccm.cc\
+  fsmda/upnp/upnp_active_pcm.cc\
+  fsmda/upnp/upnp_mediacapture_pcm.cc\
+  fsmda/upnp/upnp_mediacapture_ccm.cc\
+  fsmda/upnp/upnp_ondemand_pcm.cc\
+  fsmda/upnp/upnp_ondemand_ccm.cc\
+  fsmda/upnp/upnp_fsmda_utils.cc
   
 # Libraries compiler options
 libfsmda_la_CPPFLAGS = -I./ $(PLATINUMKIT_CFLAGS) $(LIBXML2_CFLAGS)

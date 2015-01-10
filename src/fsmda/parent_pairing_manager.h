@@ -8,15 +8,15 @@
 #include <set>
 #include <string>
 #include <vector>
-#include "fsmda/class_handling/device_class_description.h"
+#include "fsmda//device_class_description.h"
 #include "fsmda/model/active_objects_api.h"
 #include "fsmda/model/mediacapture_objects_api.h"
 #include "fsmda/model/ondemand_objects_api.h"
 #include "fsmda/model/passive_objects_api.h"
 #include "fsmda/model/class_handling_api.h"
 #include "fsmda/model/device_pairing_api.h"
-#include "fsmda/pairing/upnp_parent_pairing.h"
-#include "fsmda/communication/communication_service_interface.h"
+#include "fsmda/upnp/upnp_parent_pairing.h"
+#include "fsmda/upnp/communication_service_interface.h"
 
 using std::string;
 using std::map;

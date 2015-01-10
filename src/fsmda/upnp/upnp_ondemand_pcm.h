@@ -1,5 +1,5 @@
-#ifndef FSMDA_COMMUNICATION_UPNP_PASSIVE_CCM_H_
-#define FSMDA_COMMUNICATION_UPNP_PASSIVE_CCM_H_
+#ifndef FSMDA_COMMUNICATION_UPNP_ONDEMAND_PCM_H_
+#define FSMDA_COMMUNICATION_UPNP_ONDEMAND_PCM_H_
 
 /*----------------------------------------------------------------------
  |   includes
@@ -9,29 +9,31 @@
 #include <PltDeviceHost.h>
 #include <PltUPnP.h>
 #include <PltCtrlPoint.h>
-#include "fsmda/model/passive_objects_api.h"
-#include "fsmda/communication/communication_service_interface.h"
+#include "fsmda/model/ondemand_objects_api.h"
+#include "fsmda/upnp/communication_service_interface.h"
+
+using std::string;
 
 /*----------------------------------------------------------------------
- |   UpnpPassiveCcm  class
+ |   UpnpOnDemandPcm class
  +---------------------------------------------------------------------*/
-class UpnpPassiveCcm : public PLT_DeviceHost,
-                       public PLT_CtrlPointListener,
-                       public PassiveClassInterface,
-                       public CommunicationServiceInterface {
+class UpnpOnDemandPcm : public PLT_DeviceHost,
+                        public PLT_CtrlPointListener,
+                        public OnDemandClassListenerInterface,
+                        public CommunicationServiceInterface {
  public:
   // public constructors & destructors
-  UpnpPassiveCcm();
-  virtual ~UpnpPassiveCcm();
+  UpnpOnDemandPcm();
+  virtual ~UpnpOnDemandPcm();
 
   // public CommunicationServiceInterface overload methods
   virtual int StartCommunicationService();
   virtual int StopCommunicationService();
   virtual bool IsCommunicationServiceStarted();
 
-  // PassiveCCMInterface overloaded methods
-  virtual void Prepare(const string& position);
-  virtual void SendContent(char* content);
+  // OnDemandPCMInterface overloaded methods
+  virtual void NotifyOnDemandContent(const string& action,
+                                     const string& location);
 
   // PLT_DeviceHost overloaded methods
   virtual NPT_Result SetupServices();
@@ -48,4 +50,4 @@ class UpnpPassiveCcm : public PLT_DeviceHost,
                                    NPT_List<PLT_StateVariable*>* vars);
 };
 
-#endif  // FSMDA_COMMUNICATION_UPNP_PASSIVE_CCM_H_
+#endif  // FSMDA_COMMUNICATION_UPNP_ONDEMAND_PCM_H_
