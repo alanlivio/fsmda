@@ -152,34 +152,34 @@ NPT_Result UpnpPpm::OnAction(PLT_ActionReference &action,
 
   if (name.Compare("addDeviceToClass") == 0) {
     // handling addDeviceToClass call
-    NPT_String applicationId;
-    action->GetArgumentValue("applicationId", applicationId);
+    NPT_String application_id;
+    action->GetArgumentValue("application_id", application_id);
     NPT_String deviceAddr;
     action->GetArgumentValue("deviceAddr", deviceAddr);
-    NPT_Int32 classIndex;
-    action->GetArgumentValue("classIndex", classIndex);
+    NPT_Int32 class_index;
+    action->GetArgumentValue("class_index", class_index);
     NPT_String deviceDesc;
     action->GetArgumentValue("deviceDesc", deviceDesc);
     clog << "UpnpPpm::OnAction::receive addDeviceToClass("
-         << applicationId.GetChars() << "," << deviceAddr.GetChars() << ","
-         << classIndex << ","
+         << application_id.GetChars() << "," << deviceAddr.GetChars() << ","
+         << class_index << ","
          << "deviceDesc.size()=" << deviceDesc.GetLength() << ")" << endl;
 
     // call parent_class_handler_->AddDeviceToClass
     if (parent_class_handler_ != NULL) {
-      parent_class_handler_->ReportAddDeviceToClass(applicationId.GetChars(),
-                                                    classIndex);
+      parent_class_handler_->ReportAddDeviceToClass(application_id.GetChars(),
+                                                    class_index);
     }
 
     return NPT_SUCCESS;
   } else if (name.Compare("getChildIndex") == 0) {
     // handling getChildIndex call
     NPT_String application_id;
-    action->GetArgumentValue("applicationId", application_id);
+    action->GetArgumentValue("application_id", application_id);
     NPT_String device_addr;
     action->GetArgumentValue("deviceAddr", device_addr);
     NPT_Int32 class_index;
-    action->GetArgumentValue("classIndex", class_index);
+    action->GetArgumentValue("class_index", class_index);
     clog << "UpnpPpm::OnAction:: receive getChildIndex("
          << application_id.GetChars() << "," << device_addr.GetChars() << ","
          << class_index << ")" << endl;
@@ -243,15 +243,15 @@ NPT_Result UpnpPpm::OnDeviceAdded(PLT_DeviceDataReference &device_data) {
         continue;
       }
       DeviceClassDiscoverParams *discover_params = (*iter);
-      action->SetArgumentValue("applicationId",
+      action->SetArgumentValue("application_id",
                                discover_params->application_id_.c_str());
       stringstream aux_string;
       aux_string << discover_params->class_index_;
-      action->SetArgumentValue("classIndex", aux_string.str().c_str());
+      action->SetArgumentValue("class_index", aux_string.str().c_str());
       action->SetArgumentValue(
-          "classDesc",
+          "class_desc",
           discover_params->device_class_description_->rdf_content().c_str());
-      action->SetArgumentValue("classFunction", "classFunction");
+      action->SetArgumentValue("class_function", "class_function");
       ctrl_point_->InvokeAction(action, 0);
       iter++;
     }

@@ -96,11 +96,11 @@ void UpnpCpm::AddDeviceToClass(const std::string &application_id,
     clog << "UpnpCpm::OnAction reponse_action.IsNul" << endl;
   }
 
-  reponse_action->SetArgumentValue("applicationId", application_id.c_str());
+  reponse_action->SetArgumentValue("application_id", application_id.c_str());
   reponse_action->SetArgumentValue("deviceAddr", "localhost");
   stringstream aux_string;
   aux_string << class_index;
-  reponse_action->SetArgumentValue("classIndex", aux_string.str().c_str());
+  reponse_action->SetArgumentValue("class_index", aux_string.str().c_str());
   reponse_action->SetArgumentValue("deviceDesc", device_desc.c_str());
   NPT_Result res = ctrl_point_->InvokeAction(reponse_action, 0);
   if (res == NPT_FAILURE)
@@ -150,15 +150,15 @@ NPT_Result UpnpCpm::OnAction(PLT_ActionReference &action,
   if (name.Compare("classAnnouncement") == 0) {
     // handling classAnnouncement call
     NPT_String application_id;
-    action->GetArgumentValue("applicationId", application_id);
+    action->GetArgumentValue("application_id", application_id);
     NPT_Int32 class_index;
     NPT_String class_index_str;
-    action->GetArgumentValue("classIndex", class_index);
-    action->GetArgumentValue("classIndex", class_index_str);
+    action->GetArgumentValue("class_index", class_index);
+    action->GetArgumentValue("class_index", class_index_str);
     NPT_String class_desc;
-    action->GetArgumentValue("classDesc", class_desc);
+    action->GetArgumentValue("class_desc", class_desc);
     NPT_String class_function;
-    action->GetArgumentValue("classFunction", class_function);
+    action->GetArgumentValue("class_function", class_function);
     clog << "UpnpCpm::OnAction()::classAnnouncement("
          << application_id.GetChars() << "," << class_index << ","
          << " one_rdf_with_size=" << class_desc.GetLength() << ","

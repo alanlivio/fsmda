@@ -35,8 +35,8 @@ class ParentClassHandlingInterface {
   // public pure virtual methods
   virtual void AddClass(const string& application_id,
                         unsigned int class_index) = 0;
-  virtual void RemoveClass(const string& applicationId,
-                           unsigned int classIndex) = 0;
+  virtual void RemoveClass(const string& application_id,
+                           unsigned int class_index) = 0;
   virtual void AddClassDescription(const string& application_id,
                                    unsigned int class_index,
                                    const string& class_type,
