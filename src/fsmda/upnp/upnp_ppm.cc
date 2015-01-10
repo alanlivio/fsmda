@@ -100,9 +100,9 @@ UpnpPpm::~UpnpPpm() {
  |   UpnpPpm::ClassAnnouncement
  +---------------------------------------------------------------------*/
 void UpnpPpm::ClassAnnouncement(const std::string &application_id,
-                                          unsigned int class_index,
-                                          const std::string &class_desc,
-                                          const std::string &class_function) {}
+                                unsigned int class_index,
+                                const std::string &class_desc,
+                                const std::string &class_function) {}
 
 /*----------------------------------------------------------------------
  |   UpnpCpm::AddDeviceClassForDiscover
@@ -146,10 +146,9 @@ NPT_Result UpnpPpm::SetupServices() {
  |   UpnpPpm::OnAction
  +---------------------------------------------------------------------*/
 NPT_Result UpnpPpm::OnAction(PLT_ActionReference &action,
-                                       const PLT_HttpRequestContext &context) {
+                             const PLT_HttpRequestContext &context) {
   NPT_String name = action->GetActionDesc().GetName();
-  clog << "UpnpPpm::OnAction()::action.name=" << name.GetChars()
-       << endl;
+  clog << "UpnpPpm::OnAction()::action.name=" << name.GetChars() << endl;
 
   if (name.Compare("addDeviceToClass") == 0) {
     // handling addDeviceToClass call
@@ -168,9 +167,9 @@ NPT_Result UpnpPpm::OnAction(PLT_ActionReference &action,
 
     // call parent_class_handler_->AddDeviceToClass
     if (parent_class_handler_ != NULL) {
-      parent_class_handler_->AddDeviceToClass(
-          applicationId.GetChars(), deviceAddr.GetChars(), classIndex,
-          deviceDesc.GetChars());
+      parent_class_handler_->AddDeviceToClass(applicationId.GetChars(),
+                                              deviceAddr.GetChars(), classIndex,
+                                              deviceDesc.GetChars());
     }
 
     return NPT_SUCCESS;
@@ -187,8 +186,8 @@ NPT_Result UpnpPpm::OnAction(PLT_ActionReference &action,
          << class_index << ")" << endl;
     action->SetArgumentValue("ret", "100");
     if (parent_class_handler_ != NULL) {
-      parent_class_handler_->GetChildIndex(
-          application_id.GetChars(), device_addr.GetChars(), class_index);
+      parent_class_handler_->GetChildIndex(application_id.GetChars(),
+                                           device_addr.GetChars(), class_index);
     }
     return NPT_SUCCESS;
   }
@@ -196,14 +195,14 @@ NPT_Result UpnpPpm::OnAction(PLT_ActionReference &action,
   return NPT_FAILURE;
 }
 
-NPT_Result UpnpPpm::OnEventNotify(
-    PLT_Service *service, NPT_List<PLT_StateVariable *> *vars) {}
+NPT_Result UpnpPpm::OnEventNotify(PLT_Service *service,
+                                  NPT_List<PLT_StateVariable *> *vars) {}
 NPT_Result UpnpPpm::OnActionResponse(NPT_Result res,
-                                               PLT_ActionReference &action,
-                                               void *userdata) {
+                                     PLT_ActionReference &action,
+                                     void *userdata) {
   NPT_String name = action->GetActionDesc().GetName();
-  clog << "UpnpPpm::OnActionResponse()::action.name="
-       << name.GetChars() << endl;
+  clog << "UpnpPpm::OnActionResponse()::action.name=" << name.GetChars()
+       << endl;
 }
 NPT_Result UpnpPpm::OnDeviceRemoved(PLT_DeviceDataReference &device) {
   clog << "UpnpPpm::OnDeviceRemoved()::device->GetType="
@@ -211,13 +210,12 @@ NPT_Result UpnpPpm::OnDeviceRemoved(PLT_DeviceDataReference &device) {
   if (!device->GetType().Compare(UpnpFsmdaUtils::kCpmDeviceType)) {
     string app_id = discover_params_list_.front()->application_id_;
     if (parent_class_handler_ != NULL)
-      parent_class_handler_->hpes_map_[app_id]->setClassVariableValue(
-          string("system(2).size"), string("0"));
+      parent_class_handler_->GetClassHandlingHpe(app_id)
+          ->setClassVariableValue(string("system(2).size"), string("0"));
   }
 }
 
-NPT_Result UpnpPpm::OnDeviceAdded(
-    PLT_DeviceDataReference &device_data) {
+NPT_Result UpnpPpm::OnDeviceAdded(PLT_DeviceDataReference &device_data) {
   if (!device_data->GetUUID().Compare(m_UUID)) return NPT_SUCCESS;
   if (!device_data->GetType().StartsWith("urn:schemas-upnp-org:device:fsmda-",
                                          true))
@@ -332,8 +330,8 @@ PassiveClassListenerInterface *UpnpPpm::CreatePassivePcm(
 /*----------------------------------------------------------------------
  |   UpnpPpm::CreateActivePcm
  +---------------------------------------------------------------------*/
-ActiveClassInterface *UpnpPpm::CreateActivePcm(
-    const string &application_id, unsigned int class_index) {
+ActiveClassInterface *UpnpPpm::CreateActivePcm(const string &application_id,
+                                               unsigned int class_index) {
   UpnpActivePcm *communication = new UpnpActivePcm(
       PLT_DeviceHostReference(this), discovered_children_.back(), ctrl_point_);
   return communication;

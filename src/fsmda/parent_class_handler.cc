@@ -38,7 +38,7 @@ ParentClassHandler::~ParentClassHandler() {
  |   ParentClassHandler::AddClass
  +---------------------------------------------------------------------*/
 void ParentClassHandler::AddClass(const string& application_id,
-                                    unsigned int class_index) {
+                                  unsigned int class_index) {
   // TODO(alan@telemidia.puc-rio.br): implemet this
   //  DeviceClassDescription* device_class_description =
   //      new DeviceClassDescription();
@@ -89,17 +89,25 @@ void ParentClassHandler::AddClassDescription(
 /*----------------------------------------------------------------------
  |   ParentClassHandler::SetClassHandlingHPE
  +---------------------------------------------------------------------*/
-void ParentClassHandler::SetClassHandlingHpe(
-    const std::string& application_id, HpeClassHandlingInterface* hpe) {
+void ParentClassHandler::SetClassHandlingHpe(const std::string& application_id,
+                                             HpeClassHandlingInterface* hpe) {
   // TODO(alan@telemidia.puc-rio.br): create tests to this
   hpes_map_[application_id] = hpe;
+}
+
+/*----------------------------------------------------------------------
+ |   ParentClassHandler::SetClassHandlingHPE
+ +---------------------------------------------------------------------*/
+HpeClassHandlingInterface* ParentClassHandler::GetClassHandlingHpe(
+    const std::string& application_id) {
+  return hpes_map_[application_id];
 }
 
 /*----------------------------------------------------------------------
  |   ParentClassHandler::RemoveClass
  +---------------------------------------------------------------------*/
 void ParentClassHandler::RemoveClass(const string& application_id,
-                                       unsigned int class_index) {
+                                     unsigned int class_index) {
   // TODO(alan@telemidia.puc-rio.br): create tests to this
   application_class_data_map_[application_id].erase(
       application_class_data_map_[application_id].find(class_index));
@@ -109,9 +117,9 @@ void ParentClassHandler::RemoveClass(const string& application_id,
  |   ParentClassHandler::AddDeviceToClass
  +---------------------------------------------------------------------*/
 void ParentClassHandler::AddDeviceToClass(const string& application_id,
-                                            const string& device_address,
-                                            unsigned int class_index,
-                                            const string& device_desc) {
+                                          const string& device_address,
+                                          unsigned int class_index,
+                                          const string& device_desc) {
   // TODO(alan@telemidia.puc-rio.br): create tests to this
   clog << "ParentClassHandler::AddDeviceToClass" << endl;
   if (application_class_data_map_[application_id].find(class_index) !=
@@ -123,8 +131,8 @@ void ParentClassHandler::AddDeviceToClass(const string& application_id,
  |   ParentClassHandler::GetChildIndex
  +---------------------------------------------------------------------*/
 void ParentClassHandler::GetChildIndex(const string& application_id,
-                                         const string& device_address,
-                                         unsigned int class_index) {
+                                       const string& device_address,
+                                       unsigned int class_index) {
   // TODO(alan@gmail.com): create tests to this
 }
 
@@ -186,8 +194,7 @@ MediaCaptureClassListenerInterface* ParentClassHandler::CreateMediaCapturePcm(
   if (application_class_data_map_[application_id][class_index]
           ->device_class_description_->device_class_type() ==
       DeviceClassDescription::kMediaCaptureDevice) {
-    return upnp_ppm_->CreateMediaCapturePcm(application_id,
-                                                       class_index);
+    return upnp_ppm_->CreateMediaCapturePcm(application_id, class_index);
   }
 }
 

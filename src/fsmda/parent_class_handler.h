@@ -35,22 +35,11 @@ class ApplicationClassData {
 /*----------------------------------------------------------------------
  |   ParentClassHandler class
  +---------------------------------------------------------------------*/
-class ParentClassHandler : public ParentClassHandlingInterface,
-                             public ParentPairingInterface {
+class ParentClassHandler : public ParentClassHandlingInterface {
  public:
   // public constructors & destructors
   ParentClassHandler();
   virtual ~ParentClassHandler();
-
-  // public ParentPairingInterface overloaded methods
-  // called by remote ChildClassHandler
-  virtual void AddDeviceToClass(const string& application_id,
-                                const string& device_address,
-                                unsigned int class_index,
-                                const string& device_desc);
-  virtual void GetChildIndex(const string& application_id,
-                             const string& device_address,
-                             unsigned int class_index);
 
   // public ParentClassHandlingInterface overloaded methods
   // called by HypermediaEngine
@@ -72,8 +61,8 @@ class ParentClassHandler : public ParentClassHandlingInterface,
   // called by HypermediaEngine
   unsigned int GenerateAvaliableIndex(const string& application_id);
   unsigned int GetNumberOfRegistredClasses(const string& application_id);
-  virtual unsigned int GetNumberOfRegistredChildren(
-      const string& application_id, unsigned int class_index);
+  unsigned int GetNumberOfRegistredChildren(const string& application_id,
+                                            unsigned int class_index);
   int StartPairing();
   int StopPairing();
   bool IsPairingStarted();
@@ -86,10 +75,20 @@ class ParentClassHandler : public ParentClassHandlingInterface,
   OnDemandClassListenerInterface* CreateOnDemandPcm(
       const string& application_id, unsigned int class_index);
 
-  map<const string, HpeClassHandlingInterface*> hpes_map_;
+  // public methods
+  // called by Ppm
+  HpeClassHandlingInterface* GetClassHandlingHpe(const string& application_id);
+  virtual void AddDeviceToClass(const string& application_id,
+                                const string& device_address,
+                                unsigned int class_index,
+                                const string& device_desc);
+  virtual void GetChildIndex(const string& application_id,
+                             const string& device_address,
+                             unsigned int class_index);
 
  private:
   // private filds
+  map<const string, HpeClassHandlingInterface*> hpes_map_;
   unsigned int upnp_registred_classes_size;
   map<const string, map<unsigned int, ApplicationClassData*> >
       application_class_data_map_;
