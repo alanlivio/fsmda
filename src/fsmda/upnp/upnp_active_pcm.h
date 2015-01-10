@@ -34,13 +34,10 @@ class UpnpActivePcm : public ActiveClassInterface,
   virtual void RemoveEvent(const string& object_id, const string& event_id);
   virtual void PostAction(const string& object_id, const string& event_id,
                           const string& action);
-  virtual void ReportPropertyValue(
-
-      const string& object_id, const string& name, const string& value);
-  virtual void SetPropertyValue(
-
-      const string& object_id, const string& name, const string& value,
-      unsigned int duration);
+  virtual void RequestPropertyValue(const string& object_id,
+                                    const string& name);
+  virtual void SetPropertyValue(const string& object_id, const string& name,
+                                const string& value, unsigned int duration);
   virtual void RegistryActiveClassListener(ActiveClassListenerInterface* hpe);
 
   // PLT_CtrlPointListener overloaded methods

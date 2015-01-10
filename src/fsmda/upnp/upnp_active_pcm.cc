@@ -54,12 +54,10 @@ void UpnpActivePcm::PostAction(const string &object_id, const string &event_id,
                                const string &action) {}
 
 /*----------------------------------------------------------------------
- |   UpnpActivePcm::ReportPropertyValue
+ |   UpnpActivePcm::RequestPropertyValue
  +---------------------------------------------------------------------*/
-void UpnpActivePcm::ReportPropertyValue(const string &object_id,
-                                        const string &name,
-                                        const string &value) {}
-
+void UpnpActivePcm::RequestPropertyValue(const string &object_id,
+                                         const string &name) {}
 /*----------------------------------------------------------------------
  |   UpnpActivePcm::SetPropertyValue
  +---------------------------------------------------------------------*/

@@ -30,8 +30,9 @@ class UpnpActiveCcm : public ActiveClassListenerInterface,
 
   // ActiveClassListenerInterface overloaded methods
   // called by RemotePlayer
-  virtual void RequestPropertyValue(const string& object_id,
-                                    const string& name);
+  virtual void ReportPropertyValue(const string& object_id, const string& name,
+                                   const string& value);
+
   virtual void NotifyEventTransition(const string& object_id,
                                      const string& event_id,
                                      const string& transition);

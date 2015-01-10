@@ -29,13 +29,24 @@ class MockParentPairingManager : public ParentPairingManager {
   }
 };
 
-class MockHpe : public HpeClassHandlingInterface {
+class MockHpe : public HpeClassHandlingInterface,
+                public ActiveClassListenerInterface {
  public:
   string expected_semaphore;
 
-  // public methods
-  void getClassVariableValue(const string& name, const string& value) {}
-  void setClassVariableValue(const string& name, const string& value) {}
+  // ActiveClassListenerInterface interface
+  virtual void ReportPropertyValue(const string& object_id, const string& name,
+                                   const string& value) {}
+  void NotifyEventTransition(const std::string& object_id,
+                             const std::string& event_id,
+                             const std::string& transition) {}
+  void NotifyError(const std::string& object_id, const std::string& message) {}
+
+  // HpeClassHandlingInterface interface
+  void getClassVariableValue(const std::string& name,
+                             const std::string& value) {}
+  void setClassVariableValue(const std::string& name,
+                             const std::string& value) {}
 };
 
 void PairingAsParentHelper(
@@ -123,6 +134,7 @@ void PairingAsParentHelper(
              DeviceClassDescription::kActiveDevice) {
     ActiveClassInterface* active_pcm =
         parent_pairing_manager->CreateActivePcm(app_id, class_index);
+    active_pcm->RegistryActiveClassListener(mock_hpe);
     EXPECT_TRUE(active_pcm);
     delete active_pcm;
   } else if (device_class_description->device_class_type() ==

@@ -30,12 +30,13 @@ UpnpActiveCcm::~UpnpActiveCcm() {
   device_host_.Detach();
 }
 
-/*----------------------------------------------------------------------
- |   UpnpActiveCcm::RequestPropertyValue
- +---------------------------------------------------------------------*/
-void UpnpActiveCcm::RequestPropertyValue(const string& object_id,
-                                         const string& name) {}
 
+/*----------------------------------------------------------------------
+ |   UpnpActiveCcm::ReportPropertyValue
+ +---------------------------------------------------------------------*/
+void UpnpActiveCcm::ReportPropertyValue(const string& object_id,
+                                        const string& name,
+                                        const string& value) {}
 /*----------------------------------------------------------------------
  |   UpnpActiveCcm::NotifyEventTransition
  +---------------------------------------------------------------------*/

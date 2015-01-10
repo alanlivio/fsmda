@@ -77,8 +77,8 @@ class ActiveClassListenerInterface {
   virtual ~ActiveClassListenerInterface() {}
 
   // public pure virtual methods
-  virtual void RequestPropertyValue(const string& object_id,
-                                    const string& name) = 0;
+  virtual void ReportPropertyValue(const string& object_id, const string& name,
+                                   const string& value) = 0;
   virtual void NotifyEventTransition(const string& object_id,
                                      const string& event_id,
                                      const string& transition) = 0;
@@ -97,8 +97,9 @@ class ActiveClassInterface {
   virtual void RemoveEvent(const string& object_id, const string& event_id) = 0;
   virtual void PostAction(const string& object_id, const string& event_id,
                           const string& action) = 0;
-  virtual void ReportPropertyValue(const string& object_id, const string& name,
-                                   const string& value) = 0;
+  virtual void RequestPropertyValue(const string& object_id,
+                                    const string& name) = 0;
+
   virtual void SetPropertyValue(const string& object_id, const string& name,
                                 const string& value, unsigned int duration) = 0;
   virtual void RegistryActiveClassListener(
