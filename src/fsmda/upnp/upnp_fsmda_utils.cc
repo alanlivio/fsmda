@@ -17,22 +17,36 @@
 PLT_UPnP* UpnpFsmdaUtils::upnp_singleton_ = NULL;
 unsigned int UpnpFsmdaUtils::upnp_references_count_ = 0;
 
-// UPNP FSMDA Manufacturer constant strings
+// upnp FSMDA Manufacturer constant strings
 const char* UpnpFsmdaUtils::kFsmdaManufacturer = "FSMDA";
 const char* UpnpFsmdaUtils::kFsmdaManufacturerUrl =
     "http://www.ncl.org.br/fsmda/ondemand";
 
-// PPM UPNP constant strings
-const char* UpnpFsmdaUtils::kPpmDeviceType =
+// parent upnp constant strings
+const char* UpnpFsmdaUtils::kParentDeviceType =
     "urn:schemas-upnp-org:device:fsmda-parent-pairing-device:1";
-const char* UpnpFsmdaUtils::kPpmDeviceFriendlyName = "fsmda parent device";
-const char* UpnpFsmdaUtils::kPpmDeviceModelName =
+const char* UpnpFsmdaUtils::kParentDeviceFriendlyName = "fsmda parent device";
+const char* UpnpFsmdaUtils::kParentDeviceModelName =
     "fsmda-parent-pairing-device model name";
-const char* UpnpFsmdaUtils::kPpmDeviceModelDescription =
+const char* UpnpFsmdaUtils::kParentDeviceModelDescription =
     "fsmda parent device model description";
-const char* UpnpFsmdaUtils::kPpmDeviceModelUrl =
+const char* UpnpFsmdaUtils::kParentDeviceModelUrl =
     "http://www.ncl.org.br/fsmda/fsmda-parent-device";
-const char* UpnpFsmdaUtils::kPpmDeviceNumber = "1.0";
+const char* UpnpFsmdaUtils::kParentDeviceNumber = "1.0";
+
+// child upnp constant strings
+const char* UpnpFsmdaUtils::kChildDeviceType =
+    "urn:schemas-upnp-org:device:fsmda-child-device:1";
+const char* UpnpFsmdaUtils::kChildDeviceFriendlyName = "fsmda child device";
+const char* UpnpFsmdaUtils::kChildDeviceModelName =
+    "fsmda child device model name";
+const char* UpnpFsmdaUtils::kChildDeviceModelDescription =
+    "fsmda child device model description";
+const char* UpnpFsmdaUtils::kChildDeviceModelUrl =
+    "http://www.ncl.org.br/fsmda/fsmda-child-device";
+const char* UpnpFsmdaUtils::kChildDeviceModelNumber = "1.0";
+
+// ppm upnp constant strings
 const char* UpnpFsmdaUtils::kPpmServiceType =
     "urn:schemas-upnp-org:service:fsmda-parent-pairing:1";
 const char* UpnpFsmdaUtils::kPpmServiceId =
@@ -130,19 +144,9 @@ const char* UpnpFsmdaUtils::kPpmServiceScpdXml =
     "intel_nmpr:X_INTEL_NMPR>"
     "   <dlna:X_DLNADOC xmlns:dlna=\"udn:schemas-dlna-org:device-1-0\">DMP "
     "1.00</dlna:X_DLNADOC>"
-    "  </scpd>";
+    "</scpd>";
 
-// CPM UPNP constant strings
-const char* UpnpFsmdaUtils::kCpmDeviceType =
-    "urn:schemas-upnp-org:device:fsmda-child-device:1";
-const char* UpnpFsmdaUtils::kCpmDeviceFriendlyName = "fsmda child device";
-const char* UpnpFsmdaUtils::kCpmDeviceModelName =
-    "fsmda child device model name";
-const char* UpnpFsmdaUtils::kCpmDeviceModelDescription =
-    "fsmda child device model description";
-const char* UpnpFsmdaUtils::kCpmDeviceModelUrl =
-    "http://www.ncl.org.br/fsmda/fsmda-child-device";
-const char* UpnpFsmdaUtils::kCpmDeviceModelNumber = "1.0";
+// cpm upnp constant strings
 const char* UpnpFsmdaUtils::kCpmServiceType =
     "urn:schemas-upnp-org:service:fsmda-child-pairing:1";
 const char* UpnpFsmdaUtils::kCpmServiceId =
@@ -214,222 +218,9 @@ const char* UpnpFsmdaUtils::kCpmServiceScpdXml =
     "intel_nmpr:X_INTEL_NMPR>"
     "   <dlna:X_DLNADOC xmlns:dlna=\"udn:schemas-dlna-org:device-1-0\">DMP "
     "1.00</dlna:X_DLNADOC>"
-    "  </scpd>";
+    "</scpd>";
 
-// active PCM UPNP constant strings
-const char* UpnpFsmdaUtils::kActivePcmDeviceType =
-    "urn:schemas-upnp-org:device:fsmda-active-parent-communication-device:1";
-const char* UpnpFsmdaUtils::kActivePcmDeviceFriendlyName =
-    "fsmda active parent communication device";
-const char* UpnpFsmdaUtils::kActivePcmDeviceModelName =
-    "fsmda-active-parent-communication-device model name";
-const char* UpnpFsmdaUtils::kActivePcmDeviceModelDescription =
-    "fsmda active parent communication model description";
-const char* UpnpFsmdaUtils::kActivePcmDeviceModelUrl =
-    "http://www.ncl.org.br/fsmda/active";
-const char* UpnpFsmdaUtils::kActivePcmDeviceModelNumber = "1.0";
-const char* UpnpFsmdaUtils::kActivePcmServiceType =
-    "urn:schemas-upnp-org:service:fsmda-active-parent-communication:1";
-const char* UpnpFsmdaUtils::kActivePcmServiceId =
-    "urn:upnp-org:serviceId:fsmda-active-parent-communication";
-const char* UpnpFsmdaUtils::kActivePcmServiceName =
-    "urn:upnp-org:serviceId:fsmda-active-parent-communication";
-const char* UpnpFsmdaUtils::kActivePcmServiceScpdXml =
-    "<?xml version=\"1.0\" ?>"
-    "<scpd xmlns=\"urn:schemas-upnp-org:service-1-0\">"
-    "   <specVersion>"
-    "     <major>1</major>"
-    "     <minor>0</minor>"
-    "   </specVersion>"
-    "   <actionList>"
-    "     <action>"
-    "       <name>RequestPropertyValue</name>"
-    "       <argumentList>"
-    "         <argument>"
-    "           <name>object_id</name>"
-    "           <direction>in</direction>"
-    "<relatedStateVariable>A_ARG_TYPE_object_id</relatedStateVariable>"
-    "         </argument>"
-    "         <argument>"
-    "           <name>name</name>"
-    "           <direction>in</direction>"
-    "<relatedStateVariable>A_ARG_TYPE_property_name</relatedStateVariable>"
-    "         </argument>"
-    "       </argumentList>"
-    "     </action>"
-    "   </actionList>"
-    "   <serviceStateTable>"
-    "     <stateVariable sendEvents=\"no\">"
-    "       <name>A_ARG_TYPE_object_id</name>"
-    "       <dataType>string</dataType>"
-    "       <defaultValue></defaultValue>"
-    "     </stateVariable>"
-    "     <stateVariable sendEvents=\"no\">"
-    "         <name>A_ARG_TYPE_property_name</name>"
-    "         <dataType>string</dataType>"
-    "         <defaultValue></defaultValue>"
-    "     </stateVariable>"
-    "   </serviceStateTable>"
-    "   <intel_nmpr:X_INTEL_NMPR "
-    "xmlns:intel_nmpr=\"udn:schemas-intel-com:device-1-0\">2.1</"
-    "intel_nmpr:X_INTEL_NMPR>"
-    "   <dlna:X_DLNADOC xmlns:dlna=\"udn:schemas-dlna-org:device-1-0\">DMP "
-    "1.00</dlna:X_DLNADOC>"
-    "  </scpd>";
-
-// active Ccm Upnp constant strings
-const char* UpnpFsmdaUtils::kActiveCcmDeviceType =
-    "urn:schemas-upnp-org:device:fsmda-active-child-communication-device:1";
-const char* UpnpFsmdaUtils::kActiveCcmDeviceFriendlyName =
-    "fsmda active child communication device";
-const char* UpnpFsmdaUtils::kActiveCcmDeviceModelName =
-    "fsmda-active-child-communication-device model name";
-const char* UpnpFsmdaUtils::kActiveCcmDeviceModelDescription =
-    "fsmda active child communication model description";
-const char* UpnpFsmdaUtils::kActiveCcmDeviceModelUrl =
-    "http://www.ncl.org.br/fsmda/ondemand";
-const char* UpnpFsmdaUtils::kActiveCcmDeviceModelNumber = "1.0";
-const char* UpnpFsmdaUtils::kActiveCcmServiceType =
-    "urn:schemas-upnp-org:service:fsmda-active-child-communication:1";
-const char* UpnpFsmdaUtils::kActiveCcmServiceId =
-    "urn:upnp-org:serviceId:fsmda-active-child-communication";
-const char* UpnpFsmdaUtils::kActiveCcmServiceName =
-    "urn:upnp-org:serviceId:fsmda-active-child-communication";
-const char* UpnpFsmdaUtils::kActiveCcmServiceScpdXml =
-    "<?xml version=\"1.0\" ?>"
-    "<scpd xmlns=\"urn:schemas-upnp-org:service-1-0\">"
-    "   <specVersion>"
-    "     <major>1</major>"
-    "     <minor>0</minor>"
-    "   </specVersion>"
-    "   <actionList>"
-    "     <action>"
-    "       <name>Prepare</name>"
-    "       <argumentList>"
-    "         <argument>"
-    "           <name>object_id</name>"
-    "           <direction>in</direction>"
-    "<relatedStateVariable>A_ARG_TYPE_object_id</relatedStateVariable>"
-    "         </argument>"
-    "         <argument>"
-    "           <name>object_src</name>"
-    "           <direction>in</direction>"
-    "<relatedStateVariable>A_ARG_TYPE_object_src</relatedStateVariable>"
-    "         </argument>"
-    "         <argument>"
-    "           <name>properties</name>"
-    "           <direction>in</direction>"
-    "<relatedStateVariable>A_ARG_TYPE_properties</relatedStateVariable>"
-    "         </argument>"
-    "         <argument>"
-    "           <name>events</name>"
-    "           <direction>in</direction>"
-    "<relatedStateVariable>A_ARG_TYPE_events</relatedStateVariable>"
-    "         </argument>"
-    "       </argumentList>"
-    "     </action>"
-    "     <action>"
-    "       <name>AddEvent</name>"
-    "       <argumentList>"
-    "         <argument>"
-    "           <name>object_id</name>"
-    "           <direction>in</direction>"
-    "<relatedStateVariable>A_ARG_TYPE_object_id</relatedStateVariable>"
-    "         </argument>"
-    "         <argument>"
-    "           <name>evt</name>"
-    "           <direction>in</direction>"
-    "<relatedStateVariable>A_ARG_TYPE_evt</relatedStateVariable>"
-    "         </argument>"
-    "       </argumentList>"
-    "     </action>"
-    "     <action>"
-    "       <name>RemoveEvent</name>"
-    "       <argumentList>"
-    "         <argument>"
-    "           <name>object_id</name>"
-    "           <direction>in</direction>"
-    "<relatedStateVariable>A_ARG_TYPE_object_id</relatedStateVariable>"
-    "         </argument>"
-    "         <argument>"
-    "           <name>evt</name>"
-    "           <direction>in</direction>"
-    "<relatedStateVariable>A_ARG_TYPE_evt_id</relatedStateVariable>"
-    "         </argument>"
-    "       </argumentList>"
-    "     </action>"
-    "   </actionList>"
-    "   <serviceStateTable>"
-    "     <stateVariable sendEvents=\"no\">"
-    "       <name>A_ARG_TYPE_object_id</name>"
-    "       <dataType>string</dataType>"
-    "       <defaultValue></defaultValue>"
-    "     </stateVariable>"
-    "     <stateVariable sendEvents=\"no\">"
-    "         <name>A_ARG_TYPE_object_src</name>"
-    "         <dataType>string</dataType>"
-    "         <defaultValue></defaultValue>"
-    "     </stateVariable>"
-    "     <stateVariable sendEvents=\"no\">"
-    "         <name>A_ARG_TYPE_properties</name>"
-    "         <dataType>string</dataType>"
-    "         <defaultValue></defaultValue>"
-    "     </stateVariable>"
-    "     <stateVariable sendEvents=\"no\">"
-    "         <name>A_ARG_TYPE_evt</name>"
-    "         <dataType>string</dataType>"
-    "         <defaultValue></defaultValue>"
-    "     </stateVariable>"
-    "     <stateVariable sendEvents=\"no\">"
-    "         <name>A_ARG_TYPE_evt_id</name>"
-    "         <dataType>string</dataType>"
-    "         <defaultValue></defaultValue>"
-    "     </stateVariable>"
-    "     <stateVariable sendEvents=\"no\">"
-    "         <name>A_ARG_TYPE_events</name>"
-    "         <dataType>string</dataType>"
-    "         <defaultValue></defaultValue>"
-    "     </stateVariable>"
-    "     <stateVariable sendEvents=\"no\">"
-    "         <name>A_ARG_TYPE_event_id</name>"
-    "         <dataType>string</dataType>"
-    "         <defaultValue></defaultValue>"
-    "     </stateVariable>"
-    "     <stateVariable sendEvents=\"no\">"
-    "         <name>A_ARG_TYPE_action</name>"
-    "         <dataType>string</dataType>"
-    "         <defaultValue></defaultValue>"
-    "     </stateVariable>"
-    "     <stateVariable sendEvents=\"no\">"
-    "         <name>A_ARG_TYPE_property_value</name>"
-    "         <dataType>string</dataType>"
-    "         <defaultValue></defaultValue>"
-    "     </stateVariable>"
-    "     <stateVariable sendEvents=\"no\">"
-    "         <name>A_ARG_TYPE_property_duration</name>"
-    "         <dataType>string</dataType>"
-    "         <defaultValue></defaultValue>"
-    "     </stateVariable>"
-    "   </serviceStateTable>"
-    "   <intel_nmpr:X_INTEL_NMPR "
-    "xmlns:intel_nmpr=\"udn:schemas-intel-com:device-1-0\">2.1</"
-    "intel_nmpr:X_INTEL_NMPR>"
-    "   <dlna:X_DLNADOC xmlns:dlna=\"udn:schemas-dlna-org:device-1-0\">DMP "
-    "1.00</dlna:X_DLNADOC>"
-    "  </scpd>";
-
-// Passive Pcm Upnp constant strings
-const char* UpnpFsmdaUtils::kPassivePcmDeviceType =
-    "urn:schemas-upnp-org:device:fsmda-passive-parent-communication-device:1";
-const char* UpnpFsmdaUtils::kPassivePcmDeviceFriendlyName =
-    "fsmda passive parent communication device";
-const char* UpnpFsmdaUtils::kPassivePcmDeviceModelName =
-    "fsmda-passive-parent-communication-device model name";
-const char* UpnpFsmdaUtils::kPassivePcmDeviceModelDescription =
-    "fsmda passive parent communication model description";
-const char* UpnpFsmdaUtils::kPassivePcmDeviceModelUrl =
-    "http://www.ncl.org.br/fsmda/ondemand";
-const char* UpnpFsmdaUtils::kPassivePcmDeviceModelNumber = "1.0";
+// Passive pcm upnp constant strings
 const char* UpnpFsmdaUtils::kPassivePcmServiceType =
     "urn:schemas-upnp-org:service:fsmda-passive-parent-communication:1";
 const char* UpnpFsmdaUtils::kPassivePcmServiceId =
@@ -448,6 +239,16 @@ const char* UpnpFsmdaUtils::kPassivePcmServiceScpdXml =
     "       <name>NotifyError</name>"
     "       <argumentList>"
     "         <argument>"
+    "           <name>applicationId</name>"
+    "           <direction>in</direction>"
+    "<relatedStateVariable>A_ARG_TYPE_applicationId</relatedStateVariable>"
+    "         </argument>"
+    "         <argument>"
+    "           <name>classIndex</name>"
+    "           <direction>in</direction>"
+    "<relatedStateVariable>A_ARG_TYPE_classIndex</relatedStateVariable>"
+    "         </argument>"
+    "         <argument>"
     "           <name>object_id</name>"
     "           <direction>in</direction>"
     "<relatedStateVariable>A_ARG_TYPE_object_id</relatedStateVariable>"
@@ -461,6 +262,20 @@ const char* UpnpFsmdaUtils::kPassivePcmServiceScpdXml =
     "     </action>"
     "   </actionList>"
     "   <serviceStateTable>"
+    "     <stateVariable sendEvents=\"no\">"
+    "       <name>A_ARG_TYPE_applicationId</name>"
+    "       <dataType>string</dataType>"
+    "       <defaultValue></defaultValue>"
+    "     </stateVariable>"
+    "     <stateVariable sendEvents=\"no\">"
+    "       <name>A_ARG_TYPE_classIndex</name>"
+    "       <dataType>ui1</dataType>"
+    "       <defaultValue>0</defaultValue>"
+    "       <allowedValueRange>"
+    "         <minimum>0</minimum>"
+    "         <maximum>100</maximum>"
+    "       </allowedValueRange>"
+    "     </stateVariable>"
     "     <stateVariable sendEvents=\"no\">"
     "       <name>A_ARG_TYPE_object_id</name>"
     "       <dataType>string</dataType>"
@@ -477,26 +292,15 @@ const char* UpnpFsmdaUtils::kPassivePcmServiceScpdXml =
     "intel_nmpr:X_INTEL_NMPR>"
     "   <dlna:X_DLNADOC xmlns:dlna=\"udn:schemas-dlna-org:device-1-0\">DMP "
     "1.00</dlna:X_DLNADOC>"
-    "  </scpd>";
+    "</scpd>";
 
-// Passive Ccm Upnp constant strings
-const char* UpnpFsmdaUtils::kPassiveCcmDeviceType =
-    "urn:schemas-upnp-org:device:fsmda-passive-child-communication-device:1";
-const char* UpnpFsmdaUtils::kPassiveCcmDeviceFriendlyName =
-    "fsmda passive child communication device";
-const char* UpnpFsmdaUtils::kPassiveCcmDeviceModelName =
-    "fsmda-passive-child-communication-device model name";
-const char* UpnpFsmdaUtils::kPassiveCcmDeviceModelDescription =
-    "fsmda passive child communication model description";
-const char* UpnpFsmdaUtils::kPassiveCcmDeviceModelUrl =
-    "http://www.ncl.org.br/fsmda/ondemand";
-const char* UpnpFsmdaUtils::kPassiveCcmDeviceModelNumber = "1.0";
+// Passive ccm Upnp constant strings
 const char* UpnpFsmdaUtils::kPassiveCcmServiceType =
-    "urn:schemas-upnp-org:service:fsmda-passive-child-communication:1";
+    "urn:schemas-upnp-org:service:fsmda-child-passive-communication:1";
 const char* UpnpFsmdaUtils::kPassiveCcmServiceId =
-    "urn:upnp-org:serviceId:fsmda-passive-child-communication";
+    "urn:upnp-org:serviceId:fsmda-child-passive-communication";
 const char* UpnpFsmdaUtils::kPassiveCcmServiceName =
-    "urn:upnp-org:serviceId:fsmda-passive-child-communication";
+    "urn:upnp-org:serviceId:fsmda-child-passive-communication";
 const char* UpnpFsmdaUtils::kPassiveCcmServiceScpdXml =
     "<?xml version=\"1.0\" ?>"
     "<scpd xmlns=\"urn:schemas-upnp-org:service-1-0\">"
@@ -543,28 +347,530 @@ const char* UpnpFsmdaUtils::kPassiveCcmServiceScpdXml =
     "intel_nmpr:X_INTEL_NMPR>"
     "   <dlna:X_DLNADOC xmlns:dlna=\"udn:schemas-dlna-org:device-1-0\">DMP "
     "1.00</dlna:X_DLNADOC>"
-    "  </scpd>";
+    "</scpd>";
 
-// MediaCapture Pcm Upnp constant strings
-const char* UpnpFsmdaUtils::kMediaCapturePcmDeviceType =
-    "urn:schemas-upnp-org:device:fsmda-mediacapture-parent-communication-"
-    "device:1";
-const char* UpnpFsmdaUtils::kMediaCapturePcmDeviceFriendlyName =
-    "fsmda mediacapture parent communication device";
-const char* UpnpFsmdaUtils::kMediaCapturePcmDeviceModelName =
-    "fsmda-mediacapture-parent-communication-device model name";
-const char* UpnpFsmdaUtils::kMediaCapturePcmDeviceModelDescription =
-    "fsmda mediacapture parent communication model description";
-const char* UpnpFsmdaUtils::kMediaCapturePcmDeviceModelUrl =
-    "http://www.ncl.org.br/fsmda/ondemand";
-const char* UpnpFsmdaUtils::kMediaCapturePcmDeviceModelNumber = "1.0";
+// active pcm upnp constant strings
+const char* UpnpFsmdaUtils::kActivePcmServiceType =
+    "urn:schemas-upnp-org:service:fsmda-parent-active-communication:1";
+const char* UpnpFsmdaUtils::kActivePcmServiceId =
+    "urn:upnp-org:serviceId:fsmda-parent-active-communication";
+const char* UpnpFsmdaUtils::kActivePcmServiceName =
+    "urn:upnp-org:serviceId:fsmda-parent-active-communication";
+const char* UpnpFsmdaUtils::kActivePcmServiceScpdXml =
+    "<?xml version=\"1.0\" ?>"
+    "<scpd xmlns=\"urn:schemas-upnp-org:service-1-0\">"
+    "   <specVersion>"
+    "     <major>1</major>"
+    "     <minor>0</minor>"
+    "   </specVersion>"
+    "   <actionList>"
+    "     <action>"
+    "       <name>ReportPropertyValue</name>"
+    "       <argumentList>"
+    "         <argument>"
+    "           <name>applicationId</name>"
+    "           <direction>in</direction>"
+    "<relatedStateVariable>A_ARG_TYPE_applicationId</relatedStateVariable>"
+    "         </argument>"
+    "         <argument>"
+    "           <name>classIndex</name>"
+    "           <direction>in</direction>"
+    "<relatedStateVariable>A_ARG_TYPE_classIndex</relatedStateVariable>"
+    "         </argument>"
+    "         <argument>"
+    "           <name>object_id</name>"
+    "           <direction>in</direction>"
+    "<relatedStateVariable>A_ARG_TYPE_object_id</relatedStateVariable>"
+    "         </argument>"
+    "         <argument>"
+    "           <name>name</name>"
+    "           <direction>in</direction>"
+    "<relatedStateVariable>A_ARG_TYPE_property_name</relatedStateVariable>"
+    "         </argument>"
+    "         <argument>"
+    "           <name>value</name>"
+    "           <direction>in</direction>"
+    "<relatedStateVariable>A_ARG_TYPE_property_value</relatedStateVariable>"
+    "         </argument>"
+    "       </argumentList>"
+    "     </action>"
+    "     <action>"
+    "       <name>NotifyEventTransition</name>"
+    "       <argumentList>"
+    "         <argument>"
+    "           <name>applicationId</name>"
+    "           <direction>in</direction>"
+    "<relatedStateVariable>A_ARG_TYPE_applicationId</relatedStateVariable>"
+    "         </argument>"
+    "         <argument>"
+    "           <name>classIndex</name>"
+    "           <direction>in</direction>"
+    "<relatedStateVariable>A_ARG_TYPE_classIndex</relatedStateVariable>"
+    "         </argument>"
+    "         <argument>"
+    "           <name>object_id</name>"
+    "           <direction>in</direction>"
+    "<relatedStateVariable>A_ARG_TYPE_object_id</relatedStateVariable>"
+    "         </argument>"
+    "         <argument>"
+    "           <name>transition</name>"
+    "           <direction>in</direction>"
+    "<relatedStateVariable>A_ARG_TYPE_transition</relatedStateVariable>"
+    "         </argument>"
+    "       </argumentList>"
+    "     </action>"
+    "     <action>"
+    "       <name>NotifyError</name>"
+    "       <argumentList>"
+    "         <argument>"
+    "           <name>applicationId</name>"
+    "           <direction>in</direction>"
+    "<relatedStateVariable>A_ARG_TYPE_applicationId</relatedStateVariable>"
+    "         </argument>"
+    "         <argument>"
+    "           <name>classIndex</name>"
+    "           <direction>in</direction>"
+    "<relatedStateVariable>A_ARG_TYPE_classIndex</relatedStateVariable>"
+    "         </argument>"
+    "         <argument>"
+    "           <name>object_id</name>"
+    "           <direction>in</direction>"
+    "<relatedStateVariable>A_ARG_TYPE_object_id</relatedStateVariable>"
+    "         </argument>"
+    "         <argument>"
+    "           <name>message</name>"
+    "           <direction>in</direction>"
+    "<relatedStateVariable>A_ARG_TYPE_message</relatedStateVariable>"
+    "         </argument>"
+    "       </argumentList>"
+    "     </action>"
+    "   </actionList>"
+    "   <serviceStateTable>"
+    "     <stateVariable sendEvents=\"no\">"
+    "       <name>A_ARG_TYPE_applicationId</name>"
+    "       <dataType>string</dataType>"
+    "       <defaultValue></defaultValue>"
+    "     </stateVariable>"
+    "     <stateVariable sendEvents=\"no\">"
+    "       <name>A_ARG_TYPE_classIndex</name>"
+    "       <dataType>ui1</dataType>"
+    "       <defaultValue>0</defaultValue>"
+    "       <allowedValueRange>"
+    "         <minimum>0</minimum>"
+    "         <maximum>100</maximum>"
+    "       </allowedValueRange>"
+    "     </stateVariable>"
+    "     <stateVariable sendEvents=\"no\">"
+    "       <name>A_ARG_TYPE_object_id</name>"
+    "       <dataType>string</dataType>"
+    "       <defaultValue></defaultValue>"
+    "     </stateVariable>"
+    "     <stateVariable sendEvents=\"no\">"
+    "         <name>A_ARG_TYPE_property_name</name>"
+    "         <dataType>string</dataType>"
+    "         <defaultValue></defaultValue>"
+    "     </stateVariable>"
+    "     <stateVariable sendEvents=\"no\">"
+    "         <name>A_ARG_TYPE_property_value</name>"
+    "         <dataType>string</dataType>"
+    "         <defaultValue></defaultValue>"
+    "     </stateVariable>"
+    "     <stateVariable sendEvents=\"no\">"
+    "         <name>A_ARG_TYPE_transition</name>"
+    "         <dataType>string</dataType>"
+    "         <defaultValue></defaultValue>"
+    "     </stateVariable>"
+    "     <stateVariable sendEvents=\"no\">"
+    "       <name>A_ARG_TYPE_message</name>"
+    "       <dataType>string</dataType>"
+    "       <defaultValue></defaultValue>"
+    "     </stateVariable>"
+    "   </serviceStateTable>"
+    "   <intel_nmpr:X_INTEL_NMPR "
+    "xmlns:intel_nmpr=\"udn:schemas-intel-com:device-1-0\">2.1</"
+    "intel_nmpr:X_INTEL_NMPR>"
+    "   <dlna:X_DLNADOC xmlns:dlna=\"udn:schemas-dlna-org:device-1-0\">DMP "
+    "1.00</dlna:X_DLNADOC>"
+    "</scpd>";
+
+// active ccm upnp constant strings
+const char* UpnpFsmdaUtils::kActiveCcmServiceType =
+    "urn:schemas-upnp-org:service:fsmda-child-active-communication:1";
+const char* UpnpFsmdaUtils::kActiveCcmServiceId =
+    "urn:upnp-org:serviceId:fsmda-child-active-communication";
+const char* UpnpFsmdaUtils::kActiveCcmServiceName =
+    "urn:upnp-org:serviceId:fsmda-child-active-communication";
+const char* UpnpFsmdaUtils::kActiveCcmServiceScpdXml =
+    "<?xml version=\"1.0\" ?>"
+    "<scpd xmlns=\"urn:schemas-upnp-org:service-1-0\">"
+    "   <specVersion>"
+    "     <major>1</major>"
+    "     <minor>0</minor>"
+    "   </specVersion>"
+    "   <actionList>"
+    "     <action>"
+    "       <name>Prepare</name>"
+    "       <argumentList>"
+    "         <argument>"
+    "           <name>applicationId</name>"
+    "           <direction>in</direction>"
+    "<relatedStateVariable>A_ARG_TYPE_applicationId</relatedStateVariable>"
+    "         </argument>"
+    "         <argument>"
+    "           <name>classIndex</name>"
+    "           <direction>in</direction>"
+    "<relatedStateVariable>A_ARG_TYPE_classIndex</relatedStateVariable>"
+    "         </argument>"
+    "         <argument>"
+    "           <name>object_id</name>"
+    "           <direction>in</direction>"
+    "<relatedStateVariable>A_ARG_TYPE_object_id</relatedStateVariable>"
+    "         </argument>"
+    "         <argument>"
+    "           <name>object_src</name>"
+    "           <direction>in</direction>"
+    "<relatedStateVariable>A_ARG_TYPE_object_src</relatedStateVariable>"
+    "         </argument>"
+    "         <argument>"
+    "           <name>properties</name>"
+    "           <direction>in</direction>"
+    "<relatedStateVariable>A_ARG_TYPE_properties</relatedStateVariable>"
+    "         </argument>"
+    "         <argument>"
+    "           <name>events</name>"
+    "           <direction>in</direction>"
+    "<relatedStateVariable>A_ARG_TYPE_events</relatedStateVariable>"
+    "         </argument>"
+    "       </argumentList>"
+    "     </action>"
+    "     <action>"
+    "       <name>AddEvent</name>"
+    "       <argumentList>"
+    "         <argument>"
+    "           <name>applicationId</name>"
+    "           <direction>in</direction>"
+    "<relatedStateVariable>A_ARG_TYPE_applicationId</relatedStateVariable>"
+    "         </argument>"
+    "         <argument>"
+    "           <name>classIndex</name>"
+    "           <direction>in</direction>"
+    "<relatedStateVariable>A_ARG_TYPE_classIndex</relatedStateVariable>"
+    "         </argument>"
+    "         <argument>"
+    "           <name>object_id</name>"
+    "           <direction>in</direction>"
+    "<relatedStateVariable>A_ARG_TYPE_object_id</relatedStateVariable>"
+    "         </argument>"
+    "         <argument>"
+    "           <name>evt</name>"
+    "           <direction>in</direction>"
+    "<relatedStateVariable>A_ARG_TYPE_evt</relatedStateVariable>"
+    "         </argument>"
+    "       </argumentList>"
+    "     </action>"
+    "     <action>"
+    "       <name>RemoveEvent</name>"
+    "       <argumentList>"
+    "         <argument>"
+    "           <name>applicationId</name>"
+    "           <direction>in</direction>"
+    "<relatedStateVariable>A_ARG_TYPE_applicationId</relatedStateVariable>"
+    "         </argument>"
+    "         <argument>"
+    "           <name>classIndex</name>"
+    "           <direction>in</direction>"
+    "<relatedStateVariable>A_ARG_TYPE_classIndex</relatedStateVariable>"
+    "         </argument>"
+    "         <argument>"
+    "           <name>object_id</name>"
+    "           <direction>in</direction>"
+    "<relatedStateVariable>A_ARG_TYPE_object_id</relatedStateVariable>"
+    "         </argument>"
+    "         <argument>"
+    "           <name>evt</name>"
+    "           <direction>in</direction>"
+    "<relatedStateVariable>A_ARG_TYPE_evt_id</relatedStateVariable>"
+    "         </argument>"
+    "       </argumentList>"
+    "     </action>"
+    "     <action>"
+    "       <name>PostAction</name>"
+    "       <argumentList>"
+    "         <argument>"
+    "           <name>applicationId</name>"
+    "           <direction>in</direction>"
+    "<relatedStateVariable>A_ARG_TYPE_applicationId</relatedStateVariable>"
+    "         </argument>"
+    "         <argument>"
+    "           <name>classIndex</name>"
+    "           <direction>in</direction>"
+    "<relatedStateVariable>A_ARG_TYPE_classIndex</relatedStateVariable>"
+    "         </argument>"
+    "         <argument>"
+    "           <name>object_id</name>"
+    "           <direction>in</direction>"
+    "<relatedStateVariable>A_ARG_TYPE_object_id</relatedStateVariable>"
+    "         </argument>"
+    "         <argument>"
+    "           <name>event_id</name>"
+    "           <direction>in</direction>"
+    "<relatedStateVariable>A_ARG_TYPE_event_id</relatedStateVariable>"
+    "         </argument>"
+    "         <argument>"
+    "           <name>action</name>"
+    "           <direction>in</direction>"
+    "<relatedStateVariable>A_ARG_TYPE_action</relatedStateVariable>"
+    "         </argument>"
+    "       </argumentList>"
+    "     </action>"
+    "     <action>"
+    "       <name>RequestPropertyValue</name>"
+    "       <argumentList>"
+    "         <argument>"
+    "           <name>applicationId</name>"
+    "           <direction>in</direction>"
+    "<relatedStateVariable>A_ARG_TYPE_applicationId</relatedStateVariable>"
+    "         </argument>"
+    "         <argument>"
+    "           <name>classIndex</name>"
+    "           <direction>in</direction>"
+    "<relatedStateVariable>A_ARG_TYPE_classIndex</relatedStateVariable>"
+    "         </argument>"
+    "         <argument>"
+    "           <name>object_id</name>"
+    "           <direction>in</direction>"
+    "<relatedStateVariable>A_ARG_TYPE_object_id</relatedStateVariable>"
+    "         </argument>"
+    "         <argument>"
+    "           <name>property_name</name>"
+    "           <direction>in</direction>"
+    "<relatedStateVariable>A_ARG_TYPE_property_name</relatedStateVariable>"
+    "         </argument>"
+    "       </argumentList>"
+    "     </action>"
+    "     <action>"
+    "       <name>SetPropertyValue</name>"
+    "       <argumentList>"
+    "         <argument>"
+    "           <name>applicationId</name>"
+    "           <direction>in</direction>"
+    "<relatedStateVariable>A_ARG_TYPE_applicationId</relatedStateVariable>"
+    "         </argument>"
+    "         <argument>"
+    "           <name>classIndex</name>"
+    "           <direction>in</direction>"
+    "<relatedStateVariable>A_ARG_TYPE_classIndex</relatedStateVariable>"
+    "         </argument>"
+    "         <argument>"
+    "           <name>object_id</name>"
+    "           <direction>in</direction>"
+    "<relatedStateVariable>A_ARG_TYPE_object_id</relatedStateVariable>"
+    "         </argument>"
+    "         <argument>"
+    "           <name>property_name</name>"
+    "           <direction>in</direction>"
+    "<relatedStateVariable>A_ARG_TYPE_property_name</relatedStateVariable>"
+    "         </argument>"
+    "         <argument>"
+    "           <name>property_value</name>"
+    "           <direction>in</direction>"
+    "<relatedStateVariable>A_ARG_TYPE_property_value</relatedStateVariable>"
+    "         </argument>"
+    "         <argument>"
+    "           <name>property_duration</name>"
+    "           <direction>in</direction>"
+    "<relatedStateVariable>A_ARG_TYPE_property_duration</relatedStateVariable>"
+    "         </argument>"
+    "       </argumentList>"
+    "     </action>"
+
+    "   </actionList>"
+    "   <serviceStateTable>"
+    "     <stateVariable sendEvents=\"no\">"
+    "       <name>A_ARG_TYPE_applicationId</name>"
+    "       <dataType>string</dataType>"
+    "       <defaultValue></defaultValue>"
+    "     </stateVariable>"
+    "     <stateVariable sendEvents=\"no\">"
+    "       <name>A_ARG_TYPE_classIndex</name>"
+    "       <dataType>ui1</dataType>"
+    "       <defaultValue>0</defaultValue>"
+    "       <allowedValueRange>"
+    "         <minimum>0</minimum>"
+    "         <maximum>100</maximum>"
+    "       </allowedValueRange>"
+    "     </stateVariable>"
+    "     <stateVariable sendEvents=\"no\">"
+    "       <name>A_ARG_TYPE_object_id</name>"
+    "       <dataType>string</dataType>"
+    "       <defaultValue></defaultValue>"
+    "     </stateVariable>"
+    "     <stateVariable sendEvents=\"no\">"
+    "         <name>A_ARG_TYPE_object_src</name>"
+    "         <dataType>string</dataType>"
+    "         <defaultValue></defaultValue>"
+    "     </stateVariable>"
+    "     <stateVariable sendEvents=\"no\">"
+    "         <name>A_ARG_TYPE_properties</name>"
+    "         <dataType>string</dataType>"
+    "         <defaultValue></defaultValue>"
+    "     </stateVariable>"
+    "     <stateVariable sendEvents=\"no\">"
+    "         <name>A_ARG_TYPE_evt</name>"
+    "         <dataType>string</dataType>"
+    "         <defaultValue></defaultValue>"
+    "     </stateVariable>"
+    "     <stateVariable sendEvents=\"no\">"
+    "         <name>A_ARG_TYPE_evt_id</name>"
+    "         <dataType>string</dataType>"
+    "         <defaultValue></defaultValue>"
+    "     </stateVariable>"
+    "     <stateVariable sendEvents=\"no\">"
+    "         <name>A_ARG_TYPE_events</name>"
+    "         <dataType>string</dataType>"
+    "         <defaultValue></defaultValue>"
+    "     </stateVariable>"
+    "     <stateVariable sendEvents=\"no\">"
+    "         <name>A_ARG_TYPE_event_id</name>"
+    "         <dataType>string</dataType>"
+    "         <defaultValue></defaultValue>"
+    "     </stateVariable>"
+    "     <stateVariable sendEvents=\"no\">"
+    "         <name>A_ARG_TYPE_action</name>"
+    "         <dataType>string</dataType>"
+    "         <defaultValue></defaultValue>"
+    "     </stateVariable>"
+    "     <stateVariable sendEvents=\"no\">"
+    "         <name>A_ARG_TYPE_property_name</name>"
+    "         <dataType>string</dataType>"
+    "         <defaultValue></defaultValue>"
+    "     </stateVariable>"
+    "     <stateVariable sendEvents=\"no\">"
+    "         <name>A_ARG_TYPE_property_value</name>"
+    "         <dataType>string</dataType>"
+    "         <defaultValue></defaultValue>"
+    "     </stateVariable>"
+    "     <stateVariable sendEvents=\"no\">"
+    "         <name>A_ARG_TYPE_property_duration</name>"
+    "         <dataType>string</dataType>"
+    "         <defaultValue></defaultValue>"
+    "     </stateVariable>"
+    "   </serviceStateTable>"
+    "   <intel_nmpr:X_INTEL_NMPR "
+    "xmlns:intel_nmpr=\"udn:schemas-intel-com:device-1-0\">2.1</"
+    "intel_nmpr:X_INTEL_NMPR>"
+    "   <dlna:X_DLNADOC xmlns:dlna=\"udn:schemas-dlna-org:device-1-0\">DMP "
+    "1.00</dlna:X_DLNADOC>"
+    "</scpd>";
+
+// ondemand pcm upnp constant strings
+const char* UpnpFsmdaUtils::kOnDemandPcmServiceType =
+    "urn:schemas-upnp-org:service:fsmda-parent-ondemand-communication:1";
+const char* UpnpFsmdaUtils::kOnDemandPcmServiceId =
+    "urn:upnp-org:serviceId:fsmda-parent-ondemand-communication";
+const char* UpnpFsmdaUtils::kOnDemandPcmServiceName =
+    "urn:upnp-org:serviceId:fsmda-parent-ondemand-communication"
+    "name";
+const char* UpnpFsmdaUtils::kOnDemandPcmServiceScpdXml =
+    "<?xml version=\"1.0\" ?>"
+    "<scpd xmlns=\"urn:schemas-upnp-org:service-1-0\">"
+    "   <specVersion>"
+    "     <major>1</major>"
+    "     <minor>0</minor>"
+    "   </specVersion>"
+    "   <actionList>"
+    "     <action>"
+    "       <name>NotifyOnDemandContent</name>"
+    "       <argumentList>"
+    "         <argument>"
+    "           <name>action</name>"
+    "           <direction>in</direction>"
+    "<relatedStateVariable>A_ARG_TYPE_content</relatedStateVariable>"
+    "         </argument>"
+    "         <argument>"
+    "           <name>location</name>"
+    "           <direction>in</direction>"
+    "<relatedStateVariable>A_ARG_TYPE_resource_id</relatedStateVariable>"
+    "         </argument>"
+    "       </argumentList>"
+    "     </action>"
+    "   </actionList>"
+    "   <serviceStateTable>"
+    "     <stateVariable sendEvents=\"no\">"
+    "       <name>A_ARG_TYPE_action</name>"
+    "       <dataType>string</dataType>"
+    "       <defaultValue></defaultValue>"
+    "     </stateVariable>"
+    "     <stateVariable sendEvents=\"no\">"
+    "         <name>A_ARG_TYPE_location</name>"
+    "         <dataType>string</dataType>"
+    "         <defaultValue></defaultValue>"
+    "     </stateVariable>"
+    "   </serviceStateTable>"
+    "   <intel_nmpr:X_INTEL_NMPR "
+    "xmlns:intel_nmpr=\"udn:schemas-intel-com:device-1-0\">2.1</"
+    "intel_nmpr:X_INTEL_NMPR>"
+    "   <dlna:X_DLNADOC xmlns:dlna=\"udn:schemas-dlna-org:device-1-0\">DMP "
+    "1.00</dlna:X_DLNADOC>"
+    "</scpd>";
+
+// ondemand ccm upnp constant strings
+const char* UpnpFsmdaUtils::kOnDemandCcmServiceType =
+    "urn:schemas-upnp-org:service:fsmda-child-ondemand-communication:1";
+const char* UpnpFsmdaUtils::kOnDemandCcmServiceId =
+    "urn:upnp-org:serviceId:fsmda-child-ondemand-communication";
+const char* UpnpFsmdaUtils::kOnDemandCcmServiceName =
+    "urn:upnp-org:serviceId:fsmda-child-ondemand-communication";
+const char* UpnpFsmdaUtils::kOnDemandCcmServiceScpdXml =
+    "<?xml version=\"1.0\" ?>"
+    "<scpd xmlns=\"urn:schemas-upnp-org:service-1-0\">"
+    "   <specVersion>"
+    "     <major>1</major>"
+    "     <minor>0</minor>"
+    "   </specVersion>"
+    "   <actionList>"
+    "     <action>"
+    "       <name>NotifyError</name>"
+    "       <argumentList>"
+    "         <argument>"
+    "           <name>object_id</name>"
+    "           <direction>in</direction>"
+    "<relatedStateVariable>A_ARG_TYPE_object_id</relatedStateVariable>"
+    "         </argument>"
+    "         <argument>"
+    "           <name>message</name>"
+    "           <direction>in</direction>"
+    "<relatedStateVariable>A_ARG_TYPE_message</relatedStateVariable>"
+    "         </argument>"
+    "       </argumentList>"
+    "     </action>"
+    "   </actionList>"
+    "   <serviceStateTable>"
+    "     <stateVariable sendEvents=\"no\">"
+    "       <name>A_ARG_TYPE_message</name>"
+    "       <dataType>string</dataType>"
+    "       <defaultValue></defaultValue>"
+    "     </stateVariable>"
+    "     <stateVariable sendEvents=\"no\">"
+    "         <name>A_ARG_TYPE_object_id</name>"
+    "         <dataType>string</dataType>"
+    "         <defaultValue></defaultValue>"
+    "     </stateVariable>"
+    "   </serviceStateTable>"
+    "   <intel_nmpr:X_INTEL_NMPR "
+    "xmlns:intel_nmpr=\"udn:schemas-intel-com:device-1-0\">2.1</"
+    "intel_nmpr:X_INTEL_NMPR>"
+    "   <dlna:X_DLNADOC xmlns:dlna=\"udn:schemas-dlna-org:device-1-0\">DMP "
+    "1.00</dlna:X_DLNADOC>"
+    "</scpd>";
+
+// mediacapture pcm upnp constant strings
 const char* UpnpFsmdaUtils::kMediaCapturePcmServiceType =
-    "urn:schemas-upnp-org:service:fsmda-mediacapture-parent-communication-"
-    "service:1";
+    "urn:schemas-upnp-org:service:fsmda-parent-mediacapture-communication:1";
 const char* UpnpFsmdaUtils::kMediaCapturePcmServiceId =
-    "urn:upnp-org:serviceId:fsmda-mediacapture-parent-communication";
+    "urn:upnp-org:serviceId:fsmda-parent-mediacapture-communication";
 const char* UpnpFsmdaUtils::kMediaCapturePcmServiceName =
-    "urn:upnp-org:serviceId:fsmda-mediacapture-parent-communication-"
+    "urn:upnp-org:serviceId:fsmda-parent-mediacapture-communication"
     "name";
 const char* UpnpFsmdaUtils::kMediaCapturePcmServiceScpdXml =
     "<?xml version=\"1.0\" ?>"
@@ -612,28 +918,15 @@ const char* UpnpFsmdaUtils::kMediaCapturePcmServiceScpdXml =
     "intel_nmpr:X_INTEL_NMPR>"
     "   <dlna:X_DLNADOC xmlns:dlna=\"udn:schemas-dlna-org:device-1-0\">DMP "
     "1.00</dlna:X_DLNADOC>"
-    "  </scpd>";
+    "</scpd>";
 
-// MediaCapture Ccm Upnp constant strings
-const char* UpnpFsmdaUtils::kMediaCaptureCcmDeviceType =
-    "urn:schemas-upnp-org:device:fsmda-mediacapture-child-communication-device:"
-    "1";
-const char* UpnpFsmdaUtils::kMediaCaptureCcmDeviceFriendlyName =
-    "fsmda mediacapture child communication device";
-const char* UpnpFsmdaUtils::kMediaCaptureCcmDeviceModelName =
-    "fsmda-mediacapture-child-communication-device model name";
-const char* UpnpFsmdaUtils::kMediaCaptureCcmDeviceModelDescription =
-    "fsmda mediacapture child communication model description";
-const char* UpnpFsmdaUtils::kMediaCaptureCcmDeviceModelUrl =
-    "http://www.ncl.org.br/fsmda/ondemand";
-const char* UpnpFsmdaUtils::kMediaCaptureCcmDeviceModelNumber = "1.0";
+// mediacapture ccm upnp constant strings
 const char* UpnpFsmdaUtils::kMediaCaptureCcmServiceType =
-    "urn:schemas-upnp-org:service:fsmda-mediacapture-child-communication-"
-    "service:1";
+    "urn:schemas-upnp-org:service:fsmda-child-mediacapture-communication:1";
 const char* UpnpFsmdaUtils::kMediaCaptureCcmServiceId =
-    "urn:upnp-org:serviceId:fsmda-mediacapture-child-communication";
+    "urn:upnp-org:serviceId:fsmda-child-mediacapture-communication";
 const char* UpnpFsmdaUtils::kMediaCaptureCcmServiceName =
-    "urn:upnp-org:serviceId:fsmda-mediacapture-child-communication-"
+    "urn:upnp-org:serviceId:fsmda-child-mediacapture-communication"
     "name";
 const char* UpnpFsmdaUtils::kMediaCaptureCcmServiceScpdXml =
     "<?xml version=\"1.0\" ?>"
@@ -680,131 +973,7 @@ const char* UpnpFsmdaUtils::kMediaCaptureCcmServiceScpdXml =
     "intel_nmpr:X_INTEL_NMPR>"
     "   <dlna:X_DLNADOC xmlns:dlna=\"udn:schemas-dlna-org:device-1-0\">DMP "
     "1.00</dlna:X_DLNADOC>"
-    "  </scpd>";
-
-// OnDemand Pcm Upnp constant strings
-const char* UpnpFsmdaUtils::kOnDemandPcmDeviceType =
-    "urn:schemas-upnp-org:device:fsmda-ondemand-parent-communication-device:1";
-const char* UpnpFsmdaUtils::kOnDemandPcmDeviceFriendlyName =
-    "fsmda ondemand parent communication device";
-const char* UpnpFsmdaUtils::kOnDemandPcmDeviceModelName =
-    "fsmda-ondemand-parent-communication-device model name";
-const char* UpnpFsmdaUtils::kOnDemandPcmDeviceModelDescription =
-    "fsmda ondemand parent communication model description";
-const char* UpnpFsmdaUtils::kOnDemandPcmDeviceModelUrl =
-    "http://www.ncl.org.br/fsmda/ondemand";
-const char* UpnpFsmdaUtils::kOnDemandPcmDeviceModelNumber = "1.0";
-const char* UpnpFsmdaUtils::kOnDemandPcmServiceType =
-    "urn:schemas-upnp-org:service:fsmda-ondemand-parent-communication:"
-    "1";
-const char* UpnpFsmdaUtils::kOnDemandPcmServiceId =
-    "urn:upnp-org:serviceId:fsmda-ondemand-parent-communication";
-const char* UpnpFsmdaUtils::kOnDemandPcmServiceName =
-    "urn:upnp-org:serviceId:fsmda-ondemand-parent-communication-"
-    "name";
-const char* UpnpFsmdaUtils::kOnDemandPcmServiceScpdXml =
-    "<?xml version=\"1.0\" ?>"
-    "<scpd xmlns=\"urn:schemas-upnp-org:service-1-0\">"
-    "   <specVersion>"
-    "     <major>1</major>"
-    "     <minor>0</minor>"
-    "   </specVersion>"
-    "   <actionList>"
-    "     <action>"
-    "       <name>NotifyOnDemandContent</name>"
-    "       <argumentList>"
-    "         <argument>"
-    "           <name>action</name>"
-    "           <direction>in</direction>"
-    "<relatedStateVariable>A_ARG_TYPE_content</relatedStateVariable>"
-    "         </argument>"
-    "         <argument>"
-    "           <name>location</name>"
-    "           <direction>in</direction>"
-    "<relatedStateVariable>A_ARG_TYPE_resource_id</relatedStateVariable>"
-    "         </argument>"
-    "       </argumentList>"
-    "     </action>"
-    "   </actionList>"
-    "   <serviceStateTable>"
-    "     <stateVariable sendEvents=\"no\">"
-    "       <name>A_ARG_TYPE_action</name>"
-    "       <dataType>string</dataType>"
-    "       <defaultValue></defaultValue>"
-    "     </stateVariable>"
-    "     <stateVariable sendEvents=\"no\">"
-    "         <name>A_ARG_TYPE_location</name>"
-    "         <dataType>string</dataType>"
-    "         <defaultValue></defaultValue>"
-    "     </stateVariable>"
-    "   </serviceStateTable>"
-    "   <intel_nmpr:X_INTEL_NMPR "
-    "xmlns:intel_nmpr=\"udn:schemas-intel-com:device-1-0\">2.1</"
-    "intel_nmpr:X_INTEL_NMPR>"
-    "   <dlna:X_DLNADOC xmlns:dlna=\"udn:schemas-dlna-org:device-1-0\">DMP "
-    "1.00</dlna:X_DLNADOC>"
-    "  </scpd>";
-
-// OnDemand Ccm Upnp constant strings
-const char* UpnpFsmdaUtils::kOnDemandCcmDeviceType =
-    "urn:schemas-upnp-org:device:fsmda-ondemand-child-communication-device:1";
-const char* UpnpFsmdaUtils::kOnDemandCcmDeviceFriendlyName =
-    "fsmda ondemand child communication device";
-const char* UpnpFsmdaUtils::kOnDemandCcmDeviceModelName =
-    "fsmda-ondemand-child-communication-device model name";
-const char* UpnpFsmdaUtils::kOnDemandCcmDeviceModelDescription =
-    "fsmda ondemand child communication model description";
-const char* UpnpFsmdaUtils::kOnDemandCcmDeviceModelUrl =
-    "http://www.ncl.org.br/fsmda/ondemand";
-const char* UpnpFsmdaUtils::kOnDemandCcmDeviceModelNumber = "1.0";
-const char* UpnpFsmdaUtils::kOnDemandCcmServiceType =
-    "urn:schemas-upnp-org:service:fsmda-ondemand-child-communication:1";
-const char* UpnpFsmdaUtils::kOnDemandCcmServiceId =
-    "urn:upnp-org:serviceId:fsmda-ondemand-child-communication";
-const char* UpnpFsmdaUtils::kOnDemandCcmServiceName =
-    "urn:upnp-org:serviceId:fsmda-ondemand-child-communication";
-const char* UpnpFsmdaUtils::kOnDemandCcmServiceScpdXml =
-    "<?xml version=\"1.0\" ?>"
-    "<scpd xmlns=\"urn:schemas-upnp-org:service-1-0\">"
-    "   <specVersion>"
-    "     <major>1</major>"
-    "     <minor>0</minor>"
-    "   </specVersion>"
-    "   <actionList>"
-    "     <action>"
-    "       <name>NotifyError</name>"
-    "       <argumentList>"
-    "         <argument>"
-    "           <name>object_id</name>"
-    "           <direction>in</direction>"
-    "<relatedStateVariable>A_ARG_TYPE_object_id</relatedStateVariable>"
-    "         </argument>"
-    "         <argument>"
-    "           <name>message</name>"
-    "           <direction>in</direction>"
-    "<relatedStateVariable>A_ARG_TYPE_message</relatedStateVariable>"
-    "         </argument>"
-    "       </argumentList>"
-    "     </action>"
-    "   </actionList>"
-    "   <serviceStateTable>"
-    "     <stateVariable sendEvents=\"no\">"
-    "       <name>A_ARG_TYPE_message</name>"
-    "       <dataType>string</dataType>"
-    "       <defaultValue></defaultValue>"
-    "     </stateVariable>"
-    "     <stateVariable sendEvents=\"no\">"
-    "         <name>A_ARG_TYPE_object_id</name>"
-    "         <dataType>string</dataType>"
-    "         <defaultValue></defaultValue>"
-    "     </stateVariable>"
-    "   </serviceStateTable>"
-    "   <intel_nmpr:X_INTEL_NMPR "
-    "xmlns:intel_nmpr=\"udn:schemas-intel-com:device-1-0\">2.1</"
-    "intel_nmpr:X_INTEL_NMPR>"
-    "   <dlna:X_DLNADOC xmlns:dlna=\"udn:schemas-dlna-org:device-1-0\">DMP "
-    "1.00</dlna:X_DLNADOC>"
-    "  </scpd>";
+    "</scpd>";
 
 /*----------------------------------------------------------------------
  |   UpnpUtils::GenerateGUID

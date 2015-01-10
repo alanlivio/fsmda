@@ -15,16 +15,16 @@ using std::endl;
  |   UpnpCpm::UpnpCpm
  +---------------------------------------------------------------------*/
 UpnpCpm::UpnpCpm()
-    : PLT_DeviceHost("/", NULL, UpnpFsmdaUtils::kCpmDeviceType,
-                     UpnpFsmdaUtils::kCpmDeviceFriendlyName, true, 0, true),
+    : PLT_DeviceHost("/", NULL, UpnpFsmdaUtils::kChildDeviceType,
+                     UpnpFsmdaUtils::kChildDeviceFriendlyName, true, 0, true),
       device_host_(this),
       ctrl_point_(new PLT_CtrlPoint()),
       upnp_instance_(NULL),
       child_class_handler_(NULL) {
-  m_ModelDescription = UpnpFsmdaUtils::kCpmDeviceModelDescription;
-  m_ModelURL = UpnpFsmdaUtils::kCpmDeviceModelUrl;
-  m_ModelNumber = UpnpFsmdaUtils::kCpmDeviceModelNumber;
-  m_ModelName = UpnpFsmdaUtils::kCpmDeviceModelName;
+  m_ModelDescription = UpnpFsmdaUtils::kChildDeviceModelDescription;
+  m_ModelURL = UpnpFsmdaUtils::kChildDeviceModelUrl;
+  m_ModelNumber = UpnpFsmdaUtils::kChildDeviceModelNumber;
+  m_ModelName = UpnpFsmdaUtils::kChildDeviceModelName;
   m_Manufacturer = UpnpFsmdaUtils::kFsmdaManufacturer;
   m_ManufacturerURL = UpnpFsmdaUtils::kFsmdaManufacturerUrl;
 
@@ -207,7 +207,7 @@ NPT_Result UpnpCpm::OnDeviceRemoved(PLT_DeviceDataReference &device) {}
  |   UpnpCpm::OnDeviceAdded
  +---------------------------------------------------------------------*/
 NPT_Result UpnpCpm::OnDeviceAdded(PLT_DeviceDataReference &device_data) {
-  if (device_data->GetType().Compare(UpnpFsmdaUtils::kPpmDeviceType))
+  if (device_data->GetType().Compare(UpnpFsmdaUtils::kParentDeviceType))
     return NPT_FAILURE;
   clog << "UpnpCpm::OnDeviceAdded() " << endl;
   clog << "UpnpCpm::OnDeviceAdded()::device->GetFriendlyName="

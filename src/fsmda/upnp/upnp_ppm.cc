@@ -35,16 +35,16 @@ using std::find;
  |   UpnpPpm::UpnpPpm
  +---------------------------------------------------------------------*/
 UpnpPpm::UpnpPpm()
-    : PLT_DeviceHost("/", NULL, UpnpFsmdaUtils::kPpmDeviceType,
-                     UpnpFsmdaUtils::kPpmDeviceFriendlyName, true, 0, true),
+    : PLT_DeviceHost("/", NULL, UpnpFsmdaUtils::kParentDeviceType,
+                     UpnpFsmdaUtils::kParentDeviceFriendlyName, true, 0, true),
       device_host_(this),
       ctrl_point_(new PLT_CtrlPoint()),
       upnp_instance_(NULL),
       parent_class_handler_(NULL) {
-  m_ModelDescription = UpnpFsmdaUtils::kPpmDeviceModelDescription;
-  m_ModelURL = UpnpFsmdaUtils::kPpmDeviceModelUrl;
-  m_ModelNumber = UpnpFsmdaUtils::kPpmDeviceNumber;
-  m_ModelName = UpnpFsmdaUtils::kPpmDeviceModelName;
+  m_ModelDescription = UpnpFsmdaUtils::kParentDeviceModelDescription;
+  m_ModelURL = UpnpFsmdaUtils::kParentDeviceModelUrl;
+  m_ModelNumber = UpnpFsmdaUtils::kParentDeviceNumber;
+  m_ModelName = UpnpFsmdaUtils::kParentDeviceModelName;
   m_Manufacturer = UpnpFsmdaUtils::kFsmdaManufacturer;
   m_ManufacturerURL = UpnpFsmdaUtils::kFsmdaManufacturerUrl;
 
@@ -206,7 +206,7 @@ NPT_Result UpnpPpm::OnActionResponse(NPT_Result res,
 NPT_Result UpnpPpm::OnDeviceRemoved(PLT_DeviceDataReference &device) {
   clog << "UpnpPpm::OnDeviceRemoved()::device->GetType="
        << device->GetType().GetChars() << endl;
-  if (!device->GetType().Compare(UpnpFsmdaUtils::kCpmDeviceType)) {
+  if (!device->GetType().Compare(UpnpFsmdaUtils::kChildDeviceType)) {
     string app_id = discover_params_list_.front()->application_id_;
     if (parent_class_handler_ != NULL)
       parent_class_handler_->GetClassHandlingHpe(app_id)
@@ -230,7 +230,7 @@ NPT_Result UpnpPpm::OnDeviceAdded(PLT_DeviceDataReference &device_data) {
        << device_data->GetURLBase().ToString().GetChars() << endl;
 
   PLT_Service *service;
-  if (!device_data->GetType().Compare(UpnpFsmdaUtils::kCpmDeviceType)) {
+  if (!device_data->GetType().Compare(UpnpFsmdaUtils::kChildDeviceType)) {
     device_data->FindServiceByType(UpnpFsmdaUtils::kCpmServiceType, service);
     vector<DeviceClassDiscoverParams *>::iterator iter;
     iter = discover_params_list_.begin();
