@@ -49,8 +49,7 @@ testsuit_gtest_SOURCES = \
   pairing_as_child_test.cc\
   pairing_as_parent_test.cc\
   upnp_pairing_as_child_test.cc\
-  upnp_pairing_as_parent_test.cc\
-  utils_test.cc
+  upnp_pairing_as_parent_test.cc
 
 fake_parent_helper_SOURCES = \
   fake_parent_helper.cc\

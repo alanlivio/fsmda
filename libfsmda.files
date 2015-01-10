@@ -146,4 +146,3 @@ tests/release_gtest.sh
 tests/testsuit_gtest.cc
 tests/upnp_pairing_as_child_test.cc
 tests/upnp_pairing_as_parent_test.cc
-tests/utils_test.cc
