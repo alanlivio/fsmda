@@ -30,7 +30,7 @@ class MockUpnpCpm : public UpnpCpm {
     clog << "MockUpnpCpm::OnAction()::name="
          << action->GetActionDesc().GetName().GetChars() << endl;
     NPT_String name = action->GetActionDesc().GetName();
-    if (!name.Compare("classAnnouncement"))
+    if (!name.Compare("ClassAnnouncement"))
       PostNamedSemphoreHelper(expected_semaphore);
     return UpnpCpm::OnAction(action, context);
   }

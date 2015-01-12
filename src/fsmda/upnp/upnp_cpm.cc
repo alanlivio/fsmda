@@ -85,28 +85,28 @@ void UpnpCpm::AddDeviceToClass(const std::string &application_id,
                                const std::string &device_desc) {
   clog << "UpnpCpm::AddDeviceToClass " << endl;
 
-  // invoke addDeviceToClass
+  // invoke AddDeviceToClass
   if (last_parent_.IsNull())
     last_parent_semaphore.WaitUntilEquals(1, NPT_TIMEOUT_INFINITE);
   PLT_ActionReference reponse_action;
   ctrl_point_->CreateAction(last_parent_, UpnpFsmdaUtils::kPpmServiceType,
-                            "addDeviceToClass", reponse_action);
+                            "AddDeviceToClass", reponse_action);
 
   if (reponse_action.IsNull()) {
     clog << "UpnpCpm::OnAction reponse_action.IsNul" << endl;
   }
 
   reponse_action->SetArgumentValue("application_id", application_id.c_str());
-  reponse_action->SetArgumentValue("deviceAddr", "localhost");
+  reponse_action->SetArgumentValue("device_address", "localhost");
   stringstream aux_string;
   aux_string << class_index;
   reponse_action->SetArgumentValue("class_index", aux_string.str().c_str());
-  reponse_action->SetArgumentValue("deviceDesc", device_desc.c_str());
+  reponse_action->SetArgumentValue("device_description", device_desc.c_str());
   NPT_Result res = ctrl_point_->InvokeAction(reponse_action, 0);
   if (res == NPT_FAILURE)
-    clog << "UpnpCpm::AddDeviceToClass calling addDeviceToClass failed" << endl;
+    clog << "UpnpCpm::AddDeviceToClass calling AddDeviceToClass failed" << endl;
   else
-    clog << "UpnpCpm::AddDeviceToClass calling addDeviceToClass("
+    clog << "UpnpCpm::AddDeviceToClass calling AddDeviceToClass("
          << application_id << "," << class_index << ","
          << " one_rdf_with_size=" << device_desc.size() << ","
          << ")" << endl;
@@ -147,8 +147,8 @@ NPT_Result UpnpCpm::OnAction(PLT_ActionReference &action,
   NPT_String name = action->GetActionDesc().GetName();
   clog << "UpnpCpm::OnAction()::name=" << name.GetChars() << endl;
 
-  if (name.Compare("classAnnouncement") == 0) {
-    // handling classAnnouncement call
+  if (name.Compare("ClassAnnouncement") == 0) {
+    // handling ClassAnnouncement call
     NPT_String application_id;
     action->GetArgumentValue("application_id", application_id);
     NPT_Int32 class_index;
@@ -159,7 +159,7 @@ NPT_Result UpnpCpm::OnAction(PLT_ActionReference &action,
     action->GetArgumentValue("class_desc", class_desc);
     NPT_String class_function;
     action->GetArgumentValue("class_function", class_function);
-    clog << "UpnpCpm::OnAction()::classAnnouncement("
+    clog << "UpnpCpm::OnAction()::ClassAnnouncement("
          << application_id.GetChars() << "," << class_index << ","
          << " one_rdf_with_size=" << class_desc.GetLength() << ","
          << class_function.GetChars() << ")" << endl;
@@ -192,7 +192,7 @@ NPT_Result UpnpCpm::OnActionResponse(NPT_Result res,
   NPT_String name = action->GetActionDesc().GetName();
   clog << "UpnpCpm::OnActionResponse()::action.name=" << name.GetChars()
        << endl;
-  if (name.Compare("addDeviceToClass") == 0) {
+  if (name.Compare("AddDeviceToClass") == 0) {
     clog << "UpnpCpm::OnActionResponse()::calling set_paired" << endl;
     child_class_handler_->set_paired(true);
   }

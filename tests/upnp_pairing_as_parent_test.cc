@@ -28,7 +28,7 @@ class MockUpnpPpm : public UpnpPpm {
     NPT_String name = action->GetActionDesc().GetName();
     clog << "MockUpnpCpm::OnActionResponse()::action.name="
          << name.GetChars() << endl;
-    if (!name.Compare("classAnnouncement"))
+    if (!name.Compare("ClassAnnouncement"))
       PostNamedSemphoreHelper(expected_semaphore);
     return UpnpPpm::OnActionResponse(res, action, userdata);
   }
