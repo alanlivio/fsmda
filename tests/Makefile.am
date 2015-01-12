@@ -18,11 +18,11 @@ GMOCKGTEST_CPPFLAGS =\
 AM_COLOR_TESTS = always
 AM_TESTS_FD_REDIRECT = 
 CLEANFILES = *.log *.trs
-TESTS = testsuit_gtest
+#TESTS = testsuit_gtest
 
 ############################# Tests libraries #################################
 ### Tests libraries
-check_LTLIBRARIES = \
+noinst_LTLIBRARIES = \
   libgmockgtest.la 
   
 ### Tests libraries sources
@@ -39,7 +39,7 @@ libgmockgtest_la_LDFLAGS =\
   
 ############################# Testes gtests-based ###########################
 ### Tests programs
-check_PROGRAMS = testsuit_gtest fake_parent_helper fake_child_helper
+noinst_PROGRAMS = testsuit_gtest fake_parent_helper fake_child_helper
 
 ### Tests programs sources
 testsuit_gtest_SOURCES = \
