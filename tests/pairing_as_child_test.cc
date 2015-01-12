@@ -19,7 +19,7 @@ class MockChildClassHandler : public ChildClassHandler {
  public:
   string expected_semaphore;
   void set_paired(bool paired) {
-    clog << "MockChildClassHandler::set_paired():: paired = " << paired
+    cout << "MockChildClassHandler::set_paired():: paired = " << paired
          << endl;
     ChildClassHandler::set_paired(paired);
     PostNamedSemphoreHelper(expected_semaphore);

@@ -51,8 +51,7 @@ class MockChildClassHandler : public ChildClassHandler {
  public:
   string expected_semaphore;
   void set_paired(bool paired) {
-    clog << "MockChildClassHandler::SetPaired():: paired = " << paired
-         << endl;
+    clog << "MockChildClassHandler::SetPaired():: paired = " << paired << endl;
     ChildClassHandler::set_paired(paired);
     PostNamedSemphoreHelper(expected_semaphore);
   }
@@ -75,7 +74,7 @@ int main(int argc, char** argv) {
   logOutput.open("/dev/null");
   clog.rdbuf(logOutput.rdbuf());
 
-  clog << "Running fake_child_helper with device_class=" << FLAGS_device_class
+  cout << "Running fake_child_helper with device_class=" << FLAGS_device_class
        << " and application_id=" << FLAGS_application_id << endl;
 
   MockChildClassHandler* child_class_handler;
@@ -97,6 +96,7 @@ int main(int argc, char** argv) {
   child_class_handler->StartPairing();
 
   gettimeofday(&start_time, NULL);
+  clog << "fake_child_helper:: wait for pairing..." << endl;
   WaitNamedSemphoreHelper(FLAGS_application_id);
 
   if (FLAGS_profile_pairing) {

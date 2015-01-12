@@ -49,18 +49,33 @@ class MockParentClassHandler : public ParentClassHandler {
   string expected_semaphore;
   virtual void ReportAddDeviceToClass(const string& application_id,
                                       unsigned int class_index) {
-    clog << "MockParentClassHandler::AddDeviceToClass()" << endl;
+    clog << "MockParentClassHandler::ReportAddDeviceToClass()" << endl;
     PostNamedSemphoreHelper(expected_semaphore);
   }
 };
 
-class MockHpe : public HpeClassHandlingInterface {
+class MockHpe : public HpeClassHandlingInterface,
+                public ActiveClassListenerInterface {
  public:
   string expected_semaphore;
 
-  // public methods
-  void getClassVariableValue(const string& name, const string& value) {}
-  void setClassVariableValue(const string& name, const string& value) {
+  // ActiveClassListenerInterface interface
+  virtual void ReportPropertyValue(const string& object_id, const string& name,
+                                   const string& value) {
+    clog << "MockParentClassHandler::ReportPropertyValue()" << endl;
+  }
+  void NotifyEventTransition(const std::string& object_id,
+                             const std::string& event_id,
+                             const std::string& transition) {
+    clog << "MockParentClassHandler::NotifyEventTransition()" << endl;
+  }
+  void NotifyError(const std::string& object_id, const std::string& message) {}
+
+  // HpeClassHandlingInterface interface
+  void getClassVariableValue(const std::string& name,
+                             const std::string& value) {}
+  void setClassVariableValue(const std::string& name,
+                             const std::string& value) {
     clog << "MockParentClassHandler::setClassVariableValue()" << endl;
     if (FLAGS_profile_remove_device)
       PostNamedSemphoreHelper(expected_semaphore);
@@ -82,7 +97,7 @@ int main(int argc, char** argv) {
   logOutput.open("/dev/null");
   clog.rdbuf(logOutput.rdbuf());
 
-  clog << "Running parent_helper with device_class=" << FLAGS_device_class
+  cout << "Running parent_helper with device_class=" << FLAGS_device_class
        << " and application_id=" << FLAGS_application_id << endl;
 
   DeviceClassDescription* device_class_description;
@@ -110,18 +125,11 @@ int main(int argc, char** argv) {
   CreateNamedSemphoreHelper(parent_named_semaphore, false);
   parent_class_handler->StartPairing();
 
-  gettimeofday(&start_time, NULL);
+  // waiting for pairing
+  clog << "fake_parent_helper:: wait for pairing..." << endl;
   WaitNamedSemphoreHelper(parent_named_semaphore);
 
-  if (FLAGS_profile_pairing) {
-    // wait for pairing
-    gettimeofday(&end_time, NULL);
-    cout << "fsmda_parent profile_pairing "
-         << DeviceClassDescription::GetDeviceClassTypeStringByEnum(
-                device_class_type) << " "
-         << CalculateElapsedTime(start_time, end_time) << " ms" << endl;
-
-  } else if (FLAGS_profile_prepare) {
+  if (FLAGS_profile_prepare) {
     gettimeofday(&start_time, NULL);
     gettimeofday(&end_time, NULL);
     cout << "fsmda_parent profile_prepare "
@@ -138,7 +146,11 @@ int main(int argc, char** argv) {
          << CalculateElapsedTime(start_time, end_time) << " ms" << endl;
 
   } else if (FLAGS_profile_variable) {
+    ActiveClassInterface* active_pcm = parent_class_handler->CreateActivePcm(
+        FLAGS_application_id, class_index);
+    active_pcm->RegistryActiveClassListener(mock_hpe);
     gettimeofday(&start_time, NULL);
+    active_pcm->PostAction("media01", "evt01", "start");
     gettimeofday(&end_time, NULL);
     cout << "fsmda_parent profile_variable "
          << DeviceClassDescription::GetDeviceClassTypeStringByEnum(

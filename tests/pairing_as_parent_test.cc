@@ -20,7 +20,7 @@ class MockParentClassHandler : public ParentClassHandler {
   string expected_semaphore;
   virtual void ReportAddDeviceToClass(const string& application_id,
                                       unsigned int class_index) {
-    clog << "MockParentClassHandler::AddDeviceToClass()" << endl;
+    cout << "MockParentClassHandler::AddDeviceToClass()" << endl;
     ParentClassHandler::ReportAddDeviceToClass(application_id, class_index);
     PostNamedSemphoreHelper(expected_semaphore);
   }
@@ -104,7 +104,7 @@ void PairingAsParentHelper(
     command.append(DeviceClassDescription::GetDeviceClassTypeStringByEnum(
         expected_device_class_type));
     command.append(" --application_id=" + app_id);
-    command.append(" --waiting_pairing");
+    command.append(" --profile_variable");
     FILE* parent_pipe = popen(command.c_str(), "w");
     ASSERT_TRUE(parent_pipe);
     pclose(parent_pipe);
@@ -120,13 +120,13 @@ void PairingAsParentHelper(
     EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 2);
   }
   // parent wait for ParentPostSemphoreHelper call
+  cout << "parent wait" << endl;
   WaitNamedSemphoreHelper(parent_named_semaphore);
 
   // test if child is paired
   EXPECT_EQ(
       parent_class_handler->number_of_registred_children(app_id, class_index),
       1);
-  ReleaseNameSemphoreHelper(parent_named_semaphore);
   if (device_class_description->device_class_type() ==
       DeviceClassDescription::kPassiveDevice) {
     PassiveClassListenerInterface* passive_pcm =
@@ -140,6 +140,7 @@ void PairingAsParentHelper(
     active_pcm->RegistryActiveClassListener(mock_hpe);
     active_pcm->PostAction("media01", "evt01", "start");
     EXPECT_TRUE(active_pcm);
+    cout << "PostAction wait" << endl;
     delete active_pcm;
   } else if (device_class_description->device_class_type() ==
              DeviceClassDescription::kOnDemandDevice) {
@@ -170,6 +171,7 @@ void PairingAsParentHelper(
   EXPECT_FALSE(parent_class_handler->IsPairingStarted());
   EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 0);
   delete parent_class_handler;
+  ReleaseNameSemphoreHelper(parent_named_semaphore);
 
   EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 0);
   EXPECT_FALSE(UpnpFsmdaUtils::IsUpnpStarted());
