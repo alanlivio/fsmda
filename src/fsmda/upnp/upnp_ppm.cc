@@ -217,9 +217,8 @@ NPT_Result UpnpPpm::OnDeviceRemoved(PLT_DeviceDataReference &device) {
 }
 
 NPT_Result UpnpPpm::OnDeviceAdded(PLT_DeviceDataReference &device_data) {
-  if (!device_data->GetUUID().Compare(m_UUID)) return NPT_SUCCESS;
-  if (!device_data->GetType().StartsWith("urn:schemas-upnp-org:device:fsmda-",
-                                         true))
+  if (!device_data->GetUUID().Compare(m_UUID)) return NPT_FAILURE;
+  if (device_data->GetType().Compare(UpnpFsmdaUtils::kChildDeviceType))
     return NPT_FAILURE;
   clog << "UpnpPpm::OnDeviceAdded() " << endl;
   clog << "UpnpPpm::OnDeviceAdded()::device->GetFriendlyName="

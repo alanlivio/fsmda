@@ -207,6 +207,7 @@ NPT_Result UpnpCpm::OnDeviceRemoved(PLT_DeviceDataReference &device) {}
  |   UpnpCpm::OnDeviceAdded
  +---------------------------------------------------------------------*/
 NPT_Result UpnpCpm::OnDeviceAdded(PLT_DeviceDataReference &device_data) {
+  if (!device_data->GetUUID().Compare(m_UUID)) return NPT_FAILURE;
   if (device_data->GetType().Compare(UpnpFsmdaUtils::kParentDeviceType))
     return NPT_FAILURE;
   clog << "UpnpCpm::OnDeviceAdded() " << endl;
