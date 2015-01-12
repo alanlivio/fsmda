@@ -126,7 +126,13 @@ int main(int argc, char** argv) {
   WaitNamedSemphoreHelper(parent_named_semaphore);
 
   if (FLAGS_profile_prepare) {
+    ActiveClassInterface* active_pcm = parent_class_handler->CreateActivePcm(
+        FLAGS_application_id, class_index);
+    active_pcm->RegistryActiveClassListener(mock_hpe);
     gettimeofday(&start_time, NULL);
+    vector<Property> properties;
+    vector<Event> events;
+    active_pcm->Prepare("media01", "media.mp4", properties, events);
     gettimeofday(&end_time, NULL);
     cout << "fsmda_parent profile_prepare "
          << DeviceClassDescription::GetDeviceClassTypeStringByEnum(
@@ -134,7 +140,11 @@ int main(int argc, char** argv) {
          << CalculateElapsedTime(start_time, end_time) << " ms" << endl;
 
   } else if (FLAGS_profile_command) {
+    ActiveClassInterface* active_pcm = parent_class_handler->CreateActivePcm(
+        FLAGS_application_id, class_index);
+    active_pcm->RegistryActiveClassListener(mock_hpe);
     gettimeofday(&start_time, NULL);
+    active_pcm->PostAction("media01", "evt01", "start");
     gettimeofday(&end_time, NULL);
     cout << "fsmda_parent profile_command "
          << DeviceClassDescription::GetDeviceClassTypeStringByEnum(
@@ -146,7 +156,7 @@ int main(int argc, char** argv) {
         FLAGS_application_id, class_index);
     active_pcm->RegistryActiveClassListener(mock_hpe);
     gettimeofday(&start_time, NULL);
-    active_pcm->PostAction("media01", "evt01", "start");
+    active_pcm->RequestPropertyValue("media1", "hight");
     gettimeofday(&end_time, NULL);
     cout << "fsmda_parent profile_variable "
          << DeviceClassDescription::GetDeviceClassTypeStringByEnum(
@@ -156,8 +166,6 @@ int main(int argc, char** argv) {
   } else if (FLAGS_profile_remove_device) {
     // wait for pairing
     gettimeofday(&start_time, NULL);
-    cout << "fsmda_parent profile_remove_device waiting for second post"
-         << endl;
     WaitNamedSemphoreHelper(parent_named_semaphore);
     gettimeofday(&end_time, NULL);
     cout << "fsmda_parent profile_remove_device "
@@ -166,12 +174,8 @@ int main(int argc, char** argv) {
          << CalculateElapsedTime(start_time, end_time) << " ms" << endl;
 
   } else if (FLAGS_profile_bufferd_command) {
-    gettimeofday(&start_time, NULL);
-    gettimeofday(&end_time, NULL);
-    cout << "fsmda_parent profile_bufferd_command "
-         << DeviceClassDescription::GetDeviceClassTypeStringByEnum(
-                device_class_type) << " "
-         << CalculateElapsedTime(start_time, end_time) << " ms" << endl;
+    cout << "fake_parent_helper:: wait for second pairing..." << endl;
+    WaitNamedSemphoreHelper(parent_named_semaphore);
   }
 
   // release parent

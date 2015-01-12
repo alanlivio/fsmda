@@ -96,7 +96,14 @@ int main(int argc, char** argv) {
          << DeviceClassDescription::GetDeviceClassTypeStringByEnum(device_class)
          << " " << CalculateElapsedTime(start_time, end_time) << " ms" << endl;
   } else if (FLAGS_profile_bufferd_command) {
+    child_class_handler->StopPairing();
+    delete child_class_handler;
+    child_class_handler = new MockChildClassHandler(device_description);
+    child_class_handler->expected_semaphore = FLAGS_application_id;
+    child_class_handler->StartPairing();
+    cout << "fake_child_helper:: wait for second pairing..." << endl;
     gettimeofday(&start_time, NULL);
+    WaitNamedSemphoreHelper(FLAGS_application_id);
     gettimeofday(&end_time, NULL);
     cout << "fsmda_child profile_bufferd_command "
          << DeviceClassDescription::GetDeviceClassTypeStringByEnum(device_class)
