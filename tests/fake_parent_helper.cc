@@ -22,10 +22,6 @@ DEFINE_string(application_id, "dc05b236-0cce-4f1d-996b-edd11a66d907",
 DEFINE_string(device_class, DeviceClassDescription::kActiveDeviceString,
               "device class name: passive,active,ondemand or medicapture");
 
-// Waiting pairing
-DEFINE_bool(waiting_pairing, false, "just waiting for pairing");
-// Profile Pairing
-DEFINE_bool(profile_pairing, false, "enable profile_pairing");
 // Profile Data Transfer
 DEFINE_bool(profile_prepare, false, "enable profile_prepare");
 // Profile Command reaction
@@ -97,8 +93,8 @@ int main(int argc, char** argv) {
   logOutput.open("/dev/null");
   clog.rdbuf(logOutput.rdbuf());
 
-  cout << "Running parent_helper with device_class=" << FLAGS_device_class
-       << " and application_id=" << FLAGS_application_id << endl;
+  cout << "fake_parent_helper::device_class=" << FLAGS_device_class
+       << ",application_id=" << FLAGS_application_id << endl;
 
   DeviceClassDescription* device_class_description;
   MockParentClassHandler* parent_class_handler;
@@ -126,7 +122,7 @@ int main(int argc, char** argv) {
   parent_class_handler->StartPairing();
 
   // waiting for pairing
-  clog << "fake_parent_helper:: wait for pairing..." << endl;
+  cout << "fake_parent_helper:: wait for pairing..." << endl;
   WaitNamedSemphoreHelper(parent_named_semaphore);
 
   if (FLAGS_profile_prepare) {

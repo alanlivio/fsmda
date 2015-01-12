@@ -24,7 +24,7 @@ int main(int argc, char **argv) {
   //    ::testing::FLAGS_gtest_filter = "PairingAsParent.*";
   ::testing::FLAGS_gtest_filter = "*.*InDifferentProcesses";
   //  ::testing::FLAGS_gtest_filter =
-  //  "ParingAsParent.ActiveInDifferentProcesses";
+  //  "PairingAsParent.ActiveInDifferentProcesses";
   //  ::testing::FLAGS_gtest_filter = "-*.*InSameProcesses";
   ::testing::InitGoogleTest(&argc, argv);
 

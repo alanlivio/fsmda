@@ -20,7 +20,7 @@ class MockParentClassHandler : public ParentClassHandler {
   string expected_semaphore;
   virtual void ReportAddDeviceToClass(const string& application_id,
                                       unsigned int class_index) {
-    cout << "MockParentClassHandler::AddDeviceToClass()" << endl;
+    clog << "MockParentClassHandler::AddDeviceToClass()" << endl;
     ParentClassHandler::ReportAddDeviceToClass(application_id, class_index);
     PostNamedSemphoreHelper(expected_semaphore);
   }
@@ -104,7 +104,6 @@ void PairingAsParentHelper(
     command.append(DeviceClassDescription::GetDeviceClassTypeStringByEnum(
         expected_device_class_type));
     command.append(" --application_id=" + app_id);
-    command.append(" --profile_variable");
     FILE* parent_pipe = popen(command.c_str(), "w");
     ASSERT_TRUE(parent_pipe);
     pclose(parent_pipe);

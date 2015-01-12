@@ -25,18 +25,8 @@ DEFINE_string(application_id, "dc05b236-0cce-4f1d-996b-edd11a66d907",
 DEFINE_string(device_class, DeviceClassDescription::kActiveDeviceString,
               "device class name: passive,active,ondemand or medicapture");
 
-// Waiting pairing
-DEFINE_bool(waiting_pairing, false, "just waiting for pairing");
 // Profile Pairing
 DEFINE_bool(profile_pairing, false, "enable profile_pairing");
-// Profile Data Transfer
-DEFINE_bool(profile_prepare, false, "enable profile_prepare");
-// Profile Command reaction
-DEFINE_bool(profile_command, false, "enable profile_command");
-// Profile Variable changing
-DEFINE_bool(profile_variable, false, "enable profile_variable");
-// Profile Fault tolerance (1)
-DEFINE_bool(profile_remove_device, false, "enable profile_remove_device");
 // Profile Fault tolerance (2)
 DEFINE_bool(profile_bufferd_command, false, "enable profile_bufferd_command");
 
@@ -74,8 +64,8 @@ int main(int argc, char** argv) {
   logOutput.open("/dev/null");
   clog.rdbuf(logOutput.rdbuf());
 
-  cout << "Running fake_child_helper with device_class=" << FLAGS_device_class
-       << " and application_id=" << FLAGS_application_id << endl;
+  cout << "fake_child_helper::device_class=" << FLAGS_device_class
+       << ",application_id=" << FLAGS_application_id << endl;
 
   MockChildClassHandler* child_class_handler;
   timeval start_time, end_time;
@@ -96,7 +86,7 @@ int main(int argc, char** argv) {
   child_class_handler->StartPairing();
 
   gettimeofday(&start_time, NULL);
-  clog << "fake_child_helper:: wait for pairing..." << endl;
+  cout << "fake_child_helper:: wait for pairing..." << endl;
   WaitNamedSemphoreHelper(FLAGS_application_id);
 
   if (FLAGS_profile_pairing) {
@@ -105,34 +95,6 @@ int main(int argc, char** argv) {
     cout << "fsmda_child profile_pairing "
          << DeviceClassDescription::GetDeviceClassTypeStringByEnum(device_class)
          << " " << CalculateElapsedTime(start_time, end_time) << " ms" << endl;
-  } else if (FLAGS_profile_prepare) {
-    gettimeofday(&start_time, NULL);
-    gettimeofday(&end_time, NULL);
-    cout << "fsmda_child profile_prepare "
-         << DeviceClassDescription::GetDeviceClassTypeStringByEnum(device_class)
-         << " " << CalculateElapsedTime(start_time, end_time) << " ms" << endl;
-
-  } else if (FLAGS_profile_command) {
-    gettimeofday(&start_time, NULL);
-    gettimeofday(&end_time, NULL);
-    cout << "fsmda_child profile_command "
-         << DeviceClassDescription::GetDeviceClassTypeStringByEnum(device_class)
-         << " " << CalculateElapsedTime(start_time, end_time) << " ms" << endl;
-
-  } else if (FLAGS_profile_variable) {
-    gettimeofday(&start_time, NULL);
-    gettimeofday(&end_time, NULL);
-    cout << "fsmda_child profile_variable "
-         << DeviceClassDescription::GetDeviceClassTypeStringByEnum(device_class)
-         << " " << CalculateElapsedTime(start_time, end_time) << " ms" << endl;
-
-  } else if (FLAGS_profile_remove_device) {
-    gettimeofday(&start_time, NULL);
-    gettimeofday(&end_time, NULL);
-    cout << "fsmda_child profile_remove_device "
-         << DeviceClassDescription::GetDeviceClassTypeStringByEnum(device_class)
-         << " " << CalculateElapsedTime(start_time, end_time) << " ms" << endl;
-
   } else if (FLAGS_profile_bufferd_command) {
     gettimeofday(&start_time, NULL);
     gettimeofday(&end_time, NULL);
