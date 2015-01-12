@@ -6,8 +6,8 @@ declare -a classes=("active" "passive" "mediacapture" "ondemand")
 Fapp_id=dc05b236-0cce-4f1d-996b-edd11a66d907
 
 ### redirect erros to /dev/null
-#exec 1>> /dev/null
-exec 2>> /dev/null
+#exec 1> /dev/null
+exec 2> /dev/null
 
 ### release old log
 rm fsmda_profiling.log

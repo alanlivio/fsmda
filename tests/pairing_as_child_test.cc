@@ -19,8 +19,7 @@ class MockChildClassHandler : public ChildClassHandler {
  public:
   string expected_semaphore;
   void set_paired(bool paired) {
-    clog << "MockChildClassHandler::set_paired():: paired = " << paired
-         << endl;
+    clog << "MockChildClassHandler::set_paired():: paired = " << paired << endl;
     ChildClassHandler::set_paired(paired);
     PostNamedSemphoreHelper(expected_semaphore);
   }
@@ -45,7 +44,7 @@ void PairingAsChildHelper(
   string app_id;
 
   // release fake child and parent
-  int ret = system("./release_fake_child_parent.sh");
+  int ret = system("./release_fake_child_parent.sh > /dev/null");
 
   EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 0);
   EXPECT_FALSE(UpnpFsmdaUtils::IsUpnpStarted());
@@ -72,10 +71,8 @@ void PairingAsChildHelper(
     command.append(DeviceClassDescription::GetDeviceClassTypeStringByEnum(
         expected_device_class_type));
     command.append(" --application_id=" + app_id);
-    FILE* parent_pipe = popen(command.c_str(), "w");
-    ASSERT_TRUE(parent_pipe);
-    pclose(parent_pipe);
-
+    command.append(" > /dev/null");
+    int ret = system(command.c_str());
   } else {
     // configure and start ParenPaigingManager
     DeviceClassDescription* device_class_description;
@@ -92,7 +89,7 @@ void PairingAsChildHelper(
         parent_class_handler->GenerateAvaliableIndex(app_id);
     //    parent_class_handler->AddClass(app_id, class_index);
     parent_class_handler->AddClassDescription(app_id, class_index,
-                                                device_class_description);
+                                              device_class_description);
     parent_class_handler->SetClassHandlingHpe(app_id, mock_hpe);
     EXPECT_EQ(parent_class_handler->number_of_registred_classes(app_id), 1);
     EXPECT_EQ(parent_class_handler->StartPairing(), 0);

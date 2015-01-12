@@ -62,7 +62,7 @@ void PairingAsParentHelper(
   string app_id;
 
   // release fake child and parent
-  int ret = system("./release_fake_child_parent.sh");
+  int ret = system("./release_fake_child_parent.sh > /dev/null");
 
   EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 0);
   EXPECT_FALSE(UpnpFsmdaUtils::IsUpnpStarted());
@@ -104,10 +104,8 @@ void PairingAsParentHelper(
     command.append(DeviceClassDescription::GetDeviceClassTypeStringByEnum(
         expected_device_class_type));
     command.append(" --application_id=" + app_id);
-    FILE* parent_pipe = popen(command.c_str(), "w");
-    ASSERT_TRUE(parent_pipe);
-    pclose(parent_pipe);
-
+    command.append(" > /dev/null");
+    int ret = system(command.c_str());
   } else {
     DeviceDescription device_description;
     EXPECT_EQ(device_description.InitializeByRdfFile(device_rdf), 0);
@@ -119,7 +117,6 @@ void PairingAsParentHelper(
     EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 2);
   }
   // parent wait for ParentPostSemphoreHelper call
-  cout << "parent wait" << endl;
   WaitNamedSemphoreHelper(parent_named_semaphore);
 
   // test if child is paired
@@ -139,7 +136,6 @@ void PairingAsParentHelper(
     active_pcm->RegistryActiveClassListener(mock_hpe);
     active_pcm->PostAction("media01", "evt01", "start");
     EXPECT_TRUE(active_pcm);
-    cout << "PostAction wait" << endl;
     delete active_pcm;
   } else if (device_class_description->device_class_type() ==
              DeviceClassDescription::kOnDemandDevice) {
