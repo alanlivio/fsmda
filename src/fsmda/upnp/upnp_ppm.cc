@@ -147,8 +147,9 @@ NPT_Result UpnpPpm::SetupServices() {
  +---------------------------------------------------------------------*/
 NPT_Result UpnpPpm::OnAction(PLT_ActionReference &action,
                              const PLT_HttpRequestContext &context) {
+  clog << "UpnpPpm::OnAction()" << endl;
   NPT_String name = action->GetActionDesc().GetName();
-  clog << "UpnpPpm::OnAction()::action.name=" << name.GetChars() << endl;
+  clog << "UpnpPpm::OnAction()::action name=" << name.GetChars() << endl;
 
   if (name.Compare("addDeviceToClass") == 0) {
     // handling addDeviceToClass call
@@ -170,7 +171,6 @@ NPT_Result UpnpPpm::OnAction(PLT_ActionReference &action,
       parent_class_handler_->ReportAddDeviceToClass(application_id.GetChars(),
                                                     class_index);
     }
-
     return NPT_SUCCESS;
   } else if (name.Compare("getChildIndex") == 0) {
     // handling getChildIndex call
@@ -199,10 +199,12 @@ NPT_Result UpnpPpm::OnEventNotify(PLT_Service *service,
 NPT_Result UpnpPpm::OnActionResponse(NPT_Result res,
                                      PLT_ActionReference &action,
                                      void *userdata) {
-  NPT_String name = action->GetActionDesc().GetName();
-  clog << "UpnpPpm::OnActionResponse()::action.name=" << name.GetChars()
+  clog << "UpnpPpm::OnActionResponse()" << endl;
+  NPT_String action_name = action->GetActionDesc().GetName();
+  clog << "UpnpPpm::OnActionResponse()::action_name=" << action_name.GetChars()
        << endl;
 }
+
 NPT_Result UpnpPpm::OnDeviceRemoved(PLT_DeviceDataReference &device) {
   clog << "UpnpPpm::OnDeviceRemoved()::device->GetType="
        << device->GetType().GetChars() << endl;

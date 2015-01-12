@@ -18,6 +18,7 @@
 #include "fsmda/model/active_objects_api.h"
 #include "fsmda/model/ondemand_objects_api.h"
 #include "fsmda/model/mediacapture_objects_api.h"
+#include "fsmda/upnp/upnp_active_pcm.h"
 
 using std::string;
 using std::vector;
@@ -48,8 +49,8 @@ class DeviceClassDiscoverParams {
  |   UpnpPpm class
  +---------------------------------------------------------------------*/
 class UpnpPpm : public PLT_DeviceHost,
-                          public PLT_CtrlPointListener,
-                          public ChildPairingInterface {
+                public PLT_CtrlPointListener,
+                public ChildPairingInterface {
  public:
   // public constructors & destructors
   UpnpPpm();

@@ -64,6 +64,8 @@ class UpnpActivePcm : public ActiveClassInterface,
   ActiveClassListenerInterface* hpe_;
   string application_id_;
   unsigned int class_index_;
+  NPT_SharedVariable post_action_semaphore;
+
 };
 
 #endif  // FSMDA_COMMUNICATION_UPNP_ACTIVE_PCM_H_

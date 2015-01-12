@@ -25,13 +25,14 @@ UpnpActiveCcm::UpnpActiveCcm(PLT_DeviceHostReference host_device,
   ctrl_point_ = ctrl_point;
   application_id_ = string(application_id);
   class_index_ = class_index;
-  //  ctrl_point_->AddListener(this);
+  ctrl_point_->AddListener(this);
 }
 
 /*----------------------------------------------------------------------
  |   UpnpActiveCcm::~UpnpActiveCcm
  +---------------------------------------------------------------------*/
 UpnpActiveCcm::~UpnpActiveCcm() {
+  ctrl_point_->RemoveListener(this);
   ctrl_point_.Detach();
   host_device_.Detach();
   remote_device_.Detach();
