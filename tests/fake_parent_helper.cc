@@ -78,6 +78,15 @@ class MockHpe : public HpeClassHandlingInterface,
   }
 };
 
+
+MockParentClassHandler* parent_class_handler;
+void HandleInterrupt(int sig) {
+  if (parent_class_handler != NULL) {
+    cout << "fake_child_helper::releasing after receive INT" << endl;
+    PostNamedSemphoreHelper(parent_class_handler->expected_semaphore);
+    parent_class_handler->StopPairing();
+  }
+}
 /*----------------------------------------------------------------------
  |   main
  +---------------------------------------------------------------------*/
@@ -97,7 +106,6 @@ int main(int argc, char** argv) {
        << ",application_id=" << FLAGS_application_id << endl;
 
   DeviceClassDescription* device_class_description;
-  MockParentClassHandler* parent_class_handler;
   MockHpe* mock_hpe;
   DeviceClassDescription::DeviceClassType device_class_type;
   timeval start_time, end_time;

@@ -4,6 +4,7 @@
 #include <unistd.h>
 #include <gflags/gflags.h>
 #include <sys/time.h>
+#include <signal.h>
 #include <cstdlib>
 #include <iostream>
 #include <fstream>
@@ -49,6 +50,14 @@ class MockChildClassHandler : public ChildClassHandler {
       : ChildClassHandler(device_description) {}
 };
 
+MockChildClassHandler* child_class_handler = NULL;
+void HandleInterrupt(int sig) {
+  if (child_class_handler != NULL) {
+    cout << "fake_child_helper::releasing after receive INT" << endl;
+    PostNamedSemphoreHelper(child_class_handler->expected_semaphore);
+    child_class_handler->StopPairing();
+  }
+}
 /*----------------------------------------------------------------------
  |   main
  +---------------------------------------------------------------------*/
@@ -59,6 +68,8 @@ int main(int argc, char** argv) {
       "--device-class=<passive|active|ondemand|medicapture>");
   google::ParseCommandLineFlags(&argc, &argv, true);
 
+  signal(SIGINT, HandleInterrupt);
+
   // redirect clog to /dev/null/
   static std::ofstream logOutput;
   logOutput.open("/dev/null");
@@ -67,7 +78,6 @@ int main(int argc, char** argv) {
   cout << "fake_child_helper::device_class=" << FLAGS_device_class
        << ",application_id=" << FLAGS_application_id << endl;
 
-  MockChildClassHandler* child_class_handler;
   timeval start_time, end_time;
 
   // configure child
