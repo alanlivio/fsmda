@@ -4,6 +4,7 @@
 #include <unistd.h>
 #include <gflags/gflags.h>
 #include <sys/time.h>
+#include <signal.h>
 #include <cstdlib>
 #include <iostream>
 #include <fstream>
@@ -78,7 +79,6 @@ class MockHpe : public HpeClassHandlingInterface,
   }
 };
 
-
 MockParentClassHandler* parent_class_handler;
 void HandleInterrupt(int sig) {
   if (parent_class_handler != NULL) {
@@ -96,6 +96,11 @@ int main(int argc, char** argv) {
       "fake_parent --application_id=<UUID> "
       "--device-class=<passive|active|ondemand|medicapture>");
   google::ParseCommandLineFlags(&argc, &argv, true);
+
+  signal(SIGINT, HandleInterrupt);
+  signal(SIGSTOP, HandleInterrupt);
+  signal(SIGTERM, HandleInterrupt);
+  signal(SIGTSTP, HandleInterrupt);
 
   // redirect clog to /dev/null/
   static std::ofstream logOutput;

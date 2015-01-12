@@ -2,17 +2,27 @@
 
 #include "gtest/gtest.h"
 #include <iostream>
+#include <signal.h>
 #include <fstream>
 
 using std::cout;
 using std::clog;
 using std::cerr;
 
+void HandleInterrupt(int sig) {
+    int ret = system("./release_fake_child_parent.sh > /dev/null");
+}
+
 int main(int argc, char **argv) {
   // redirect clog to /dev/null/
   static std::ofstream logOutput;
   logOutput.open("/dev/null");
   clog.rdbuf(logOutput.rdbuf());
+
+  signal(SIGINT, HandleInterrupt);
+  signal(SIGSTOP, HandleInterrupt);
+  signal(SIGTERM, HandleInterrupt);
+  signal(SIGTSTP, HandleInterrupt);
 
   // configure gtest
   //  ::testing::FLAGS_gtest_repeat = 2;

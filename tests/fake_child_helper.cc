@@ -69,6 +69,9 @@ int main(int argc, char** argv) {
   google::ParseCommandLineFlags(&argc, &argv, true);
 
   signal(SIGINT, HandleInterrupt);
+  signal(SIGSTOP, HandleInterrupt);
+  signal(SIGTERM, HandleInterrupt);
+  signal(SIGTSTP, HandleInterrupt);
 
   // redirect clog to /dev/null/
   static std::ofstream logOutput;
