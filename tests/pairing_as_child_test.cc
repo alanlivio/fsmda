@@ -64,8 +64,8 @@ void PairingAsChildHelper(
 
   // start ParentClassHandler
   if (diferent_processes) {
-    // configure and start ParenPaigingManager
-    // by popen fake_parent_helper
+    // configure and start ParentClassHandlher
+    // start fake_parent_helper by system
     string command = "./fake_parent_helper";
     command.append(" --device_class=");
     command.append(DeviceClassDescription::GetDeviceClassTypeStringByEnum(
@@ -74,7 +74,7 @@ void PairingAsChildHelper(
     command.append(" > /dev/null");
     int ret = system(command.c_str());
   } else {
-    // configure and start ParenPaigingManager
+    // configure and start ParentClassHandlher
     DeviceClassDescription* device_class_description;
     MockHpe* mock_hpe;
     device_class_description = new DeviceClassDescription();

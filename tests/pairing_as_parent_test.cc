@@ -72,7 +72,7 @@ void PairingAsParentHelper(
   string parent_named_semaphore = app_id + "_parent";
   CreateNamedSemphoreHelper(parent_named_semaphore, false);
 
-  // configure ParenPaigingManager
+  // configure ParentClassHandlher
   DeviceClassDescription* device_class_description;
   device_class_description = new DeviceClassDescription();
   EXPECT_EQ(device_class_description->InitializeByRdfFile(
@@ -90,15 +90,15 @@ void PairingAsParentHelper(
   parent_class_handler->SetClassHandlingHpe(app_id, mock_hpe);
   EXPECT_EQ(parent_class_handler->number_of_registred_classes(app_id), 1);
 
-  // start ParenPaigingManager
+  // start ParentClassHandlher
   EXPECT_EQ(parent_class_handler->StartPairing(), 0);
   EXPECT_TRUE(parent_class_handler->IsPairingStarted());
   EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 1);
 
-  // start ParentClassHandler
+  // start ChildClassHandler
   if (diferent_processes) {
-    // configure and start ParenPaigingManager
-    // by popen fake_parent_helper
+    // configure and start ChildClassHandler
+    // start fake_child_helper by system
     string command = "./fake_child_helper";
     command.append(" --device_class=");
     command.append(DeviceClassDescription::GetDeviceClassTypeStringByEnum(

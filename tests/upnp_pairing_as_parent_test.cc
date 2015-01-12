@@ -26,8 +26,8 @@ class MockUpnpPpm : public UpnpPpm {
   NPT_Result OnActionResponse(NPT_Result res, PLT_ActionReference& action,
                               void* userdata) {
     NPT_String name = action->GetActionDesc().GetName();
-    clog << "MockUpnpCpm::OnActionResponse()::action.name="
-         << name.GetChars() << endl;
+    clog << "MockUpnpCpm::OnActionResponse()::action.name=" << name.GetChars()
+         << endl;
     if (!name.Compare("ClassAnnouncement"))
       PostNamedSemphoreHelper(expected_semaphore);
     return UpnpPpm::OnActionResponse(res, action, userdata);
@@ -68,18 +68,15 @@ void ClassAnnounceAsParentHelper(bool diferent_processes) {
 
   // start upnp child pairing service
   if (diferent_processes) {
-    // configure and start ParenPaigingManager
-    // by popen fake_parent_helper
+    // configure and start ChildClassHandler
+    // start fake_child_helper by system
     string command = "./fake_child_helper";
     command.append(" --device_class=");
     command.append(DeviceClassDescription::GetDeviceClassTypeStringByEnum(
         DeviceClassDescription::kActiveDevice));
     command.append(" --application_id=" + app_id);
-    command.append(" --waiting_pairing");
-    FILE* parent_pipe = popen(command.c_str(), "w");
-    ASSERT_TRUE(parent_pipe);
-    pclose(parent_pipe);
-
+    command.append(" > /dev/null");
+    int ret = system(command.c_str());
   } else {
     upnp_cpm = new UpnpCpm();
     EXPECT_EQ(upnp_cpm->StartPairingService(), 0);

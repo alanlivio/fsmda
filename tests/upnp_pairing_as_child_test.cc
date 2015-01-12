@@ -59,17 +59,15 @@ void ClassAnnounceAsChildHelper(bool different_processes) {
   upnp_cpm->expected_semaphore = app_id;
 
   if (different_processes) {
-    // configure and start ParenPaigingManager
-    // by popen fake_parent_helper
+    // configure and start ParentClassHandlher
+    // start fake_parent_helper by system
     string command = "./fake_parent_helper";
     command.append(" --device_class=");
     command.append(DeviceClassDescription::GetDeviceClassTypeStringByEnum(
         DeviceClassDescription::kActiveDevice));
     command.append(" --application_id=" + app_id);
-    command.append(" --waiting_pairing");
-    FILE* parent_pipe = popen(command.c_str(), "w");
-    ASSERT_TRUE(parent_pipe);
-    pclose(parent_pipe);
+    command.append(" > /dev/null");
+    int ret = system(command.c_str());
 
   } else {
     // start parent pairing service with fake discover params
