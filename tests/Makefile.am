@@ -74,11 +74,18 @@ fake_parent_helper_CPPFLAGS = \
 fake_child_helper_CPPFLAGS = $(fake_parent_helper_CPPFLAGS)
 
 ### Tests programs linker options
+
+testsuit_gtest_LDFLAGS = \
+  -no-install
+
 testsuit_gtest_LDADD = \
   $(top_srcdir)/src/libfsmda.la\
   $(PLATINUMKIT_LIBS)\
   $(LIBXML2_LIBS)\
   libgmockgtest.la
+
+fake_parent_helper_LDFLAGS = \
+  -no-install
 
 fake_parent_helper_LDADD = \
   $(top_srcdir)/src/libfsmda.la\
@@ -86,5 +93,8 @@ fake_parent_helper_LDADD = \
   $(LIBGFLAGS_LIBS)\
   $(LIBXML2_LIBS)\
   $(PTHREAD_LIBS)
+
+fake_child_helper_LDFLAGS = \
+  -no-install
 
 fake_child_helper_LDADD = $(fake_parent_helper_LDADD)
