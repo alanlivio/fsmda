@@ -54,7 +54,7 @@ void ParentClassHandler::AddClassDescription(
     const std::string& application_id, unsigned int class_index,
     DeviceClassDescription* device_class_description) {
   clog << "ParentClassHandler::AddClassDescription(" << application_id
-       << ",class_index" << class_index
+       << ",class_index=" << class_index
        << ",device_class_type=" << device_class_description->device_class_type()
        << ")" << endl;
   device_class_data_map_[application_id][class_index] = new DeviceClassData();
@@ -102,7 +102,9 @@ void ParentClassHandler::RemoveClass(const string& application_id,
 void ParentClassHandler::ReportAddDeviceToClass(const string& application_id,
                                                 unsigned int class_index) {
   // TODO(alan@telemidia.puc-rio.br): create tests to this
-  clog << "ParentClassHandler::AddDeviceToClass" << endl;
+  clog << "ParentClassHandler::ReportAddDeviceToClass(" << application_id
+       << ",class_index=" << class_index
+       << ")" << endl;
   device_class_data_map_[application_id][class_index]
       ->number_of_registred_children_++;
 }
@@ -194,7 +196,7 @@ OnDemandClassListenerInterface* ParentClassHandler::CreateOnDemandPcm(
  +---------------------------------------------------------------------*/
 unsigned int ParentClassHandler::GenerateAvaliableIndex(
     const string& application_id) {
-  for (int i = 0; i < UINT_MAX; i++) {
+  for (int i = 5; i < UINT_MAX; i++) {
     if (device_class_data_map_[application_id].find(i) ==
         device_class_data_map_[application_id].end())
       return i;
