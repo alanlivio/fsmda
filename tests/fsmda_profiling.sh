@@ -2,8 +2,7 @@
 
 ### profilie configuration
 n=2
-declare -a classes=("active" "passive" "mediacapture" "ondemand")
-Fapp_id=dc05b236-0cce-4f1d-996b-edd11a66d907
+app_id=dc05b236-0cce-4f1d-996b-edd11a66d907
 
 ### redirect erros to /dev/null
 #exec 1> /dev/null
@@ -25,7 +24,7 @@ for class in "active" "passive" "mediacapture" "ondemand";do
     done
     echo -n "$class child average="
     grep "fsmda_child profile_pairing $class" < fsmda_profiling.log \
-      |awk '{ SUM += $4; N += 1} END { printf "%d\n",SUM/N}'
+      |awk '{ SUM += $4; N += 1} END { printf "%s\n",SUM/N}'
 done
 
 ### profile_remove_device ########################################
@@ -41,7 +40,7 @@ for class in "active" "passive" "mediacapture" "ondemand";do
     done
     echo -n "$class parent average="
     grep "fsmda_parent profile_remove_device $class" < fsmda_profiling.log \
-      |awk '{ SUM += $4; N += 1} END { printf "%d\n",SUM/N }'
+      |awk '{ SUM += $4; N += 1} END { printf "%s\n",SUM/N }'
 done
 
 ### profile_command  ########################################
@@ -57,7 +56,7 @@ for class in "active";do
     done
     echo -n "$class parent average="
     grep "fsmda_parent profile_command $class" < fsmda_profiling.log \
-      |awk '{ SUM += $4; N += 1} END { printf "%d\n",SUM/N }'
+      |awk '{ SUM += $4; N += 1} END { printf "%s\n",SUM/N }'
 done
 
 
@@ -74,7 +73,7 @@ for class in "active";do
     done
     echo -n "$class parent average="
     grep "fsmda_parent profile_prepare $class" < fsmda_profiling.log \
-      |awk '{ SUM += $4; N += 1} END { printf "%d\n",SUM/N }'
+      |awk '{ SUM += $4; N += 1} END { printf "%s\n",SUM/N }'
 done
 
 ### profile_variable  ########################################
@@ -90,7 +89,7 @@ for class in "active";do
     done
     echo -n "$class parent average="
     grep "fsmda_parent profile_variable $class" < fsmda_profiling.log \
-      |awk '{ SUM += $4; N += 1} END { printf "%d\n",SUM/N }'
+      |awk '{ SUM += $4; N += 1} END { printf "%s\n",SUM/N }'
 done
 
 ### profile_bufferd_command  ########################################
@@ -106,10 +105,10 @@ for class in "active";do
     done
     echo -n "$class child average="
     grep "fsmda_child profile_bufferd_command $class" < fsmda_profiling.log \
-      |awk '{ SUM += $4; N += 1} END { printf "%d\n",SUM/N}'
+      |awk '{ SUM += $4; N += 1} END { printf "%s\n",SUM/N}'
     echo -n "$class parent average="
     grep "fsmda_parent profile_bufferd_command $class" < fsmda_profiling.log \
-      |awk '{ SUM += $4; N += 1} END { printf "%d\n",SUM/N }'
+      |awk '{ SUM += $4; N += 1} END { printf "%s\n",SUM/N }'
 done
 
 
