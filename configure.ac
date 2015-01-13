@@ -60,8 +60,12 @@ PKG_CHECK_MODULES([LIBXML2], [libxml-2.0], [],
   [AC_MSG_ERROR([The libxml-2.0 is required.])])
 
 ### Check for libgflags2
-  PKG_CHECK_MODULES([LIBGFLAGS], [libgflags], [],
+PKG_CHECK_MODULES([LIBGFLAGS], [libgflags], [],
   [AC_MSG_ERROR([The libgflags is required.])])
+
+# Check for libzipF
+PKG_CHECK_MODULES([LIBZIP], [libzip ], [],
+  [AC_MSG_ERROR([The libzip is required.])])
  
 ############################## Files configuration ############################
 ### Autoconf source configuration

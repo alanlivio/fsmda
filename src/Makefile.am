@@ -31,10 +31,10 @@ libfsmda_la_SOURCES = \
   fsmda/upnp/upnp_fsmda_utils.cc
   
 # Libraries compiler options
-libfsmda_la_CPPFLAGS = -I./ $(PLATINUMKIT_CFLAGS) $(LIBXML2_CFLAGS)
+libfsmda_la_CPPFLAGS = -I./ $(PLATINUMKIT_CFLAGS) $(LIBXML2_CFLAGS) $(LIBZIP_CFLAGS)
 
 # Libraries linker options
-libfsmda_la_LDFLAGS =  $(PLATINUMKIT_LIBS) $(LIBXML2_LIBS)
+libfsmda_la_LDFLAGS =  $(PLATINUMKIT_LIBS) $(LIBXML2_LIBS) $(LIBZIP_LIBS)
 
 ############################## pkg-config ####################################
 # Libraries pkg-config file
