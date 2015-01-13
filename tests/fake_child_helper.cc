@@ -8,7 +8,6 @@
 #include <cstdlib>
 #include <iostream>
 #include <fstream>
-#include "./named_semaphore_helper.h"
 #include "fsmda//device_class_description.h"
 #include "fsmda//device_description.h"
 #include "fsmda/parent_class_handler.h"
@@ -31,6 +30,35 @@ DEFINE_bool(profile_pairing, false, "enable profile_pairing");
 // Profile Fault tolerance (2)
 DEFINE_bool(profile_bufferd_command, false, "enable profile_bufferd_command");
 
+/*----------------------------------------------------------------------
+ |   Auxiliary variables
+ +---------------------------------------------------------------------*/
+NPT_SharedVariable child_semaphore;
+
+class MockChildClassHandler : public ChildClassHandler {
+ public:
+  void set_paired(bool paired) {
+    clog << "MockChildClassHandler::SetPaired():: paired = " << paired << endl;
+    ChildClassHandler::set_paired(paired);
+    child_semaphore.SetValue(1);
+  }
+  explicit MockChildClassHandler(const DeviceDescription& device_description)
+      : ChildClassHandler(device_description) {}
+};
+
+MockChildClassHandler* child_class_handler = NULL;
+
+/*----------------------------------------------------------------------
+ |   global function
+ +---------------------------------------------------------------------*/
+void HandleInterrupt(int sig) {
+  if (child_class_handler != NULL) {
+    cout << "fake_child_helper::releasing after receive INT" << endl;
+    child_semaphore.SetValue(1);
+    child_class_handler->StopPairing();
+  }
+}
+
 double CalculateElapsedTime(timeval start_time, timeval end_time) {
   double elapsed_time;
   elapsed_time = (end_time.tv_sec - start_time.tv_sec) * 1000.0;
@@ -38,26 +66,6 @@ double CalculateElapsedTime(timeval start_time, timeval end_time) {
   return elapsed_time;
 }
 
-class MockChildClassHandler : public ChildClassHandler {
- public:
-  string expected_semaphore;
-  void set_paired(bool paired) {
-    clog << "MockChildClassHandler::SetPaired():: paired = " << paired << endl;
-    ChildClassHandler::set_paired(paired);
-    PostNamedSemphoreHelper(expected_semaphore);
-  }
-  explicit MockChildClassHandler(const DeviceDescription& device_description)
-      : ChildClassHandler(device_description) {}
-};
-
-MockChildClassHandler* child_class_handler = NULL;
-void HandleInterrupt(int sig) {
-  if (child_class_handler != NULL) {
-    cout << "fake_child_helper::releasing after receive INT" << endl;
-    PostNamedSemphoreHelper(child_class_handler->expected_semaphore);
-    child_class_handler->StopPairing();
-  }
-}
 /*----------------------------------------------------------------------
  |   main
  +---------------------------------------------------------------------*/
@@ -94,13 +102,12 @@ int main(int argc, char** argv) {
   child_class_handler = new MockChildClassHandler(device_description);
 
   // start child
-  child_class_handler->expected_semaphore = FLAGS_application_id;
-  CreateNamedSemphoreHelper(FLAGS_application_id, false);
   child_class_handler->StartPairing();
 
-  gettimeofday(&start_time, NULL);
   cout << "fake_child_helper:: wait for pairing..." << endl;
-  WaitNamedSemphoreHelper(FLAGS_application_id);
+  gettimeofday(&start_time, NULL);
+  child_semaphore.WaitUntilEquals(1, NPT_TIMEOUT_INFINITE);
+  child_semaphore.SetValue(0);
 
   if (FLAGS_profile_pairing) {
     // wait for pairing
@@ -112,11 +119,10 @@ int main(int argc, char** argv) {
     child_class_handler->StopPairing();
     delete child_class_handler;
     child_class_handler = new MockChildClassHandler(device_description);
-    child_class_handler->expected_semaphore = FLAGS_application_id;
     child_class_handler->StartPairing();
     cout << "fake_child_helper:: wait for second pairing..." << endl;
     gettimeofday(&start_time, NULL);
-    WaitNamedSemphoreHelper(FLAGS_application_id);
+    child_semaphore.WaitWhileEquals(1, NPT_TIMEOUT_INFINITE);
     gettimeofday(&end_time, NULL);
     cout << "fsmda_child profile_bufferd_command "
          << DeviceClassDescription::GetDeviceClassTypeStringByEnum(device_class)
@@ -124,7 +130,6 @@ int main(int argc, char** argv) {
   }
 
   // release child
-  ReleaseNameSemphoreHelper(FLAGS_application_id);
   child_class_handler->StopPairing();
   delete child_class_handler;
 

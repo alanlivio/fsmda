@@ -42,8 +42,6 @@ src/fsmda/upnp/upnp_active_ccm.cc
 src/fsmda/upnp/upnp_active_ccm.h
 src/fsmda/upnp/upnp_active_pcm.cc
 src/fsmda/upnp/upnp_active_pcm.h
-src/fsmda/upnp/upnp_child_pairing.cc
-src/fsmda/upnp/upnp_child_pairing.h
 src/fsmda/upnp/upnp_cpm.cc
 src/fsmda/upnp/upnp_cpm.h
 src/fsmda/upnp/upnp_fsmda_utils.cc
@@ -56,8 +54,6 @@ src/fsmda/upnp/upnp_ondemand_ccm.cc
 src/fsmda/upnp/upnp_ondemand_ccm.h
 src/fsmda/upnp/upnp_ondemand_pcm.cc
 src/fsmda/upnp/upnp_ondemand_pcm.h
-src/fsmda/upnp/upnp_parent_pairing.cc
-src/fsmda/upnp/upnp_parent_pairing.h
 src/fsmda/upnp/upnp_passive_ccm.cc
 src/fsmda/upnp/upnp_passive_ccm.h
 src/fsmda/upnp/upnp_passive_pcm.cc
@@ -141,8 +137,6 @@ tests/gtest/src/gtest-test-part.cc
 tests/gtest/src/gtest-typed-test.cc
 tests/gtest/src/gtest.cc
 tests/gtest/src/gtest_main.cc
-tests/named_semaphore_helper.cc
-tests/named_semaphore_helper.h
 tests/pairing_as_child_test.cc
 tests/pairing_as_parent_test.cc
 tests/release_fake_child_parent.sh

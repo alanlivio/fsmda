@@ -2,7 +2,6 @@
  |   includes
  +---------------------------------------------------------------------*/
 
-#include "./named_semaphore_helper.h"
 #include "fsmda//device_class_description.h"
 #include "fsmda//device_description.h"
 #include "fsmda/parent_class_handler.h"
@@ -15,14 +14,17 @@ using std::cout;
 using std::clog;
 using std::endl;
 
+/*----------------------------------------------------------------------
+ |   Auxiliary variables
+ +---------------------------------------------------------------------*/
+NPT_SharedVariable parent_semaphore;
 class MockParentClassHandler : public ParentClassHandler {
  public:
-  string expected_semaphore;
   virtual void ReportAddDeviceToClass(const string& application_id,
                                       unsigned int class_index) {
     clog << "MockParentClassHandler::AddDeviceToClass()" << endl;
     ParentClassHandler::ReportAddDeviceToClass(application_id, class_index);
-    PostNamedSemphoreHelper(expected_semaphore);
+    parent_semaphore.SetValue(1);
   }
 };
 
@@ -69,8 +71,6 @@ void PairingAsParentHelper(
 
   // genereate a app_id
   UpnpFsmdaUtils::GenerateGUID(&app_id);
-  string parent_named_semaphore = app_id + "_parent";
-  CreateNamedSemphoreHelper(parent_named_semaphore, false);
 
   // configure ParentClassHandlher
   DeviceClassDescription* device_class_description;
@@ -84,7 +84,6 @@ void PairingAsParentHelper(
   mock_hpe = new MockHpe();
   unsigned int class_index =
       parent_class_handler->GenerateAvaliableIndex(app_id);
-  parent_class_handler->expected_semaphore = parent_named_semaphore;
   parent_class_handler->AddClassDescription(app_id, class_index,
                                             device_class_description);
   parent_class_handler->SetClassHandlingHpe(app_id, mock_hpe);
@@ -117,9 +116,7 @@ void PairingAsParentHelper(
     EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 2);
   }
   // parent wait for ParentPostSemphoreHelper call
-  WaitNamedSemphoreHelper(parent_named_semaphore);
-
-  // test if child is paired
+  parent_semaphore.WaitUntilEquals(1, NPT_TIMEOUT_INFINITE);
   EXPECT_EQ(
       parent_class_handler->number_of_registred_children(app_id, class_index),
       1);
@@ -166,7 +163,6 @@ void PairingAsParentHelper(
   EXPECT_FALSE(parent_class_handler->IsPairingStarted());
   EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 0);
   delete parent_class_handler;
-  ReleaseNameSemphoreHelper(parent_named_semaphore);
 
   EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 0);
   EXPECT_FALSE(UpnpFsmdaUtils::IsUpnpStarted());

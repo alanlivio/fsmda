@@ -2,9 +2,8 @@
  |   includes
  +---------------------------------------------------------------------*/
 
-#include "./named_semaphore_helper.h"
-#include "fsmda//device_class_description.h"
-#include "fsmda//device_description.h"
+#include "fsmda/device_class_description.h"
+#include "fsmda/device_description.h"
 #include "fsmda/parent_class_handler.h"
 #include "fsmda/child_class_handler.h"
 #include "fsmda/upnp/upnp_fsmda_utils.h"
@@ -15,13 +14,16 @@ using std::cout;
 using std::clog;
 using std::endl;
 
+/*----------------------------------------------------------------------
+ |   Auxiliary variables
+ +---------------------------------------------------------------------*/
+NPT_SharedVariable child_semaphore;
 class MockChildClassHandler : public ChildClassHandler {
  public:
-  string expected_semaphore;
   void set_paired(bool paired) {
     clog << "MockChildClassHandler::set_paired():: paired = " << paired << endl;
     ChildClassHandler::set_paired(paired);
-    PostNamedSemphoreHelper(expected_semaphore);
+    child_semaphore.SetValue(1);
   }
   explicit MockChildClassHandler(const DeviceDescription& device_description)
       : ChildClassHandler(device_description) {}
@@ -57,10 +59,7 @@ void PairingAsChildHelper(
   EXPECT_EQ(child_class_handler->StartPairing(), 0);
   EXPECT_TRUE(child_class_handler->IsPairingStarted());
   EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 1);
-
   UpnpFsmdaUtils::GenerateGUID(&app_id);
-  CreateNamedSemphoreHelper(app_id, false);
-  child_class_handler->expected_semaphore = app_id;
 
   // start ParentClassHandler
   if (diferent_processes) {
@@ -97,11 +96,8 @@ void PairingAsChildHelper(
     EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 2);
   }
   // child wait for ParentPostSemphoreHelper call
-  WaitNamedSemphoreHelper(app_id);
-
-  // test if child is paired
+  child_semaphore.WaitUntilEquals(1, NPT_TIMEOUT_INFINITE);
   EXPECT_TRUE(child_class_handler->paired());
-  ReleaseNameSemphoreHelper(app_id);
 
   if (diferent_processes == false) {
     // stop parent pairing service
@@ -121,6 +117,9 @@ void PairingAsChildHelper(
   EXPECT_FALSE(UpnpFsmdaUtils::IsUpnpStarted());
 }
 
+/*----------------------------------------------------------------------
+ |   gtests
+ +---------------------------------------------------------------------*/
 TEST(PairingAsChild, PassiveInSameProcess) {
   PairingAsChildHelper("./files/passive_dev_desc00.xml",
                        "./files/passive_class_desc00.xml",

@@ -8,7 +8,6 @@
 #include <cstdlib>
 #include <iostream>
 #include <fstream>
-#include "./named_semaphore_helper.h"
 #include "fsmda/parent_class_handler.h"
 #include "fsmda/upnp/upnp_cpm.h"
 #include "fsmda/upnp/upnp_ppm.h"
@@ -34,20 +33,17 @@ DEFINE_bool(profile_remove_device, false, "enable profile_remove_device");
 // Profile Fault tolerance (2)
 DEFINE_bool(profile_bufferd_command, false, "enable profile_bufferd_command");
 
-double CalculateElapsedTime(timeval start_time, timeval end_time) {
-  double elapsed_time;
-  elapsed_time = (end_time.tv_sec - start_time.tv_sec) * 1000.0;
-  elapsed_time += (end_time.tv_usec - start_time.tv_usec) / 1000.0;
-  return elapsed_time;
-}
-
+/*----------------------------------------------------------------------
+ |   Auxiliary variables
+ +---------------------------------------------------------------------*/
+NPT_SharedVariable child_semaphore;
 class MockParentClassHandler : public ParentClassHandler {
  public:
   string expected_semaphore;
   virtual void ReportAddDeviceToClass(const string& application_id,
                                       unsigned int class_index) {
     clog << "MockParentClassHandler::ReportAddDeviceToClass()" << endl;
-    PostNamedSemphoreHelper(expected_semaphore);
+    child_semaphore.SetValue(1);
   }
 };
 
@@ -74,19 +70,30 @@ class MockHpe : public HpeClassHandlingInterface,
   void setClassVariableValue(const std::string& name,
                              const std::string& value) {
     clog << "MockParentClassHandler::setClassVariableValue()" << endl;
-    if (FLAGS_profile_remove_device)
-      PostNamedSemphoreHelper(expected_semaphore);
+    if (FLAGS_profile_remove_device) child_semaphore.SetValue(2);
   }
 };
 
 MockParentClassHandler* parent_class_handler;
+
+/*----------------------------------------------------------------------
+ |   global function
+ +---------------------------------------------------------------------*/
 void HandleInterrupt(int sig) {
   if (parent_class_handler != NULL) {
     cout << "fake_child_helper::releasing after receive INT" << endl;
-    PostNamedSemphoreHelper(parent_class_handler->expected_semaphore);
+    child_semaphore.SetValue(1);
     parent_class_handler->StopPairing();
   }
 }
+
+double CalculateElapsedTime(timeval start_time, timeval end_time) {
+  double elapsed_time;
+  elapsed_time = (end_time.tv_sec - start_time.tv_sec) * 1000.0;
+  elapsed_time += (end_time.tv_usec - start_time.tv_usec) / 1000.0;
+  return elapsed_time;
+}
+
 /*----------------------------------------------------------------------
  |   main
  +---------------------------------------------------------------------*/
@@ -128,15 +135,11 @@ int main(int argc, char** argv) {
   parent_class_handler->SetClassHandlingHpe(FLAGS_application_id, mock_hpe);
 
   // start parent
-  string parent_named_semaphore = FLAGS_application_id + "_parent";
-  parent_class_handler->expected_semaphore = parent_named_semaphore;
-  mock_hpe->expected_semaphore = parent_named_semaphore;
-  CreateNamedSemphoreHelper(parent_named_semaphore, false);
   parent_class_handler->StartPairing();
 
   // waiting for pairing
   cout << "fake_parent_helper:: wait for pairing..." << endl;
-  WaitNamedSemphoreHelper(parent_named_semaphore);
+  child_semaphore.WaitUntilEquals(1, NPT_TIMEOUT_INFINITE);
 
   if (FLAGS_profile_prepare) {
     ActiveClassInterface* active_pcm = parent_class_handler->CreateActivePcm(
@@ -179,7 +182,7 @@ int main(int argc, char** argv) {
   } else if (FLAGS_profile_remove_device) {
     // wait for pairing
     gettimeofday(&start_time, NULL);
-    WaitNamedSemphoreHelper(parent_named_semaphore);
+    child_semaphore.WaitUntilEquals(2, NPT_TIMEOUT_INFINITE);
     gettimeofday(&end_time, NULL);
     cout << "fsmda_parent profile_remove_device "
          << DeviceClassDescription::GetDeviceClassTypeStringByEnum(
@@ -188,11 +191,10 @@ int main(int argc, char** argv) {
 
   } else if (FLAGS_profile_bufferd_command) {
     cout << "fake_parent_helper:: wait for second pairing..." << endl;
-    WaitNamedSemphoreHelper(parent_named_semaphore);
+    child_semaphore.WaitUntilEquals(2, NPT_TIMEOUT_INFINITE);
   }
 
   // release parent
-  ReleaseNameSemphoreHelper(parent_named_semaphore);
   parent_class_handler->StopPairing();
   delete parent_class_handler;
 

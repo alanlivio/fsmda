@@ -5,7 +5,6 @@
 #include <cstdlib>
 #include <iostream>
 #include <fstream>
-#include "./named_semaphore_helper.h"
 #include "fsmda//device_description.h"
 #include "fsmda//device_class_description.h"
 #include "fsmda/parent_class_handler.h"
@@ -20,18 +19,19 @@ using std::cout;
 using std::clog;
 using std::endl;
 
+/*----------------------------------------------------------------------
+ |   Auxiliary variables
+ +---------------------------------------------------------------------*/
+NPT_SharedVariable upnp_child_semaphore;
 class MockUpnpCpm : public UpnpCpm {
  public:
-  string expected_semaphore;
   MockUpnpCpm() : UpnpCpm() {}
-
   NPT_Result OnAction(PLT_ActionReference& action,
                       const PLT_HttpRequestContext& context) {
     clog << "MockUpnpCpm::OnAction()::name="
          << action->GetActionDesc().GetName().GetChars() << endl;
     NPT_String name = action->GetActionDesc().GetName();
-    if (!name.Compare("ClassAnnouncement"))
-      PostNamedSemphoreHelper(expected_semaphore);
+    if (!name.Compare("ClassAnnouncement")) upnp_child_semaphore.SetValue(1);
     return UpnpCpm::OnAction(action, context);
   }
 };
@@ -53,10 +53,7 @@ void ClassAnnounceAsChildHelper(bool different_processes) {
   EXPECT_EQ(upnp_cpm->StartPairingService(), 0);
   EXPECT_TRUE(upnp_cpm->IsPairingServiceStarted());
   EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 1);
-
   UpnpFsmdaUtils::GenerateGUID(&app_id);
-  CreateNamedSemphoreHelper(app_id, false);
-  upnp_cpm->expected_semaphore = app_id;
 
   if (different_processes) {
     // configure and start ParentClassHandlher
@@ -87,8 +84,7 @@ void ClassAnnounceAsChildHelper(bool different_processes) {
   }
 
   // child wait for ParentPostSemphoreHelper call
-  WaitNamedSemphoreHelper(app_id);
-  ReleaseNameSemphoreHelper(app_id);
+  upnp_child_semaphore.WaitUntilEquals(1, NPT_TIMEOUT_INFINITE);
 
   if (different_processes == false) {
     // stop parent pairing service
@@ -109,6 +105,9 @@ void ClassAnnounceAsChildHelper(bool different_processes) {
   EXPECT_FALSE(UpnpFsmdaUtils::IsUpnpStarted());
 }
 
+/*----------------------------------------------------------------------
+ |   gtests
+ +---------------------------------------------------------------------*/
 TEST(UpnpPairingAsChild, ClassAnnounceInSameProcess) {
   ClassAnnounceAsChildHelper(false);
 }
