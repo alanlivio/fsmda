@@ -1,5 +1,5 @@
-#ifndef FSMDA_PARENT_PAIRING_MANAGER_H_
-#define FSMDA_PARENT_PAIRING_MANAGER_H_
+#ifndef FSMDA_PARENT_CLASS_HANDLER_H_
+#define FSMDA_PARENT_CLASS_HANDLER_H_
 
 /*----------------------------------------------------------------------
  |   includes
@@ -95,4 +95,4 @@ class ParentClassHandler : public ParentClassHandlingInterface {
   UpnpPpm* upnp_ppm_;
 };
 
-#endif  // FSMDA_PARENT_PAIRING_MANAGER_H_
+#endif  // FSMDA_PARENT_CLASS_HANDLER_H_

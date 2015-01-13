@@ -1,5 +1,5 @@
-#ifndef FSMDA_UTILS_UPNP_FSMDA_UTILS_H_
-#define FSMDA_UTILS_UPNP_FSMDA_UTILS_H_
+#ifndef FSMDA_UPNP_UPNP_FSMDA_UTILS_H_
+#define FSMDA_UPNP_UPNP_FSMDA_UTILS_H_
 
 /*----------------------------------------------------------------------
  |   include
@@ -116,4 +116,4 @@ class UpnpFsmdaUtils {
   static unsigned int upnp_references_count_;
 };
 
-#endif  // FSMDA_UTILS_UPNP_FSMDA_UTILS_H_
+#endif  // FSMDA_UPNP_UPNP_FSMDA_UTILS_H_

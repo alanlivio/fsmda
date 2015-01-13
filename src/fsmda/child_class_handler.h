@@ -1,5 +1,5 @@
-#ifndef FSMDA_CHILD_PAIRING_MANAGER_H_
-#define FSMDA_CHILD_PAIRING_MANAGER_H_
+#ifndef FSMDA_CHILD_CLASS_HANDLER_H_
+#define FSMDA_CHILD_CLASS_HANDLER_H_
 
 /*----------------------------------------------------------------------
  |   includes
@@ -51,4 +51,4 @@ class ChildClassHandler {
   bool paired_;
 };
 
-#endif  // FSMDA_CHILD_PAIRING_MANAGER_H_
+#endif  // FSMDA_CHILD_CLASS_HANDLER_H_

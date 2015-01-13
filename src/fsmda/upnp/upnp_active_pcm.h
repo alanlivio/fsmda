@@ -1,11 +1,12 @@
-#ifndef FSMDA_COMMUNICATION_UPNP_ACTIVE_PCM_H_
-#define FSMDA_COMMUNICATION_UPNP_ACTIVE_PCM_H_
+#ifndef FSMDA_UPNP_UPNP_ACTIVE_PCM_H_
+#define FSMDA_UPNP_UPNP_ACTIVE_PCM_H_
 
 /*----------------------------------------------------------------------
  |   includes
  +---------------------------------------------------------------------*/
 #include <string>
 #include <map>
+#include <vector>
 #include <NptTypes.h>
 #include <PltDeviceHost.h>
 #include <PltUPnP.h>
@@ -65,7 +66,6 @@ class UpnpActivePcm : public ActiveClassInterface,
   string application_id_;
   unsigned int class_index_;
   NPT_SharedVariable post_action_semaphore;
-
 };
 
-#endif  // FSMDA_COMMUNICATION_UPNP_ACTIVE_PCM_H_
+#endif  // FSMDA_UPNP_UPNP_ACTIVE_PCM_H_

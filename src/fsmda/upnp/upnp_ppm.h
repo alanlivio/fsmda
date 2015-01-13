@@ -1,5 +1,5 @@
-#ifndef FSMDA_PAIRING_UPNP_PARENT_PAIRING_H_
-#define FSMDA_PAIRING_UPNP_PARENT_PAIRING_H_
+#ifndef FSMDA_UPNP_UPNP_PPM_H_
+#define FSMDA_UPNP_UPNP_PPM_H_
 
 /*----------------------------------------------------------------------
  |   includes
@@ -109,4 +109,4 @@ class UpnpPpm : public PLT_DeviceHost,
   ParentClassHandler* parent_class_handler_;
 };
 
-#endif  // FSMDA_PAIRING_UPNP_PARENT_PAIRING_H_
+#endif  // FSMDA_UPNP_UPNP_PPM_H_

@@ -1,5 +1,5 @@
-#ifndef FSMDA_COMMUNICATION_UPNP_ACTIVE_CCM_H_
-#define FSMDA_COMMUNICATION_UPNP_ACTIVE_CCM_H_
+#ifndef FSMDA_UPNP_UPNP_ACTIVE_CCM_H_
+#define FSMDA_UPNP_UPNP_ACTIVE_CCM_H_
 
 /*----------------------------------------------------------------------
  |   includes
@@ -64,4 +64,4 @@ class UpnpActiveCcm : public ActiveClassListenerInterface,
   unsigned int class_index_;
 };
 
-#endif  // FSMDA_COMMUNICATION_UPNP_ACTIVE_CCM_H_
+#endif  // FSMDA_UPNP_UPNP_ACTIVE_CCM_H_

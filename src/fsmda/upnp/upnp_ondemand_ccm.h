@@ -1,5 +1,5 @@
-#ifndef FSMDA_COMMUNICATION_UPNP_ONDEMAND_CCM_H_
-#define FSMDA_COMMUNICATION_UPNP_ONDEMAND_CCM_H_
+#ifndef FSMDA_UPNP_UPNP_ONDEMAND_CCM_H_
+#define FSMDA_UPNP_UPNP_ONDEMAND_CCM_H_
 /*----------------------------------------------------------------------
  |   includes
  +---------------------------------------------------------------------*/
@@ -54,4 +54,4 @@ class UpnpOnDemandCcm : public PLT_DeviceHost,
   PLT_UPnP* upnp_reference_;
 };
 
-#endif  // FSMDA_COMMUNICATION_UPNP_ONDEMAND_CCM_H_
+#endif  // FSMDA_UPNP_UPNP_ONDEMAND_CCM_H_

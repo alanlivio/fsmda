@@ -1,5 +1,5 @@
-#ifndef FSMDA_PAIRING_UPNP_CHILD_PAIRING_H_
-#define FSMDA_PAIRING_UPNP_CHILD_PAIRING_H_
+#ifndef FSMDA_UPNP_UPNP_CPM_H_
+#define FSMDA_UPNP_UPNP_CPM_H_
 
 /*----------------------------------------------------------------------
  |   includes
@@ -89,4 +89,4 @@ class UpnpCpm : public PLT_DeviceHost,
   NPT_SharedVariable last_parent_semaphore;
 };
 
-#endif  // FSMDA_PAIRING_UPNP_CHILD_PAIRING_H_
+#endif  // FSMDA_UPNP_UPNP_CPM_H_

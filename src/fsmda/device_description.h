@@ -1,5 +1,5 @@
-#ifndef FSMDA_CLASS_HANDLING_DEVICE_DESCRIPTION_H_
-#define FSMDA_CLASS_HANDLING_DEVICE_DESCRIPTION_H_
+#ifndef FSMDA_DEVICE_DESCRIPTION_H_
+#define FSMDA_DEVICE_DESCRIPTION_H_
 
 /*----------------------------------------------------------------------
  |   includes
@@ -40,4 +40,4 @@ class DeviceDescription {
   xmlDocPtr doc_;
 };
 
-#endif  // FSMDA_CLASS_HANDLING_DEVICE_DESCRIPTION_H_
+#endif  // FSMDA_DEVICE_DESCRIPTION_H_

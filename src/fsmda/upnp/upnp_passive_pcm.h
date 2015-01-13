@@ -1,5 +1,5 @@
-#ifndef FSMDA_COMMUNICATION_UPNP_PASSIVE_PCM_H_
-#define FSMDA_COMMUNICATION_UPNP_PASSIVE_PCM_H_
+#ifndef FSMDA_UPNP_UPNP_PASSIVE_PCM_H_
+#define FSMDA_UPNP_UPNP_PASSIVE_PCM_H_
 
 /*----------------------------------------------------------------------
  |   includes
@@ -47,4 +47,4 @@ class UpnpPassivePcm : public PLT_DeviceHost,
                                    NPT_List<PLT_StateVariable*>* vars);
 };
 
-#endif  // FSMDA_COMMUNICATION_UPNP_PASSIVE_PCM_H_
+#endif  // FSMDA_UPNP_UPNP_PASSIVE_PCM_H_
