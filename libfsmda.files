@@ -60,6 +60,8 @@ src/fsmda/upnp/upnp_passive_pcm.cc
 src/fsmda/upnp/upnp_passive_pcm.h
 src/fsmda/upnp/upnp_ppm.cc
 src/fsmda/upnp/upnp_ppm.h
+src/fsmda/utils/base64zip_coding.cc
+src/fsmda/utils/base64zip_coding.h
 src/libfsmda.pc.in
 tests/Makefile.am
 tests/device_class_description_test.cc

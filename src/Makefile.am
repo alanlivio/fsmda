@@ -28,7 +28,8 @@ libfsmda_la_SOURCES = \
   fsmda/upnp/upnp_mediacapture_ccm.cc\
   fsmda/upnp/upnp_ondemand_pcm.cc\
   fsmda/upnp/upnp_ondemand_ccm.cc\
-  fsmda/upnp/upnp_fsmda_utils.cc
+  fsmda/upnp/upnp_fsmda_utils.cc\
+  fsmda/utils/base64zip_coding.cc
   
 # Libraries compiler options
 libfsmda_la_CPPFLAGS = -I./ $(PLATINUMKIT_CFLAGS) $(LIBXML2_CFLAGS) $(LIBZIP_CFLAGS)
