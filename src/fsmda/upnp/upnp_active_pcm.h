@@ -66,6 +66,7 @@ class UpnpActivePcm : public ActiveClassInterface,
   string application_id_;
   unsigned int class_index_;
   NPT_SharedVariable post_action_semaphore;
+  NPT_SharedVariable request_var_action_semaphore;
 };
 
 #endif  // FSMDA_UPNP_UPNP_ACTIVE_PCM_H_

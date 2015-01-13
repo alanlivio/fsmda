@@ -84,13 +84,43 @@ void UpnpActivePcm::PostAction(const string &object_id, const string &event_id,
   clog << "UpnpActivePcm::PostAction():: InvokeAction=" << NPT_ResultText(res)
        << endl;
   post_action_semaphore.WaitUntilEquals(1, NPT_TIMEOUT_INFINITE);
+  request_var_action_semaphore.SetValue(0);
 }
 
 /*----------------------------------------------------------------------
  |   UpnpActivePcm::RequestPropertyValue
  +---------------------------------------------------------------------*/
 void UpnpActivePcm::RequestPropertyValue(const string &object_id,
-                                         const string &name) {}
+                                         const string &name) {
+  clog << "UpnpActivePcm::PostAction():: " << endl;
+  PLT_Service *service;
+  PLT_ActionReference post_action;
+  NPT_Result res = ctrl_point_->CreateAction(
+      remote_device_, UpnpFsmdaUtils::kActiveCcmServiceType,
+      "RequestPropertyValue", post_action);
+  if (post_action.IsNull()) {
+    clog << "UpnpActivePcm::PostAction():: InvokeAction=" << NPT_ResultText(res)
+         << endl;
+    clog << "UpnpActivePcm::PostAction():: "
+            "remote_device_->GetType().GetChars()="
+         << remote_device_->GetType().GetChars() << endl;
+    clog << "UpnpActivePcm::PostAction():: remote_device_->GetUUID().GetChars()"
+         << remote_device_->GetUUID().GetChars() << endl;
+    return;
+  }
+  post_action->SetArgumentValue("application_id", application_id_.c_str());
+  stringstream aux_string;
+  aux_string << class_index_;
+  post_action->SetArgumentValue("class_index", aux_string.str().c_str());
+  post_action->SetArgumentValue("object_id", application_id_.c_str());
+  post_action->SetArgumentValue("property_name", name.c_str());
+
+  res = ctrl_point_->InvokeAction(post_action, 0);
+  clog << "UpnpActivePcm::PostAction():: InvokeAction=" << NPT_ResultText(res)
+       << endl;
+  request_var_action_semaphore.WaitUntilEquals(1, NPT_TIMEOUT_INFINITE);
+  request_var_action_semaphore.SetValue(0);
+}
 /*----------------------------------------------------------------------
  |   UpnpActivePcm::SetPropertyValue
  +---------------------------------------------------------------------*/
@@ -140,6 +170,8 @@ NPT_Result UpnpActivePcm::OnActionResponse(NPT_Result res,
        << ", application_id=" << application_id.GetChars()
        << ",class_index=" << class_index << endl;
   if (!action_name.Compare("PostAction")) post_action_semaphore.SetValue(1);
+  if (!action_name.Compare("RequestPropertyValue"))
+    request_var_action_semaphore.SetValue(1);
 }
 
 /*----------------------------------------------------------------------
