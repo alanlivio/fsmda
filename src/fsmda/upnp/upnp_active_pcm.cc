@@ -6,6 +6,7 @@
 #include <sstream>
 #include "fsmda/upnp/upnp_active_pcm.h"
 #include "fsmda/upnp/upnp_fsmda_utils.h"
+#include "fsmda/utils/base64zip_coding.h"
 
 using std::cout;
 using std::clog;
@@ -43,19 +44,19 @@ UpnpActivePcm::~UpnpActivePcm() {
  +---------------------------------------------------------------------*/
 void UpnpActivePcm::Prepare(const string &object_id, const string &object_src,
                             vector<Property> properties, vector<Event> evts) {
-  clog << "UpnpActivePcm::PostAction():: " << endl;
+  clog << "UpnpActivePcm::Prepare():: " << endl;
   PLT_Service *service;
   PLT_ActionReference post_action;
   NPT_Result res = ctrl_point_->CreateAction(
       remote_device_, UpnpFsmdaUtils::kActiveCcmServiceType, "Prepare",
       post_action);
   if (post_action.IsNull()) {
-    clog << "UpnpActivePcm::PostAction():: InvokeAction=" << NPT_ResultText(res)
+    clog << "UpnpActivePcm::Prepare():: InvokeAction=" << NPT_ResultText(res)
          << endl;
-    clog << "UpnpActivePcm::PostAction():: "
+    clog << "UpnpActivePcm::Prepare():: "
             "remote_device_->GetType().GetChars()="
          << remote_device_->GetType().GetChars() << endl;
-    clog << "UpnpActivePcm::PostAction():: remote_device_->GetUUID().GetChars()"
+    clog << "UpnpActivePcm::Prepare():: remote_device_->GetUUID().GetChars()"
          << remote_device_->GetUUID().GetChars() << endl;
     return;
   }
@@ -63,14 +64,24 @@ void UpnpActivePcm::Prepare(const string &object_id, const string &object_src,
   stringstream aux_string;
   aux_string << class_index_;
   post_action->SetArgumentValue("class_index", aux_string.str().c_str());
-  post_action->SetArgumentValue("object_src", object_src.c_str());
-  post_action->SetArgumentValue("properties", Property::ToString(properties).c_str());
-  post_action->SetArgumentValue("evts", Event::ToString(evts).c_str());
-  res = ctrl_point_->InvokeAction(post_action, 0);
-  clog << "UpnpActivePcm::PostAction():: InvokeAction=" << NPT_ResultText(res)
+  post_action->SetArgumentValue("object_id", object_id.c_str());
+  post_action->SetArgumentValue("properties",
+                                Property::ToString(properties).c_str());
+  post_action->SetArgumentValue("events", Event::ToString(evts).c_str());
+
+  cout << "UpnpActivePcm::Prepare():: zip_directory" << endl;
+  zip_directory("/tmp/appdir.zip", object_src.c_str(), "/");
+  string zip_base64 = getBase64FromFile("/tmp/appdir.zip");
+  res = post_action->SetArgumentValue("object_src", zip_base64.c_str());
+  cout << "UpnpActivePcm::Prepare():: SetArgumentValues=" << NPT_ResultText(res)
        << endl;
-  post_action_semaphore.WaitUntilEquals(1, NPT_TIMEOUT_INFINITE);
-  request_var_action_semaphore.SetValue(0);
+
+  res = ctrl_point_->InvokeAction(post_action, 0);
+  prepare_action_semaphore.WaitUntilEquals(1, NPT_TIMEOUT_INFINITE);
+  cout << "UpnpActivePcm::Prepare():: InvokeAction=" << NPT_ResultText(res)
+       << endl;
+  prepare_action_semaphore.WaitUntilEquals(1, NPT_TIMEOUT_INFINITE);
+  prepare_action_semaphore.SetValue(0);
 }
 
 /*----------------------------------------------------------------------
@@ -201,6 +212,7 @@ NPT_Result UpnpActivePcm::OnActionResponse(NPT_Result res,
   if (!action_name.Compare("PostAction")) post_action_semaphore.SetValue(1);
   if (!action_name.Compare("RequestPropertyValue"))
     request_var_action_semaphore.SetValue(1);
+  if (!action_name.Compare("Prepare")) prepare_action_semaphore.SetValue(1);
 }
 
 /*----------------------------------------------------------------------

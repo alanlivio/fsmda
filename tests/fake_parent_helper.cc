@@ -148,7 +148,10 @@ int main(int argc, char** argv) {
     gettimeofday(&start_time, NULL);
     vector<Property> properties;
     vector<Event> events;
-    active_pcm->Prepare("media01", "media.mp4", properties, events);
+    active_pcm->Prepare(
+        "media01",
+        "/home/alan/development/fsmda-development/GT-SiM-tests/apps/01/",
+        properties, events);
     gettimeofday(&end_time, NULL);
     cout << "fsmda_parent profile_prepare "
          << DeviceClassDescription::GetDeviceClassTypeStringByEnum(
