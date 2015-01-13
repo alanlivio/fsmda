@@ -118,10 +118,10 @@ int main(int argc, char** argv) {
   } else if (FLAGS_profile_bufferd_command) {
     child_class_handler->StopPairing();
     delete child_class_handler;
+    gettimeofday(&start_time, NULL);
     child_class_handler = new MockChildClassHandler(device_description);
     child_class_handler->StartPairing();
     cout << "fake_child_helper:: wait for second pairing..." << endl;
-    gettimeofday(&start_time, NULL);
     child_semaphore.WaitWhileEquals(1, NPT_TIMEOUT_INFINITE);
     gettimeofday(&end_time, NULL);
     cout << "fsmda_child profile_bufferd_command "
