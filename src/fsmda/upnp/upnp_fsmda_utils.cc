@@ -997,11 +997,11 @@ PLT_UPnP* UpnpFsmdaUtils::GetRunningInstance() {
     NPT_LogManager::GetDefault().Configure(
         "plist:.level=;.handlers=;platinum.level=;platinum.handlers=");
 
-    PLT_Constants::GetInstance().SetDefaultDeviceLease(NPT_TimeInterval(20.));
+    PLT_Constants::GetInstance().SetDefaultDeviceLease(NPT_TimeInterval(60.));
     PLT_Constants::GetInstance().SetDefaultSubscribeLease(
         NPT_TimeInterval(20.));
-    PLT_Constants::GetInstance().SetAnnounceMulticastTimeToLive(1);
-    PLT_Constants::GetInstance().SetSearchMulticastTimeToLive(1);
+    PLT_Constants::GetInstance().SetAnnounceMulticastTimeToLive(0.5);
+    PLT_Constants::GetInstance().SetSearchMulticastTimeToLive(0.5);
     NPT_List<NPT_IpAddress> list;
     PLT_UPnPMessageHelper::GetIPAddresses(list);
     UpnpFsmdaUtils::upnp_singleton_ = new PLT_UPnP();
