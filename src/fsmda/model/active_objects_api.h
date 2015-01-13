@@ -17,6 +17,14 @@ class Property {
  public:
   string property_name_;
   string property_value_;
+  const string ToString() { return property_name_ + "=" + property_value_; }
+  static const string ToString(vector<Property> properties) {
+    string res = "{";
+    for (int i = 0; i < properties.size(); i++)
+      res + properties[i].ToString() + ",";
+    res += "}";
+    return res;
+  }
 };
 
 /*----------------------------------------------------------------------
@@ -27,6 +35,15 @@ class Event {
   string event_id_;
   string event_type_;
   string event_desc_;
+  const string ToString() {
+    return event_id_ + "," + event_type_ + "," + event_desc_;
+  }
+  static const string ToString(vector<Event> events) {
+    string res = "{";
+    for (int i = 0; i < events.size(); i++) res + events[i].ToString() + ",";
+    res += "}";
+    return res;
+  }
 };
 
 /*----------------------------------------------------------------------
