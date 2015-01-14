@@ -16,6 +16,10 @@
 #include "fsmda/model/active_objects_api.h"
 #include "fsmda/model/ondemand_objects_api.h"
 #include "fsmda/model/mediacapture_objects_api.h"
+#include "fsmda/upnp/upnp_active_ccm.h"
+#include "fsmda/upnp/upnp_passive_ccm.h"
+#include "fsmda/upnp/upnp_ondemand_ccm.h"
+#include "fsmda/upnp/upnp_mediacapture_ccm.h"
 
 using std::map;
 using std::string;
@@ -87,6 +91,11 @@ class UpnpCpm : public PLT_DeviceHost,
   ChildClassHandler* child_class_handler_;
   PLT_DeviceDataReference last_parent_;
   NPT_SharedVariable last_parent_semaphore;
+  map<const string, map<unsigned int, UpnpPassiveCcm*> > passive_ccm_map_;
+  map<const string, map<unsigned int, UpnpActiveCcm*> > active_ccm_map_;
+  map<const string, map<unsigned int, UpnpOnDemandCcm*> > ondemand_ccm_map_;
+  map<const string, map<unsigned int, UpnpMediaCaptureCcm*> >
+      mediacapture_ccm_map_;
 };
 
 #endif  // FSMDA_UPNP_UPNP_CPM_H_

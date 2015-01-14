@@ -146,17 +146,21 @@ NPT_Result UpnpCpm::SetupServices() {
  +---------------------------------------------------------------------*/
 NPT_Result UpnpCpm::OnAction(PLT_ActionReference &action,
                              const PLT_HttpRequestContext &context) {
-  NPT_String name = action->GetActionDesc().GetName();
-  clog << "UpnpCpm::OnAction()::name=" << name.GetChars() << endl;
+  NPT_String action_name = action->GetActionDesc().GetName();
+  NPT_String service_name =
+      action->GetActionDesc().GetService()->GetServiceType();
+  clog << "UpnpCpm::OnAction()::name=" << action_name.GetChars() << endl;
 
-  if (name.Compare("ClassAnnouncement") == 0) {
-    // handling ClassAnnouncement call
-    NPT_String application_id;
-    action->GetArgumentValue("application_id", application_id);
-    NPT_Int32 class_index;
-    NPT_String class_index_str;
-    action->GetArgumentValue("class_index", class_index);
-    action->GetArgumentValue("class_index", class_index_str);
+  // get application_id and class_index
+  NPT_String application_id;
+  action->GetArgumentValue("application_id", application_id);
+  NPT_UInt32 class_index;
+  NPT_String class_index_str;
+  action->GetArgumentValue("class_index", class_index);
+  action->GetArgumentValue("class_index", class_index_str);
+
+  if (action_name.Compare("ClassAnnouncement") == 0) {
+    // call child_class_handler_->ClassAnnouncement
     NPT_String class_desc;
     action->GetArgumentValue("class_desc", class_desc);
     NPT_String class_function;
@@ -165,8 +169,6 @@ NPT_Result UpnpCpm::OnAction(PLT_ActionReference &action,
          << application_id.GetChars() << "," << class_index << ","
          << " one_rdf_with_size=" << class_desc.GetLength() << ","
          << class_function.GetChars() << ")" << endl;
-
-    // call child_class_handler_->ClassAnnouncement
     if (child_class_handler_ != NULL) {
       DeviceClassDescription device_class_description;
       device_class_description.InitializeByRdfContent(class_desc.GetChars());
@@ -177,6 +179,12 @@ NPT_Result UpnpCpm::OnAction(PLT_ActionReference &action,
           context.GetLocalAddress().GetIpAddress().ToString().GetChars(),
           class_index, class_desc.GetChars());
     }
+  } else if (service_name.Compare(UpnpFsmdaUtils::kActiveCcmServiceType) == 0) {
+    // delegate to ActiveCcm
+    cout << "UpnpCpm::OnAction():: action for " << service_name.GetChars()
+         << endl;
+    active_ccm_map_[application_id.GetChars()][class_index]->OnAction(action,
+                                                                      context);
   }
   return NPT_SUCCESS;
 }
@@ -199,6 +207,11 @@ NPT_Result UpnpCpm::OnActionResponse(NPT_Result res,
   if (name.Compare("AddDeviceToClass") == 0) {
     clog << "UpnpCpm::OnActionResponse()::calling set_paired" << endl;
     child_class_handler_->set_paired(true);
+    NPT_String application_id;
+    action->GetArgumentValue("application_id", application_id);
+    NPT_Int32 class_index;
+    action->GetArgumentValue("class_index", class_index);
+    CreateActiveCcm(application_id.GetChars(), class_index);
   }
 }
 
@@ -292,6 +305,7 @@ ActiveClassListenerInterface *UpnpCpm::CreateActiveCcm(
   UpnpActiveCcm *communication = new UpnpActiveCcm(
       PLT_DeviceHostReference(this), last_parent_, ctrl_point_, application_id,
       class_index, child_class_handler_->active_player());
+  active_ccm_map_[application_id][class_index] = communication;
   return communication;
 }
 

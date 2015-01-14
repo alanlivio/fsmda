@@ -60,6 +60,7 @@ class MockChildClassHandler : public ChildClassHandler {
  +---------------------------------------------------------------------*/
 class MockActivePlayer : public ActivePlayerInterface {
  public:
+  MockActivePlayer() { ccm = NULL; }
   ActivePlayerListenerInterface* ccm;
   virtual void Prepare(const string& object_src, vector<Property> properties,
                        vector<Event> events) {}
@@ -68,7 +69,8 @@ class MockActivePlayer : public ActivePlayerInterface {
   virtual void PostAction(const string& event_id, const string& action) {}
   virtual void RequestPropertyValue(const string& name) {
     cout << "MockActivePlayer::RequestPropertyValue()::" << endl;
-    ccm->ReportPropertyValue(name, "RequestPropertyValue return");
+    if (ccm != NULL)
+      ccm->ReportPropertyValue(name, "RequestPropertyValue return");
     child_semaphore.SetValue(1);
   }
 
