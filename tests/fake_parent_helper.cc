@@ -52,7 +52,7 @@ class MockParentClassHandler : public ParentClassHandler {
  public:
   virtual void ReportAddDeviceToClass(const string& application_id,
                                       unsigned int class_index) {
-    clog << "MockParentClassHandler::ReportAddDeviceToClass()" << endl;
+    cout << "MockParentClassHandler::ReportAddDeviceToClass()" << endl;
     parent_semaphore.SetValue(1);
   }
 };
@@ -77,7 +77,8 @@ class MockHpe : public HpeClassHandlingInterface,
   // HpeClassHandlingInterface interface
   void getClassVariableValue(const string& name, const string& value) {}
   void setClassVariableValue(const string& name, const string& value) {
-    clog << "MockParentClassHandler::setClassVariableValue()" << endl;
+    clog << "MockParentClassHandler::setClassVariableValue()" << name << "="
+         << value << endl;
     if (FLAGS_profile_remove_device) parent_semaphore.SetValue(1);
   }
 };
@@ -123,8 +124,8 @@ int main(int argc, char** argv) {
 
   // waiting for pairing
   cout << "fake_parent_helper:: wait for pairing..." << endl;
-  parent_semaphore.WaitUntilEquals(1, NPT_TIMEOUT_INFINITE);
   parent_semaphore.SetValue(0);
+  parent_semaphore.WaitWhileEquals(0, NPT_TIMEOUT_INFINITE);
 
   if (FLAGS_profile_prepare) {
     ActiveClassInterface* active_pcm = parent_class_handler->CreateActivePcm(
@@ -170,7 +171,9 @@ int main(int argc, char** argv) {
   } else if (FLAGS_profile_remove_device) {
     // wait for pairing
     gettimeofday(&start_time, NULL);
-    parent_semaphore.WaitUntilEquals(1, NPT_TIMEOUT_INFINITE);
+    cout << "fsmda_parent:: wait for profile_remove_device..." << endl;
+    parent_semaphore.SetValue(0);
+    parent_semaphore.WaitWhileEquals(0, NPT_TIMEOUT_INFINITE);
     gettimeofday(&end_time, NULL);
     cout << "fsmda_parent profile_remove_device "
          << DeviceClassDescription::GetDeviceClassTypeStringByEnum(
@@ -179,7 +182,9 @@ int main(int argc, char** argv) {
 
   } else if (FLAGS_profile_bufferd_command) {
     gettimeofday(&start_time, NULL);
-    parent_semaphore.WaitUntilEquals(1, NPT_TIMEOUT_INFINITE);
+    cout << "fsmda_parent:: wait for second pairing..." << endl;
+    parent_semaphore.SetValue(0);
+    parent_semaphore.WaitWhileEquals(0, NPT_TIMEOUT_INFINITE);
     gettimeofday(&end_time, NULL);
     cout << "fsmda_parent profile_bufferd_command "
          << DeviceClassDescription::GetDeviceClassTypeStringByEnum(
