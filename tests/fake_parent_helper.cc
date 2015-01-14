@@ -161,7 +161,7 @@ int main(int argc, char** argv) {
         FLAGS_application_id, class_index);
     active_pcm->RegistryActiveClassListener(mock_hpe);
     gettimeofday(&start_time, NULL);
-    active_pcm->RequestPropertyValue("media1", "hight");
+    active_pcm->SetPropertyValue("media1", "hight", "10%", 0);
     gettimeofday(&end_time, NULL);
     cout << "fsmda_parent profile_variable "
          << DeviceClassDescription::GetDeviceClassTypeStringByEnum(

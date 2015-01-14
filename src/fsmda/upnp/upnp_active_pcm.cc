@@ -131,7 +131,7 @@ void UpnpActivePcm::PostAction(const string &object_id, const string &event_id,
  |   UpnpActivePcm::RequestPropertyValue
  +---------------------------------------------------------------------*/
 void UpnpActivePcm::RequestPropertyValue(const string &object_id,
-                                         const string &name) {
+                                         const string &property_name) {
   clog << "UpnpActivePcm::PostAction():: " << endl;
   PLT_Service *service;
   PLT_ActionReference post_action;
@@ -153,7 +153,7 @@ void UpnpActivePcm::RequestPropertyValue(const string &object_id,
   aux_string << class_index_;
   post_action->SetArgumentValue("class_index", aux_string.str().c_str());
   post_action->SetArgumentValue("object_id", application_id_.c_str());
-  post_action->SetArgumentValue("property_name", name.c_str());
+  post_action->SetArgumentValue("property_name", property_name.c_str());
 
   res = ctrl_point_->InvokeAction(post_action, 0);
   clog << "UpnpActivePcm::PostAction():: InvokeAction=" << NPT_ResultText(res)
@@ -165,8 +165,43 @@ void UpnpActivePcm::RequestPropertyValue(const string &object_id,
  |   UpnpActivePcm::SetPropertyValue
  +---------------------------------------------------------------------*/
 void UpnpActivePcm::SetPropertyValue(const string &object_id,
-                                     const string &name, const string &value,
-                                     unsigned int duration) {}
+                                     const string &property_name,
+                                     const string &property_value,
+                                     unsigned int property_duration) {
+  clog << "UpnpActivePcm::SetPropertyValue():: " << endl;
+  PLT_Service *service;
+  PLT_ActionReference post_action;
+  NPT_Result res = ctrl_point_->CreateAction(
+      remote_device_, UpnpFsmdaUtils::kActiveCcmServiceType, "SetPropertyValue",
+      post_action);
+  if (post_action.IsNull()) {
+    cout << "UpnpActivePcm::SetPropertyValue():: InvokeAction="
+         << NPT_ResultText(res) << endl;
+    clog << "UpnpActivePcm::SetPropertyValue():: "
+            "remote_device_->GetType().GetChars()="
+         << remote_device_->GetType().GetChars() << endl;
+    clog << "UpnpActivePcm::SetPropertyValue():: "
+            "remote_device_->GetUUID().GetChars()"
+         << remote_device_->GetUUID().GetChars() << endl;
+    return;
+  }
+  post_action->SetArgumentValue("application_id", application_id_.c_str());
+  stringstream aux_string;
+  aux_string << class_index_;
+  post_action->SetArgumentValue("class_index", aux_string.str().c_str());
+  post_action->SetArgumentValue("object_id", object_id.c_str());
+  post_action->SetArgumentValue("property_name", property_name.c_str());
+  post_action->SetArgumentValue("property_value", property_value.c_str());
+  stringstream aux_string2;
+  aux_string2 << property_duration;
+  post_action->SetArgumentValue("property_duration", aux_string2.str().c_str());
+
+  res = ctrl_point_->InvokeAction(post_action, 0);
+  cout << "UpnpActivePcm::SetPropertyValue():: InvokeAction="
+       << NPT_ResultText(res) << endl;
+  set_var_action_semaphore.WaitUntilEquals(1, NPT_TIMEOUT_INFINITE);
+  set_var_action_semaphore.SetValue(0);
+}
 /*----------------------------------------------------------------------
  |   UpnpActivePcm::OnAction
  +---------------------------------------------------------------------*/
@@ -213,6 +248,8 @@ NPT_Result UpnpActivePcm::OnActionResponse(NPT_Result res,
   if (!action_name.Compare("RequestPropertyValue"))
     request_var_action_semaphore.SetValue(1);
   if (!action_name.Compare("Prepare")) prepare_action_semaphore.SetValue(1);
+  if (!action_name.Compare("SetPropertyValue"))
+    set_var_action_semaphore.SetValue(1);
 }
 
 /*----------------------------------------------------------------------

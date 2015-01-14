@@ -115,10 +115,12 @@ class ActiveClassInterface {
   virtual void PostAction(const string& object_id, const string& event_id,
                           const string& action) = 0;
   virtual void RequestPropertyValue(const string& object_id,
-                                    const string& name) = 0;
+                                    const string& property_name) = 0;
 
-  virtual void SetPropertyValue(const string& object_id, const string& name,
-                                const string& value, unsigned int duration) = 0;
+  virtual void SetPropertyValue(const string& object_id,
+                                const string& property_name,
+                                const string& property_value,
+                                unsigned int property_duration) = 0;
   virtual void RegistryActiveClassListener(
       ActiveClassListenerInterface* listener) = 0;
 };

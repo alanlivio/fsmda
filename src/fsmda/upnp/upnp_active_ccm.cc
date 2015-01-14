@@ -74,6 +74,20 @@ NPT_Result UpnpActiveCcm::OnAction(PLT_ActionReference& action,
     clog << "UpnpActiveCcm::OnAction()::RequestPropertyValue("
          << property_name.GetChars() << ")" << endl;
     player_->RequestPropertyValue(property_name.GetChars());
+  } else if (name.Compare("SetPropertyValue") == 0) {
+    // handling RequestPropertyValue call
+    NPT_String object_id;
+    action->GetArgumentValue("object_id", object_id);
+    NPT_String property_name;
+    action->GetArgumentValue("property_name", property_name);
+    NPT_String property_value;
+    action->GetArgumentValue("property_value", property_value);
+    NPT_UInt32 property_duration;
+    action->GetArgumentValue("property_name", property_duration);
+    clog << "UpnpActiveCcm::OnAction()::RequestPropertyValue("
+         << property_name.GetChars() << ")" << endl;
+    player_->SetPropertyValue(property_name.GetChars(),
+                              property_value.GetChars(), property_duration);
   }
   return NPT_SUCCESS;
 }

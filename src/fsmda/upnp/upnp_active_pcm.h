@@ -38,9 +38,11 @@ class UpnpActivePcm : public ActiveClassInterface,
   virtual void PostAction(const string& object_id, const string& event_id,
                           const string& action);
   virtual void RequestPropertyValue(const string& object_id,
-                                    const string& name);
-  virtual void SetPropertyValue(const string& object_id, const string& name,
-                                const string& value, unsigned int duration);
+                                    const string& property_name);
+  virtual void SetPropertyValue(const string& object_id,
+                                const string& property_name,
+                                const string& property_value,
+                                unsigned int property_duration);
   virtual void RegistryActiveClassListener(ActiveClassListenerInterface* hpe);
 
   // PLT_CtrlPointListener overloaded methods
@@ -67,6 +69,7 @@ class UpnpActivePcm : public ActiveClassInterface,
   unsigned int class_index_;
   NPT_SharedVariable post_action_semaphore;
   NPT_SharedVariable request_var_action_semaphore;
+  NPT_SharedVariable set_var_action_semaphore;
   NPT_SharedVariable prepare_action_semaphore;
 };
 

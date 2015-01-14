@@ -67,15 +67,21 @@ class MockActivePlayer : public ActivePlayerInterface {
   virtual void AddEvent(Event evt) {}
   virtual void RemoveEvent(const string& event_id) {}
   virtual void PostAction(const string& event_id, const string& action) {}
-  virtual void RequestPropertyValue(const string& name) {
+  virtual void RequestPropertyValue(const string& property_name) {
     cout << "MockActivePlayer::RequestPropertyValue()::" << endl;
     if (ccm != NULL)
-      ccm->ReportPropertyValue(name, "RequestPropertyValue return");
+      ccm->ReportPropertyValue(property_name, "RequestPropertyValue return");
     child_semaphore.SetValue(1);
   }
 
-  virtual void SetPropertyValue(const string& name, const string& value,
-                                unsigned int duration) {}
+  virtual void SetPropertyValue(const string& property_name,
+                                const string& property_value,
+                                unsigned int property_uration) {
+    cout << "MockActivePlayer::SetPropertyValue()::" << endl;
+    if (ccm != NULL)
+      ccm->ReportPropertyValue(property_name, "SetPropertyValue return");
+    child_semaphore.SetValue(1);
+  }
   virtual void RegistryPlayerListener(ActivePlayerListenerInterface* listener) {
     ccm = listener;
   }
@@ -129,7 +135,7 @@ int main(int argc, char** argv) {
          << DeviceClassDescription::GetDeviceClassTypeStringByEnum(device_class)
          << " " << CalculateElapsedTime(start_time, end_time) << " ms" << endl;
   } else if (FLAGS_profile_variable) {
-    cout << "waiting for set variable call " << endl;
+    cout << "waiting for SetPropertyValue" << endl;
     child_semaphore.SetValue(0);
     child_semaphore.WaitWhileEquals(0, NPT_TIMEOUT_INFINITE);
   } else if (FLAGS_profile_bufferd_command) {
