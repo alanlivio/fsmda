@@ -45,8 +45,8 @@ bool getZipError(zip *file, string *strError) {
 }
 
 static void printZipError(string function, string strError) {
-  cout << function << " Warning! libzip error: '";
-  cout << strError << "'" << endl;
+  clog << function << " Warning! libzip error: '";
+  clog << strError << "'" << endl;
 }
 
 int zipwalker(void *zipfile, string initdir, string dirpath, string iUriD) {
@@ -187,7 +187,7 @@ int unzip_file(const char *zipname, const char *filedir) {
     strcat(filename, cur_file_name);
     if (cur_file_name[name_len - 1] == '/') {
       // printf(":: creating dir: %s\n",filename);
-      cout << ":: creating dir: " << filename << endl;
+      clog << ":: creating dir: " << filename << endl;
 
 #ifdef WIN32
       _mkdir(filename);
@@ -197,7 +197,7 @@ int unzip_file(const char *zipname, const char *filedir) {
 
     } else {
       // printf(":: inflating %s",filename);//cout
-      cout << ":: inflating file " << filename << endl;
+      clog << ":: inflating file " << filename << endl;
 
       ofp = fopen(filename, "wb");
       if (!ofp) {
@@ -217,7 +217,7 @@ int unzip_file(const char *zipname, const char *filedir) {
       fclose(ofp);
     }
     // printf(" [done]\n");//cout
-    cout << " [done]" << endl;
+    clog << " [done]" << endl;
     free(filename);
   }
   // go back to our original dir
@@ -316,8 +316,8 @@ string getBase64FromFile(string file_path) {
 
   readfile = fopen(file_path.c_str(), "rb");
   if (!readfile) {
-    cout << "getBase64FromFile Unable to open file '" << file_path;
-    cout << "'" << endl;
+    clog << "getBase64FromFile Unable to open file '" << file_path;
+    clog << "'" << endl;
     return "";
   }
 
@@ -325,12 +325,12 @@ string getBase64FromFile(string file_path) {
   stat(file_path.c_str(), &stbuf);
   fileLen = stbuf.st_size;
 
-  cout << "getBase64FromFile FILE LEN = " << fileLen << endl;
+  clog << "getBase64FromFile FILE LEN = " << fileLen << endl;
   // Allocate memory
   buffer = (char *)malloc(fileLen + 1);
 
   if (!buffer) {
-    cout << "getBase64FromFile malloc" << fileLen << endl;
+    clog << "getBase64FromFile malloc" << fileLen << endl;
     fclose(readfile);
     return "";
   }
@@ -349,8 +349,8 @@ string getBase64FromFile(string file_path) {
 
   free(buffer);
 
-  cout << "getBase64FromFile BASE 64 LEN = ";
-  cout << sResult.length() << endl;
+  clog << "getBase64FromFile BASE 64 LEN = ";
+  clog << sResult.length() << endl;
 
   // Finishes the base64 encoding and returns the result as a string
   return sResult;
@@ -364,12 +364,12 @@ int writeFileFromBase64(string payload, char *file_path) {
   ofstream out(file_path, ios::out | ios::binary);
 
   if (!out) {
-    cout << "writeFileFromBase64 error opening file: ";
-    cout << file_path << endl;
+    clog << "writeFileFromBase64 error opening file: ";
+    clog << file_path << endl;
     return -1;
   }
 
-  cout << "util::wb64 PAYLOAD SIZE = " << strlen(payload.c_str()) << endl;
+  clog << "util::wb64 PAYLOAD SIZE = " << strlen(payload.c_str()) << endl;
 
   string strDecode = base64_decode(payload);
 
@@ -382,8 +382,8 @@ int writeFileFromBase64(string payload, char *file_path) {
               file_path,
               len);
   */
-  cout << "util::wb64 wrote " << file_path;
-  cout << " from " << len << " chars (b64)" << endl;
+  clog << "util::wb64 wrote " << file_path;
+  clog << " from " << len << " chars (b64)" << endl;
   return len;
 }
 
@@ -431,7 +431,7 @@ std::string base64_encode(unsigned char const *bytes_to_encode,
 std::string base64_decode(std::string const &encoded_string) {
   int in_len = encoded_string.size();
 
-  // std::cout << ":: base64_decode.encoded_string.size()="<<in_len<<std::endl;
+  // std::clog << ":: base64_decode.encoded_string.size()="<<in_len<<std::endl;
 
   int i = 0;
   int j = 0;

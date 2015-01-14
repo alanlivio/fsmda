@@ -65,7 +65,7 @@ void UpnpActiveCcm::NotifyError(const string& object_id,
 NPT_Result UpnpActiveCcm::OnAction(PLT_ActionReference& action,
                                    const PLT_HttpRequestContext& context) {
   NPT_String name = action->GetActionDesc().GetName();
-  cout << "UpnpActiveCcm::OnAction()::name=" << name.GetChars() << endl;
+  clog << "UpnpActiveCcm::OnAction()::name=" << name.GetChars() << endl;
 
   if (name.Compare("RequestPropertyValue") == 0) {
     // handling RequestPropertyValue call

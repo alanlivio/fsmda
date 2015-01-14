@@ -181,7 +181,7 @@ NPT_Result UpnpCpm::OnAction(PLT_ActionReference &action,
     }
   } else if (service_name.Compare(UpnpFsmdaUtils::kActiveCcmServiceType) == 0) {
     // delegate to ActiveCcm
-    cout << "UpnpCpm::OnAction():: action for " << service_name.GetChars()
+    clog << "UpnpCpm::OnAction():: action for " << service_name.GetChars()
          << endl;
     active_ccm_map_[application_id.GetChars()][class_index]->OnAction(action,
                                                                       context);

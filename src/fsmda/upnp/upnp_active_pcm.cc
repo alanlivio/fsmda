@@ -69,16 +69,16 @@ void UpnpActivePcm::Prepare(const string &object_id, const string &object_src,
                                 Property::ToString(properties).c_str());
   post_action->SetArgumentValue("events", Event::ToString(evts).c_str());
 
-  cout << "UpnpActivePcm::Prepare():: zip_directory" << endl;
+  clog << "UpnpActivePcm::Prepare():: zip_directory" << endl;
   zip_directory("/tmp/appdir.zip", object_src.c_str(), "/");
   string zip_base64 = getBase64FromFile("/tmp/appdir.zip");
   res = post_action->SetArgumentValue("object_src", zip_base64.c_str());
-  cout << "UpnpActivePcm::Prepare():: SetArgumentValues=" << NPT_ResultText(res)
+  clog << "UpnpActivePcm::Prepare():: SetArgumentValues=" << NPT_ResultText(res)
        << endl;
 
   res = ctrl_point_->InvokeAction(post_action, 0);
   prepare_action_semaphore.WaitUntilEquals(1, NPT_TIMEOUT_INFINITE);
-  cout << "UpnpActivePcm::Prepare():: InvokeAction=" << NPT_ResultText(res)
+  clog << "UpnpActivePcm::Prepare():: InvokeAction=" << NPT_ResultText(res)
        << endl;
   prepare_action_semaphore.WaitUntilEquals(1, NPT_TIMEOUT_INFINITE);
   prepare_action_semaphore.SetValue(0);
@@ -175,7 +175,7 @@ void UpnpActivePcm::SetPropertyValue(const string &object_id,
       remote_device_, UpnpFsmdaUtils::kActiveCcmServiceType, "SetPropertyValue",
       post_action);
   if (post_action.IsNull()) {
-    cout << "UpnpActivePcm::SetPropertyValue():: InvokeAction="
+    clog << "UpnpActivePcm::SetPropertyValue():: InvokeAction="
          << NPT_ResultText(res) << endl;
     clog << "UpnpActivePcm::SetPropertyValue():: "
             "remote_device_->GetType().GetChars()="
@@ -197,7 +197,7 @@ void UpnpActivePcm::SetPropertyValue(const string &object_id,
   post_action->SetArgumentValue("property_duration", aux_string2.str().c_str());
 
   res = ctrl_point_->InvokeAction(post_action, 0);
-  cout << "UpnpActivePcm::SetPropertyValue():: InvokeAction="
+  clog << "UpnpActivePcm::SetPropertyValue():: InvokeAction="
        << NPT_ResultText(res) << endl;
   set_var_action_semaphore.WaitUntilEquals(1, NPT_TIMEOUT_INFINITE);
   set_var_action_semaphore.SetValue(0);
