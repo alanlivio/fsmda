@@ -27,6 +27,8 @@ DEFINE_string(device_class, DeviceClassDescription::kActiveDeviceString,
 DEFINE_bool(profile_pairing, false, "enable profile_pairing");
 // Profile Fault tolerance (2)
 DEFINE_bool(profile_bufferd_command, false, "enable profile_bufferd_command");
+// Profile Variable changing
+DEFINE_bool(profile_variable, false, "enable profile_variable");
 
 /*----------------------------------------------------------------------
  |   global function
@@ -51,6 +53,30 @@ class MockChildClassHandler : public ChildClassHandler {
   }
   explicit MockChildClassHandler(const DeviceDescription& device_description)
       : ChildClassHandler(device_description) {}
+};
+
+/*----------------------------------------------------------------------
+ |   MockChildClassHandler class
+ +---------------------------------------------------------------------*/
+class MockActivePlayer : public ActivePlayerInterface {
+ public:
+  ActivePlayerListenerInterface* ccm;
+  virtual void Prepare(const string& object_src, vector<Property> properties,
+                       vector<Event> events) {}
+  virtual void AddEvent(Event evt) {}
+  virtual void RemoveEvent(const string& event_id) {}
+  virtual void PostAction(const string& event_id, const string& action) {}
+  virtual void RequestPropertyValue(const string& name) {
+    cout << "MockActivePlayer::RequestPropertyValue()::" << endl;
+    ccm->ReportPropertyValue(name, "RequestPropertyValue return");
+    child_semaphore.SetValue(1);
+  }
+
+  virtual void SetPropertyValue(const string& name, const string& value,
+                                unsigned int duration) {}
+  virtual void RegistryPlayerListener(ActivePlayerListenerInterface* listener) {
+    ccm = listener;
+  }
 };
 
 /*----------------------------------------------------------------------
@@ -79,8 +105,12 @@ int main(int argc, char** argv) {
       DeviceClassDescription::GetDeviceClassRdfDefaultContentByType(
           device_class);
   device_description.InitializeByRdfContent(rdf_content);
-  MockChildClassHandler* child_class_handler ;
+  MockChildClassHandler* child_class_handler;
   child_class_handler = new MockChildClassHandler(device_description);
+  // Set Player if is a active device
+  MockActivePlayer* active_player;
+  active_player = new MockActivePlayer();
+  child_class_handler->set_active_player(active_player);
 
   // start child
   child_class_handler->StartPairing();
@@ -96,6 +126,10 @@ int main(int argc, char** argv) {
     cout << "fsmda_child profile_pairing "
          << DeviceClassDescription::GetDeviceClassTypeStringByEnum(device_class)
          << " " << CalculateElapsedTime(start_time, end_time) << " ms" << endl;
+  } else if (FLAGS_profile_variable) {
+    cout << "waiting for set variable call " << endl;
+    child_semaphore.SetValue(0);
+    child_semaphore.WaitWhileEquals(0, NPT_TIMEOUT_INFINITE);
   } else if (FLAGS_profile_bufferd_command) {
     child_class_handler->StopPairing();
     delete child_class_handler;

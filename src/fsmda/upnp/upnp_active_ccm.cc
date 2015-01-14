@@ -63,8 +63,20 @@ void UpnpActiveCcm::NotifyError(const string& object_id,
  |   UpnpActiveCcm::OnAction
  +---------------------------------------------------------------------*/
 NPT_Result UpnpActiveCcm::OnAction(PLT_ActionReference& action,
-                                   const PLT_HttpRequestContext& context) {}
+                                   const PLT_HttpRequestContext& context) {
+  NPT_String name = action->GetActionDesc().GetName();
+  cout << "UpnpActiveCcm::OnAction()::name=" << name.GetChars() << endl;
 
+  if (name.Compare("RequestPropertyValue") == 0) {
+    // handling RequestPropertyValue call
+    NPT_String property_name;
+    action->GetArgumentValue("property_name", property_name);
+    clog << "UpnpActiveCcm::OnAction()::RequestPropertyValue("
+         << property_name.GetChars() << ")" << endl;
+    player_->RequestPropertyValue(property_name.GetChars());
+  }
+  return NPT_SUCCESS;
+}
 /*----------------------------------------------------------------------
  |   UpnpActiveCcm::OnDeviceAdded
  +---------------------------------------------------------------------*/

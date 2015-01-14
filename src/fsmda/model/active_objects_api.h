@@ -57,7 +57,7 @@ class ActivePlayerListenerInterface {
   virtual ~ActivePlayerListenerInterface() {}
 
   // public pure virtual methods
-  virtual void RequestPropertyValue(const string& name) = 0;
+  virtual void ReportPropertyValue(const string& name, const string& value) = 0;
   virtual void NotifyEventTransition(const string& event_id,
                                      const string& transition) = 0;
   virtual void NotifyError(const string& message) = 0;
@@ -74,7 +74,7 @@ class ActivePlayerInterface {
   virtual void AddEvent(Event evt) = 0;
   virtual void RemoveEvent(const string& event_id) = 0;
   virtual void PostAction(const string& event_id, const string& action) = 0;
-  virtual void ReportPropertyValue(const string& name, const string& value) = 0;
+  virtual void RequestPropertyValue(const string& name) = 0;
   virtual void SetPropertyValue(const string& name, const string& value,
                                 unsigned int duration) = 0;
   virtual void RegistryPlayerListener(

@@ -124,7 +124,7 @@ void UpnpActivePcm::PostAction(const string &object_id, const string &event_id,
   clog << "UpnpActivePcm::PostAction():: InvokeAction=" << NPT_ResultText(res)
        << endl;
   post_action_semaphore.WaitUntilEquals(1, NPT_TIMEOUT_INFINITE);
-  request_var_action_semaphore.SetValue(0);
+  post_action_semaphore.SetValue(0);
 }
 
 /*----------------------------------------------------------------------
