@@ -34,58 +34,9 @@ DEFINE_bool(profile_remove_device, false, "enable profile_remove_device");
 DEFINE_bool(profile_bufferd_command, false, "enable profile_bufferd_command");
 
 /*----------------------------------------------------------------------
- |   Auxiliary variables
+ |   global variables and function
  +---------------------------------------------------------------------*/
-NPT_SharedVariable child_semaphore;
-class MockParentClassHandler : public ParentClassHandler {
- public:
-  string expected_semaphore;
-  virtual void ReportAddDeviceToClass(const string& application_id,
-                                      unsigned int class_index) {
-    clog << "MockParentClassHandler::ReportAddDeviceToClass()" << endl;
-    child_semaphore.SetValue(1);
-  }
-};
-
-class MockHpe : public HpeClassHandlingInterface,
-                public ActiveClassListenerInterface {
- public:
-  string expected_semaphore;
-
-  // ActiveClassListenerInterface interface
-  virtual void ReportPropertyValue(const string& object_id, const string& name,
-                                   const string& value) {
-    clog << "MockParentClassHandler::ReportPropertyValue()" << endl;
-  }
-  void NotifyEventTransition(const string& object_id,
-                             const string& event_id,
-                             const string& transition) {
-    clog << "MockParentClassHandler::NotifyEventTransition()" << endl;
-  }
-  void NotifyError(const string& object_id, const string& message) {}
-
-  // HpeClassHandlingInterface interface
-  void getClassVariableValue(const string& name,
-                             const string& value) {}
-  void setClassVariableValue(const string& name,
-                             const string& value) {
-    clog << "MockParentClassHandler::setClassVariableValue()" << endl;
-    if (FLAGS_profile_remove_device) child_semaphore.SetValue(1);
-  }
-};
-
-MockParentClassHandler* parent_class_handler;
-
-/*----------------------------------------------------------------------
- |   global function
- +---------------------------------------------------------------------*/
-void HandleInterrupt(int sig) {
-  if (parent_class_handler != NULL) {
-    cout << "fake_child_helper::releasing after receive INT" << endl;
-    child_semaphore.SetValue(1);
-    parent_class_handler->StopPairing();
-  }
-}
+NPT_SharedVariable parent_semaphore;
 
 double CalculateElapsedTime(timeval start_time, timeval end_time) {
   double elapsed_time;
@@ -93,6 +44,43 @@ double CalculateElapsedTime(timeval start_time, timeval end_time) {
   elapsed_time += (end_time.tv_usec - start_time.tv_usec) / 1000.0;
   return elapsed_time;
 }
+
+/*----------------------------------------------------------------------
+ |   MockParentClassHandler class
+ +---------------------------------------------------------------------*/
+class MockParentClassHandler : public ParentClassHandler {
+ public:
+  virtual void ReportAddDeviceToClass(const string& application_id,
+                                      unsigned int class_index) {
+    clog << "MockParentClassHandler::ReportAddDeviceToClass()" << endl;
+    parent_semaphore.SetValue(1);
+  }
+};
+
+/*----------------------------------------------------------------------
+ |   MockHpe class
+ +---------------------------------------------------------------------*/
+class MockHpe : public HpeClassHandlingInterface,
+                public ActiveClassListenerInterface {
+ public:
+  // ActiveClassListenerInterface interface
+  virtual void ReportPropertyValue(const string& object_id, const string& name,
+                                   const string& value) {
+    clog << "MockParentClassHandler::ReportPropertyValue()" << endl;
+  }
+  void NotifyEventTransition(const string& object_id, const string& event_id,
+                             const string& transition) {
+    clog << "MockParentClassHandler::NotifyEventTransition()" << endl;
+  }
+  void NotifyError(const string& object_id, const string& message) {}
+
+  // HpeClassHandlingInterface interface
+  void getClassVariableValue(const string& name, const string& value) {}
+  void setClassVariableValue(const string& name, const string& value) {
+    clog << "MockParentClassHandler::setClassVariableValue()" << endl;
+    if (FLAGS_profile_remove_device) parent_semaphore.SetValue(1);
+  }
+};
 
 /*----------------------------------------------------------------------
  |   main
@@ -103,11 +91,6 @@ int main(int argc, char** argv) {
       "fake_parent --application_id=<UUID> "
       "--device-class=<passive|active|ondemand|medicapture>");
   google::ParseCommandLineFlags(&argc, &argv, true);
-
-  signal(SIGINT, HandleInterrupt);
-  signal(SIGSTOP, HandleInterrupt);
-  signal(SIGTERM, HandleInterrupt);
-  signal(SIGTSTP, HandleInterrupt);
 
   // redirect clog to /dev/null/
   static std::ofstream logOutput;
@@ -126,6 +109,7 @@ int main(int argc, char** argv) {
   // configure parent
   device_class_type =
       DeviceClassDescription::GetDeviceClassTypeByString(FLAGS_device_class);
+  MockParentClassHandler* parent_class_handler;
   parent_class_handler = new MockParentClassHandler();
   mock_hpe = new MockHpe();
   device_class_description = new DeviceClassDescription();
@@ -139,8 +123,8 @@ int main(int argc, char** argv) {
 
   // waiting for pairing
   cout << "fake_parent_helper:: wait for pairing..." << endl;
-  child_semaphore.WaitUntilEquals(1, NPT_TIMEOUT_INFINITE);
-  child_semaphore.SetValue(0);
+  parent_semaphore.WaitUntilEquals(1, NPT_TIMEOUT_INFINITE);
+  parent_semaphore.SetValue(0);
 
   if (FLAGS_profile_prepare) {
     ActiveClassInterface* active_pcm = parent_class_handler->CreateActivePcm(
@@ -186,7 +170,7 @@ int main(int argc, char** argv) {
   } else if (FLAGS_profile_remove_device) {
     // wait for pairing
     gettimeofday(&start_time, NULL);
-    child_semaphore.WaitUntilEquals(1, NPT_TIMEOUT_INFINITE);
+    parent_semaphore.WaitUntilEquals(1, NPT_TIMEOUT_INFINITE);
     gettimeofday(&end_time, NULL);
     cout << "fsmda_parent profile_remove_device "
          << DeviceClassDescription::GetDeviceClassTypeStringByEnum(
@@ -195,7 +179,7 @@ int main(int argc, char** argv) {
 
   } else if (FLAGS_profile_bufferd_command) {
     gettimeofday(&start_time, NULL);
-    child_semaphore.WaitUntilEquals(1, NPT_TIMEOUT_INFINITE);
+    parent_semaphore.WaitUntilEquals(1, NPT_TIMEOUT_INFINITE);
     gettimeofday(&end_time, NULL);
     cout << "fsmda_parent profile_bufferd_command "
          << DeviceClassDescription::GetDeviceClassTypeStringByEnum(

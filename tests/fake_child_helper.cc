@@ -29,10 +29,19 @@ DEFINE_bool(profile_pairing, false, "enable profile_pairing");
 DEFINE_bool(profile_bufferd_command, false, "enable profile_bufferd_command");
 
 /*----------------------------------------------------------------------
- |   Auxiliary variables
+ |   global function
  +---------------------------------------------------------------------*/
 NPT_SharedVariable child_semaphore;
+double CalculateElapsedTime(timeval start_time, timeval end_time) {
+  double elapsed_time;
+  elapsed_time = (end_time.tv_sec - start_time.tv_sec) * 1000.0;
+  elapsed_time += (end_time.tv_usec - start_time.tv_usec) / 1000.0;
+  return elapsed_time;
+}
 
+/*----------------------------------------------------------------------
+ |   MockChildClassHandler class
+ +---------------------------------------------------------------------*/
 class MockChildClassHandler : public ChildClassHandler {
  public:
   void set_paired(bool paired) {
@@ -44,26 +53,6 @@ class MockChildClassHandler : public ChildClassHandler {
       : ChildClassHandler(device_description) {}
 };
 
-MockChildClassHandler* child_class_handler = NULL;
-
-/*----------------------------------------------------------------------
- |   global function
- +---------------------------------------------------------------------*/
-void HandleInterrupt(int sig) {
-  if (child_class_handler != NULL) {
-    cout << "fake_child_helper::releasing after receive INT" << endl;
-    child_semaphore.SetValue(1);
-    child_class_handler->StopPairing();
-  }
-}
-
-double CalculateElapsedTime(timeval start_time, timeval end_time) {
-  double elapsed_time;
-  elapsed_time = (end_time.tv_sec - start_time.tv_sec) * 1000.0;
-  elapsed_time += (end_time.tv_usec - start_time.tv_usec) / 1000.0;
-  return elapsed_time;
-}
-
 /*----------------------------------------------------------------------
  |   main
  +---------------------------------------------------------------------*/
@@ -72,11 +61,6 @@ int main(int argc, char** argv) {
   google::SetUsageMessage(
       "fake_child_helper --device-class=<passive|active|ondemand|medicapture>");
   google::ParseCommandLineFlags(&argc, &argv, true);
-
-  signal(SIGINT, HandleInterrupt);
-  signal(SIGSTOP, HandleInterrupt);
-  signal(SIGTERM, HandleInterrupt);
-  signal(SIGTSTP, HandleInterrupt);
 
   // redirect clog to /dev/null/
   static std::ofstream logOutput;
@@ -95,6 +79,7 @@ int main(int argc, char** argv) {
       DeviceClassDescription::GetDeviceClassRdfDefaultContentByType(
           device_class);
   device_description.InitializeByRdfContent(rdf_content);
+  MockChildClassHandler* child_class_handler ;
   child_class_handler = new MockChildClassHandler(device_description);
 
   // start child
