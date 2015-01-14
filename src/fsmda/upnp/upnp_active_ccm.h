@@ -27,7 +27,7 @@ class UpnpActiveCcm : public ActiveClassListenerInterface,
   UpnpActiveCcm(PLT_DeviceHostReference host_device,
                 PLT_DeviceDataReference& remote_device,
                 PLT_CtrlPointReference ctrl_point, const string& application_id,
-                unsigned int class_index);
+                unsigned int class_index, ActivePlayerInterface* player);
   virtual ~UpnpActiveCcm();
 
   // ActiveClassListenerInterface overloaded methods

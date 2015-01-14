@@ -91,7 +91,7 @@ DeviceDescription* ChildClassHandler::device_description() {
 /*----------------------------------------------------------------------
  |   ChildClassHandler::set_active_player
  +---------------------------------------------------------------------*/
-void ChildClassHandler::set_active_player(ActiveClassInterface* player) {
+void ChildClassHandler::set_active_player(ActivePlayerInterface* player) {
   active_player_ = player;
 }
 
@@ -114,4 +114,29 @@ void ChildClassHandler::set_ondemand_player(OnDemandClassInterface* player) {
 void ChildClassHandler::set_mediacapture_player(
     MediaCaptureClassInterface* player) {
   mediacapture_player_ = player;
+}
+
+/*----------------------------------------------------------------------
+ |   ChildClassHandler::passive_player
+ +---------------------------------------------------------------------*/
+PassiveClassInterface* ChildClassHandler::passive_player() {
+  return passive_player_;
+}
+/*----------------------------------------------------------------------
+ |   ChildClassHandler::active_player
+ +---------------------------------------------------------------------*/
+ActivePlayerInterface* ChildClassHandler::active_player() {
+  return active_player_;
+}
+/*----------------------------------------------------------------------
+ |   ChildClassHandler::ondemand_player
+ +---------------------------------------------------------------------*/
+OnDemandClassInterface* ChildClassHandler::ondemand_player() {
+  return ondemand_player_;
+}
+/*----------------------------------------------------------------------
+ |   ChildClassHandler::mediacapture_player
+ +---------------------------------------------------------------------*/
+MediaCaptureClassInterface* ChildClassHandler::mediacapture_player() {
+  return mediacapture_player_;
 }

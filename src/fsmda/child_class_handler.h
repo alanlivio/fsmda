@@ -35,21 +35,21 @@ class ChildClassHandler {
   bool paired();
   DeviceDescription* device_description();
   void set_passive_player(PassiveClassInterface* player);
-  void set_active_player(ActiveClassInterface* player);
+  void set_active_player(ActivePlayerInterface* player);
   void set_ondemand_player(OnDemandClassInterface* player);
   void set_mediacapture_player(MediaCaptureClassInterface* player);
 
   // public melthods
   // called para cpm
   virtual void set_paired(bool paired_);
-  PassiveClassInterface* set_passive_player();
-  ActiveClassInterface* set_active_player();
-  OnDemandClassInterface* set_ondemand_player();
-  MediaCaptureClassInterface* set_mediacapture_player();
+  PassiveClassInterface* passive_player();
+  ActivePlayerInterface* active_player();
+  OnDemandClassInterface* ondemand_player();
+  MediaCaptureClassInterface* mediacapture_player();
 
  private:
   PassiveClassInterface* passive_player_;
-  ActiveClassInterface* active_player_;
+  ActivePlayerInterface* active_player_;
   OnDemandClassInterface* ondemand_player_;
   MediaCaptureClassInterface* mediacapture_player_;
   map<unsigned int, DeviceClassDescription*> device_class_description_map_;

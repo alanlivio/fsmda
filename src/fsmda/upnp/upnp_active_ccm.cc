@@ -19,13 +19,15 @@ UpnpActiveCcm::UpnpActiveCcm(PLT_DeviceHostReference host_device,
                              PLT_DeviceDataReference& remote_device,
                              PLT_CtrlPointReference ctrl_point,
                              const string& application_id,
-                             unsigned int class_index) {
+                             unsigned int class_index,
+                             ActivePlayerInterface* player) {
   host_device_ = host_device;
   remote_device_ = remote_device;
   ctrl_point_ = ctrl_point;
   application_id_ = string(application_id);
   class_index_ = class_index;
   ctrl_point_->AddListener(this);
+  player_ = player;
 }
 
 /*----------------------------------------------------------------------
