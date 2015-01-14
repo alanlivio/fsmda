@@ -2,8 +2,8 @@
  |   includes
  +---------------------------------------------------------------------*/
 
-#include "fsmda//device_class_description.h"
-#include "fsmda//device_description.h"
+#include "fsmda/device_class_description.h"
+#include "fsmda/device_description.h"
 #include "fsmda/parent_class_handler.h"
 #include "fsmda/child_class_handler.h"
 #include "fsmda/upnp/upnp_fsmda_utils.h"

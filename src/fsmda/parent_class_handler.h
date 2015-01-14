@@ -8,7 +8,7 @@
 #include <set>
 #include <string>
 #include <vector>
-#include "fsmda//device_class_description.h"
+#include "fsmda/device_class_description.h"
 #include "fsmda/model/active_objects_api.h"
 #include "fsmda/model/mediacapture_objects_api.h"
 #include "fsmda/model/ondemand_objects_api.h"

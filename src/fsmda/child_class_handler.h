@@ -11,8 +11,8 @@
 #include "fsmda/upnp/upnp_passive_ccm.h"
 #include "fsmda/upnp/upnp_ondemand_ccm.h"
 #include "fsmda/upnp/upnp_mediacapture_ccm.h"
-#include "fsmda//device_class_description.h"
-#include "fsmda//device_description.h"
+#include "fsmda/device_class_description.h"
+#include "fsmda/device_description.h"
 #include "fsmda/upnp/upnp_cpm.h"
 
 using std::string;
