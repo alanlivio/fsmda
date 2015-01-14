@@ -31,6 +31,7 @@ class UpnpActivePcm : public ActiveClassInterface,
   virtual ~UpnpActivePcm();
 
   // ActiveClassInterface overloaded methods
+  // called by HostHpe
   virtual void Prepare(const string& object_id, const string& object_src,
                        vector<Property> properties, vector<Event> evts);
   virtual void AddEvent(const string& object_id, Event evt);
@@ -55,9 +56,11 @@ class UpnpActivePcm : public ActiveClassInterface,
                                    NPT_List<PLT_StateVariable*>* vars);
 
   // public methods
-  // called by UpnpParentClassHandler
+  // called by UpnpPpm
   virtual NPT_Result OnAction(PLT_ActionReference& action,
                               const PLT_HttpRequestContext& context);
+  void UpdateRemoteHostAndExecuteStoredActions(
+      PLT_DeviceDataReference& remote_device);
 
  private:
   PLT_DeviceHostReference device_host_;
@@ -71,6 +74,7 @@ class UpnpActivePcm : public ActiveClassInterface,
   NPT_SharedVariable request_var_action_semaphore;
   NPT_SharedVariable set_var_action_semaphore;
   NPT_SharedVariable prepare_action_semaphore;
+  vector<PLT_ActionReference> invoked_actions_;
 };
 
 #endif  // FSMDA_UPNP_UPNP_ACTIVE_PCM_H_
