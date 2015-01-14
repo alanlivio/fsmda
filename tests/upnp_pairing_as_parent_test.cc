@@ -71,7 +71,6 @@ void ClassAnnounceAsParentHelper(bool diferent_processes) {
     command.append(" --device_class=");
     command.append(DeviceClassDescription::GetDeviceClassTypeStringByEnum(
         DeviceClassDescription::kActiveDevice));
-    command.append(" --application_id=" + app_id);
     command.append(" > /dev/null");
     int ret = system(command.c_str());
   } else {

@@ -19,7 +19,7 @@ for class in "active" "passive" "mediacapture" "ondemand";do
       ./fake_parent_helper --device_class=$class --application_id=$app_id \
          >> fsmda_profiling.log &
       sleep 0.5;
-      ./fake_child_helper --device_class=$class --application_id=$app_id --profile_pairing \
+      ./fake_child_helper --device_class=$class --profile_pairing \
          >> fsmda_profiling.log
     done
     echo -n "$class child average="
@@ -35,7 +35,7 @@ for class in "active" "passive" "mediacapture" "ondemand";do
       ./fake_parent_helper --device_class=$class --application_id=$app_id --profile_remove_device \
          >> fsmda_profiling.log &
       sleep 0.5;
-      ./fake_child_helper --device_class=$class --application_id=$app_id\
+      ./fake_child_helper --device_class=$class\
          >> fsmda_profiling.log
     done
     echo -n "$class parent average="
@@ -51,7 +51,7 @@ for class in "active";do
       ./fake_parent_helper --device_class=$class --application_id=$app_id --profile_bufferd_command \
          >> fsmda_profiling.log &
       sleep 0.5;
-      ./fake_child_helper --device_class=$class --application_id=$app_id --profile_bufferd_command \
+      ./fake_child_helper --device_class=$class --profile_bufferd_command \
          >> fsmda_profiling.log
     done
     echo -n "$class child average="
@@ -70,7 +70,7 @@ for class in "active";do
       ./fake_parent_helper --device_class=$class --application_id=$app_id --profile_command \
          >> fsmda_profiling.log &
          sleep 0.5;
-      ./fake_child_helper --device_class=$class --application_id=$app_id \
+      ./fake_child_helper --device_class=$class \
          >> fsmda_profiling.log
     done
     echo -n "$class parent average="
@@ -87,7 +87,7 @@ for class in "active";do
       ./fake_parent_helper --device_class=$class --application_id=$app_id --profile_prepare \
          >> fsmda_profiling.log &
          sleep 0.5;
-      ./fake_child_helper --device_class=$class --application_id=$app_id \
+      ./fake_child_helper --device_class=$class \
          >> fsmda_profiling.log
     done
     echo -n "$class parent average="
@@ -103,7 +103,7 @@ for class in "active";do
       ./fake_parent_helper --device_class=$class --application_id=$app_id --profile_variable \
          >> fsmda_profiling.log &
          sleep 0.5;
-      ./fake_child_helper --device_class=$class --application_id=$app_id\
+      ./fake_child_helper --device_class=$class\
          >> fsmda_profiling.log
     done
     echo -n "$class parent average="

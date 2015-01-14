@@ -102,7 +102,6 @@ void PairingAsParentHelper(
     command.append(" --device_class=");
     command.append(DeviceClassDescription::GetDeviceClassTypeStringByEnum(
         expected_device_class_type));
-    command.append(" --application_id=" + app_id);
     command.append(" > /dev/null");
     int ret = system(command.c_str());
   } else {

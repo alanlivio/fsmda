@@ -20,8 +20,6 @@ using std::clog;
 using std::endl;
 using std::getline;
 
-DEFINE_string(application_id, "dc05b236-0cce-4f1d-996b-edd11a66d907",
-              "uuuid application");
 DEFINE_string(device_class, DeviceClassDescription::kActiveDeviceString,
               "device class name: passive,active,ondemand or medicapture");
 
@@ -72,8 +70,7 @@ double CalculateElapsedTime(timeval start_time, timeval end_time) {
 int main(int argc, char** argv) {
   google::SetVersionString("0.1");
   google::SetUsageMessage(
-      "fake_child_helper --application_id=<UUID> "
-      "--device-class=<passive|active|ondemand|medicapture>");
+      "fake_child_helper --device-class=<passive|active|ondemand|medicapture>");
   google::ParseCommandLineFlags(&argc, &argv, true);
 
   signal(SIGINT, HandleInterrupt);
@@ -86,8 +83,7 @@ int main(int argc, char** argv) {
   logOutput.open("/dev/null");
   clog.rdbuf(logOutput.rdbuf());
 
-  cout << "fake_child_helper::device_class=" << FLAGS_device_class
-       << ",application_id=" << FLAGS_application_id << endl;
+  cout << "fake_child_helper::device_class=" << FLAGS_device_class << endl;
 
   timeval start_time, end_time;
 
