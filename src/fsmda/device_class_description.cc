@@ -209,7 +209,7 @@ DeviceClassDescription::communication_protocol() {
 /*----------------------------------------------------------------------
  |   DeviceClassDescription::rdf_content
  +---------------------------------------------------------------------*/
-const std::string& DeviceClassDescription::rdf_content() {
+const string& DeviceClassDescription::rdf_content() {
   return rdf_content_;
 }
 
@@ -404,7 +404,7 @@ DeviceClassDescription::GetDeviceClassTypeByString(const string& str) {
  |   DeviceClassDescription::GetPairingProtocolByString
  +---------------------------------------------------------------------*/
 DeviceClassDescription::PairingProtocol
-DeviceClassDescription::GetPairingProtocolByString(const std::string& str) {
+DeviceClassDescription::GetPairingProtocolByString(const string& str) {
   if (!str.compare(kUpnpPairingProcotolString))
     return kUpnpPairingProcotol;
   else if (!str.compare(kZeroconfPairingProtocolString))
@@ -418,7 +418,7 @@ DeviceClassDescription::GetPairingProtocolByString(const std::string& str) {
  +---------------------------------------------------------------------*/
 DeviceClassDescription::CommunicationProtocol
 DeviceClassDescription::GetCommunicationProtocoByString(
-    const std::string& str) {
+    const string& str) {
   if (!str.compare(kUpnpCommunicationProcotolString))
     return kUpnpCommunicationProcotol;
   else if (!str.compare(kHTTPCommunicationProtocolString))

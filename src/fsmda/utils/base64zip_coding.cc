@@ -299,7 +299,7 @@ int zip_directory(const string &zipfile_path, const string &directory_path,
   return 0;
 }
 
-static const std::string base64_chars =
+static const string base64_chars =
     "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
     "abcdefghijklmnopqrstuvwxyz"
     "0123456789+/";

@@ -167,7 +167,7 @@ DeviceClassDescription::PairingProtocol DeviceDescription::pairing_method() {
 /*----------------------------------------------------------------------
  |   DeviceDescription::rdf_content
  +---------------------------------------------------------------------*/
-const std::string DeviceDescription::rdf_content() { return rdf_content_; }
+const string DeviceDescription::rdf_content() { return rdf_content_; }
 
 /*----------------------------------------------------------------------
  |   DeviceDescription::initialized

@@ -38,18 +38,18 @@ class MockHpe : public HpeClassHandlingInterface,
                                    const string& value) {
     cout << "MockParentClassHandler::ReportPropertyValue()" << endl;
   }
-  void NotifyEventTransition(const std::string& object_id,
-                             const std::string& event_id,
-                             const std::string& transition) {
+  void NotifyEventTransition(const string& object_id,
+                             const string& event_id,
+                             const string& transition) {
     cout << "MockParentClassHandler::NotifyEventTransition()" << endl;
   }
-  void NotifyError(const std::string& object_id, const std::string& message) {}
+  void NotifyError(const string& object_id, const string& message) {}
 
   // HpeClassHandlingInterface interface
-  void getClassVariableValue(const std::string& name,
-                             const std::string& value) {}
-  void setClassVariableValue(const std::string& name,
-                             const std::string& value) {
+  void getClassVariableValue(const string& name,
+                             const string& value) {}
+  void setClassVariableValue(const string& name,
+                             const string& value) {
     cout << "MockParentClassHandler::setClassVariableValue()" << endl;
   }
 };

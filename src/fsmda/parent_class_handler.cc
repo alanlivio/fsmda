@@ -51,7 +51,7 @@ void ParentClassHandler::AddClassDescription(
  |   ParentClassHandler::AddClassDescription
  +---------------------------------------------------------------------*/
 void ParentClassHandler::AddClassDescription(
-    const std::string& application_id, unsigned int class_index,
+    const string& application_id, unsigned int class_index,
     DeviceClassDescription* device_class_description) {
   clog << "ParentClassHandler::AddClassDescription(" << application_id
        << ",class_index=" << class_index
@@ -72,7 +72,7 @@ void ParentClassHandler::AddClassDescription(
 /*----------------------------------------------------------------------
  |   ParentClassHandler::SetClassHandlingHPE
  +---------------------------------------------------------------------*/
-void ParentClassHandler::SetClassHandlingHpe(const std::string& application_id,
+void ParentClassHandler::SetClassHandlingHpe(const string& application_id,
                                              HpeClassHandlingInterface* hpe) {
   // TODO(alan@telemidia.puc-rio.br): create tests to this
   hpes_map_[application_id] = hpe;
@@ -82,7 +82,7 @@ void ParentClassHandler::SetClassHandlingHpe(const std::string& application_id,
  |   ParentClassHandler::SetClassHandlingHPE
  +---------------------------------------------------------------------*/
 HpeClassHandlingInterface* ParentClassHandler::GetClassHandlingHpe(
-    const std::string& application_id) {
+    const string& application_id) {
   return hpes_map_[application_id];
 }
 
@@ -215,7 +215,7 @@ unsigned int ParentClassHandler::number_of_registred_classes(
  |   ParentClassHandler::number_of_registred_children
  +---------------------------------------------------------------------*/
 unsigned int ParentClassHandler::number_of_registred_children(
-    const std::string& application_id, unsigned int class_index) {
+    const string& application_id, unsigned int class_index) {
   clog << "ParentClassHandler::GetNumberOfRegistredChildren:: "
           "application_id=" << application_id << ",class_index" << class_index
        << endl;

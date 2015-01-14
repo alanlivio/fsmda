@@ -31,8 +31,8 @@ UpnpOnDemandCcm::~UpnpOnDemandCcm() {}
 /*----------------------------------------------------------------------
  |   UpnpOnDemandCcm::~NotifyError
  +---------------------------------------------------------------------*/
-void UpnpOnDemandCcm::NotifyError(const std::string& message,
-                                  const std::string& object_id) {}
+void UpnpOnDemandCcm::NotifyError(const string& message,
+                                  const string& object_id) {}
 
 /*----------------------------------------------------------------------
  |   UpnpOnDemandCcm::Start

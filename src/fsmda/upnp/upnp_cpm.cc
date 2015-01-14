@@ -79,10 +79,10 @@ UpnpCpm::~UpnpCpm() {
 /*----------------------------------------------------------------------
  |   UpnpCpm::AddDeviceToClass
  +---------------------------------------------------------------------*/
-void UpnpCpm::AddDeviceToClass(const std::string &application_id,
-                               const std::string &device_address,
+void UpnpCpm::AddDeviceToClass(const string &application_id,
+                               const string &device_address,
                                unsigned int class_index,
-                               const std::string &device_desc) {
+                               const string &device_desc) {
   clog << "UpnpCpm::AddDeviceToClass " << endl;
 
   // invoke AddDeviceToClass
@@ -115,8 +115,8 @@ void UpnpCpm::AddDeviceToClass(const std::string &application_id,
 /*----------------------------------------------------------------------
  |   UpnpCpm::GetChildIndex
  +---------------------------------------------------------------------*/
-void UpnpCpm::GetChildIndex(const std::string &application_id,
-                            const std::string &device_address,
+void UpnpCpm::GetChildIndex(const string &application_id,
+                            const string &device_address,
                             unsigned int class_index) {}
 
 /*----------------------------------------------------------------------
