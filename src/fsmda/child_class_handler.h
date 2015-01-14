@@ -24,27 +24,34 @@ using std::map;
 class ChildClassHandler {
  public:
   // public constructors & destructors
-  explicit ChildClassHandler(const DeviceDescription&);
+  ChildClassHandler(const DeviceDescription&);
   virtual ~ChildClassHandler();
 
   // public methods
-  // called Remote Player
+  // called Remote Device
   int StartPairing();
   int StopPairing();
   bool IsPairingStarted();
   bool paired();
-  virtual void set_paired(bool paired_);
   DeviceDescription* device_description();
-  ActiveClassListenerInterface* CreateActiveCcm(const string& application_id,
-                                                unsigned int class_index);
-  MediaCaptureClassInterface* CreateMediaCaptureCcm(
-      const string& application_id, unsigned int class_index);
-  PassiveClassInterface* CreatePassiveCcm(const string& application_id,
-                                          unsigned int class_index);
-  OnDemandClassInterface* CreateOndemandCcm(const string& application_id,
-                                            unsigned int class_index);
+  void set_passive_player(PassiveClassInterface* player);
+  void set_active_player(ActiveClassInterface* player);
+  void set_ondemand_player(OnDemandClassInterface* player);
+  void set_mediacapture_player(MediaCaptureClassInterface* player);
+
+  // public melthods
+  // called para cpm
+  virtual void set_paired(bool paired_);
+  PassiveClassInterface* set_passive_player();
+  ActiveClassInterface* set_active_player();
+  OnDemandClassInterface* set_ondemand_player();
+  MediaCaptureClassInterface* set_mediacapture_player();
 
  private:
+  PassiveClassInterface* passive_player_;
+  ActiveClassInterface* active_player_;
+  OnDemandClassInterface* ondemand_player_;
+  MediaCaptureClassInterface* mediacapture_player_;
   map<unsigned int, DeviceClassDescription*> device_class_description_map_;
   DeviceDescription* device_description_;
   UpnpCpm* upnp_cpm_;
