@@ -104,9 +104,6 @@ for class in "active";do
     echo -n "$class child average="
     grep "fsmda_child profile_bufferd_command $class" < fsmda_profiling.log \
       |awk '{ SUM += $4; N += 1} END { printf "%s\n",SUM/N}'
-    echo -n "$class parent average="
-    grep "fsmda_parent profile_bufferd_command $class" < fsmda_profiling.log \
-      |awk '{ SUM += $4; N += 1} END { printf "%s\n",SUM/N}'
 done
 
 ### final release

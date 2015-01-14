@@ -124,6 +124,7 @@ int main(int argc, char** argv) {
 
   // waiting for pairing
   cout << "fake_parent_helper:: wait for pairing..." << endl;
+  gettimeofday(&start_time, NULL);
   parent_semaphore.SetValue(0);
   parent_semaphore.WaitWhileEquals(0, NPT_TIMEOUT_INFINITE);
 
@@ -181,15 +182,20 @@ int main(int argc, char** argv) {
          << CalculateElapsedTime(start_time, end_time) << " ms" << endl;
 
   } else if (FLAGS_profile_bufferd_command) {
-    gettimeofday(&start_time, NULL);
+    //    gettimeofday(&end_time, NULL);
+    //    cout << "fsmda_parent profile_bufferd_command "
+    //         << DeviceClassDescription::GetDeviceClassTypeStringByEnum(
+    //                device_class_type) << " "
+    //         << CalculateElapsedTime(start_time, end_time) << " ms" << endl;
+    //    gettimeofday(&start_time, NULL);
     cout << "fsmda_parent:: wait for second pairing..." << endl;
     parent_semaphore.SetValue(0);
     parent_semaphore.WaitWhileEquals(0, NPT_TIMEOUT_INFINITE);
-    gettimeofday(&end_time, NULL);
-    cout << "fsmda_parent profile_bufferd_command "
-         << DeviceClassDescription::GetDeviceClassTypeStringByEnum(
-                device_class_type) << " "
-         << CalculateElapsedTime(start_time, end_time) << " ms" << endl;
+    //    gettimeofday(&end_time, NULL);
+    //    cout << "fsmda_parent profile_bufferd_command "
+    //         << DeviceClassDescription::GetDeviceClassTypeStringByEnum(
+    //                device_class_type) << " "
+    //         << CalculateElapsedTime(start_time, end_time) << " ms" << endl;
   }
 
   // release parent

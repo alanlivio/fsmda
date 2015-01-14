@@ -47,7 +47,7 @@ double CalculateElapsedTime(timeval start_time, timeval end_time) {
 class MockChildClassHandler : public ChildClassHandler {
  public:
   void set_paired(bool paired) {
-    clog << "MockChildClassHandler::SetPaired():: paired = " << paired << endl;
+    cout << "MockChildClassHandler::SetPaired():: paired = " << paired << endl;
     ChildClassHandler::set_paired(paired);
     child_semaphore.SetValue(1);
   }
@@ -129,7 +129,6 @@ int main(int argc, char** argv) {
   child_semaphore.WaitWhileEquals(0, NPT_TIMEOUT_INFINITE);
 
   if (FLAGS_profile_pairing) {
-    // wait for pairing
     gettimeofday(&end_time, NULL);
     cout << "fsmda_child profile_pairing "
          << DeviceClassDescription::GetDeviceClassTypeStringByEnum(device_class)
@@ -139,6 +138,12 @@ int main(int argc, char** argv) {
     child_semaphore.SetValue(0);
     child_semaphore.WaitWhileEquals(0, NPT_TIMEOUT_INFINITE);
   } else if (FLAGS_profile_bufferd_command) {
+    //    gettimeofday(&end_time, NULL);
+    //    cout << "fsmda_child profile_bufferd_command "
+    //         <<
+    //         DeviceClassDescription::GetDeviceClassTypeStringByEnum(device_class)
+    //         << " " << CalculateElapsedTime(start_time, end_time) << " ms" <<
+    //         endl;
     child_class_handler->StopPairing();
     delete child_class_handler;
     gettimeofday(&start_time, NULL);
