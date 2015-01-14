@@ -97,7 +97,9 @@ void UpnpCpm::AddDeviceToClass(const string &application_id,
   }
 
   reponse_action->SetArgumentValue("application_id", application_id.c_str());
-  reponse_action->SetArgumentValue("device_address", "localhost");
+  reponse_action->SetArgumentValue("device_address", device_address.c_str());
+  clog << "UpnpCpm::AddDeviceToClass::device_address=" << device_address
+       << endl;
   stringstream aux_string;
   aux_string << class_index;
   reponse_action->SetArgumentValue("class_index", aux_string.str().c_str());
@@ -170,8 +172,10 @@ NPT_Result UpnpCpm::OnAction(PLT_ActionReference &action,
       device_class_description.InitializeByRdfContent(class_desc.GetChars());
       bool paired = device_class_description.IsDeviceCompatible(
           child_class_handler_->device_description());
-      AddDeviceToClass(application_id.GetChars(), "localhost", class_index,
-                       class_desc.GetChars());
+      AddDeviceToClass(
+          application_id.GetChars(),
+          context.GetLocalAddress().GetIpAddress().ToString().GetChars(),
+          class_index, class_desc.GetChars());
     }
   }
   return NPT_SUCCESS;
