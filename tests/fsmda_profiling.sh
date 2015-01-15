@@ -24,9 +24,9 @@ for class in "active" "passive" "mediacapture" "ondemand";do
       ./fake_child_helper --device_class=$class --profile_pairing \
          >> fsmda_profiling.log
     done
-    echo -n "$class child average="
+    echo -n "$class,"
     grep "fsmda_child profile_pairing $class" < fsmda_profiling.log \
-      |awk '{ SUM += $4; N += 1} END { printf "%s\n",SUM/N}'
+      |awk '{ SUM += $4; N += 1; printf "%s,",$4} END { printf "average=%s\n",SUM/N}'
 done
 
 ### profile_prepare  ########################################
@@ -39,9 +39,9 @@ for class in "active";do
       ./fake_child_helper --device_class=$class \
          >> fsmda_profiling.log
     done
-    echo -n "$class parent average="
+    echo -n "$class,"
     grep "fsmda_parent profile_prepare $class" < fsmda_profiling.log \
-      |awk '{ SUM += $4; N += 1} END { printf "%s\n",SUM/N }'
+      |awk '{ SUM += $4; N += 1; printf "%s,",$4} END { printf "average=%s\n",SUM/N }'
 done
 
 ### profile_command  ########################################
@@ -54,9 +54,9 @@ for class in "active";do
       ./fake_child_helper --device_class=$class \
          >> fsmda_profiling.log
     done
-    echo -n "$class parent average="
+    echo -n "$class,"
     grep "fsmda_parent profile_command $class" < fsmda_profiling.log \
-      |awk '{ SUM += $4; N += 1} END { printf "%s\n",SUM/N }'
+      |awk '{ SUM += $4; N += 1; printf "%s,",$4} END { printf "average=%s\n",SUM/N }'
 done
 
 
@@ -71,9 +71,9 @@ for class in "active";do
       ./fake_child_helper --device_class=$class\
          >> fsmda_profiling.log
     done
-    echo -n "$class parent average="
+    echo -n "$class,"
     grep "fsmda_parent profile_variable $class" < fsmda_profiling.log \
-      |awk '{ SUM += $4; N += 1} END { printf "%s\n",SUM/N }'
+      |awk '{ SUM += $4; N += 1; printf "%s,",$4} END { printf "average=%s\n",SUM/N }'
 done
 
 ### profile_remove_device ########################################
@@ -86,9 +86,9 @@ for class in "active" "passive" "mediacapture" "ondemand";do
       ./fake_child_helper --device_class=$class\
          >> fsmda_profiling.log
     done
-    echo -n "$class parent average="
+    echo -n "$class,"
     grep "fsmda_parent profile_remove_device $class" < fsmda_profiling.log \
-      |awk '{ SUM += $4; N += 1} END { printf "%s\n",SUM/N }'
+      |awk '{ SUM += $4; N += 1; printf "%s,",$4} END { printf "average=%s\n",SUM/N }'
 done
 
 ### profile_bufferd_command  ########################################
@@ -101,9 +101,9 @@ for class in "active";do
       ./fake_child_helper --device_class=$class --profile_bufferd_command \
          >> fsmda_profiling.log
     done
-    echo -n "$class child average="
+    echo -n "$class,"
     grep "fsmda_child profile_bufferd_command $class" < fsmda_profiling.log \
-      |awk '{ SUM += $4; N += 1} END { printf "%s\n",SUM/N}'
+      |awk '{ SUM += $4; N += 1; printf "%s,",$4} END { printf "average=%s\n",SUM/N}'
 done
 
 ### final release
