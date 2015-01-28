@@ -1,2 +1,13 @@
+About
+=====
 Dinamicy library project template.
 This template uses a autotools build and has Eclipse CDT configuration.
+
+
+Instaling in Ubuntu
+===================
+sudo aptitude install libxml2-dev libzip-dev
+./autogen.sh
+./configure
+make
+sudo make install
