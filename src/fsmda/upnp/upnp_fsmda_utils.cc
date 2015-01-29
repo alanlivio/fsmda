@@ -14,46 +14,46 @@
  |   class fields
  +---------------------------------------------------------------------*/
 // singleton fields
-PLT_UPnP* UpnpFsmdaUtils::upnp_singleton_ = NULL;
+PLT_UPnP *UpnpFsmdaUtils::upnp_singleton_ = NULL;
 unsigned int UpnpFsmdaUtils::upnp_references_count_ = 0;
 
 // upnp FSMDA Manufacturer constant strings
-const char* UpnpFsmdaUtils::kFsmdaManufacturer = "FSMDA";
-const char* UpnpFsmdaUtils::kFsmdaManufacturerUrl =
+const char *UpnpFsmdaUtils::kFsmdaManufacturer = "FSMDA";
+const char *UpnpFsmdaUtils::kFsmdaManufacturerUrl =
     "http://www.ncl.org.br/fsmda/ondemand";
 
 // parent upnp constant strings
-const char* UpnpFsmdaUtils::kParentDeviceType =
+const char *UpnpFsmdaUtils::kParentDeviceType =
     "urn:schemas-upnp-org:device:fsmda-parent-pairing-device:1";
-const char* UpnpFsmdaUtils::kParentDeviceFriendlyName = "fsmda parent device";
-const char* UpnpFsmdaUtils::kParentDeviceModelName =
+const char *UpnpFsmdaUtils::kParentDeviceFriendlyName = "fsmda parent device";
+const char *UpnpFsmdaUtils::kParentDeviceModelName =
     "fsmda-parent-pairing-device model name";
-const char* UpnpFsmdaUtils::kParentDeviceModelDescription =
+const char *UpnpFsmdaUtils::kParentDeviceModelDescription =
     "fsmda parent device model description";
-const char* UpnpFsmdaUtils::kParentDeviceModelUrl =
+const char *UpnpFsmdaUtils::kParentDeviceModelUrl =
     "http://www.ncl.org.br/fsmda/fsmda-parent-device";
-const char* UpnpFsmdaUtils::kParentDeviceNumber = "1.0";
+const char *UpnpFsmdaUtils::kParentDeviceNumber = "1.0";
 
 // child upnp constant strings
-const char* UpnpFsmdaUtils::kChildDeviceType =
+const char *UpnpFsmdaUtils::kChildDeviceType =
     "urn:schemas-upnp-org:device:fsmda-child-device:1";
-const char* UpnpFsmdaUtils::kChildDeviceFriendlyName = "fsmda child device";
-const char* UpnpFsmdaUtils::kChildDeviceModelName =
+const char *UpnpFsmdaUtils::kChildDeviceFriendlyName = "fsmda child device";
+const char *UpnpFsmdaUtils::kChildDeviceModelName =
     "fsmda child device model name";
-const char* UpnpFsmdaUtils::kChildDeviceModelDescription =
+const char *UpnpFsmdaUtils::kChildDeviceModelDescription =
     "fsmda child device model description";
-const char* UpnpFsmdaUtils::kChildDeviceModelUrl =
+const char *UpnpFsmdaUtils::kChildDeviceModelUrl =
     "http://www.ncl.org.br/fsmda/fsmda-child-device";
-const char* UpnpFsmdaUtils::kChildDeviceModelNumber = "1.0";
+const char *UpnpFsmdaUtils::kChildDeviceModelNumber = "1.0";
 
 // ppm upnp constant strings
-const char* UpnpFsmdaUtils::kPpmServiceType =
+const char *UpnpFsmdaUtils::kPpmServiceType =
     "urn:schemas-upnp-org:service:fsmda-parent-pairing:1";
-const char* UpnpFsmdaUtils::kPpmServiceId =
+const char *UpnpFsmdaUtils::kPpmServiceId =
     "urn:upnp-org:serviceId:fsmda-parent-pairing";
-const char* UpnpFsmdaUtils::kPpmServiceName =
+const char *UpnpFsmdaUtils::kPpmServiceName =
     "urn:upnp-org:serviceId:fsmda-parent-pairing";
-const char* UpnpFsmdaUtils::kPpmServiceScpdXml =
+const char *UpnpFsmdaUtils::kPpmServiceScpdXml =
     "<?xml version=\"1.0\" ?>"
     "<scpd xmlns=\"urn:schemas-upnp-org:service-1-0\">"
     "   <specVersion>"
@@ -147,13 +147,13 @@ const char* UpnpFsmdaUtils::kPpmServiceScpdXml =
     "</scpd>";
 
 // cpm upnp constant strings
-const char* UpnpFsmdaUtils::kCpmServiceType =
+const char *UpnpFsmdaUtils::kCpmServiceType =
     "urn:schemas-upnp-org:service:fsmda-child-pairing:1";
-const char* UpnpFsmdaUtils::kCpmServiceId =
+const char *UpnpFsmdaUtils::kCpmServiceId =
     "urn:upnp-org:serviceId:fsmda-child-pairing";
-const char* UpnpFsmdaUtils::kCpmServiceName =
+const char *UpnpFsmdaUtils::kCpmServiceName =
     "urn:upnp-org:serviceId:fsmda-child-pairing";
-const char* UpnpFsmdaUtils::kCpmServiceScpdXml =
+const char *UpnpFsmdaUtils::kCpmServiceScpdXml =
     "<?xml version=\"1.0\" ?>"
     "<scpd xmlns=\"urn:schemas-upnp-org:service-1-0\">"
     "   <specVersion>"
@@ -221,13 +221,13 @@ const char* UpnpFsmdaUtils::kCpmServiceScpdXml =
     "</scpd>";
 
 // Passive pcm upnp constant strings
-const char* UpnpFsmdaUtils::kPassivePcmServiceType =
+const char *UpnpFsmdaUtils::kPassivePcmServiceType =
     "urn:schemas-upnp-org:service:fsmda-passive-parent-communication:1";
-const char* UpnpFsmdaUtils::kPassivePcmServiceId =
+const char *UpnpFsmdaUtils::kPassivePcmServiceId =
     "urn:upnp-org:serviceId:fsmda-passive-parent-communication";
-const char* UpnpFsmdaUtils::kPassivePcmServiceName =
+const char *UpnpFsmdaUtils::kPassivePcmServiceName =
     "urn:upnp-org:serviceId:fsmda-passive-parent-communication";
-const char* UpnpFsmdaUtils::kPassivePcmServiceScpdXml =
+const char *UpnpFsmdaUtils::kPassivePcmServiceScpdXml =
     "<?xml version=\"1.0\" ?>"
     "<scpd xmlns=\"urn:schemas-upnp-org:service-1-0\">"
     "   <specVersion>"
@@ -295,13 +295,13 @@ const char* UpnpFsmdaUtils::kPassivePcmServiceScpdXml =
     "</scpd>";
 
 // Passive ccm Upnp constant strings
-const char* UpnpFsmdaUtils::kPassiveCcmServiceType =
+const char *UpnpFsmdaUtils::kPassiveCcmServiceType =
     "urn:schemas-upnp-org:service:fsmda-child-passive-communication:1";
-const char* UpnpFsmdaUtils::kPassiveCcmServiceId =
+const char *UpnpFsmdaUtils::kPassiveCcmServiceId =
     "urn:upnp-org:serviceId:fsmda-child-passive-communication";
-const char* UpnpFsmdaUtils::kPassiveCcmServiceName =
+const char *UpnpFsmdaUtils::kPassiveCcmServiceName =
     "urn:upnp-org:serviceId:fsmda-child-passive-communication";
-const char* UpnpFsmdaUtils::kPassiveCcmServiceScpdXml =
+const char *UpnpFsmdaUtils::kPassiveCcmServiceScpdXml =
     "<?xml version=\"1.0\" ?>"
     "<scpd xmlns=\"urn:schemas-upnp-org:service-1-0\">"
     "   <specVersion>"
@@ -350,13 +350,13 @@ const char* UpnpFsmdaUtils::kPassiveCcmServiceScpdXml =
     "</scpd>";
 
 // active pcm upnp constant strings
-const char* UpnpFsmdaUtils::kActivePcmServiceType =
+const char *UpnpFsmdaUtils::kActivePcmServiceType =
     "urn:schemas-upnp-org:service:fsmda-parent-active-communication:1";
-const char* UpnpFsmdaUtils::kActivePcmServiceId =
+const char *UpnpFsmdaUtils::kActivePcmServiceId =
     "urn:upnp-org:serviceId:fsmda-parent-active-communication";
-const char* UpnpFsmdaUtils::kActivePcmServiceName =
+const char *UpnpFsmdaUtils::kActivePcmServiceName =
     "urn:upnp-org:serviceId:fsmda-parent-active-communication";
-const char* UpnpFsmdaUtils::kActivePcmServiceScpdXml =
+const char *UpnpFsmdaUtils::kActivePcmServiceScpdXml =
     "<?xml version=\"1.0\" ?>"
     "<scpd xmlns=\"urn:schemas-upnp-org:service-1-0\">"
     "   <specVersion>"
@@ -494,13 +494,13 @@ const char* UpnpFsmdaUtils::kActivePcmServiceScpdXml =
     "</scpd>";
 
 // active ccm upnp constant strings
-const char* UpnpFsmdaUtils::kActiveCcmServiceType =
+const char *UpnpFsmdaUtils::kActiveCcmServiceType =
     "urn:schemas-upnp-org:service:fsmda-child-active-communication:1";
-const char* UpnpFsmdaUtils::kActiveCcmServiceId =
+const char *UpnpFsmdaUtils::kActiveCcmServiceId =
     "urn:upnp-org:serviceId:fsmda-child-active-communication";
-const char* UpnpFsmdaUtils::kActiveCcmServiceName =
+const char *UpnpFsmdaUtils::kActiveCcmServiceName =
     "urn:upnp-org:serviceId:fsmda-child-active-communication";
-const char* UpnpFsmdaUtils::kActiveCcmServiceScpdXml =
+const char *UpnpFsmdaUtils::kActiveCcmServiceScpdXml =
     "<?xml version=\"1.0\" ?>"
     "<scpd xmlns=\"urn:schemas-upnp-org:service-1-0\">"
     "   <specVersion>"
@@ -764,14 +764,14 @@ const char* UpnpFsmdaUtils::kActiveCcmServiceScpdXml =
     "</scpd>";
 
 // ondemand pcm upnp constant strings
-const char* UpnpFsmdaUtils::kOnDemandPcmServiceType =
+const char *UpnpFsmdaUtils::kOnDemandPcmServiceType =
     "urn:schemas-upnp-org:service:fsmda-parent-ondemand-communication:1";
-const char* UpnpFsmdaUtils::kOnDemandPcmServiceId =
+const char *UpnpFsmdaUtils::kOnDemandPcmServiceId =
     "urn:upnp-org:serviceId:fsmda-parent-ondemand-communication";
-const char* UpnpFsmdaUtils::kOnDemandPcmServiceName =
+const char *UpnpFsmdaUtils::kOnDemandPcmServiceName =
     "urn:upnp-org:serviceId:fsmda-parent-ondemand-communication"
     "name";
-const char* UpnpFsmdaUtils::kOnDemandPcmServiceScpdXml =
+const char *UpnpFsmdaUtils::kOnDemandPcmServiceScpdXml =
     "<?xml version=\"1.0\" ?>"
     "<scpd xmlns=\"urn:schemas-upnp-org:service-1-0\">"
     "   <specVersion>"
@@ -815,13 +815,13 @@ const char* UpnpFsmdaUtils::kOnDemandPcmServiceScpdXml =
     "</scpd>";
 
 // ondemand ccm upnp constant strings
-const char* UpnpFsmdaUtils::kOnDemandCcmServiceType =
+const char *UpnpFsmdaUtils::kOnDemandCcmServiceType =
     "urn:schemas-upnp-org:service:fsmda-child-ondemand-communication:1";
-const char* UpnpFsmdaUtils::kOnDemandCcmServiceId =
+const char *UpnpFsmdaUtils::kOnDemandCcmServiceId =
     "urn:upnp-org:serviceId:fsmda-child-ondemand-communication";
-const char* UpnpFsmdaUtils::kOnDemandCcmServiceName =
+const char *UpnpFsmdaUtils::kOnDemandCcmServiceName =
     "urn:upnp-org:serviceId:fsmda-child-ondemand-communication";
-const char* UpnpFsmdaUtils::kOnDemandCcmServiceScpdXml =
+const char *UpnpFsmdaUtils::kOnDemandCcmServiceScpdXml =
     "<?xml version=\"1.0\" ?>"
     "<scpd xmlns=\"urn:schemas-upnp-org:service-1-0\">"
     "   <specVersion>"
@@ -865,14 +865,14 @@ const char* UpnpFsmdaUtils::kOnDemandCcmServiceScpdXml =
     "</scpd>";
 
 // mediacapture pcm upnp constant strings
-const char* UpnpFsmdaUtils::kMediaCapturePcmServiceType =
+const char *UpnpFsmdaUtils::kMediaCapturePcmServiceType =
     "urn:schemas-upnp-org:service:fsmda-parent-mediacapture-communication:1";
-const char* UpnpFsmdaUtils::kMediaCapturePcmServiceId =
+const char *UpnpFsmdaUtils::kMediaCapturePcmServiceId =
     "urn:upnp-org:serviceId:fsmda-parent-mediacapture-communication";
-const char* UpnpFsmdaUtils::kMediaCapturePcmServiceName =
+const char *UpnpFsmdaUtils::kMediaCapturePcmServiceName =
     "urn:upnp-org:serviceId:fsmda-parent-mediacapture-communication"
     "name";
-const char* UpnpFsmdaUtils::kMediaCapturePcmServiceScpdXml =
+const char *UpnpFsmdaUtils::kMediaCapturePcmServiceScpdXml =
     "<?xml version=\"1.0\" ?>"
     "<scpd xmlns=\"urn:schemas-upnp-org:service-1-0\">"
     "   <specVersion>"
@@ -921,14 +921,14 @@ const char* UpnpFsmdaUtils::kMediaCapturePcmServiceScpdXml =
     "</scpd>";
 
 // mediacapture ccm upnp constant strings
-const char* UpnpFsmdaUtils::kMediaCaptureCcmServiceType =
+const char *UpnpFsmdaUtils::kMediaCaptureCcmServiceType =
     "urn:schemas-upnp-org:service:fsmda-child-mediacapture-communication:1";
-const char* UpnpFsmdaUtils::kMediaCaptureCcmServiceId =
+const char *UpnpFsmdaUtils::kMediaCaptureCcmServiceId =
     "urn:upnp-org:serviceId:fsmda-child-mediacapture-communication";
-const char* UpnpFsmdaUtils::kMediaCaptureCcmServiceName =
+const char *UpnpFsmdaUtils::kMediaCaptureCcmServiceName =
     "urn:upnp-org:serviceId:fsmda-child-mediacapture-communication"
     "name";
-const char* UpnpFsmdaUtils::kMediaCaptureCcmServiceScpdXml =
+const char *UpnpFsmdaUtils::kMediaCaptureCcmServiceScpdXml =
     "<?xml version=\"1.0\" ?>"
     "<scpd xmlns=\"urn:schemas-upnp-org:service-1-0\">"
     "   <specVersion>"
@@ -978,7 +978,7 @@ const char* UpnpFsmdaUtils::kMediaCaptureCcmServiceScpdXml =
 /*----------------------------------------------------------------------
  |   UpnpUtils::GenerateGUID
  +---------------------------------------------------------------------*/
-void UpnpFsmdaUtils::GenerateGUID(std::string* guid) {
+void UpnpFsmdaUtils::GenerateGUID(std::string *guid) {
   NPT_String guid_aux;
   PLT_UPnPMessageHelper::GenerateGUID(guid_aux);
   guid->assign(guid_aux.GetChars());
@@ -987,7 +987,7 @@ void UpnpFsmdaUtils::GenerateGUID(std::string* guid) {
 /*----------------------------------------------------------------------
  |   UpnpUtils::RequestUpnpReference
  +---------------------------------------------------------------------*/
-PLT_UPnP* UpnpFsmdaUtils::GetRunningInstance() {
+PLT_UPnP *UpnpFsmdaUtils::GetRunningInstance() {
   if (UpnpFsmdaUtils::upnp_singleton_ == NULL) {
     // setup Neptune logging
     //    NPT_LogManager::GetDefault().Configure(
@@ -998,14 +998,14 @@ PLT_UPnP* UpnpFsmdaUtils::GetRunningInstance() {
         "plist:.level=;.handlers=;platinum.level=;platinum.handlers=");
 
     PLT_Constants::GetInstance().SetDefaultDeviceLease(NPT_TimeInterval(60.));
-    PLT_Constants::GetInstance().SetDefaultSubscribeLease(
-        NPT_TimeInterval(20.));
-    PLT_Constants::GetInstance().SetAnnounceMulticastTimeToLive(0.5);
-    PLT_Constants::GetInstance().SetSearchMulticastTimeToLive(0.5);
+    //    PLT_Constants::GetInstance().SetDefaultSubscribeLease(
+    //        NPT_TimeInterval(20.));
+    //    PLT_Constants::GetInstance().SetAnnounceMulticastTimeToLive(0.5);
+    //    PLT_Constants::GetInstance().SetSearchMulticastTimeToLive(0.5);
     NPT_List<NPT_IpAddress> list;
     PLT_UPnPMessageHelper::GetIPAddresses(list);
     UpnpFsmdaUtils::upnp_singleton_ = new PLT_UPnP();
-    UpnpFsmdaUtils::upnp_singleton_->SetIgnoreLocalUUIDs(false);
+    //    UpnpFsmdaUtils::upnp_singleton_->SetIgnoreLocalUUIDs(false);
     UpnpFsmdaUtils::upnp_singleton_->Start();
     UpnpFsmdaUtils::upnp_references_count_ = 0;
   }
