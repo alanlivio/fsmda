@@ -69,7 +69,7 @@ void UpnpActivePcm::Prepare(const string &object_id, const string &object_src,
                                   Property::ToString(properties).c_str());
   invoke_action->SetArgumentValue("events", Event::ToString(evts).c_str());
 
-  clog << "UpnpActivePcm::Prepare():: zip_directory" << endl;
+  clog << "UpnpActivePcm::Prepare():: zip_directory=" << object_src << endl;
   zip_directory("/tmp/appdir.zip", object_src.c_str(), "/");
   string zip_base64 = getBase64FromFile("/tmp/appdir.zip");
   res = invoke_action->SetArgumentValue("object_src", zip_base64.c_str());

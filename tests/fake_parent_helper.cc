@@ -135,9 +135,10 @@ int main(int argc, char** argv) {
     gettimeofday(&start_time, NULL);
     vector<Property> properties;
     vector<Event> events;
+    // TODO(alan@telemidia.puc-rio.br): use relative path
     active_pcm->Prepare(
         "media01",
-        "./tests/files/ncl01/",
+        "/home/alan/development/multidevice-development/libfsmda/tests/files/ncl01/",
         properties, events);
     gettimeofday(&end_time, NULL);
     cout << "fsmda_parent profile_prepare "
