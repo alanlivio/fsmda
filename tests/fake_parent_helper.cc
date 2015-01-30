@@ -137,7 +137,7 @@ int main(int argc, char** argv) {
     vector<Event> events;
     active_pcm->Prepare(
         "media01",
-        "/home/alan/development/fsmda-development/GT-SiM-tests/apps/01/",
+        "./tests/files/ncl01/",
         properties, events);
     gettimeofday(&end_time, NULL);
     cout << "fsmda_parent profile_prepare "
