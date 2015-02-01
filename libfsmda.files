@@ -73,11 +73,14 @@ tests/files/html_class_desc00.xml
 tests/files/html_dev_desc00.xml
 tests/files/mediacapture_class_desc00.xml
 tests/files/mediacapture_dev_desc00.xml
+tests/files/ncl01/01.ncl
+tests/files/ncl01/medias/m.png
 tests/files/ondemand_class_desc00.xml
 tests/files/ondemand_dev_desc00.xml
 tests/files/passive_class_desc00.xml
 tests/files/passive_dev_desc00.xml
 tests/fsmda_profiling.sh
+tests/fsmda_profiling_batch.sh
 tests/gmock/include/gmock/gmock-actions.h
 tests/gmock/include/gmock/gmock-cardinalities.h
 tests/gmock/include/gmock/gmock-generated-actions.h

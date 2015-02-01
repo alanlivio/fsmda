@@ -18,6 +18,7 @@ tests/*_test
 tests/*_helper
 tests/*_gtest
 programs/*_program
+*.csv
 
 # Created by https://www.gitignore.io
 
