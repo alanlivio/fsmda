@@ -3,7 +3,7 @@ skinparam monochrome true
 
 class HyperMediaEngine
 interface ClassHandlingHPEInterface
-ClassHandlingHPEInterface <|--  HyperMediaEngine 
+ClassHandlingHPEInterface <|--  HyperMediaEngine
 
 class ParentParingManager
 interface DeviceParingParentParingManagerInterface
