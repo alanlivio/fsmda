@@ -49,9 +49,7 @@ const char* DeviceClassDescription::kInvalidDeviceDefaultRdfContent =
     "invalid rdf";
 const char* DeviceClassDescription::kPassiveDeviceDefaultRdfContent =
     "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
-    "<rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\""
-    "xmlns:prf=\"http://www.wapforum.org/profiles/UAPROF/ccppschema-20010430#\""
-    "  xmlns:fsmda=\"http://www.ncl.org.br/fsmda\">"
+    "<rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns\" xmlns:prf=\"http://www.wapforum.org/profiles/UAPROF/ccppschema-20010430\" xmlns:fsmda=\"http://www.ncl.org.br/fsmda\">"
     "  <fsmda:classType>passive</fsmda:classType>"
     "  <fsmda:minDevices>1</fsmda:minDevices>"
     "  <fsmda:maxDevices>1</fsmda:maxDevices>"
@@ -73,9 +71,7 @@ const char* DeviceClassDescription::kPassiveDeviceDefaultRdfContent =
 
 const char* DeviceClassDescription::kActiveDeviceDefaultRdfContent =
     "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
-    "<rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\""
-    "xmlns:prf=\"http://www.wapforum.org/profiles/UAPROF/ccppschema-20010430#\""
-    "  xmlns:fsmda=\"http://www.ncl.org.br/fsmda\">"
+    "<rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns\" xmlns:prf=\"http://www.wapforum.org/profiles/UAPROF/ccppschema-20010430\" xmlns:fsmda=\"http://www.ncl.org.br/fsmda\">"
     "  <fsmda:classType>active</fsmda:classType>"
     "  <fsmda:minDevices>1</fsmda:minDevices>"
     "  <fsmda:maxDevices>1</fsmda:maxDevices>"
@@ -97,9 +93,7 @@ const char* DeviceClassDescription::kActiveDeviceDefaultRdfContent =
 
 const char* DeviceClassDescription::kHtmlDeviceDefaultRdfContent =
     "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
-    "<rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\""
-    "xmlns:prf=\"http://www.wapforum.org/profiles/UAPROF/ccppschema-20010430#\""
-    "  xmlns:fsmda=\"http://www.ncl.org.br/fsmda\">"
+    "<rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns\" xmlns:prf=\"http://www.wapforum.org/profiles/UAPROF/ccppschema-20010430\" xmlns:fsmda=\"http://www.ncl.org.br/fsmda\">"
     "  <fsmda:classType>html</fsmda:classType>"
     "  <fsmda:minDevices>1</fsmda:minDevices>"
     "  <fsmda:maxDevices>1</fsmda:maxDevices>"
@@ -121,9 +115,7 @@ const char* DeviceClassDescription::kHtmlDeviceDefaultRdfContent =
 
 const char* DeviceClassDescription::kOnDemandDeviceDefaultRdfContent =
     "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
-    "<rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\""
-    "xmlns:prf=\"http://www.wapforum.org/profiles/UAPROF/ccppschema-20010430#\""
-    "  xmlns:fsmda=\"http://www.ncl.org.br/fsmda\">"
+    "<rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns\" xmlns:prf=\"http://www.wapforum.org/profiles/UAPROF/ccppschema-20010430\" xmlns:fsmda=\"http://www.ncl.org.br/fsmda\">"
     "  <fsmda:classType>ondemand</fsmda:classType>"
     "  <fsmda:minDevices>1</fsmda:minDevices>"
     "  <fsmda:maxDevices>1</fsmda:maxDevices>"
@@ -145,9 +137,7 @@ const char* DeviceClassDescription::kOnDemandDeviceDefaultRdfContent =
 
 const char* DeviceClassDescription::kMediCaptureDeviceDefaultRdfContent =
     "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
-    "<rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\""
-    "xmlns:prf=\"http://www.wapforum.org/profiles/UAPROF/ccppschema-20010430#\""
-    "  xmlns:fsmda=\"http://www.ncl.org.br/fsmda\">"
+    "<rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns\" xmlns:prf=\"http://www.wapforum.org/profiles/UAPROF/ccppschema-20010430\" xmlns:fsmda=\"http://www.ncl.org.br/fsmda\">"
     "  <fsmda:classType>mediacapture</fsmda:classType>"
     "  <fsmda:minDevices>1</fsmda:minDevices>"
     "  <fsmda:maxDevices>1</fsmda:maxDevices>"
