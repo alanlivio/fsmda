@@ -1,0 +1,11 @@
+include_directories(${LIBPLATINUMKIT_INCLUDE_DIRS})
+include_directories(${LIBXML2_INCLUDE_DIRS})
+include_directories(${LIBZIP_INCLUDE_DIRS})
+include_directories(${PROJECT_SOURCE_DIR}/src)
+
+add_executable(e0_program example0.cc)
+link_directories(${FSMDA_LIBRARY_DIRS})
+target_link_libraries(e0_program ${LIBPLATINUMKIT_LIBRARIES})
+target_link_libraries(e0_program ${LIBXML2_LIBRARIES})
+target_link_libraries(e0_program ${LIBZIP_LIBRARIES})
+target_link_libraries(e0_program fsmda)
