@@ -17,10 +17,6 @@ SET(VERSION "${PACKAGE_VERSION_MAJOR}.${PACKAGE_VERSION_MINOR}")
 SET(PACKAGE_VERSION ${VERSION})
 SET(PACKAGE_STRING "${PACKAGE_NAME} ${PACKAGE_VERSION}")
 
-# helpers targets
-#------------------------------------------------------------------
-include("build-aux/distclean.cmake")
-
 # fsmda and programs
 #------------------------------------------------------------------
 # libplatinumkit
@@ -44,3 +40,11 @@ include("build-aux/gtest.cmake")
 
 enable_testing()
 add_subdirectory(tests)
+
+
+# helpers targets
+#------------------------------------------------------------------
+include("build-aux/distclean.cmake")
+include("build-aux/cpplint.cmake")
+add_cpplint_target(src programs tests)
+
