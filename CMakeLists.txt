@@ -17,6 +17,10 @@ SET(VERSION "${PACKAGE_VERSION_MAJOR}.${PACKAGE_VERSION_MINOR}")
 SET(PACKAGE_VERSION ${VERSION})
 SET(PACKAGE_STRING "${PACKAGE_NAME} ${PACKAGE_VERSION}")
 
+# helpers targets
+#------------------------------------------------------------------
+include("build-aux/distclean.cmake")
+
 # fsmda and programs
 #------------------------------------------------------------------
 # libplatinumkit
