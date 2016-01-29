@@ -10,10 +10,10 @@ if (NOT __GLOG_INCLUDED)
       set(GLOG_EXTERNAL FALSE)
   else()
     if(EXISTS ${CMAKE_BINARY_DIR}/third_party/glog)
-        message(STATUS " The libglog was found in ${CMAKE_BINARY_DIR}/third_party/glog.")
+        message(STATUS "Using glog in ${CMAKE_BINARY_DIR}/third_party/glog.")
     else()
-        message(STATUS " The libflags-config.cmake was not found.")
-        message(STATUS " ${GLOG_URL} will be fetch and build.")
+        message(STATUS "The libflags-config.cmake was not found.")
+        message(STATUS "${GLOG_URL} will be fetch and build.")
     endif()
 
     # build directory

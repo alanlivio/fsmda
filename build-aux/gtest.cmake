@@ -10,10 +10,10 @@ if (NOT __GTEST_INCLUDED) # guard against multiple includes
     set(GTEST_EXTERNAL FALSE)
   else()
     if(EXISTS ${CMAKE_BINARY_DIR}/third_party/gtest)
-        message(STATUS " The libgest was found in ${CMAKE_BINARY_DIR}/third_party/libgest.")
+        message(STATUS "Using gtest in ${CMAKE_BINARY_DIR}/third_party/libgest.")
     else()
-        message(STATUS " The libgest-config.cmake was not found.")
-        message(STATUS " ${GTEST_URL} will be fetch and build.")
+        message(STATUS "The libgest-config.cmake was not found.")
+        message(STATUS "${GTEST_URL} will be fetch and build.")
     endif()
 
     find_package(Threads)

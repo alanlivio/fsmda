@@ -10,10 +10,10 @@ if (NOT __GFLAGS_INCLUDED) # guard against multiple includes
     set(GFLAGS_EXTERNAL FALSE)
   else()
     if(EXISTS ${CMAKE_BINARY_DIR}/third_party/gflags)
-        message(STATUS " The libflags was found in ${CMAKE_BINARY_DIR}/third_party/gflags.")
+        message(STATUS "Using gflags in ${CMAKE_BINARY_DIR}/third_party/gflags.")
     else()
-        message(STATUS " The libflags-config.cmake was not found.")
-        message(STATUS " ${GFLAGS_URL} will be fetch and build.")
+        message(STATUS "The libflags-config.cmake was not found.")
+        message(STATUS "${GFLAGS_URL} will be fetch and build.")
     endif()
 
     # gflags will use pthreads if it's available in the system, so we must link with it

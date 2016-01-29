@@ -1,6 +1,6 @@
 # donwload cpplint.py
 if(EXISTS ${CMAKE_BINARY_DIR}/third_party/cpplint.py)
-    message(STATUS "Using third_party/cpplint.py")
+    message(STATUS "Using cpplint.py in third_party/")
 else()
     message(STATUS "Downloading cpplint.py")
     file(DOWNLOAD https://raw.githubusercontent.com/google/styleguide/gh-pages/cpplint/cpplint.p ${CMAKE_SOURCE_DIR}/third_party/cpplint.py)
