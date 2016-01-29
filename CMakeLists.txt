@@ -26,9 +26,9 @@ pkg_check_modules(LIBXML2 REQUIRED libxml-2.0)
 # libzip
 pkg_check_modules(LIBZIP REQUIRED libzip)
 # glog
-include("build-aux/glog.cmake")
+include("cmake/glog.cmake")
 # gflags
-include("build-aux/gflags.cmake")
+include("cmake/gflags.cmake")
 
 add_subdirectory(src)
 add_subdirectory(programs)
@@ -36,15 +36,15 @@ add_subdirectory(programs)
 # tests
 #------------------------------------------------------------------
 # gtest
-include("build-aux/gtest.cmake")
+include("cmake/gtest.cmake")
 
 enable_testing()
 add_subdirectory(tests)
 
 # helpers targets
 #------------------------------------------------------------------
-include("build-aux/distclean.cmake")
-include("build-aux/cpplint.cmake")
+include("cmake/distclean.cmake")
+include("cmake/cpplint.cmake")
 add_cpplint_target(src programs tests)
 
 # final message
