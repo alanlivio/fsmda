@@ -5,6 +5,7 @@ include(ExternalProject)
 find_package(PkgConfig)
 #set(CMAKE_VERBOSE_MAKEFILE on)
 #set(CMAKE_CXX_FLAGS "-Wno-cpp")
+set(CMAKE_CXX_FLAGS "-Wno-cpp")
 
 # project configuration
 #------------------------------------------------------------------
@@ -39,13 +40,17 @@ add_cpplint_target(src programs tests)
 
 # final message
 #------------------------------------------------------------------
-message(STATUS "CMAKE_C_FLAGS:     " ${CMAKE_C_FLAGS})
-message(STATUS "CMAKE_C_FLAGS:     " ${CMAKE_C_FLAGS})
-message(STATUS "CMAKE_CXX_FLAGS:   " ${CMAKE_CXX_FLAGS})
-message(STATUS "CMAKE_BINARY_DIR:  " ${CMAKE_BINARY_DIR})
-message(STATUS "CMAKE_SOURCE_DIR:  " ${CMAKE_SOURCE_DIR})
-message(STATUS "CMAKE_MODULE_PATH: " ${CMAKE_MODULE_PATH})
-message(STATUS "CMAKE_SYSTEM:      " ${CMAKE_SYSTEM} " "
- ${CMAKE_SYSTEM_PROCESSOR})
+#  Version:            0.1
+#  Host type:          x86_64-unknown-linux-gnu
+#  Install prefix:     /usr
+#  Compiler:           cc: gcc cflags: -g -O2 cppflags:
+#  Warning flags:
+#  Library types:      Shared=yes, Static=no
 
-
+message(STATUS "")
+message(STATUS "  Version:              ${VERSION}")
+message(STATUS "  Host type:            ${CMAKE_SYSTEM}")
+message(STATUS "  CMAKE_INSTALL_PREFIX: ${CMAKE_INSTALL_PREFIX}")
+message(STATUS "  CMAKE_CXX_FLAGS:      ${CMAKE_CXX_FLAGS}")
+message(STATUS "  CMAKE_BINARY_DIR:     ${CMAKE_BINARY_DIR}")
+message(STATUS "")
