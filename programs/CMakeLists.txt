@@ -1,6 +1,8 @@
 include_directories(${LIBPLATINUMKIT_INCLUDE_DIRS})
 include_directories(${LIBXML2_INCLUDE_DIRS})
 include_directories(${LIBZIP_INCLUDE_DIRS})
+include_directories(${GFLAGS_INCLUDE_DIRS})
+include_directories(${GTEST_INCLUDE_DIRS})
 include_directories(${PROJECT_SOURCE_DIR}/src)
 
 add_executable(e0_program example0.cc)
