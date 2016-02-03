@@ -1,11 +1,3 @@
-# donwload cpplint.py
-if(EXISTS ${CMAKE_BINARY_DIR}/third_party/cpplint.py)
-    message(STATUS "Using cpplint.py in third_party/")
-else()
-    message(STATUS "Downloading cpplint.py")
-    file(DOWNLOAD https://raw.githubusercontent.com/google/styleguide/gh-pages/cpplint/cpplint.p ${CMAKE_SOURCE_DIR}/third_party/cpplint.py)
-endif()
-
 # disable unwanted filters
 set(STYLE_FILTER ${STYLE_FILTER}-whitespace/braces,)
 set(STYLE_FILTER ${STYLE_FILTER}-whitespace/semicolon,)
@@ -43,7 +35,7 @@ macro(add_cpplint_target ${SOURCES_DIRS})
         COMMAND "${CMAKE_COMMAND}" -E chdir
                 "${CMAKE_CURRENT_SOURCE_DIR}"
                 "${PYTHON_EXECUTABLE}"
-                "${CMAKE_SOURCE_DIR}/third_party/cpplint.py"
+                "${CMAKE_SOURCE_DIR}/scripts/cpplint.py"
                 "--root=${DIR}"
                 "--filter=${STYLE_FILTER}"
                 "--counting=detailed"
