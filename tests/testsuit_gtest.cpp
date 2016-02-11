@@ -10,7 +10,7 @@ using std::clog;
 using std::cerr;
 
 void HandleInterrupt(int sig) {
-    int ret = system("./release_fake_child_parent.sh > /dev/null");
+  int ret = system("./release_fake_child_parent.sh > /dev/null");
 }
 
 int main(int argc, char **argv) {
@@ -28,9 +28,9 @@ int main(int argc, char **argv) {
   //  ::testing::FLAGS_gtest_repeat = 2;
   //  ::testing::FLAGS_gtest_output = "/tmp/res.xml";
   ::testing::FLAGS_gtest_break_on_failure = true;
-  ::testing::FLAGS_gtest_list_tests = false;
-  ::testing::FLAGS_gtest_print_time = 0;
-  ::testing::FLAGS_gtest_color = "yes";
+  ::testing::FLAGS_gtest_list_tests       = false;
+  ::testing::FLAGS_gtest_print_time       = 0;
+  ::testing::FLAGS_gtest_color            = "yes";
   //    ::testing::FLAGS_gtest_filter = "PairingAsParent.*";
   ::testing::FLAGS_gtest_filter = "*.*InDifferentProcesses";
   //  ::testing::FLAGS_gtest_filter =

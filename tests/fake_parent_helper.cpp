@@ -31,7 +31,6 @@ DEFINE_bool(profile_remove_device, false, "enable profile_remove_device");
 // Profile Fault tolerance (2)
 DEFINE_bool(profile_bufferd_command, false, "enable profile_bufferd_command");
 
-
 NPT_SharedVariable parent_semaphore;
 
 double CalculateElapsedTime(timeval start_time, timeval end_time) {
@@ -41,7 +40,6 @@ double CalculateElapsedTime(timeval start_time, timeval end_time) {
   return elapsed_time;
 }
 
-
 class MockParentClassHandler : public ParentClassHandler {
  public:
   virtual void ReportAddDeviceToClass(const string& application_id,
@@ -50,7 +48,6 @@ class MockParentClassHandler : public ParentClassHandler {
     parent_semaphore.SetValue(1);
   }
 };
-
 
 class MockHpe : public HpeClassHandlingInterface,
                 public ActiveClassListenerInterface {
@@ -71,10 +68,10 @@ class MockHpe : public HpeClassHandlingInterface,
   void setClassVariableValue(const string& name, const string& value) {
     clog << "MockParentClassHandler::setClassVariableValue()" << name << "="
          << value << endl;
-    if (FLAGS_profile_remove_device) parent_semaphore.SetValue(1);
+    if (FLAGS_profile_remove_device)
+      parent_semaphore.SetValue(1);
   }
 };
-
 
 int main(int argc, char** argv) {
   google::SetVersionString("0.1");
@@ -101,8 +98,8 @@ int main(int argc, char** argv) {
   device_class_type =
       DeviceClassDescription::GetDeviceClassTypeByString(FLAGS_device_class);
   MockParentClassHandler* parent_class_handler;
-  parent_class_handler = new MockParentClassHandler();
-  mock_hpe = new MockHpe();
+  parent_class_handler     = new MockParentClassHandler();
+  mock_hpe                 = new MockHpe();
   device_class_description = new DeviceClassDescription();
   device_class_description->InitializeByDeviceClass(device_class_type);
   parent_class_handler->AddClassDescription(FLAGS_application_id, class_index,
@@ -126,15 +123,15 @@ int main(int argc, char** argv) {
     vector<Property> properties;
     vector<Event> events;
     // TODO(alan@telemidia.puc-rio.br): use relative path
-    active_pcm->Prepare(
-        "media01",
-        "/home/alan/development/multidevice-development/libfsmda/tests/files/ncl01/",
-        properties, events);
+    active_pcm->Prepare("media01",
+                        "/home/alan/development/multidevice-development/"
+                        "libfsmda/tests/files/ncl01/",
+                        properties, events);
     gettimeofday(&end_time, NULL);
     cout << "fsmda_parent profile_prepare "
          << DeviceClassDescription::GetDeviceClassTypeStringByEnum(
-                device_class_type) << " "
-         << CalculateElapsedTime(start_time, end_time) << " ms" << endl;
+                device_class_type)
+         << " " << CalculateElapsedTime(start_time, end_time) << " ms" << endl;
 
   } else if (FLAGS_profile_command) {
     ActiveClassInterface* active_pcm = parent_class_handler->CreateActivePcm(
@@ -145,8 +142,8 @@ int main(int argc, char** argv) {
     gettimeofday(&end_time, NULL);
     cout << "fsmda_parent profile_command "
          << DeviceClassDescription::GetDeviceClassTypeStringByEnum(
-                device_class_type) << " "
-         << CalculateElapsedTime(start_time, end_time) << " ms" << endl;
+                device_class_type)
+         << " " << CalculateElapsedTime(start_time, end_time) << " ms" << endl;
 
   } else if (FLAGS_profile_variable) {
     ActiveClassInterface* active_pcm = parent_class_handler->CreateActivePcm(
@@ -157,8 +154,8 @@ int main(int argc, char** argv) {
     gettimeofday(&end_time, NULL);
     cout << "fsmda_parent profile_variable "
          << DeviceClassDescription::GetDeviceClassTypeStringByEnum(
-                device_class_type) << " "
-         << CalculateElapsedTime(start_time, end_time) << " ms" << endl;
+                device_class_type)
+         << " " << CalculateElapsedTime(start_time, end_time) << " ms" << endl;
 
   } else if (FLAGS_profile_remove_device) {
     // wait for pairing
@@ -169,8 +166,8 @@ int main(int argc, char** argv) {
     gettimeofday(&end_time, NULL);
     cout << "fsmda_parent profile_remove_device "
          << DeviceClassDescription::GetDeviceClassTypeStringByEnum(
-                device_class_type) << " "
-         << CalculateElapsedTime(start_time, end_time) << " ms" << endl;
+                device_class_type)
+         << " " << CalculateElapsedTime(start_time, end_time) << " ms" << endl;
 
   } else if (FLAGS_profile_bufferd_command) {
     //    gettimeofday(&end_time, NULL);

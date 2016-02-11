@@ -12,7 +12,6 @@ using std::cout;
 using std::clog;
 using std::endl;
 
-
 NPT_SharedVariable parent_semaphore;
 class MockParentClassHandler : public ParentClassHandler {
  public:
@@ -34,18 +33,15 @@ class MockHpe : public HpeClassHandlingInterface,
                                    const string& value) {
     cout << "MockParentClassHandler::ReportPropertyValue()" << endl;
   }
-  void NotifyEventTransition(const string& object_id,
-                             const string& event_id,
+  void NotifyEventTransition(const string& object_id, const string& event_id,
                              const string& transition) {
     cout << "MockParentClassHandler::NotifyEventTransition()" << endl;
   }
   void NotifyError(const string& object_id, const string& message) {}
 
   // HpeClassHandlingInterface interface
-  void getClassVariableValue(const string& name,
-                             const string& value) {}
-  void setClassVariableValue(const string& name,
-                             const string& value) {
+  void getClassVariableValue(const string& name, const string& value) {}
+  void setClassVariableValue(const string& name, const string& value) {
     cout << "MockParentClassHandler::setClassVariableValue()" << endl;
   }
 };

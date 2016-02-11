@@ -22,18 +22,16 @@ using std::string;
 using std::ifstream;
 using std::strlen;
 
-
-
-const char* DeviceClassDescription::kInvalidDeviceString = "invalid device";
-const char* DeviceClassDescription::kBaseDeviceString = "base";
-const char* DeviceClassDescription::kPassiveDeviceString = "passive";
-const char* DeviceClassDescription::kActiveDeviceString = "active";
-const char* DeviceClassDescription::kHtmlDeviceString = "html";
-const char* DeviceClassDescription::kOnDemandDeviceString = "ondemand";
+const char* DeviceClassDescription::kInvalidDeviceString      = "invalid device";
+const char* DeviceClassDescription::kBaseDeviceString         = "base";
+const char* DeviceClassDescription::kPassiveDeviceString      = "passive";
+const char* DeviceClassDescription::kActiveDeviceString       = "active";
+const char* DeviceClassDescription::kHtmlDeviceString         = "html";
+const char* DeviceClassDescription::kOnDemandDeviceString     = "ondemand";
 const char* DeviceClassDescription::kMediaCaptureDeviceString = "mediacapture";
 const char* DeviceClassDescription::kInvalidPairingProtocolString =
     "invalid pairing protocol";
-const char* DeviceClassDescription::kUpnpPairingProcotolString = "UPnP";
+const char* DeviceClassDescription::kUpnpPairingProcotolString     = "UPnP";
 const char* DeviceClassDescription::kZeroconfPairingProtocolString = "Zeroconf";
 const char* DeviceClassDescription::kInvalidCommunicationProtocolString =
     "invalid communication protocol";
@@ -45,7 +43,9 @@ const char* DeviceClassDescription::kInvalidDeviceDefaultRdfContent =
     "invalid rdf";
 const char* DeviceClassDescription::kPassiveDeviceDefaultRdfContent =
     "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
-    "<rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns\" xmlns:prf=\"http://www.wapforum.org/profiles/UAPROF/ccppschema-20010430\" xmlns:fsmda=\"http://www.ncl.org.br/fsmda\">"
+    "<rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns\" "
+    "xmlns:prf=\"http://www.wapforum.org/profiles/UAPROF/ccppschema-20010430\" "
+    "xmlns:fsmda=\"http://www.ncl.org.br/fsmda\">"
     "  <fsmda:classType>passive</fsmda:classType>"
     "  <fsmda:minDevices>1</fsmda:minDevices>"
     "  <fsmda:maxDevices>1</fsmda:maxDevices>"
@@ -67,7 +67,9 @@ const char* DeviceClassDescription::kPassiveDeviceDefaultRdfContent =
 
 const char* DeviceClassDescription::kActiveDeviceDefaultRdfContent =
     "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
-    "<rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns\" xmlns:prf=\"http://www.wapforum.org/profiles/UAPROF/ccppschema-20010430\" xmlns:fsmda=\"http://www.ncl.org.br/fsmda\">"
+    "<rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns\" "
+    "xmlns:prf=\"http://www.wapforum.org/profiles/UAPROF/ccppschema-20010430\" "
+    "xmlns:fsmda=\"http://www.ncl.org.br/fsmda\">"
     "  <fsmda:classType>active</fsmda:classType>"
     "  <fsmda:minDevices>1</fsmda:minDevices>"
     "  <fsmda:maxDevices>1</fsmda:maxDevices>"
@@ -89,7 +91,9 @@ const char* DeviceClassDescription::kActiveDeviceDefaultRdfContent =
 
 const char* DeviceClassDescription::kHtmlDeviceDefaultRdfContent =
     "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
-    "<rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns\" xmlns:prf=\"http://www.wapforum.org/profiles/UAPROF/ccppschema-20010430\" xmlns:fsmda=\"http://www.ncl.org.br/fsmda\">"
+    "<rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns\" "
+    "xmlns:prf=\"http://www.wapforum.org/profiles/UAPROF/ccppschema-20010430\" "
+    "xmlns:fsmda=\"http://www.ncl.org.br/fsmda\">"
     "  <fsmda:classType>html</fsmda:classType>"
     "  <fsmda:minDevices>1</fsmda:minDevices>"
     "  <fsmda:maxDevices>1</fsmda:maxDevices>"
@@ -111,7 +115,9 @@ const char* DeviceClassDescription::kHtmlDeviceDefaultRdfContent =
 
 const char* DeviceClassDescription::kOnDemandDeviceDefaultRdfContent =
     "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
-    "<rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns\" xmlns:prf=\"http://www.wapforum.org/profiles/UAPROF/ccppschema-20010430\" xmlns:fsmda=\"http://www.ncl.org.br/fsmda\">"
+    "<rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns\" "
+    "xmlns:prf=\"http://www.wapforum.org/profiles/UAPROF/ccppschema-20010430\" "
+    "xmlns:fsmda=\"http://www.ncl.org.br/fsmda\">"
     "  <fsmda:classType>ondemand</fsmda:classType>"
     "  <fsmda:minDevices>1</fsmda:minDevices>"
     "  <fsmda:maxDevices>1</fsmda:maxDevices>"
@@ -133,7 +139,9 @@ const char* DeviceClassDescription::kOnDemandDeviceDefaultRdfContent =
 
 const char* DeviceClassDescription::kMediCaptureDeviceDefaultRdfContent =
     "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
-    "<rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns\" xmlns:prf=\"http://www.wapforum.org/profiles/UAPROF/ccppschema-20010430\" xmlns:fsmda=\"http://www.ncl.org.br/fsmda\">"
+    "<rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns\" "
+    "xmlns:prf=\"http://www.wapforum.org/profiles/UAPROF/ccppschema-20010430\" "
+    "xmlns:fsmda=\"http://www.ncl.org.br/fsmda\">"
     "  <fsmda:classType>mediacapture</fsmda:classType>"
     "  <fsmda:minDevices>1</fsmda:minDevices>"
     "  <fsmda:maxDevices>1</fsmda:maxDevices>"
@@ -153,7 +161,6 @@ const char* DeviceClassDescription::kMediCaptureDeviceDefaultRdfContent =
     "  </fsmda:HardwareRequirements>"
     "</rdf:RDF>";
 
-
 DeviceClassDescription::DeviceClassDescription()
     : device_class_type_(kBaseDevice),
       rdf_content_(""),
@@ -161,38 +168,28 @@ DeviceClassDescription::DeviceClassDescription()
       max_devices_(0),
       initialized_(false) {}
 
-
 DeviceClassDescription::~DeviceClassDescription() {}
-
 
 DeviceClassDescription::DeviceClassType
 DeviceClassDescription::device_class_type() {
   return device_class_type_;
 }
 
-
 DeviceClassDescription::PairingProtocol
 DeviceClassDescription::pairing_protocol() {
   return pairing_protocol_;
 }
-
 
 DeviceClassDescription::CommunicationProtocol
 DeviceClassDescription::communication_protocol() {
   return communication_protocol_;
 }
 
-
-const string& DeviceClassDescription::rdf_content() {
-  return rdf_content_;
-}
-
+const string& DeviceClassDescription::rdf_content() { return rdf_content_; }
 
 unsigned int DeviceClassDescription::min_devices() { return min_devices_; }
 
-
 unsigned int DeviceClassDescription::max_devices() { return max_devices_; }
-
 
 bool DeviceClassDescription::IsDeviceCompatible(
     DeviceDescription* device_desc) {
@@ -214,7 +211,6 @@ bool DeviceClassDescription::IsDeviceCompatible(
   }
 }
 
-
 int DeviceClassDescription::InitializeByDeviceClass(DeviceClassType type) {
   const char* rdf_content_aux = GetDeviceClassRdfDefaultContentByType(type);
   if (ParseXmlContent(rdf_content_aux) == 0) {
@@ -226,7 +222,6 @@ int DeviceClassDescription::InitializeByDeviceClass(DeviceClassType type) {
   }
 }
 
-
 int DeviceClassDescription::InitializeByRdfContent(const char* content) {
   // parse file
   if (ParseXmlContent(content) == 0) {
@@ -237,7 +232,6 @@ int DeviceClassDescription::InitializeByRdfContent(const char* content) {
     return -1;
   }
 }
-
 
 int DeviceClassDescription::InitializeByRdfFile(const string& rdf_file_path) {
   std::ifstream t;
@@ -256,7 +250,6 @@ int DeviceClassDescription::InitializeByRdfFile(const string& rdf_file_path) {
   }
 }
 
-
 int DeviceClassDescription::ParseXmlContent(const char* rdf_content) {
   int ret;
   unsigned int rdf_content_size;
@@ -271,7 +264,7 @@ int DeviceClassDescription::ParseXmlContent(const char* rdf_content) {
   // initilize libxml
   xmlInitParser();
   rdf_content_size = strlen(rdf_content);
-  xml_doc = xmlParseMemory(rdf_content, rdf_content_size);
+  xml_doc          = xmlParseMemory(rdf_content, rdf_content_size);
 
   // parse xml_doc
   assert(xml_doc != NULL);
@@ -288,7 +281,7 @@ int DeviceClassDescription::ParseXmlContent(const char* rdf_content) {
   assert(xpathObj != NULL);
   nodes = xpathObj->nodesetval;
   assert(nodes->nodeTab[0]);
-  aux = (const char*)nodes->nodeTab[0]->children->content;
+  aux                = (const char*)nodes->nodeTab[0]->children->content;
   device_class_type_ = DeviceClassDescription::GetDeviceClassTypeByString(aux);
   clog << "DeviceClassDescription::ParseXmlContent::classType = " << aux
        << "(or " << device_class_type_ << ")" << endl;
@@ -300,7 +293,7 @@ int DeviceClassDescription::ParseXmlContent(const char* rdf_content) {
   assert(xpathObj != NULL);
   nodes = xpathObj->nodesetval;
   assert(nodes->nodeTab[0]);
-  aux = (const char*)nodes->nodeTab[0]->children->content;
+  aux          = (const char*)nodes->nodeTab[0]->children->content;
   min_devices_ = atoi(aux);
   clog << "DeviceClassDescription::ParseXmlContent::minDevices = "
        << min_devices_ << endl;
@@ -312,7 +305,7 @@ int DeviceClassDescription::ParseXmlContent(const char* rdf_content) {
   assert(xpathObj != NULL);
   nodes = xpathObj->nodesetval;
   assert(nodes->nodeTab[0]);
-  aux = (const char*)nodes->nodeTab[0]->children->content;
+  aux          = (const char*)nodes->nodeTab[0]->children->content;
   max_devices_ = atoi(aux);
   clog << "DeviceClassDescription::ParseXmlContent::maxDevices = "
        << max_devices_ << endl;
@@ -340,7 +333,6 @@ int DeviceClassDescription::ParseXmlContent(const char* rdf_content) {
   return 0;
 }
 
-
 DeviceClassDescription::DeviceClassType
 DeviceClassDescription::GetDeviceClassTypeByString(const string& str) {
   if (!str.compare(kBaseDeviceString))
@@ -358,7 +350,6 @@ DeviceClassDescription::GetDeviceClassTypeByString(const string& str) {
   return kInvalidDevice;
 }
 
-
 DeviceClassDescription::PairingProtocol
 DeviceClassDescription::GetPairingProtocolByString(const string& str) {
   if (!str.compare(kUpnpPairingProcotolString))
@@ -369,10 +360,8 @@ DeviceClassDescription::GetPairingProtocolByString(const string& str) {
     return kPairingProtocolInvalid;
 }
 
-
 DeviceClassDescription::CommunicationProtocol
-DeviceClassDescription::GetCommunicationProtocoByString(
-    const string& str) {
+DeviceClassDescription::GetCommunicationProtocoByString(const string& str) {
   if (!str.compare(kUpnpCommunicationProcotolString))
     return kUpnpCommunicationProcotol;
   else if (!str.compare(kHTTPCommunicationProtocolString))
@@ -418,7 +407,6 @@ const char* DeviceClassDescription::GetPairingProtocolStringByEnum(
   }
 }
 
-
 const char* DeviceClassDescription::GetCommunicationProtocolStringByEnum(
     DeviceClassDescription::CommunicationProtocol type) {
   switch (type) {
@@ -432,7 +420,6 @@ const char* DeviceClassDescription::GetCommunicationProtocolStringByEnum(
       return kInvalidCommunicationProtocolString;
   }
 }
-
 
 const char* DeviceClassDescription::GetDeviceClassTypeStringByEnum(
     DeviceClassDescription::DeviceClassType type) {

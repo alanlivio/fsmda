@@ -28,7 +28,6 @@ DEFINE_bool(profile_bufferd_command, false, "enable profile_bufferd_command");
 // Profile Variable changing
 DEFINE_bool(profile_variable, false, "enable profile_variable");
 
-
 NPT_SharedVariable child_semaphore;
 double CalculateElapsedTime(timeval start_time, timeval end_time) {
   double elapsed_time;
@@ -36,7 +35,6 @@ double CalculateElapsedTime(timeval start_time, timeval end_time) {
   elapsed_time += (end_time.tv_usec - start_time.tv_usec) / 1000.0;
   return elapsed_time;
 }
-
 
 class MockChildClassHandler : public ChildClassHandler {
  public:
@@ -48,7 +46,6 @@ class MockChildClassHandler : public ChildClassHandler {
   explicit MockChildClassHandler(const DeviceDescription& device_description)
       : ChildClassHandler(device_description) {}
 };
-
 
 class MockActivePlayer : public ActivePlayerInterface {
  public:
@@ -78,7 +75,6 @@ class MockActivePlayer : public ActivePlayerInterface {
     ccm = listener;
   }
 };
-
 
 int main(int argc, char** argv) {
   google::SetVersionString("0.1");

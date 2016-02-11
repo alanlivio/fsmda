@@ -13,7 +13,6 @@
 using std::clog;
 using std::cin;
 
-
 int main(void) {
   ParentClassHandler* parent_class_handler_ = new ParentClassHandler();
   UpnpPpm* upnp_ppm = new UpnpPpm();
@@ -22,7 +21,8 @@ int main(void) {
 
   char buf[256];
   while (cin.getline(buf, 255)) {
-    if (*buf == 'q') break;
+    if (*buf == 'q')
+      break;
   }
   upnp_ppm->StopPairingService();
   delete upnp_ppm;

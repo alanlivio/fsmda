@@ -17,7 +17,6 @@ using std::cout;
 using std::clog;
 using std::endl;
 
-
 NPT_SharedVariable upnp_child_semaphore;
 class MockUpnpCpm : public UpnpCpm {
  public:
@@ -27,7 +26,8 @@ class MockUpnpCpm : public UpnpCpm {
     clog << "MockUpnpCpm::OnAction()::name="
          << action->GetActionDesc().GetName().GetChars() << endl;
     NPT_String name = action->GetActionDesc().GetName();
-    if (!name.Compare("ClassAnnouncement")) upnp_child_semaphore.SetValue(1);
+    if (!name.Compare("ClassAnnouncement"))
+      upnp_child_semaphore.SetValue(1);
     return UpnpCpm::OnAction(action, context);
   }
 };
@@ -65,7 +65,7 @@ void ClassAnnounceAsChildHelper(bool different_processes) {
   } else {
     // start parent pairing service with fake discover params
     // only for enable handshake
-    upnp_ppm = new UpnpPpm();
+    upnp_ppm                 = new UpnpPpm();
     unsigned int class_index = DeviceClassDescription::kActiveDevice;
     DeviceClassDescription* device_class_description =
         new DeviceClassDescription();
@@ -100,7 +100,6 @@ void ClassAnnounceAsChildHelper(bool different_processes) {
   EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 0);
   EXPECT_FALSE(UpnpFsmdaUtils::IsUpnpStarted());
 }
-
 
 TEST(UpnpPairingAsChild, ClassAnnounceInSameProcess) {
   ClassAnnounceAsChildHelper(false);

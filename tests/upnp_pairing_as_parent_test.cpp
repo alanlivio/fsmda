@@ -17,7 +17,6 @@ using std::cout;
 using std::clog;
 using std::endl;
 
-
 NPT_SharedVariable upnp_parent_semaphore;
 class MockUpnpPpm : public UpnpPpm {
  public:
@@ -27,7 +26,7 @@ class MockUpnpPpm : public UpnpPpm {
     clog << "MockUpnpCpm::OnActionResponse()::action.name=" << name.GetChars()
          << endl;
     if (!name.Compare("ClassAnnouncement"))
-        upnp_parent_semaphore.SetValue(1);
+      upnp_parent_semaphore.SetValue(1);
     return UpnpPpm::OnActionResponse(res, action, userdata);
   }
 };
@@ -46,7 +45,7 @@ void ClassAnnounceAsParentHelper(bool diferent_processes) {
   UpnpFsmdaUtils::GenerateGUID(&app_id);
 
   // start upnp parent pairing service
-  upnp_ppm = new MockUpnpPpm();
+  upnp_ppm                 = new MockUpnpPpm();
   unsigned int class_index = DeviceClassDescription::kActiveDevice;
   DeviceClassDescription* device_class_description =
       new DeviceClassDescription();
@@ -95,7 +94,6 @@ void ClassAnnounceAsParentHelper(bool diferent_processes) {
   EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 0);
   EXPECT_FALSE(UpnpFsmdaUtils::IsUpnpStarted());
 }
-
 
 TEST(UpnpPairingAsParent, ClassAnnounceInSameProcess) {
   ClassAnnounceAsParentHelper(false);

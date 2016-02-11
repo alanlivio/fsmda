@@ -24,12 +24,10 @@ ParentClassHandler::~ParentClassHandler() {
   // TODO(alan@telemidia.puc-rio.br): delete device_class_description_map_
 }
 
-
 void ParentClassHandler::AddClass(const string& application_id,
                                   unsigned int class_index) {
   // TODO(alan@telemidia.puc-rio.br): implemet this
 }
-
 
 void ParentClassHandler::AddClassDescription(
     const string& application_id, unsigned int class_index,
@@ -42,7 +40,6 @@ void ParentClassHandler::AddClassDescription(
       DeviceClassDescription::GetDeviceClassTypeByString(class_type));
   AddClassDescription(application_id, class_index, device_class_description);
 }
-
 
 void ParentClassHandler::AddClassDescription(
     const string& application_id, unsigned int class_index,
@@ -63,19 +60,16 @@ void ParentClassHandler::AddClassDescription(
   }
 }
 
-
 void ParentClassHandler::SetClassHandlingHpe(const string& application_id,
                                              HpeClassHandlingInterface* hpe) {
   // TODO(alan@telemidia.puc-rio.br): create tests to this
   hpes_map_[application_id] = hpe;
 }
 
-
 HpeClassHandlingInterface* ParentClassHandler::GetClassHandlingHpe(
     const string& application_id) {
   return hpes_map_[application_id];
 }
-
 
 void ParentClassHandler::RemoveClass(const string& application_id,
                                      unsigned int class_index) {
@@ -84,13 +78,11 @@ void ParentClassHandler::RemoveClass(const string& application_id,
       device_class_data_map_[application_id].find(class_index));
 }
 
-
 void ParentClassHandler::ReportAddDeviceToClass(const string& application_id,
                                                 unsigned int class_index) {
   // TODO(alan@telemidia.puc-rio.br): create tests to this
   clog << "ParentClassHandler::ReportAddDeviceToClass(" << application_id
-       << ",class_index=" << class_index
-       << ")" << endl;
+       << ",class_index=" << class_index << ")" << endl;
   device_class_data_map_[application_id][class_index]
       ->number_of_registred_children_++;
 }
@@ -101,7 +93,6 @@ unsigned int ParentClassHandler::GetAvaliableChildIndex(
   return 1;
 }
 
-
 int ParentClassHandler::StartPairing() {
   clog << "ParentClassHandler::StartPairing()" << endl;
   if (number_of_registred_classes_ > 0) {
@@ -111,16 +102,13 @@ int ParentClassHandler::StartPairing() {
   }
 }
 
-
 int ParentClassHandler::StopPairing() {
   return upnp_ppm_->StopPairingService();
 }
 
-
 bool ParentClassHandler::IsPairingStarted() {
   return upnp_ppm_->IsPairingServiceStarted();
 }
-
 
 PassiveClassListenerInterface* ParentClassHandler::CreatePassivePcm(
     const string& application_id, unsigned int class_index) {
@@ -131,7 +119,6 @@ PassiveClassListenerInterface* ParentClassHandler::CreatePassivePcm(
   }
 }
 
-
 ActiveClassInterface* ParentClassHandler::CreateActivePcm(
     const string& application_id, unsigned int class_index) {
   if (device_class_data_map_[application_id][class_index]
@@ -140,7 +127,6 @@ ActiveClassInterface* ParentClassHandler::CreateActivePcm(
     return upnp_ppm_->CreateActivePcm(application_id, class_index);
   }
 }
-
 
 MediaCaptureClassListenerInterface* ParentClassHandler::CreateMediaCapturePcm(
     const string& application_id, unsigned int class_index) {
@@ -151,7 +137,6 @@ MediaCaptureClassListenerInterface* ParentClassHandler::CreateMediaCapturePcm(
   }
 }
 
-
 OnDemandClassListenerInterface* ParentClassHandler::CreateOnDemandPcm(
     const string& application_id, unsigned int class_index) {
   if (device_class_data_map_[application_id][class_index]
@@ -160,7 +145,6 @@ OnDemandClassListenerInterface* ParentClassHandler::CreateOnDemandPcm(
     return upnp_ppm_->CreateOnDemandPcm(application_id, class_index);
   }
 }
-
 
 unsigned int ParentClassHandler::GenerateAvaliableIndex(
     const string& application_id) {
@@ -171,18 +155,16 @@ unsigned int ParentClassHandler::GenerateAvaliableIndex(
   }
 }
 
-
 unsigned int ParentClassHandler::number_of_registred_classes(
     const string& application_id) {
   return device_class_data_map_[application_id].size();
 }
 
-
 unsigned int ParentClassHandler::number_of_registred_children(
     const string& application_id, unsigned int class_index) {
   clog << "ParentClassHandler::GetNumberOfRegistredChildren:: "
-          "application_id=" << application_id << ",class_index" << class_index
-       << endl;
+          "application_id="
+       << application_id << ",class_index" << class_index << endl;
   return device_class_data_map_[application_id][class_index]
       ->number_of_registred_children_;
 }

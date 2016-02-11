@@ -68,7 +68,7 @@ int zipwalker(void *zipfile, string initdir, string dirpath, string iUriD) {
     return -1;
   }
 
-  file = (struct zip *)zipfile;
+  file        = (struct zip *)zipfile;
   len_dirpath = dirpath.length();
   len_initdir = initdir.length();
 
@@ -175,7 +175,7 @@ int unzip_file(const char *zipname, const char *filedir) {
     name_len = strlen(cur_file_name);
 
     char *filename = (char *)malloc((name_len + 3) * sizeof(char));
-    filename[0] = '.';
+    filename[0]    = '.';
 #ifdef WIN32
     filename[1] = '\\';
 
@@ -206,8 +206,6 @@ int unzip_file(const char *zipname, const char *filedir) {
 
       while ((len = zip_fread(inf, buf, 1024))) {
         fwrite(buf, sizeof(char), len, ofp);
-
-        
       }
       //				printf(" [done] \n");
       // close the files
@@ -259,7 +257,6 @@ int zip_directory(const string &zipfile_path, const string &directory_path,
     partial_path = directory_path;
 
     // This make no sense. I am always adding an empty directory!
-    
 
     // \fixme This should not be recursive! So, there would not
     // be a possibility of stack overflow.
@@ -269,8 +266,6 @@ int zip_directory(const string &zipfile_path, const string &directory_path,
       zip_discard(zipFile);
       return -1;
     }
-
-    
 
     if (zip_close(zipFile) == -1) {
       clog << "functions::zip_directory Warning! can't close zip archive '";
@@ -346,7 +341,6 @@ string getBase64FromFile(string file_path) {
   return sResult;
 }
 
-
 int writeFileFromBase64(string payload, char *file_path) {
   int len = -1;
   string result;
@@ -367,7 +361,7 @@ int writeFileFromBase64(string payload, char *file_path) {
   out.close();
 
   len = (int)payload.size();
-  
+
   clog << "util::wb64 wrote " << file_path;
   clog << " from " << len << " chars (b64)" << endl;
   return len;
@@ -391,13 +385,15 @@ std::string base64_encode(unsigned char const *bytes_to_encode,
           ((char_array_3[1] & 0x0f) << 2) + ((char_array_3[2] & 0xc0) >> 6);
       char_array_4[3] = char_array_3[2] & 0x3f;
 
-      for (i = 0; (i < 4); i++) ret += base64_chars[char_array_4[i]];
+      for (i = 0; (i < 4); i++)
+        ret += base64_chars[char_array_4[i]];
       i = 0;
     }
   }
 
   if (i) {
-    for (j = i; j < 3; j++) char_array_3[j] = '\0';
+    for (j = i; j < 3; j++)
+      char_array_3[j] = '\0';
 
     char_array_4[0] = (char_array_3[0] & 0xfc) >> 2;
     char_array_4[1] =
@@ -406,9 +402,11 @@ std::string base64_encode(unsigned char const *bytes_to_encode,
         ((char_array_3[1] & 0x0f) << 2) + ((char_array_3[2] & 0xc0) >> 6);
     char_array_4[3] = char_array_3[2] & 0x3f;
 
-    for (j = 0; (j < i + 1); j++) ret += base64_chars[char_array_4[j]];
+    for (j = 0; (j < i + 1); j++)
+      ret += base64_chars[char_array_4[j]];
 
-    while ((i++ < 3)) ret += '=';
+    while ((i++ < 3))
+      ret += '=';
   }
 
   return ret;
@@ -419,8 +417,8 @@ std::string base64_decode(std::string const &encoded_string) {
 
   // std::clog << ":: base64_decode.encoded_string.size()="<<in_len<<std::endl;
 
-  int i = 0;
-  int j = 0;
+  int i   = 0;
+  int j   = 0;
   int in_ = 0;
   unsigned char char_array_4[4], char_array_3[3];
   std::string ret;
@@ -439,13 +437,15 @@ std::string base64_decode(std::string const &encoded_string) {
           ((char_array_4[1] & 0xf) << 4) + ((char_array_4[2] & 0x3c) >> 2);
       char_array_3[2] = ((char_array_4[2] & 0x3) << 6) + char_array_4[3];
 
-      for (i = 0; (i < 3); i++) ret += char_array_3[i];
+      for (i = 0; (i < 3); i++)
+        ret += char_array_3[i];
       i = 0;
     }
   }
 
   if (i) {
-    for (j = i; j < 4; j++) char_array_4[j] = 0;
+    for (j = i; j < 4; j++)
+      char_array_4[j] = 0;
 
     for (j = 0; j < 4; j++)
       char_array_4[j] = base64_chars.find(char_array_4[j]);
@@ -455,7 +455,8 @@ std::string base64_decode(std::string const &encoded_string) {
         ((char_array_4[1] & 0xf) << 4) + ((char_array_4[2] & 0x3c) >> 2);
     char_array_3[2] = ((char_array_4[2] & 0x3) << 6) + char_array_4[3];
 
-    for (j = 0; (j < i - 1); j++) ret += char_array_3[j];
+    for (j = 0; (j < i - 1); j++)
+      ret += char_array_3[j];
   }
 
   return ret;

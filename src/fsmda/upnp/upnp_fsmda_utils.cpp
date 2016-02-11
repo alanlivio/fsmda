@@ -8,9 +8,8 @@
 #include "PltUtilities.h"
 #include <string>
 
-
 // singleton fields
-PLT_UPnP *UpnpFsmdaUtils::upnp_singleton_ = NULL;
+PLT_UPnP *UpnpFsmdaUtils::upnp_singleton_           = NULL;
 unsigned int UpnpFsmdaUtils::upnp_references_count_ = 0;
 
 // upnp FSMDA Manufacturer constant strings
@@ -971,13 +970,11 @@ const char *UpnpFsmdaUtils::kMediaCaptureCcmServiceScpdXml =
     "1.00</dlna:X_DLNADOC>"
     "</scpd>";
 
-
 void UpnpFsmdaUtils::GenerateGUID(std::string *guid) {
   NPT_String guid_aux;
   PLT_UPnPMessageHelper::GenerateGUID(guid_aux);
   guid->assign(guid_aux.GetChars());
 }
-
 
 PLT_UPnP *UpnpFsmdaUtils::GetRunningInstance() {
   if (UpnpFsmdaUtils::upnp_singleton_ == NULL) {
@@ -1005,20 +1002,18 @@ PLT_UPnP *UpnpFsmdaUtils::GetRunningInstance() {
   return UpnpFsmdaUtils::upnp_singleton_;
 }
 
-
 void UpnpFsmdaUtils::ReleaseInstance() {
   if (UpnpFsmdaUtils::upnp_references_count_ == 0) {
     return;
   } else if (UpnpFsmdaUtils::upnp_references_count_ == 1) {
     UpnpFsmdaUtils::upnp_singleton_->Stop();
     delete upnp_singleton_;
-    UpnpFsmdaUtils::upnp_singleton_ = NULL;
+    UpnpFsmdaUtils::upnp_singleton_        = NULL;
     UpnpFsmdaUtils::upnp_references_count_ = 0;
   } else {
     UpnpFsmdaUtils::upnp_references_count_--;
   }
 }
-
 
 bool UpnpFsmdaUtils::IsUpnpStarted() {
   if (UpnpFsmdaUtils::upnp_singleton_ == NULL) {

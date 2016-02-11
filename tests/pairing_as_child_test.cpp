@@ -12,7 +12,6 @@ using std::cout;
 using std::clog;
 using std::endl;
 
-
 NPT_SharedVariable child_semaphore;
 class MockChildClassHandler : public ChildClassHandler {
  public:
@@ -112,7 +111,6 @@ void PairingAsChildHelper(
   EXPECT_EQ(UpnpFsmdaUtils::upnp_references_count(), 0);
   EXPECT_FALSE(UpnpFsmdaUtils::IsUpnpStarted());
 }
-
 
 TEST(PairingAsChild, PassiveInSameProcess) {
   PairingAsChildHelper("./files/passive_dev_desc00.xml",

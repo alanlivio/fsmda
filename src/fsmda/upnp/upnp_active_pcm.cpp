@@ -10,27 +10,24 @@ using std::string;
 using std::stringstream;
 using std::endl;
 
-
 UpnpActivePcm::UpnpActivePcm(PLT_DeviceHostReference device_host,
                              PLT_DeviceDataReference &remote_device,
                              PLT_CtrlPointReference ctrl_point,
                              const string &application_id,
                              unsigned int class_index) {
-  device_host_ = device_host;
-  remote_device_ = remote_device;
-  ctrl_point_ = ctrl_point;
+  device_host_    = device_host;
+  remote_device_  = remote_device;
+  ctrl_point_     = ctrl_point;
   application_id_ = string(application_id);
   class_index_ = class_index;
   ctrl_point_->AddListener(this);
 }
-
 
 UpnpActivePcm::~UpnpActivePcm() {
   ctrl_point_->RemoveListener(this);
   ctrl_point_.Detach();
   device_host_.Detach();
 }
-
 
 void UpnpActivePcm::Prepare(const string &object_id, const string &object_src,
                             vector<Property> properties, vector<Event> evts) {
@@ -75,13 +72,10 @@ void UpnpActivePcm::Prepare(const string &object_id, const string &object_src,
   invoked_actions_.push_back(invoke_action);
 }
 
-
 void UpnpActivePcm::AddEvent(const string &object_id, Event evt) {}
-
 
 void UpnpActivePcm::RemoveEvent(const string &object_id,
                                 const string &event_id) {}
-
 
 void UpnpActivePcm::PostAction(const string &object_id, const string &event_id,
                                const string &action) {
@@ -112,7 +106,6 @@ void UpnpActivePcm::PostAction(const string &object_id, const string &event_id,
   post_action_semaphore.SetValue(0);
   invoked_actions_.push_back(invoke_action);
 }
-
 
 void UpnpActivePcm::RequestPropertyValue(const string &object_id,
                                          const string &property_name) {
@@ -191,7 +184,6 @@ void UpnpActivePcm::SetPropertyValue(const string &object_id,
 NPT_Result UpnpActivePcm::OnAction(PLT_ActionReference &action,
                                    const PLT_HttpRequestContext &context) {}
 
-
 void UpnpActivePcm::UpdateRemoteHostAndExecuteStoredActions(
     PLT_DeviceDataReference &remote_device) {
   remote_device_ = remote_device;
@@ -200,18 +192,14 @@ void UpnpActivePcm::UpdateRemoteHostAndExecuteStoredActions(
   }
 }
 
-
 void UpnpActivePcm::RegistryActiveClassListener(
     ActiveClassListenerInterface *hpe) {
   hpe_ = hpe;
 }
 
-
 NPT_Result UpnpActivePcm::OnDeviceAdded(PLT_DeviceDataReference &device) {}
 
-
 NPT_Result UpnpActivePcm::OnDeviceRemoved(PLT_DeviceDataReference &device) {}
-
 
 NPT_Result UpnpActivePcm::OnActionResponse(NPT_Result res,
                                            PLT_ActionReference &action,
@@ -228,14 +216,15 @@ NPT_Result UpnpActivePcm::OnActionResponse(NPT_Result res,
        << action_name.GetChars() << ",service_name=" << service_name.GetChars()
        << ", application_id=" << application_id.GetChars()
        << ",class_index=" << class_index << endl;
-  if (!action_name.Compare("PostAction")) post_action_semaphore.SetValue(1);
+  if (!action_name.Compare("PostAction"))
+    post_action_semaphore.SetValue(1);
   if (!action_name.Compare("RequestPropertyValue"))
     request_var_action_semaphore.SetValue(1);
-  if (!action_name.Compare("Prepare")) prepare_action_semaphore.SetValue(1);
+  if (!action_name.Compare("Prepare"))
+    prepare_action_semaphore.SetValue(1);
   if (!action_name.Compare("SetPropertyValue"))
     set_var_action_semaphore.SetValue(1);
 }
-
 
 NPT_Result UpnpActivePcm::OnEventNotify(PLT_Service *service,
                                         NPT_List<PLT_StateVariable *> *vars) {}

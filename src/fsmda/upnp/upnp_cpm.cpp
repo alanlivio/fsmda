@@ -16,11 +16,11 @@ UpnpCpm::UpnpCpm()
       upnp_instance_(NULL),
       child_class_handler_(NULL) {
   m_ModelDescription = UpnpFsmdaUtils::kChildDeviceModelDescription;
-  m_ModelURL = UpnpFsmdaUtils::kChildDeviceModelUrl;
-  m_ModelNumber = UpnpFsmdaUtils::kChildDeviceModelNumber;
-  m_ModelName = UpnpFsmdaUtils::kChildDeviceModelName;
-  m_Manufacturer = UpnpFsmdaUtils::kFsmdaManufacturer;
-  m_ManufacturerURL = UpnpFsmdaUtils::kFsmdaManufacturerUrl;
+  m_ModelURL         = UpnpFsmdaUtils::kChildDeviceModelUrl;
+  m_ModelNumber      = UpnpFsmdaUtils::kChildDeviceModelNumber;
+  m_ModelName        = UpnpFsmdaUtils::kChildDeviceModelName;
+  m_Manufacturer     = UpnpFsmdaUtils::kFsmdaManufacturer;
+  m_ManufacturerURL  = UpnpFsmdaUtils::kFsmdaManufacturerUrl;
 
   // create child pairing service
   ppm_service_ = new PLT_Service(this, UpnpFsmdaUtils::kCpmServiceType,
@@ -60,14 +60,12 @@ UpnpCpm::UpnpCpm()
       (const char *)UpnpFsmdaUtils::kMediaCaptureCcmServiceScpdXml);
 }
 
-
 UpnpCpm::~UpnpCpm() {
   StopPairingService();
   delete ppm_service_;
   ctrl_point_.Detach();
   device_host_.Detach();
 }
-
 
 void UpnpCpm::AddDeviceToClass(const string &application_id,
                                const string &device_address,
@@ -104,29 +102,31 @@ void UpnpCpm::AddDeviceToClass(const string &application_id,
          << ")" << endl;
 }
 
-
 void UpnpCpm::GetChildIndex(const string &application_id,
                             const string &device_address,
                             unsigned int class_index) {}
-
 
 NPT_Result UpnpCpm::SetupServices() {
   clog << "UpnpCpm::SetupServices()" << endl;
 
   NPT_Result res;
   res = AddService(ppm_service_);
-  if (res == NPT_FAILURE) return NPT_FAILURE;
+  if (res == NPT_FAILURE)
+    return NPT_FAILURE;
   res = AddService(passive_service_);
-  if (res == NPT_FAILURE) return NPT_FAILURE;
+  if (res == NPT_FAILURE)
+    return NPT_FAILURE;
   res = AddService(active_service_);
-  if (res == NPT_FAILURE) return NPT_FAILURE;
+  if (res == NPT_FAILURE)
+    return NPT_FAILURE;
   res = AddService(ondemand_service_);
-  if (res == NPT_FAILURE) return NPT_FAILURE;
+  if (res == NPT_FAILURE)
+    return NPT_FAILURE;
   res = AddService(mediacapture_service_);
-  if (res == NPT_FAILURE) return NPT_FAILURE;
+  if (res == NPT_FAILURE)
+    return NPT_FAILURE;
   return NPT_SUCCESS;
 }
-
 
 NPT_Result UpnpCpm::OnAction(PLT_ActionReference &action,
                              const PLT_HttpRequestContext &context) {
@@ -173,10 +173,8 @@ NPT_Result UpnpCpm::OnAction(PLT_ActionReference &action,
   return NPT_SUCCESS;
 }
 
-
 NPT_Result UpnpCpm::OnEventNotify(PLT_Service *service,
                                   NPT_List<PLT_StateVariable *> *vars) {}
-
 
 NPT_Result UpnpCpm::OnActionResponse(NPT_Result res,
                                      PLT_ActionReference &action,
@@ -195,12 +193,11 @@ NPT_Result UpnpCpm::OnActionResponse(NPT_Result res,
   }
 }
 
-
 NPT_Result UpnpCpm::OnDeviceRemoved(PLT_DeviceDataReference &device) {}
 
-
 NPT_Result UpnpCpm::OnDeviceAdded(PLT_DeviceDataReference &device_data) {
-  if (!device_data->GetUUID().Compare(m_UUID)) return NPT_FAILURE;
+  if (!device_data->GetUUID().Compare(m_UUID))
+    return NPT_FAILURE;
   if (device_data->GetType().Compare(UpnpFsmdaUtils::kParentDeviceType))
     return NPT_FAILURE;
   clog << "UpnpCpm::OnDeviceAdded() " << endl;
@@ -235,7 +232,6 @@ int UpnpCpm::StartPairingService() {
   }
 }
 
-
 int UpnpCpm::StopPairingService() {
   if (upnp_instance_ != NULL) {
     RemoveService(ppm_service_);
@@ -248,21 +244,17 @@ int UpnpCpm::StopPairingService() {
   return 0;
 }
 
-
 int UpnpCpm::set_service_owner(ChildClassHandler *service_owner) {
   child_class_handler_ = service_owner;
 }
 
-
 bool UpnpCpm::IsPairingServiceStarted() { return m_Started; }
-
 
 PassiveClassInterface *UpnpCpm::CreatePassiveCcm(const string &application_id,
                                                  unsigned int class_index) {
   UpnpPassiveCcm *communication = new UpnpPassiveCcm();
   return communication;
 }
-
 
 ActiveClassListenerInterface *UpnpCpm::CreateActiveCcm(
     const string &application_id, unsigned int class_index) {
@@ -273,13 +265,11 @@ ActiveClassListenerInterface *UpnpCpm::CreateActiveCcm(
   return communication;
 }
 
-
 MediaCaptureClassInterface *UpnpCpm::CreateMediaCaptureCcm(
     const string &application_id, unsigned int class_index) {
   UpnpMediaCaptureCcm *communication = new UpnpMediaCaptureCcm();
   return communication;
 }
-
 
 OnDemandClassInterface *UpnpCpm::CreateOnDemandCcm(const string &application_id,
                                                    unsigned int class_index) {

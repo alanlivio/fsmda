@@ -22,16 +22,13 @@ using std::string;
 using std::ifstream;
 using std::strlen;
 
-
 DeviceDescription::DeviceDescription()
     : doc_(NULL),
       rdf_content_(""),
       device_class_type_(DeviceClassDescription::kBaseDevice),
       initialized_(false) {}
 
-
 DeviceDescription::~DeviceDescription() {}
-
 
 int DeviceDescription::InitializeByDeviceClass(
     DeviceClassDescription::DeviceClassType type) {
@@ -46,7 +43,6 @@ int DeviceDescription::InitializeByDeviceClass(
   }
 }
 
-
 int DeviceDescription::InitializeByRdfContent(const char* content) {
   // parse file
   if (ParseXmlContent(content) == 0) {
@@ -57,7 +53,6 @@ int DeviceDescription::InitializeByRdfContent(const char* content) {
     return -1;
   }
 }
-
 
 int DeviceDescription::InitializeByRdfFile(const string& rdf_file_path) {
   std::ifstream t;
@@ -76,7 +71,6 @@ int DeviceDescription::InitializeByRdfFile(const string& rdf_file_path) {
   }
 }
 
-
 int DeviceDescription::ParseXmlContent(const char* rdf_content) {
   int ret;
   unsigned int rdf_content_size;
@@ -91,7 +85,7 @@ int DeviceDescription::ParseXmlContent(const char* rdf_content) {
   // initilize libxml
   xmlInitParser();
   rdf_content_size = strlen(rdf_content);
-  xml_doc = xmlParseMemory(rdf_content, rdf_content_size);
+  xml_doc          = xmlParseMemory(rdf_content, rdf_content_size);
 
   // parse xml_doc
   assert(xml_doc != NULL);
@@ -108,7 +102,7 @@ int DeviceDescription::ParseXmlContent(const char* rdf_content) {
   assert(xpathObj != NULL);
   nodes = xpathObj->nodesetval;
   assert(nodes->nodeTab[0]);
-  aux = (const char*)nodes->nodeTab[0]->children->content;
+  aux                = (const char*)nodes->nodeTab[0]->children->content;
   device_class_type_ = DeviceClassDescription::GetDeviceClassTypeByString(aux);
   clog << "DeviceDescription::ParseXmlContent::classType = " << aux << "(or "
        << device_class_type_ << ")" << endl;
@@ -136,18 +130,14 @@ int DeviceDescription::ParseXmlContent(const char* rdf_content) {
   return 0;
 }
 
-
 DeviceClassDescription::DeviceClassType DeviceDescription::device_class_type() {
   return device_class_type_;
 }
-
 
 DeviceClassDescription::PairingProtocol DeviceDescription::pairing_method() {
   return pairing_protocol_;
 }
 
-
 const string DeviceDescription::rdf_content() { return rdf_content_; }
-
 
 bool DeviceDescription::initialized() { return initialized_; }

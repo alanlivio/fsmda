@@ -19,18 +19,16 @@ ChildClassHandler::ChildClassHandler(
        << device_description_->device_class_type() << ")" << endl;
   upnp_cpm_ = new UpnpCpm();
   upnp_cpm_->set_service_owner(this);
-  passive_player_ = NULL;
-  active_player_ = NULL;
-  ondemand_player_ = NULL;
+  passive_player_      = NULL;
+  active_player_       = NULL;
+  ondemand_player_     = NULL;
   mediacapture_player_ = NULL;
 }
-
 
 ChildClassHandler::~ChildClassHandler() {
   delete device_description_;
   delete upnp_cpm_;
 }
-
 
 int ChildClassHandler::StartPairing() {
   clog << "ChildClassHandler::StartPairing()" << endl;
@@ -42,7 +40,6 @@ int ChildClassHandler::StartPairing() {
   }
 }
 
-
 int ChildClassHandler::StopPairing() {
   if (device_description_->pairing_method() ==
       DeviceClassDescription::kUpnpPairingProcotol) {
@@ -50,7 +47,6 @@ int ChildClassHandler::StopPairing() {
   }
   return 0;
 }
-
 
 bool ChildClassHandler::IsPairingStarted() {
   if (device_description_->pairing_method() ==
@@ -61,27 +57,21 @@ bool ChildClassHandler::IsPairingStarted() {
   }
 }
 
-
 bool ChildClassHandler::paired() { return paired_; }
 
-
 void ChildClassHandler::set_paired(bool paired) { paired_ = paired; }
-
 
 DeviceDescription* ChildClassHandler::device_description() {
   return device_description_;
 }
 
-
 void ChildClassHandler::set_active_player(ActivePlayerInterface* player) {
   active_player_ = player;
 }
 
-
 void ChildClassHandler::set_passive_player(PassiveClassInterface* player) {
   passive_player_ = player;
 }
-
 
 void ChildClassHandler::set_ondemand_player(OnDemandClassInterface* player) {
   ondemand_player_ = player;
@@ -91,7 +81,6 @@ void ChildClassHandler::set_mediacapture_player(
     MediaCaptureClassInterface* player) {
   mediacapture_player_ = player;
 }
-
 
 PassiveClassInterface* ChildClassHandler::passive_player() {
   return passive_player_;
