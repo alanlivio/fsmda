@@ -5,7 +5,7 @@ include_directories(${LIBZIP_INCLUDE_DIRS})
 include_directories(${PROJECT_SOURCE_DIR}/src)
 
 # fsmda lib
-file(GLOB SRC_LIST "fsmda/*.cc" "fsmda/mode/*.cc" "fsmda/upnp/*.cc" "fsmda/utils/*.cc")
+file(GLOB_RECURSE SRC_LIST "fsmda/*.cpp")
 add_library(fsmda SHARED ${SRC_LIST})
 target_link_libraries(fsmda ${LIBPLATINUMKIT_LIBRARIES})
 target_link_libraries(fsmda ${LIBXML2_LIBRARIES})
