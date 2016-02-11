@@ -1,0 +1,8 @@
+# generate command: clang-format -style="{BasedOnStyle: Google, AlignConsecutiveAssignments: true, AllowShortIfStatementsOnASingleLine: false, AllowShortLoopsOnASingleLine: false}" -dump-config >  .clang-format
+---
+BasedOnStyle: Google
+AlignConsecutiveAssignments: true
+AllowShortIfStatementsOnASingleLine: false
+AllowShortLoopsOnASingleLine: false
+...
+
