@@ -1,9 +1,6 @@
 #ifndef FSMDA_UPNP_UPNP_ACTIVE_PCM_H_
 #define FSMDA_UPNP_UPNP_ACTIVE_PCM_H_
 
-/*----------------------------------------------------------------------
- |   includes
- +---------------------------------------------------------------------*/
 #include <string>
 #include <map>
 #include <vector>
@@ -17,9 +14,6 @@ using std::string;
 using std::vector;
 using std::map;
 
-/*----------------------------------------------------------------------
- |   UpnpActivePcm class
- +---------------------------------------------------------------------*/
 class UpnpActivePcm : public ActiveClassInterface,
                       public PLT_CtrlPointListener {
  public:

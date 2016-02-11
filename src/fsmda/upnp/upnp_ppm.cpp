@@ -1,6 +1,4 @@
-/*----------------------------------------------------------------------
- |   includes
- +---------------------------------------------------------------------*/
+
 
 #include <iostream>
 #include <map>
@@ -31,9 +29,7 @@ using std::stringstream;
 using std::map;
 using std::find;
 
-/*----------------------------------------------------------------------
- |   UpnpPpm::UpnpPpm
- +---------------------------------------------------------------------*/
+
 UpnpPpm::UpnpPpm()
     : PLT_DeviceHost("/", NULL, UpnpFsmdaUtils::kParentDeviceType,
                      UpnpFsmdaUtils::kParentDeviceFriendlyName, true, 0, true),
@@ -86,9 +82,7 @@ UpnpPpm::UpnpPpm()
       (const char *)UpnpFsmdaUtils::kMediaCapturePcmServiceScpdXml);
 }
 
-/*----------------------------------------------------------------------
- |   UpnpPpm::~UpnpPpm
- +---------------------------------------------------------------------*/
+
 UpnpPpm::~UpnpPpm() {
   StopPairingService();
   delete cpm_service_;
@@ -96,25 +90,19 @@ UpnpPpm::~UpnpPpm() {
   device_host_.Detach();
 }
 
-/*----------------------------------------------------------------------
- |   UpnpPpm::ClassAnnouncement
- +---------------------------------------------------------------------*/
+
 void UpnpPpm::ClassAnnouncement(const string &application_id,
                                 unsigned int class_index,
                                 const string &class_desc,
                                 const string &class_function) {}
 
-/*----------------------------------------------------------------------
- |   UpnpCpm::AddDeviceClassForDiscover
- +---------------------------------------------------------------------*/
+
 int UpnpPpm::AddDeviceClassForDiscover(
     DeviceClassDiscoverParams *discover_params) {
   discover_params_list_.push_back(discover_params);
 }
 
-/*----------------------------------------------------------------------
- |   UpnpCpm::RemoveDeviceClassForDiscover
- +---------------------------------------------------------------------*/
+
 int UpnpPpm::RemoveDeviceClassForDiscover(
     DeviceClassDiscoverParams *discover_params) {
   // TODO(alan@telemidia.puc-rio.br): create tests to this
@@ -123,9 +111,7 @@ int UpnpPpm::RemoveDeviceClassForDiscover(
                                    discover_params));
 }
 
-/*----------------------------------------------------------------------
- |   UpnpPpm::SetupServices
- +---------------------------------------------------------------------*/
+
 NPT_Result UpnpPpm::SetupServices() {
   clog << "UpnpPpm::SetupServices()" << endl;
   NPT_Result res;
@@ -142,9 +128,7 @@ NPT_Result UpnpPpm::SetupServices() {
   return res;
 }
 
-/*----------------------------------------------------------------------
- |   UpnpPpm::OnAction
- +---------------------------------------------------------------------*/
+
 NPT_Result UpnpPpm::OnAction(PLT_ActionReference &action,
                              const PLT_HttpRequestContext &context) {
   clog << "UpnpPpm::OnAction()" << endl;
@@ -265,9 +249,7 @@ NPT_Result UpnpPpm::OnDeviceAdded(PLT_DeviceDataReference &device_data) {
   }
 }
 
-/*----------------------------------------------------------------------
- |   UpnpPpm::StartPairingService
- +---------------------------------------------------------------------*/
+
 int UpnpPpm::StartPairingService() {
   clog << "UpnpPpm::StartPairingService" << endl;
   if (upnp_instance_ == NULL) {
@@ -283,9 +265,7 @@ int UpnpPpm::StartPairingService() {
   }
 }
 
-/*----------------------------------------------------------------------
- |   UpnpPpm::StopPairingService
- +---------------------------------------------------------------------*/
+
 int UpnpPpm::StopPairingService() {
   if (upnp_instance_ != NULL) {
     RemoveService(cpm_service_);
@@ -298,37 +278,27 @@ int UpnpPpm::StopPairingService() {
   return 0;
 }
 
-/*----------------------------------------------------------------------
- |   UpnpPpm::pairing_service_started
- +---------------------------------------------------------------------*/
+
 bool UpnpPpm::IsPairingServiceStarted() { return m_Started; }
 
-/*----------------------------------------------------------------------
- |   UpnpPpm::registred_children
- +---------------------------------------------------------------------*/
+
 unsigned int UpnpPpm::registred_children() {
   return discovered_children_.size();
 }
 
-/*----------------------------------------------------------------------
- |   UpnpCpm::set_service_owner
- +---------------------------------------------------------------------*/
+
 int UpnpPpm::set_service_owner(ParentClassHandler *service_owner) {
   parent_class_handler_ = service_owner;
 }
 
-/*----------------------------------------------------------------------
- |   UpnpPpm::CreatePassivePcm
- +---------------------------------------------------------------------*/
+
 PassiveClassListenerInterface *UpnpPpm::CreatePassivePcm(
     const string &application_id, unsigned int class_index) {
   UpnpPassivePcm *communication = new UpnpPassivePcm();
   return communication;
 }
 
-/*----------------------------------------------------------------------
- |   UpnpPpm::CreateActivePcm
- +---------------------------------------------------------------------*/
+
 ActiveClassInterface *UpnpPpm::CreateActivePcm(const string &application_id,
                                                unsigned int class_index) {
   UpnpActivePcm *communication = new UpnpActivePcm(
@@ -337,18 +307,14 @@ ActiveClassInterface *UpnpPpm::CreateActivePcm(const string &application_id,
   return communication;
 }
 
-/*----------------------------------------------------------------------
- |   UpnpPpm::CreateMediaCapturePcm
- +---------------------------------------------------------------------*/
+
 MediaCaptureClassListenerInterface *UpnpPpm::CreateMediaCapturePcm(
     const string &application_id, unsigned int class_index) {
   UpnpMediaCapturePcm *communication = new UpnpMediaCapturePcm();
   return communication;
 }
 
-/*----------------------------------------------------------------------
- |   UpnpPpm::CreateOnDemandPcm
- +---------------------------------------------------------------------*/
+
 OnDemandClassListenerInterface *UpnpPpm::CreateOnDemandPcm(
     const string &application_id, unsigned int class_index) {
   UpnpOnDemandPcm *communication = new UpnpOnDemandPcm();

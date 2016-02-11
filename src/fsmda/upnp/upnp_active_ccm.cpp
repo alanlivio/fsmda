@@ -1,7 +1,3 @@
-/*----------------------------------------------------------------------
- |   includes
- +---------------------------------------------------------------------*/
-
 #include <iostream>
 #include <sstream>
 #include "fsmda/upnp/upnp_active_ccm.h"
@@ -12,9 +8,6 @@ using std::clog;
 using std::stringstream;
 using std::endl;
 
-/*----------------------------------------------------------------------
- |   UpnpActiveCcm::UpnpActiveCcm
- +---------------------------------------------------------------------*/
 UpnpActiveCcm::UpnpActiveCcm(PLT_DeviceHostReference host_device,
                              PLT_DeviceDataReference& remote_device,
                              PLT_CtrlPointReference ctrl_point,
@@ -30,9 +23,7 @@ UpnpActiveCcm::UpnpActiveCcm(PLT_DeviceHostReference host_device,
   player_ = player;
 }
 
-/*----------------------------------------------------------------------
- |   UpnpActiveCcm::~UpnpActiveCcm
- +---------------------------------------------------------------------*/
+
 UpnpActiveCcm::~UpnpActiveCcm() {
   ctrl_point_->RemoveListener(this);
   ctrl_point_.Detach();
@@ -40,28 +31,20 @@ UpnpActiveCcm::~UpnpActiveCcm() {
   remote_device_.Detach();
 }
 
-/*----------------------------------------------------------------------
- |   UpnpActiveCcm::ReportPropertyValue
- +---------------------------------------------------------------------*/
+
 void UpnpActiveCcm::ReportPropertyValue(const string& object_id,
                                         const string& name,
                                         const string& value) {}
-/*----------------------------------------------------------------------
- |   UpnpActiveCcm::NotifyEventTransition
- +---------------------------------------------------------------------*/
+
 void UpnpActiveCcm::NotifyEventTransition(const string& object_id,
                                           const string& event_id,
                                           const string& transition) {}
 
-/*----------------------------------------------------------------------
- |   UpnpActiveCcm::NotifyError
- +---------------------------------------------------------------------*/
+
 void UpnpActiveCcm::NotifyError(const string& object_id,
                                 const string& message) {}
 
-/*----------------------------------------------------------------------
- |   UpnpActiveCcm::OnAction
- +---------------------------------------------------------------------*/
+
 NPT_Result UpnpActiveCcm::OnAction(PLT_ActionReference& action,
                                    const PLT_HttpRequestContext& context) {
   NPT_String name = action->GetActionDesc().GetName();
@@ -91,25 +74,17 @@ NPT_Result UpnpActiveCcm::OnAction(PLT_ActionReference& action,
   }
   return NPT_SUCCESS;
 }
-/*----------------------------------------------------------------------
- |   UpnpActiveCcm::OnDeviceAdded
- +---------------------------------------------------------------------*/
+
 NPT_Result UpnpActiveCcm::OnDeviceAdded(PLT_DeviceDataReference& device) {}
 
-/*---------------------------------------------------------------------
- |   UpnpActiveCcm::OnDeviceRemoved
- +---------------------------------------------------------------------*/
+
 NPT_Result UpnpActiveCcm::OnDeviceRemoved(PLT_DeviceDataReference& device) {}
 
-/*----------------------------------------------------------------------
- |   UpnpActiveCcm::OnActionResponse
- +---------------------------------------------------------------------*/
+
 NPT_Result UpnpActiveCcm::OnActionResponse(NPT_Result res,
                                            PLT_ActionReference& action,
                                            void* userdata) {}
 
-/*----------------------------------------------------------------------
- |   UpnpActiveCcm::OnEventNotify
- +---------------------------------------------------------------------*/
+
 NPT_Result UpnpActiveCcm::OnEventNotify(PLT_Service* service,
                                         NPT_List<PLT_StateVariable*>* vars) {}

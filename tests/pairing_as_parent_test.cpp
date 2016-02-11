@@ -1,6 +1,4 @@
-/*----------------------------------------------------------------------
- |   includes
- +---------------------------------------------------------------------*/
+
 
 #include "fsmda/device_class_description.h"
 #include "fsmda/device_description.h"
@@ -14,9 +12,7 @@ using std::cout;
 using std::clog;
 using std::endl;
 
-/*----------------------------------------------------------------------
- |   Auxiliary variables
- +---------------------------------------------------------------------*/
+
 NPT_SharedVariable parent_semaphore;
 class MockParentClassHandler : public ParentClassHandler {
  public:

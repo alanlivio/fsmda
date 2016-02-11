@@ -1,4 +1,4 @@
-/* Copyright 2014 libtemplate team */
+
 
 #include "gtest/gtest.h"
 #include <iostream>

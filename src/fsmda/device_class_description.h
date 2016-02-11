@@ -1,22 +1,16 @@
 #ifndef FSMDA_DEVICE_CLASS_DESCRIPTION_H_
 #define FSMDA_DEVICE_CLASS_DESCRIPTION_H_
 
-/*----------------------------------------------------------------------
- |   includes
- +---------------------------------------------------------------------*/
+
 #include <libxml/tree.h>
 #include <string>
 
 using std::string;
 
-/*----------------------------------------------------------------------
- |   forward definitions
- +---------------------------------------------------------------------*/
+
 class DeviceDescription;
 
-/*----------------------------------------------------------------------
- |   DeviceClassDescription class
- +---------------------------------------------------------------------*/
+
 class DeviceClassDescription {
  public:
   //  public enums and constants

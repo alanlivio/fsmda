@@ -1,17 +1,10 @@
 #ifndef FSMDA_MODEL_DEVICE_PAIRING_API_H_
 #define FSMDA_MODEL_DEVICE_PAIRING_API_H_
 
-/*----------------------------------------------------------------------
- |   includes
- +---------------------------------------------------------------------*/
-
 #include <string>
 
 using std::string;
 
-/*----------------------------------------------------------------------
- |   ParentPairingInterface interface
- +---------------------------------------------------------------------*/
 class ParentPairingInterface {
  public:
   // public constructors & destructors
@@ -27,9 +20,6 @@ class ParentPairingInterface {
                              unsigned int class_index) = 0;
 };
 
-/*----------------------------------------------------------------------
- |   ChildPairingInterface interface
- +---------------------------------------------------------------------*/
 class ChildPairingInterface {
  public:
   // public constructors & destructors

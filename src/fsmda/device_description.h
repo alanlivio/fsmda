@@ -1,18 +1,14 @@
 #ifndef FSMDA_DEVICE_DESCRIPTION_H_
 #define FSMDA_DEVICE_DESCRIPTION_H_
 
-/*----------------------------------------------------------------------
- |   includes
- +---------------------------------------------------------------------*/
+
 #include <libxml/tree.h>
 #include <string>
 #include "fsmda/device_class_description.h"
 
 using std::string;
 
-/*----------------------------------------------------------------------
- |   DeviceDescription class
- +---------------------------------------------------------------------*/
+
 class DeviceDescription {
  public:
   // public constructors & destructors

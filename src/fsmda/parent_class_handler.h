@@ -1,9 +1,7 @@
 #ifndef FSMDA_PARENT_CLASS_HANDLER_H_
 #define FSMDA_PARENT_CLASS_HANDLER_H_
 
-/*----------------------------------------------------------------------
- |   includes
- +---------------------------------------------------------------------*/
+
 #include <map>
 #include <set>
 #include <string>
@@ -22,9 +20,7 @@ using std::map;
 using std::set;
 using std::vector;
 
-/*----------------------------------------------------------------------
- |   DeviceClassData class
- +---------------------------------------------------------------------*/
+
 
 class DeviceClassData {
  public:
@@ -35,9 +31,7 @@ class DeviceClassData {
   unsigned int number_of_registred_children_;
 };
 
-/*----------------------------------------------------------------------
- |   ParentClassHandler class
- +---------------------------------------------------------------------*/
+
 class ParentClassHandler : public ParentClassHandlingInterface {
  public:
   // public constructors & destructors

@@ -1,6 +1,4 @@
-/*----------------------------------------------------------------------
- |   includes
- +---------------------------------------------------------------------*/
+
 
 #include <libxml/parser.h>
 #include <libxml/tree.h>
@@ -24,23 +22,17 @@ using std::string;
 using std::ifstream;
 using std::strlen;
 
-/*----------------------------------------------------------------------
- |   DeviceDescription::DeviceDescription
- +---------------------------------------------------------------------*/
+
 DeviceDescription::DeviceDescription()
     : doc_(NULL),
       rdf_content_(""),
       device_class_type_(DeviceClassDescription::kBaseDevice),
       initialized_(false) {}
 
-/*----------------------------------------------------------------------
- |   DeviceDescription::~DeviceDescription
- +---------------------------------------------------------------------*/
+
 DeviceDescription::~DeviceDescription() {}
 
-/*----------------------------------------------------------------------
- |   DeviceDescription::InitializeByDeviceClass
- +---------------------------------------------------------------------*/
+
 int DeviceDescription::InitializeByDeviceClass(
     DeviceClassDescription::DeviceClassType type) {
   const char* rdf_content_aux =
@@ -54,9 +46,7 @@ int DeviceDescription::InitializeByDeviceClass(
   }
 }
 
-/*----------------------------------------------------------------------
- |   DeviceDescription::InitializeByRdfContent
- +---------------------------------------------------------------------*/
+
 int DeviceDescription::InitializeByRdfContent(const char* content) {
   // parse file
   if (ParseXmlContent(content) == 0) {
@@ -68,9 +58,7 @@ int DeviceDescription::InitializeByRdfContent(const char* content) {
   }
 }
 
-/*----------------------------------------------------------------------
- |   DeviceDescription::InitializeByRdfFile
- +---------------------------------------------------------------------*/
+
 int DeviceDescription::InitializeByRdfFile(const string& rdf_file_path) {
   std::ifstream t;
   t.open(rdf_file_path.c_str());
@@ -88,9 +76,7 @@ int DeviceDescription::InitializeByRdfFile(const string& rdf_file_path) {
   }
 }
 
-/*----------------------------------------------------------------------
- |   DeviceDescription::ParseXmlContent
- +---------------------------------------------------------------------*/
+
 int DeviceDescription::ParseXmlContent(const char* rdf_content) {
   int ret;
   unsigned int rdf_content_size;
@@ -150,26 +136,18 @@ int DeviceDescription::ParseXmlContent(const char* rdf_content) {
   return 0;
 }
 
-/*----------------------------------------------------------------------
- |   DeviceDescription::device_class_type
- +---------------------------------------------------------------------*/
+
 DeviceClassDescription::DeviceClassType DeviceDescription::device_class_type() {
   return device_class_type_;
 }
 
-/*----------------------------------------------------------------------
- |   DeviceDescription::pairing_method
- +---------------------------------------------------------------------*/
+
 DeviceClassDescription::PairingProtocol DeviceDescription::pairing_method() {
   return pairing_protocol_;
 }
 
-/*----------------------------------------------------------------------
- |   DeviceDescription::rdf_content
- +---------------------------------------------------------------------*/
+
 const string DeviceDescription::rdf_content() { return rdf_content_; }
 
-/*----------------------------------------------------------------------
- |   DeviceDescription::initialized
- +---------------------------------------------------------------------*/
+
 bool DeviceDescription::initialized() { return initialized_; }

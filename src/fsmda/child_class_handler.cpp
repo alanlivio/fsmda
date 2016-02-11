@@ -10,9 +10,7 @@
 using std::clog;
 using std::cout;
 using std::endl;
-/*----------------------------------------------------------------------
- |   ChildClassHandler::ChildClassHandler
- +---------------------------------------------------------------------*/
+
 ChildClassHandler::ChildClassHandler(
     const DeviceDescription& device_description)
     : upnp_cpm_(NULL), paired_(false) {
@@ -27,17 +25,13 @@ ChildClassHandler::ChildClassHandler(
   mediacapture_player_ = NULL;
 }
 
-/*----------------------------------------------------------------------
- |   ChildClassHandler::~ChildClassHandler
- +---------------------------------------------------------------------*/
+
 ChildClassHandler::~ChildClassHandler() {
   delete device_description_;
   delete upnp_cpm_;
 }
 
-/*----------------------------------------------------------------------
- |   ChildClassHandler::StartPairing
- +---------------------------------------------------------------------*/
+
 int ChildClassHandler::StartPairing() {
   clog << "ChildClassHandler::StartPairing()" << endl;
   if (device_description_->pairing_method() ==
@@ -48,9 +42,7 @@ int ChildClassHandler::StartPairing() {
   }
 }
 
-/*----------------------------------------------------------------------
- |   ChildClassHandler::StopPairing
- +---------------------------------------------------------------------*/
+
 int ChildClassHandler::StopPairing() {
   if (device_description_->pairing_method() ==
       DeviceClassDescription::kUpnpPairingProcotol) {
@@ -59,9 +51,7 @@ int ChildClassHandler::StopPairing() {
   return 0;
 }
 
-/*----------------------------------------------------------------------
- |   ChildClassHandler::pairing_started
- +---------------------------------------------------------------------*/
+
 bool ChildClassHandler::IsPairingStarted() {
   if (device_description_->pairing_method() ==
       DeviceClassDescription::kUpnpPairingProcotol) {
@@ -71,72 +61,50 @@ bool ChildClassHandler::IsPairingStarted() {
   }
 }
 
-/*----------------------------------------------------------------------
- |   ChildClassHandler::paired
- +---------------------------------------------------------------------*/
+
 bool ChildClassHandler::paired() { return paired_; }
 
-/*----------------------------------------------------------------------
- |   ChildClassHandler::set_paired
- +---------------------------------------------------------------------*/
+
 void ChildClassHandler::set_paired(bool paired) { paired_ = paired; }
 
-/*----------------------------------------------------------------------
- |   ChildClassHandler::device_description
- +---------------------------------------------------------------------*/
+
 DeviceDescription* ChildClassHandler::device_description() {
   return device_description_;
 }
 
-/*----------------------------------------------------------------------
- |   ChildClassHandler::set_active_player
- +---------------------------------------------------------------------*/
+
 void ChildClassHandler::set_active_player(ActivePlayerInterface* player) {
   active_player_ = player;
 }
 
-/*----------------------------------------------------------------------
- |   ChildClassHandler::set_passive_player
- +---------------------------------------------------------------------*/
+
 void ChildClassHandler::set_passive_player(PassiveClassInterface* player) {
   passive_player_ = player;
 }
 
-/*----------------------------------------------------------------------
- |   ChildClassHandler::set_ondemand_player
- +---------------------------------------------------------------------*/
+
 void ChildClassHandler::set_ondemand_player(OnDemandClassInterface* player) {
   ondemand_player_ = player;
 }
-/*----------------------------------------------------------------------
- |   ChildClassHandler::set_mediacapture_player
- +---------------------------------------------------------------------*/
+
 void ChildClassHandler::set_mediacapture_player(
     MediaCaptureClassInterface* player) {
   mediacapture_player_ = player;
 }
 
-/*----------------------------------------------------------------------
- |   ChildClassHandler::passive_player
- +---------------------------------------------------------------------*/
+
 PassiveClassInterface* ChildClassHandler::passive_player() {
   return passive_player_;
 }
-/*----------------------------------------------------------------------
- |   ChildClassHandler::active_player
- +---------------------------------------------------------------------*/
+
 ActivePlayerInterface* ChildClassHandler::active_player() {
   return active_player_;
 }
-/*----------------------------------------------------------------------
- |   ChildClassHandler::ondemand_player
- +---------------------------------------------------------------------*/
+
 OnDemandClassInterface* ChildClassHandler::ondemand_player() {
   return ondemand_player_;
 }
-/*----------------------------------------------------------------------
- |   ChildClassHandler::mediacapture_player
- +---------------------------------------------------------------------*/
+
 MediaCaptureClassInterface* ChildClassHandler::mediacapture_player() {
   return mediacapture_player_;
 }

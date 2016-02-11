@@ -1,6 +1,4 @@
-/*----------------------------------------------------------------------
- |   includes
- +---------------------------------------------------------------------*/
+
 #include <unistd.h>
 #include <gflags/gflags.h>
 #include <sys/time.h>
@@ -33,9 +31,7 @@ DEFINE_bool(profile_remove_device, false, "enable profile_remove_device");
 // Profile Fault tolerance (2)
 DEFINE_bool(profile_bufferd_command, false, "enable profile_bufferd_command");
 
-/*----------------------------------------------------------------------
- |   global variables and function
- +---------------------------------------------------------------------*/
+
 NPT_SharedVariable parent_semaphore;
 
 double CalculateElapsedTime(timeval start_time, timeval end_time) {
@@ -45,9 +41,7 @@ double CalculateElapsedTime(timeval start_time, timeval end_time) {
   return elapsed_time;
 }
 
-/*----------------------------------------------------------------------
- |   MockParentClassHandler class
- +---------------------------------------------------------------------*/
+
 class MockParentClassHandler : public ParentClassHandler {
  public:
   virtual void ReportAddDeviceToClass(const string& application_id,
@@ -57,9 +51,7 @@ class MockParentClassHandler : public ParentClassHandler {
   }
 };
 
-/*----------------------------------------------------------------------
- |   MockHpe class
- +---------------------------------------------------------------------*/
+
 class MockHpe : public HpeClassHandlingInterface,
                 public ActiveClassListenerInterface {
  public:
@@ -83,9 +75,7 @@ class MockHpe : public HpeClassHandlingInterface,
   }
 };
 
-/*----------------------------------------------------------------------
- |   main
- +---------------------------------------------------------------------*/
+
 int main(int argc, char** argv) {
   google::SetVersionString("0.1");
   google::SetUsageMessage(

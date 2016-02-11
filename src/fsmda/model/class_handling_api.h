@@ -1,17 +1,10 @@
 #ifndef FSMDA_MODEL_CLASS_HANDLING_API_H_
 #define FSMDA_MODEL_CLASS_HANDLING_API_H_
 
-/*----------------------------------------------------------------------
- |   includes
- +---------------------------------------------------------------------*/
-
 #include <string>
 
 using std::string;
 
-/*----------------------------------------------------------------------
- |   HpeClassHandlingInterface interface
- +---------------------------------------------------------------------*/
 class HpeClassHandlingInterface {
  public:
   // public constructors & destructors
@@ -24,9 +17,6 @@ class HpeClassHandlingInterface {
                                      const string& value) = 0;
 };
 
-/*----------------------------------------------------------------------
- |   ParentClassHandlingInterface interface
- +---------------------------------------------------------------------*/
 class ParentClassHandlingInterface {
  public:
   // public constructors & destructors

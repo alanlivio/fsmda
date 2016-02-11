@@ -1,18 +1,12 @@
 #ifndef FSMDA_MODEL_ACTIVE_OBJECTS_API_H_
 #define FSMDA_MODEL_ACTIVE_OBJECTS_API_H_
 
-/*----------------------------------------------------------------------
- |   includes
- +---------------------------------------------------------------------*/
 #include <string>
 #include <vector>
 
 using std::string;
 using std::vector;
 
-/*----------------------------------------------------------------------
- |   Property class
- +---------------------------------------------------------------------*/
 class Property {
  public:
   string property_name_;
@@ -27,9 +21,6 @@ class Property {
   }
 };
 
-/*----------------------------------------------------------------------
- |   Event class
- +---------------------------------------------------------------------*/
 class Event {
  public:
   string event_id_;
@@ -46,11 +37,10 @@ class Event {
   }
 };
 
-/*----------------------------------------------------------------------
- |   ActivePlayerInterface and ActivePlayerListenerInterface interfaces.
- |   It is use between Active Child Communication Manager
- |   and RemotePlayer
- +---------------------------------------------------------------------*/
+
+// ActivePlayerInterface and ActivePlayerListenerInterface interfaces.
+// It is use between Active Child Communication Manager
+// and RemotePlayer
 class ActivePlayerListenerInterface {
  public:
   // public constructors & destructors
@@ -81,13 +71,11 @@ class ActivePlayerInterface {
       ActivePlayerListenerInterface* listener) = 0;
 };
 
-/*----------------------------------------------------------------------
- |   ActiveClassListenerInterface and ActiveClassInterface interfaces.
- |   It is use in two cases:
- |   1. Between HostHpe and Active Parent Communication Manager.
- |   2. Between Active Parent Communication Manager and Active Child
- |   Communication Manager.
- +---------------------------------------------------------------------*/
+// ActiveClassListenerInterface and ActiveClassInterface interfaces.
+// It is use in two cases:
+// 1. Between HostHpe and Active Parent Communication Manager.
+// 2. Between Active Parent Communication Manager and Active Child
+// Communication Manager.
 class ActiveClassListenerInterface {
  public:
   // public constructors & destructors

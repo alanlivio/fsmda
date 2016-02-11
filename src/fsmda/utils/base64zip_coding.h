@@ -1,15 +1,8 @@
 #ifndef FSMDA_UTILS_BASE64ZIP_CODING_H_
 #define FSMDA_UTILS_BASE64ZIP_CODING_H_
 
-/*----------------------------------------------------------------------
- |   includes
- +---------------------------------------------------------------------*/
 #include <string>
 using std::string;
-
-/*----------------------------------------------------------------------
- |   global function
- +---------------------------------------------------------------------*/
 
 string base64_encode(unsigned char const *, unsigned int len);
 string base64_decode(string const &s);

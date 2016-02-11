@@ -1,10 +1,6 @@
 #ifndef FSMDA_UPNP_UPNP_PPM_H_
 #define FSMDA_UPNP_UPNP_PPM_H_
 
-/*----------------------------------------------------------------------
- |   includes
- +---------------------------------------------------------------------*/
-
 #include <string>
 #include <vector>
 #include <map>
@@ -24,14 +20,10 @@ using std::string;
 using std::vector;
 using std::map;
 
-/*----------------------------------------------------------------------
- |   forward definitions
- +---------------------------------------------------------------------*/
+
 class ParentClassHandler;
 
-/*----------------------------------------------------------------------
- |   PairingServiceInterface class
- +---------------------------------------------------------------------*/
+
 class DeviceClassDiscoverParams {
  public:
   explicit DeviceClassDiscoverParams(
@@ -45,9 +37,7 @@ class DeviceClassDiscoverParams {
   DeviceClassDescription* device_class_description_;
 };
 
-/*----------------------------------------------------------------------
- |   UpnpPpm class
- +---------------------------------------------------------------------*/
+
 class UpnpPpm : public PLT_DeviceHost,
                 public PLT_CtrlPointListener,
                 public ChildPairingInterface {

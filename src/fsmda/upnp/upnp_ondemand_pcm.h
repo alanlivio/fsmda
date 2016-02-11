@@ -1,9 +1,7 @@
 #ifndef FSMDA_UPNP_UPNP_ONDEMAND_PCM_H_
 #define FSMDA_UPNP_UPNP_ONDEMAND_PCM_H_
 
-/*----------------------------------------------------------------------
- |   includes
- +---------------------------------------------------------------------*/
+
 #include <string>
 #include <NptTypes.h>
 #include <PltDeviceHost.h>
@@ -13,9 +11,7 @@
 
 using std::string;
 
-/*----------------------------------------------------------------------
- |   UpnpOnDemandPcm class
- +---------------------------------------------------------------------*/
+
 class UpnpOnDemandPcm : public PLT_DeviceHost,
                         public PLT_CtrlPointListener,
                         public OnDemandClassListenerInterface {

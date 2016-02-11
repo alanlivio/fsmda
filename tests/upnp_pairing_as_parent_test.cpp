@@ -1,6 +1,4 @@
-/*----------------------------------------------------------------------
- |   includes
- +---------------------------------------------------------------------*/
+
 
 #include <cstdlib>
 #include <iostream>
@@ -19,9 +17,7 @@ using std::cout;
 using std::clog;
 using std::endl;
 
-/*----------------------------------------------------------------------
- |   Auxiliary variables
- +---------------------------------------------------------------------*/
+
 NPT_SharedVariable upnp_parent_semaphore;
 class MockUpnpPpm : public UpnpPpm {
  public:
@@ -100,9 +96,7 @@ void ClassAnnounceAsParentHelper(bool diferent_processes) {
   EXPECT_FALSE(UpnpFsmdaUtils::IsUpnpStarted());
 }
 
-/*----------------------------------------------------------------------
- |   gtests
- +---------------------------------------------------------------------*/
+
 TEST(UpnpPairingAsParent, ClassAnnounceInSameProcess) {
   ClassAnnounceAsParentHelper(false);
 }

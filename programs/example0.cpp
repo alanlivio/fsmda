@@ -1,6 +1,4 @@
-/*----------------------------------------------------------------------
- |   includes
- +---------------------------------------------------------------------*/
+
 #include <cassert>
 #include <iostream>
 #include <NptHttp.h>
@@ -15,9 +13,7 @@
 using std::clog;
 using std::cin;
 
-/*----------------------------------------------------------------------
- |   main
- +---------------------------------------------------------------------*/
+
 int main(void) {
   ParentClassHandler* parent_class_handler_ = new ParentClassHandler();
   UpnpPpm* upnp_ppm = new UpnpPpm();

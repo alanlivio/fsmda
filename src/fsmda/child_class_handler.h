@@ -1,9 +1,7 @@
 #ifndef FSMDA_CHILD_CLASS_HANDLER_H_
 #define FSMDA_CHILD_CLASS_HANDLER_H_
 
-/*----------------------------------------------------------------------
- |   includes
- +---------------------------------------------------------------------*/
+
 #include <map>
 #include <string>
 #include "fsmda/model/active_objects_api.h"
@@ -18,9 +16,7 @@
 using std::string;
 using std::map;
 
-/*----------------------------------------------------------------------
- |   ChildClassHandler class
- +---------------------------------------------------------------------*/
+
 class ChildClassHandler {
  public:
   // public constructors & destructors

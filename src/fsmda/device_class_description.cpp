@@ -1,6 +1,4 @@
-/*----------------------------------------------------------------------
- |   includes
- +---------------------------------------------------------------------*/
+
 
 #include <libxml/parser.h>
 #include <libxml/tree.h>
@@ -24,9 +22,7 @@ using std::string;
 using std::ifstream;
 using std::strlen;
 
-/*----------------------------------------------------------------------
- |   class fields
- +---------------------------------------------------------------------*/
+
 
 const char* DeviceClassDescription::kInvalidDeviceString = "invalid device";
 const char* DeviceClassDescription::kBaseDeviceString = "base";
@@ -157,9 +153,7 @@ const char* DeviceClassDescription::kMediCaptureDeviceDefaultRdfContent =
     "  </fsmda:HardwareRequirements>"
     "</rdf:RDF>";
 
-/*----------------------------------------------------------------------
- |   DeviceClassDescription::DeviceClassDescription
- +---------------------------------------------------------------------*/
+
 DeviceClassDescription::DeviceClassDescription()
     : device_class_type_(kBaseDevice),
       rdf_content_(""),
@@ -167,55 +161,39 @@ DeviceClassDescription::DeviceClassDescription()
       max_devices_(0),
       initialized_(false) {}
 
-/*----------------------------------------------------------------------
- |   DeviceClassDescription::~DeviceClassDescription
- +---------------------------------------------------------------------*/
+
 DeviceClassDescription::~DeviceClassDescription() {}
 
-/*----------------------------------------------------------------------
- |   DeviceClassDescription::device_class_type
- +---------------------------------------------------------------------*/
+
 DeviceClassDescription::DeviceClassType
 DeviceClassDescription::device_class_type() {
   return device_class_type_;
 }
 
-/*----------------------------------------------------------------------
- |   DeviceClassDescription::pairing_protocol
- +---------------------------------------------------------------------*/
+
 DeviceClassDescription::PairingProtocol
 DeviceClassDescription::pairing_protocol() {
   return pairing_protocol_;
 }
 
-/*----------------------------------------------------------------------
- |   DeviceClassDescription::communication_protocol
- +---------------------------------------------------------------------*/
+
 DeviceClassDescription::CommunicationProtocol
 DeviceClassDescription::communication_protocol() {
   return communication_protocol_;
 }
 
-/*----------------------------------------------------------------------
- |   DeviceClassDescription::rdf_content
- +---------------------------------------------------------------------*/
+
 const string& DeviceClassDescription::rdf_content() {
   return rdf_content_;
 }
 
-/*----------------------------------------------------------------------
- |   DeviceClassDescription::min_devices
- +---------------------------------------------------------------------*/
+
 unsigned int DeviceClassDescription::min_devices() { return min_devices_; }
 
-/*----------------------------------------------------------------------
- |   DeviceClassDescription::max_devices
- +---------------------------------------------------------------------*/
+
 unsigned int DeviceClassDescription::max_devices() { return max_devices_; }
 
-/*----------------------------------------------------------------------
- |   DeviceClassDescription::IsDeviceCompatible
- +---------------------------------------------------------------------*/
+
 bool DeviceClassDescription::IsDeviceCompatible(
     DeviceDescription* device_desc) {
   if (!initialized_) {
@@ -236,9 +214,7 @@ bool DeviceClassDescription::IsDeviceCompatible(
   }
 }
 
-/*----------------------------------------------------------------------
- |   DeviceClassDescription::InitializeByDefaultDeviceClass
- +---------------------------------------------------------------------*/
+
 int DeviceClassDescription::InitializeByDeviceClass(DeviceClassType type) {
   const char* rdf_content_aux = GetDeviceClassRdfDefaultContentByType(type);
   if (ParseXmlContent(rdf_content_aux) == 0) {
@@ -250,9 +226,7 @@ int DeviceClassDescription::InitializeByDeviceClass(DeviceClassType type) {
   }
 }
 
-/*----------------------------------------------------------------------
- |   DeviceClassDescription::InitializeByRdfFile
- +---------------------------------------------------------------------*/
+
 int DeviceClassDescription::InitializeByRdfContent(const char* content) {
   // parse file
   if (ParseXmlContent(content) == 0) {
@@ -264,9 +238,7 @@ int DeviceClassDescription::InitializeByRdfContent(const char* content) {
   }
 }
 
-/*----------------------------------------------------------------------
- |   DeviceClassDescription::InitializeByRdfFile
- +---------------------------------------------------------------------*/
+
 int DeviceClassDescription::InitializeByRdfFile(const string& rdf_file_path) {
   std::ifstream t;
   t.open(rdf_file_path.c_str());
@@ -284,9 +256,7 @@ int DeviceClassDescription::InitializeByRdfFile(const string& rdf_file_path) {
   }
 }
 
-/*----------------------------------------------------------------------
- |   DeviceClassDescription::ParseXmlContent
- +---------------------------------------------------------------------*/
+
 int DeviceClassDescription::ParseXmlContent(const char* rdf_content) {
   int ret;
   unsigned int rdf_content_size;
@@ -370,9 +340,7 @@ int DeviceClassDescription::ParseXmlContent(const char* rdf_content) {
   return 0;
 }
 
-/*----------------------------------------------------------------------
- |   DeviceClassDescription::GetDeviceClassTypeByString
- +---------------------------------------------------------------------*/
+
 DeviceClassDescription::DeviceClassType
 DeviceClassDescription::GetDeviceClassTypeByString(const string& str) {
   if (!str.compare(kBaseDeviceString))
@@ -390,9 +358,7 @@ DeviceClassDescription::GetDeviceClassTypeByString(const string& str) {
   return kInvalidDevice;
 }
 
-/*----------------------------------------------------------------------
- |   DeviceClassDescription::GetPairingProtocolByString
- +---------------------------------------------------------------------*/
+
 DeviceClassDescription::PairingProtocol
 DeviceClassDescription::GetPairingProtocolByString(const string& str) {
   if (!str.compare(kUpnpPairingProcotolString))
@@ -403,9 +369,7 @@ DeviceClassDescription::GetPairingProtocolByString(const string& str) {
     return kPairingProtocolInvalid;
 }
 
-/*----------------------------------------------------------------------
- |   DeviceClassDescription::GetCommunicationProtocoByString
- +---------------------------------------------------------------------*/
+
 DeviceClassDescription::CommunicationProtocol
 DeviceClassDescription::GetCommunicationProtocoByString(
     const string& str) {
@@ -439,9 +403,7 @@ const char* DeviceClassDescription::GetDeviceClassRdfDefaultContentByType(
       return kInvalidDeviceDefaultRdfContent;
   }
 }
-/*----------------------------------------------------------------------
- |   DeviceClassDescription::GetDeviceClassTypeByString
- +---------------------------------------------------------------------*/
+
 const char* DeviceClassDescription::GetPairingProtocolStringByEnum(
     DeviceClassDescription::PairingProtocol type) {
   switch (type) {
@@ -456,9 +418,7 @@ const char* DeviceClassDescription::GetPairingProtocolStringByEnum(
   }
 }
 
-/*----------------------------------------------------------------------
- |   DeviceClassDescription::GetDeviceClassTypeByString
- +---------------------------------------------------------------------*/
+
 const char* DeviceClassDescription::GetCommunicationProtocolStringByEnum(
     DeviceClassDescription::CommunicationProtocol type) {
   switch (type) {
@@ -473,9 +433,7 @@ const char* DeviceClassDescription::GetCommunicationProtocolStringByEnum(
   }
 }
 
-/*----------------------------------------------------------------------
- |   DeviceClassDescription::GetDeviceClassTypeStringByEnum
- +---------------------------------------------------------------------*/
+
 const char* DeviceClassDescription::GetDeviceClassTypeStringByEnum(
     DeviceClassDescription::DeviceClassType type) {
   switch (type) {

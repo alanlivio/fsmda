@@ -1,16 +1,10 @@
 #ifndef FSMDA_MODEL_PASSIVE_OBJECTS_API_H_
 #define FSMDA_MODEL_PASSIVE_OBJECTS_API_H_
 
-/*----------------------------------------------------------------------
- |   includes
- +---------------------------------------------------------------------*/
 #include <string>
 
 using std::string;
 
-/*----------------------------------------------------------------------
- |   PassiveClassInterface interface
- +---------------------------------------------------------------------*/
 class PassiveClassInterface {
  public:
   // public constructors & destructors
@@ -21,9 +15,6 @@ class PassiveClassInterface {
   virtual void SendContent(char* content) = 0;
 };
 
-/*----------------------------------------------------------------------
- |   PassiveClassListenerInterface interface
- +---------------------------------------------------------------------*/
 class PassiveClassListenerInterface {
  public:
   // public constructors & destructors

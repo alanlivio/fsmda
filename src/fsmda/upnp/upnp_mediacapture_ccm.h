@@ -1,9 +1,6 @@
 #ifndef FSMDA_UPNP_UPNP_MEDIACAPTURE_CCM_H_
 #define FSMDA_UPNP_UPNP_MEDIACAPTURE_CCM_H_
 
-/*----------------------------------------------------------------------
- |   includes
- +---------------------------------------------------------------------*/
 #include <string>
 #include <NptTypes.h>
 #include <PltDeviceHost.h>
@@ -13,9 +10,7 @@
 
 using std::string;
 
-/*----------------------------------------------------------------------
- |   UpnpMediaCaptureCcm class
- +---------------------------------------------------------------------*/
+
 class UpnpMediaCaptureCcm : public PLT_DeviceHost,
                             public PLT_CtrlPointListener,
                             public MediaCaptureClassInterface {

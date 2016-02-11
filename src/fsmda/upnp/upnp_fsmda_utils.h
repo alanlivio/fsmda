@@ -1,10 +1,6 @@
 #ifndef FSMDA_UPNP_UPNP_FSMDA_UTILS_H_
 #define FSMDA_UPNP_UPNP_FSMDA_UTILS_H_
 
-/*----------------------------------------------------------------------
- |   include
- +---------------------------------------------------------------------*/
-
 #include <string>
 #include <NptList.h>
 #include <NptLogging.h>
@@ -12,9 +8,7 @@
 
 using std::string;
 
-/*----------------------------------------------------------------------
- |   UpnpFsmdaUtils class
- +---------------------------------------------------------------------*/
+
 class UpnpFsmdaUtils {
  public:
   // public class fields: fsmda manufacturer upnp strings

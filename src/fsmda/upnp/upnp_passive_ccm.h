@@ -1,9 +1,6 @@
 #ifndef FSMDA_UPNP_UPNP_PASSIVE_CCM_H_
 #define FSMDA_UPNP_UPNP_PASSIVE_CCM_H_
 
-/*----------------------------------------------------------------------
- |   includes
- +---------------------------------------------------------------------*/
 #include <string>
 #include <NptTypes.h>
 #include <PltDeviceHost.h>
@@ -11,9 +8,7 @@
 #include <PltCtrlPoint.h>
 #include "fsmda/model/passive_objects_api.h"
 
-/*----------------------------------------------------------------------
- |   UpnpPassiveCcm  class
- +---------------------------------------------------------------------*/
+
 class UpnpPassiveCcm : public PLT_DeviceHost,
                        public PLT_CtrlPointListener,
                        public PassiveClassInterface {

@@ -1,16 +1,10 @@
 #ifndef FSMDA_MODEL_MEDIACAPTURE_OBJECTS_API_H_
 #define FSMDA_MODEL_MEDIACAPTURE_OBJECTS_API_H_
 
-/*----------------------------------------------------------------------
- |   includes
- +---------------------------------------------------------------------*/
 #include <string>
 
 using std::string;
 
-/*----------------------------------------------------------------------
- |   MediaCaptureClassListenerInterface interface
- +---------------------------------------------------------------------*/
 class MediaCaptureClassListenerInterface {
  public:
   // public constructors & destructors
@@ -21,9 +15,6 @@ class MediaCaptureClassListenerInterface {
                            unsigned int child_index) = 0;
 };
 
-/*----------------------------------------------------------------------
- |   MediaCaptureClassInterface interface
- +---------------------------------------------------------------------*/
 class MediaCaptureClassInterface {
  public:
   // public constructors & destructors

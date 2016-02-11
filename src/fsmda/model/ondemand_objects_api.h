@@ -1,16 +1,10 @@
 #ifndef FSMDA_MODEL_ONDEMAND_OBJECTS_API_H_
 #define FSMDA_MODEL_ONDEMAND_OBJECTS_API_H_
 
-/*----------------------------------------------------------------------
- |   includes
- +---------------------------------------------------------------------*/
 #include <string>
 
 using std::string;
 
-/*----------------------------------------------------------------------
- |   OnDemandClassListenerInterface interface
- +---------------------------------------------------------------------*/
 class OnDemandClassListenerInterface {
  public:
   // public constructors & destructors
@@ -21,9 +15,6 @@ class OnDemandClassListenerInterface {
                                      const string& location) = 0;
 };
 
-/*----------------------------------------------------------------------
- |   OnDemandClassInterface interface
- +---------------------------------------------------------------------*/
 class OnDemandClassInterface {
  public:
   // public constructors & destructors

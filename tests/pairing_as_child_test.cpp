@@ -1,6 +1,4 @@
-/*----------------------------------------------------------------------
- |   includes
- +---------------------------------------------------------------------*/
+
 
 #include "fsmda/device_class_description.h"
 #include "fsmda/device_description.h"
@@ -14,9 +12,7 @@ using std::cout;
 using std::clog;
 using std::endl;
 
-/*----------------------------------------------------------------------
- |   Auxiliary variables
- +---------------------------------------------------------------------*/
+
 NPT_SharedVariable child_semaphore;
 class MockChildClassHandler : public ChildClassHandler {
  public:
@@ -117,9 +113,7 @@ void PairingAsChildHelper(
   EXPECT_FALSE(UpnpFsmdaUtils::IsUpnpStarted());
 }
 
-/*----------------------------------------------------------------------
- |   gtests
- +---------------------------------------------------------------------*/
+
 TEST(PairingAsChild, PassiveInSameProcess) {
   PairingAsChildHelper("./files/passive_dev_desc00.xml",
                        "./files/passive_class_desc00.xml",

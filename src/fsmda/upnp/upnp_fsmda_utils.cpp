@@ -1,6 +1,4 @@
-/*----------------------------------------------------------------------
- |   includes
- +---------------------------------------------------------------------*/
+
 
 #include "fsmda/upnp/upnp_fsmda_utils.h"
 #include "NptNetwork.h"
@@ -10,9 +8,7 @@
 #include "PltUtilities.h"
 #include <string>
 
-/*----------------------------------------------------------------------
- |   class fields
- +---------------------------------------------------------------------*/
+
 // singleton fields
 PLT_UPnP *UpnpFsmdaUtils::upnp_singleton_ = NULL;
 unsigned int UpnpFsmdaUtils::upnp_references_count_ = 0;
@@ -975,18 +971,14 @@ const char *UpnpFsmdaUtils::kMediaCaptureCcmServiceScpdXml =
     "1.00</dlna:X_DLNADOC>"
     "</scpd>";
 
-/*----------------------------------------------------------------------
- |   UpnpUtils::GenerateGUID
- +---------------------------------------------------------------------*/
+
 void UpnpFsmdaUtils::GenerateGUID(std::string *guid) {
   NPT_String guid_aux;
   PLT_UPnPMessageHelper::GenerateGUID(guid_aux);
   guid->assign(guid_aux.GetChars());
 }
 
-/*----------------------------------------------------------------------
- |   UpnpUtils::RequestUpnpReference
- +---------------------------------------------------------------------*/
+
 PLT_UPnP *UpnpFsmdaUtils::GetRunningInstance() {
   if (UpnpFsmdaUtils::upnp_singleton_ == NULL) {
     // setup Neptune logging
@@ -1013,9 +1005,7 @@ PLT_UPnP *UpnpFsmdaUtils::GetRunningInstance() {
   return UpnpFsmdaUtils::upnp_singleton_;
 }
 
-/*----------------------------------------------------------------------
- |   UpnpUtils::ReleaseUpnpReference
- +---------------------------------------------------------------------*/
+
 void UpnpFsmdaUtils::ReleaseInstance() {
   if (UpnpFsmdaUtils::upnp_references_count_ == 0) {
     return;
@@ -1029,9 +1019,7 @@ void UpnpFsmdaUtils::ReleaseInstance() {
   }
 }
 
-/*----------------------------------------------------------------------
- |   UpnpUtils::IsUpnpRunning
- +---------------------------------------------------------------------*/
+
 bool UpnpFsmdaUtils::IsUpnpStarted() {
   if (UpnpFsmdaUtils::upnp_singleton_ == NULL) {
     return false;

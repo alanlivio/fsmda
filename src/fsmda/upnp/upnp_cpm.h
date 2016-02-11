@@ -1,9 +1,6 @@
 #ifndef FSMDA_UPNP_UPNP_CPM_H_
 #define FSMDA_UPNP_UPNP_CPM_H_
 
-/*----------------------------------------------------------------------
- |   includes
- +---------------------------------------------------------------------*/
 #include <map>
 #include <string>
 #include <NptTypes.h>
@@ -24,14 +21,10 @@
 using std::map;
 using std::string;
 
-/*----------------------------------------------------------------------
- |   forward definitions
- +---------------------------------------------------------------------*/
+
 class ChildClassHandler;
 
-/*----------------------------------------------------------------------
- |   UpnpCpm class
- +---------------------------------------------------------------------*/
+
 class UpnpCpm : public PLT_DeviceHost,
                 public PLT_CtrlPointListener,
                 public ParentPairingInterface {

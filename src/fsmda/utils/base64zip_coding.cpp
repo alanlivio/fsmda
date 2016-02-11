@@ -207,9 +207,7 @@ int unzip_file(const char *zipname, const char *filedir) {
       while ((len = zip_fread(inf, buf, 1024))) {
         fwrite(buf, sizeof(char), len, ofp);
 
-        /* for (i=0; i < len; i++) {
-            fprintf(ofp, "%c", buf[i]);
-        } */
+        
       }
       //				printf(" [done] \n");
       // close the files
@@ -261,12 +259,7 @@ int zip_directory(const string &zipfile_path, const string &directory_path,
     partial_path = directory_path;
 
     // This make no sense. I am always adding an empty directory!
-    /* if (zip_dir_add(zipFile, dir_name.c_str(), ZIP_FL_ENC_GUESS) < 0) {
-        getZipError(zipFile, &strError);
-        printZipError("zip_directory - zip_dir_add ", strError);
-        zip_discard(zipFile);
-        return - 1;
-    } */
+    
 
     // \fixme This should not be recursive! So, there would not
     // be a possibility of stack overflow.
@@ -277,10 +270,7 @@ int zip_directory(const string &zipfile_path, const string &directory_path,
       return -1;
     }
 
-    /* if (getZipError(zipFile, &strError)) {
-        printZipError("zip_directory - can't close zip file: ", strError);
-        return -1;
-    } */
+    
 
     if (zip_close(zipFile) == -1) {
       clog << "functions::zip_directory Warning! can't close zip archive '";
@@ -356,7 +346,7 @@ string getBase64FromFile(string file_path) {
   return sResult;
 }
 
-/* writes a file to a path with data coming from a Base64 string */
+
 int writeFileFromBase64(string payload, char *file_path) {
   int len = -1;
   string result;
@@ -377,11 +367,7 @@ int writeFileFromBase64(string payload, char *file_path) {
   out.close();
 
   len = (int)payload.size();
-  /*
-      printf("util::functions::wb64 wrote %s to disk (from %d chars)\n",
-              file_path,
-              len);
-  */
+  
   clog << "util::wb64 wrote " << file_path;
   clog << " from " << len << " chars (b64)" << endl;
   return len;
