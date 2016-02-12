@@ -68,9 +68,9 @@ UpnpCpm::~UpnpCpm() {
 }
 
 void UpnpCpm::add_device_to_class(const string &application_id,
-                               const string &device_address,
-                               unsigned int class_index,
-                               const string &device_desc) {
+                                  const string &device_address,
+                                  unsigned int class_index,
+                                  const string &device_desc) {
   clog << "UpnpCpm::AddDeviceToClass " << endl;
 
   // invoke AddDeviceToClass
@@ -103,8 +103,8 @@ void UpnpCpm::add_device_to_class(const string &application_id,
 }
 
 void UpnpCpm::get_child_index(const string &application_id,
-                            const string &device_address,
-                            unsigned int class_index) {}
+                              const string &device_address,
+                              unsigned int class_index) {}
 
 NPT_Result UpnpCpm::SetupServices() {
   clog << "UpnpCpm::SetupServices()" << endl;

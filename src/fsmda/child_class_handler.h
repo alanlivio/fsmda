@@ -15,9 +15,8 @@
 using std::string;
 using std::map;
 
-class ChildClassHandler
-{
-public:
+class ChildClassHandler {
+ public:
   // public constructors & destructors
   ChildClassHandler(const DeviceDescription&);
   virtual ~ChildClassHandler();
@@ -36,13 +35,13 @@ public:
 
   // public melthods
   // called para cpm
-  virtual void set_paired(bool paired_);
+  virtual void set_paired(bool paired);
   PassiveClassInterface* passive_player();
   ActivePlayerInterface* active_player();
   OnDemandClassInterface* ondemand_player();
   MediaCaptureClassInterface* mediacapture_player();
 
-private:
+ private:
   PassiveClassInterface* passive_player_;
   ActivePlayerInterface* active_player_;
   OnDemandClassInterface* ondemand_player_;
@@ -53,4 +52,4 @@ private:
   bool paired_;
 };
 
-#endif // FSMDA_CHILD_CLASS_HANDLER_H_
+#endif  // FSMDA_CHILD_CLASS_HANDLER_H_

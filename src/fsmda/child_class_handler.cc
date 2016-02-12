@@ -14,6 +14,7 @@ using std::endl;
 ChildClassHandler::ChildClassHandler(
     const DeviceDescription& device_description)
     : upnp_cpm_(NULL), paired_(false) {
+
   device_description_  = new DeviceDescription(device_description);
   passive_player_      = NULL;
   active_player_       = NULL;

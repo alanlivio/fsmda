@@ -1,5 +1,3 @@
-
-
 #include <iostream>
 #include <map>
 #include <vector>
@@ -89,9 +87,9 @@ UpnpPpm::~UpnpPpm() {
 }
 
 void UpnpPpm::class_announcement(const string &application_id,
-                                unsigned int class_index,
-                                const string &class_desc,
-                                const string &class_function) {}
+                                 unsigned int class_index,
+                                 const string &class_desc,
+                                 const string &class_function) {}
 
 int UpnpPpm::add_device_class_for_discover(
     DeviceClassDiscoverParams *discover_params) {
@@ -151,8 +149,8 @@ NPT_Result UpnpPpm::OnAction(PLT_ActionReference &action,
 
     // call parent_class_handler_->AddDeviceToClass
     if (parent_class_handler_ != NULL) {
-      parent_class_handler_->report_add_device_to_class(application_id.GetChars(),
-                                                    class_index);
+      parent_class_handler_->report_add_device_to_class(
+          application_id.GetChars(), class_index);
     }
     return NPT_SUCCESS;
   } else if (name.Compare("GetChildIndex") == 0) {
@@ -168,8 +166,8 @@ NPT_Result UpnpPpm::OnAction(PLT_ActionReference &action,
          << class_index << ")" << endl;
     action->SetArgumentValue("ret", "100");
     if (parent_class_handler_ != NULL) {
-      parent_class_handler_->get_avaliable_child_index(application_id.GetChars(),
-                                                    class_index);
+      parent_class_handler_->get_avaliable_child_index(
+          application_id.GetChars(), class_index);
     }
     return NPT_SUCCESS;
   }
@@ -294,7 +292,7 @@ PassiveClassListenerInterface *UpnpPpm::create_passive_pcm(
 }
 
 ActiveClassInterface *UpnpPpm::create_active_pcm(const string &application_id,
-                                               unsigned int class_index) {
+                                                 unsigned int class_index) {
   UpnpActivePcm *communication = new UpnpActivePcm(
       PLT_DeviceHostReference(this), discovered_children_.back(), ctrl_point_,
       application_id, class_index);

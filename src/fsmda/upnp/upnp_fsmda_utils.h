@@ -8,7 +8,6 @@
 
 using std::string;
 
-
 class UpnpFsmdaUtils {
  public:
   // public class fields: fsmda manufacturer upnp strings

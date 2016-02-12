@@ -1,7 +1,6 @@
 #ifndef FSMDA_UPNP_UPNP_ACTIVE_CCM_H_
 #define FSMDA_UPNP_UPNP_ACTIVE_CCM_H_
 
-
 #include <string>
 #include <vector>
 #include <map>
@@ -15,7 +14,6 @@ using std::string;
 using std::vector;
 using std::map;
 
-
 class UpnpActiveCcm : public ActiveClassListenerInterface,
                       public PLT_CtrlPointListener {
  public:
@@ -28,12 +26,12 @@ class UpnpActiveCcm : public ActiveClassListenerInterface,
 
   // ActiveClassListenerInterface overloaded methods
   // called by RemotePlayer
-  virtual void report_property_value(const string& object_id, const string& name,
-                                   const string& value);
+  virtual void report_property_value(const string& object_id,
+                                     const string& name, const string& value);
 
   virtual void notify_event_transition(const string& object_id,
-                                     const string& event_id,
-                                     const string& transition);
+                                       const string& event_id,
+                                       const string& transition);
   virtual void notify_error(const string& object_id, const string& message);
 
   // PLT_CtrlPointListener overloaded methods

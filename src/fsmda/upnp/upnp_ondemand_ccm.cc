@@ -1,5 +1,3 @@
-
-
 #include "fsmda/upnp/upnp_ondemand_ccm.h"
 #include "fsmda/upnp/upnp_fsmda_utils.h"
 #include "NptStrings.h"

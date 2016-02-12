@@ -12,7 +12,7 @@ int UpnpOnDemandPcm::stop_ommunication_service() {}
 bool UpnpOnDemandPcm::is_communication_service_started() {}
 
 void UpnpOnDemandPcm::notify_ondemand_content(const string& action,
-                                               const string& location) {}
+                                              const string& location) {}
 
 NPT_Result UpnpOnDemandPcm::SetupServices() {}
 

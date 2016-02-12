@@ -12,7 +12,7 @@ class MediaCaptureClassListenerInterface {
 
   // public pure virtual methods
   virtual void send_content(char* content, const string& resource_id,
-                             unsigned int child_index) = 0;
+                            unsigned int child_index) = 0;
 };
 
 class MediaCaptureClassInterface {

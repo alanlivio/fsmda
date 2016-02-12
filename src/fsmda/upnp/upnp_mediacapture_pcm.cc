@@ -1,5 +1,3 @@
-
-
 #include "fsmda/upnp/upnp_mediacapture_pcm.h"
 
 UpnpMediaCapturePcm::UpnpMediaCapturePcm() {}

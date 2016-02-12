@@ -31,14 +31,15 @@ class UpnpActivePcm : public ActiveClassInterface,
   virtual void add_event(const string& object_id, Event evt);
   virtual void remove_event(const string& object_id, const string& event_id);
   virtual void post_action(const string& object_id, const string& event_id,
-                          const string& action);
+                           const string& action);
   virtual void request_property_value(const string& object_id,
-                                    const string& property_name);
+                                      const string& property_name);
   virtual void set_property_value(const string& object_id,
-                                const string& property_name,
-                                const string& property_value,
-                                unsigned int property_duration);
-  virtual void registry_active_class_listener(ActiveClassListenerInterface* hpe);
+                                  const string& property_name,
+                                  const string& property_value,
+                                  unsigned int property_duration);
+  virtual void registry_active_class_listener(
+      ActiveClassListenerInterface* hpe);
 
   // PLT_CtrlPointListener overloaded methods
   virtual NPT_Result OnDeviceAdded(PLT_DeviceDataReference& device);

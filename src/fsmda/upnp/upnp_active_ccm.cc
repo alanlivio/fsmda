@@ -31,15 +31,15 @@ UpnpActiveCcm::~UpnpActiveCcm() {
 }
 
 void UpnpActiveCcm::report_property_value(const string& object_id,
-                                        const string& name,
-                                        const string& value) {}
+                                          const string& name,
+                                          const string& value) {}
 
 void UpnpActiveCcm::notify_event_transition(const string& object_id,
-                                          const string& event_id,
-                                          const string& transition) {}
+                                            const string& event_id,
+                                            const string& transition) {}
 
 void UpnpActiveCcm::notify_error(const string& object_id,
-                                const string& message) {}
+                                 const string& message) {}
 
 NPT_Result UpnpActiveCcm::OnAction(PLT_ActionReference& action,
                                    const PLT_HttpRequestContext& context) {
@@ -66,7 +66,7 @@ NPT_Result UpnpActiveCcm::OnAction(PLT_ActionReference& action,
     clog << "UpnpActiveCcm::OnAction()::RequestPropertyValue("
          << property_name.GetChars() << ")" << endl;
     player_->set_property_value(property_name.GetChars(),
-                              property_value.GetChars(), property_duration);
+                                property_value.GetChars(), property_duration);
   }
   return NPT_SUCCESS;
 }

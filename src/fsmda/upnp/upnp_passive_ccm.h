@@ -8,7 +8,6 @@
 #include <PltCtrlPoint.h>
 #include "fsmda/model/passive_objects_api.h"
 
-
 class UpnpPassiveCcm : public PLT_DeviceHost,
                        public PLT_CtrlPointListener,
                        public PassiveClassInterface {

@@ -10,7 +10,6 @@
 
 using std::string;
 
-
 class UpnpOnDemandCcm : public PLT_DeviceHost,
                         public PLT_CtrlPointListener,
                         public OnDemandClassInterface {

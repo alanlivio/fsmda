@@ -1,5 +1,3 @@
-
-
 #include "fsmda/upnp/upnp_passive_pcm.h"
 
 UpnpPassivePcm::UpnpPassivePcm() {}

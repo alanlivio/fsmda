@@ -2,7 +2,11 @@
 ---
 BasedOnStyle: Google
 AlignConsecutiveAssignments: true
+AllowShortBlocksOnASingleLine: false
+AllowShortCaseLabelsOnASingleLine: false
+#AllowShortFunctionsOnASingleLine: false
 AllowShortIfStatementsOnASingleLine: false
 AllowShortLoopsOnASingleLine: false
+KeepEmptyLinesAtTheStartOfBlocks: true
 ...
 

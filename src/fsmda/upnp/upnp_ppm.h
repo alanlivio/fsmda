@@ -74,13 +74,13 @@ class UpnpPpm : public PLT_DeviceHost,
   virtual bool is_pairing_service_started();
   virtual unsigned int registred_children();
   ActiveClassInterface* create_active_pcm(const string& application_id,
-                                        unsigned int class_index);
+                                          unsigned int class_index);
   MediaCaptureClassListenerInterface* create_mediacapture_pcm(
       const string& application_id, unsigned int class_index);
   OnDemandClassListenerInterface* create_ondemand_pcm(
       const string& application_id, unsigned int class_index);
-  PassiveClassListenerInterface* create_passive_pcm(const string& application_id,
-                                                  unsigned int class_index);
+  PassiveClassListenerInterface* create_passive_pcm(
+      const string& application_id, unsigned int class_index);
 
  private:
   PLT_UPnP* upnp_instance_;

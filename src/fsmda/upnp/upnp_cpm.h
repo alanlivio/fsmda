@@ -34,12 +34,12 @@ class UpnpCpm : public PLT_DeviceHost,
   // ParentPairingInterface overloaded methods
   // called byParentClassHandler
   virtual void add_device_to_class(const string& application_id,
-                                const string& device_address,
-                                unsigned int class_index,
-                                const string& device_desc);
+                                   const string& device_address,
+                                   unsigned int class_index,
+                                   const string& device_desc);
   virtual void get_child_index(const string& application_id,
-                             const string& device_address,
-                             unsigned int class_index);
+                               const string& device_address,
+                               unsigned int class_index);
 
   // PLT_DeviceHost overloaded methods
   virtual NPT_Result SetupServices();
