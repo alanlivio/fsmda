@@ -32,7 +32,7 @@ int main(int argc, char **argv) {
   ::testing::FLAGS_gtest_print_time       = 0;
   ::testing::FLAGS_gtest_color            = "yes";
   //    ::testing::FLAGS_gtest_filter = "PairingAsParent.*";
-  ::testing::FLAGS_gtest_filter = "*.*InDifferentProcesses";
+  ::testing::FLAGS_gtest_filter = "ClassHandling.*:*.*InDifferentProcesses";
   //  ::testing::FLAGS_gtest_filter =
   //  "PairingAsParent.ActiveInDifferentProcesses";
   //  ::testing::FLAGS_gtest_filter = "-*.*InSameProcesses";
