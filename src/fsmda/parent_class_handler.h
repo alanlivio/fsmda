@@ -1,7 +1,6 @@
 #ifndef FSMDA_PARENT_CLASS_HANDLER_H_
 #define FSMDA_PARENT_CLASS_HANDLER_H_
 
-
 #include <map>
 #include <set>
 #include <string>
@@ -20,8 +19,6 @@ using std::map;
 using std::set;
 using std::vector;
 
-
-
 class DeviceClassData {
  public:
   DeviceClassData()
@@ -31,7 +28,6 @@ class DeviceClassData {
   unsigned int number_of_registred_children_;
 };
 
-
 class ParentClassHandler : public ParentClassHandlingInterface {
  public:
   // public constructors & destructors
@@ -40,45 +36,47 @@ class ParentClassHandler : public ParentClassHandlingInterface {
 
   // public ParentClassHandlingInterface overloaded methods
   // called by HypermediaEngine
-  virtual void AddClass(const string& application_id, unsigned int class_index);
-  virtual void RemoveClass(const string& application_id,
-                           unsigned int class_index);
-  virtual void AddClassDescription(
+  virtual void add_class(const string& application_id,
+                         unsigned int class_index);
+  virtual void remove_class(const string& application_id,
+                            unsigned int class_index);
+  virtual void add_class_description(
       const string& application_id, unsigned int class_index,
       const string& class_type, unsigned int max_devices,
       unsigned int min_devices, const string& hardware_requirements,
       const string& software_requirements, const string& network_requirements);
-  virtual void AddClassDescription(
+  virtual void add_class_description(
       const string& application_id, unsigned int class_index,
       DeviceClassDescription* device_class_description);
-  virtual void SetClassHandlingHpe(const string& application_id,
-                                   HpeClassHandlingInterface* hpe);
+  virtual void set_class_handling_hpe(const string& application_id,
+                                      HpeClassHandlingInterface* hpe);
 
   // public methods
   // called by HypermediaEngine
-  unsigned int GenerateAvaliableIndex(const string& application_id);
+  unsigned int generate_avaliable_index(const string& application_id);
   unsigned int number_of_registred_classes(const string& application_id);
   unsigned int number_of_registred_children(const string& application_id,
                                             unsigned int class_index);
-  int StartPairing();
-  int StopPairing();
-  bool IsPairingStarted();
-  PassiveClassListenerInterface* CreatePassivePcm(const string& application_id,
-                                                  unsigned int class_index);
-  ActiveClassInterface* CreateActivePcm(const string& application_id,
-                                        unsigned int class_index);
-  MediaCaptureClassListenerInterface* CreateMediaCapturePcm(
+  int start_pairing();
+  int stop_pairing();
+  bool is_pairing_started();
+  PassiveClassListenerInterface* create_passive_pcm(
       const string& application_id, unsigned int class_index);
-  OnDemandClassListenerInterface* CreateOnDemandPcm(
+  ActiveClassInterface* create_active_pcm(const string& application_id,
+                                          unsigned int class_index);
+  MediaCaptureClassListenerInterface* create_media_capture_pcm(
+      const string& application_id, unsigned int class_index);
+  OnDemandClassListenerInterface* create_ondemand_pcm(
       const string& application_id, unsigned int class_index);
 
   // public methods
   // called by Ppm
-  HpeClassHandlingInterface* GetClassHandlingHpe(const string& application_id);
-  virtual void ReportAddDeviceToClass(const string& application_id,
-                                      unsigned int class_index);
-  virtual unsigned int GetAvaliableChildIndex(const string& application_id,
-                                              unsigned int class_index);
+  HpeClassHandlingInterface* get_class_handling_hpe(
+      const string& application_id);
+  virtual void report_add_device_to_class(const string& application_id,
+                                          unsigned int class_index);
+  virtual unsigned int get_avaliable_child_index(const string& application_id,
+                                                 unsigned int class_index);
 
  private:
   // private filds

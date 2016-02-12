@@ -82,23 +82,23 @@ UpnpPpm::UpnpPpm()
 }
 
 UpnpPpm::~UpnpPpm() {
-  StopPairingService();
+  stop_pairing_service();
   delete cpm_service_;
   ctrl_point_.Detach();
   device_host_.Detach();
 }
 
-void UpnpPpm::ClassAnnouncement(const string &application_id,
+void UpnpPpm::class_announcement(const string &application_id,
                                 unsigned int class_index,
                                 const string &class_desc,
                                 const string &class_function) {}
 
-int UpnpPpm::AddDeviceClassForDiscover(
+int UpnpPpm::add_device_class_for_discover(
     DeviceClassDiscoverParams *discover_params) {
   discover_params_list_.push_back(discover_params);
 }
 
-int UpnpPpm::RemoveDeviceClassForDiscover(
+int UpnpPpm::remove_device_class_for_discover(
     DeviceClassDiscoverParams *discover_params) {
   // TODO(alan@telemidia.puc-rio.br): create tests to this
   discover_params_list_.erase(find(discover_params_list_.begin(),
@@ -151,7 +151,7 @@ NPT_Result UpnpPpm::OnAction(PLT_ActionReference &action,
 
     // call parent_class_handler_->AddDeviceToClass
     if (parent_class_handler_ != NULL) {
-      parent_class_handler_->ReportAddDeviceToClass(application_id.GetChars(),
+      parent_class_handler_->report_add_device_to_class(application_id.GetChars(),
                                                     class_index);
     }
     return NPT_SUCCESS;
@@ -168,7 +168,7 @@ NPT_Result UpnpPpm::OnAction(PLT_ActionReference &action,
          << class_index << ")" << endl;
     action->SetArgumentValue("ret", "100");
     if (parent_class_handler_ != NULL) {
-      parent_class_handler_->GetAvaliableChildIndex(application_id.GetChars(),
+      parent_class_handler_->get_avaliable_child_index(application_id.GetChars(),
                                                     class_index);
     }
     return NPT_SUCCESS;
@@ -194,8 +194,8 @@ NPT_Result UpnpPpm::OnDeviceRemoved(PLT_DeviceDataReference &device) {
   if (!device->GetType().Compare(UpnpFsmdaUtils::kChildDeviceType)) {
     string app_id = discover_params_list_.front()->application_id_;
     if (parent_class_handler_ != NULL)
-      parent_class_handler_->GetClassHandlingHpe(app_id)
-          ->setClassVariableValue(string("system(2).size"), string("0"));
+      parent_class_handler_->get_class_handling_hpe(app_id)
+          ->set_class_variable_value(string("system(2).size"), string("0"));
   }
 }
 
@@ -250,7 +250,7 @@ NPT_Result UpnpPpm::OnDeviceAdded(PLT_DeviceDataReference &device_data) {
   }
 }
 
-int UpnpPpm::StartPairingService() {
+int UpnpPpm::start_pairing_service() {
   clog << "UpnpPpm::StartPairingService" << endl;
   if (upnp_instance_ == NULL) {
     upnp_instance_ = UpnpFsmdaUtils::GetRunningInstance();
@@ -265,7 +265,7 @@ int UpnpPpm::StartPairingService() {
   }
 }
 
-int UpnpPpm::StopPairingService() {
+int UpnpPpm::stop_pairing_service() {
   if (upnp_instance_ != NULL) {
     RemoveService(cpm_service_);
     upnp_instance_->RemoveDevice(device_host_);
@@ -277,7 +277,7 @@ int UpnpPpm::StopPairingService() {
   return 0;
 }
 
-bool UpnpPpm::IsPairingServiceStarted() { return m_Started; }
+bool UpnpPpm::is_pairing_service_started() { return m_Started; }
 
 unsigned int UpnpPpm::registred_children() {
   return discovered_children_.size();
@@ -287,13 +287,13 @@ int UpnpPpm::set_service_owner(ParentClassHandler *service_owner) {
   parent_class_handler_ = service_owner;
 }
 
-PassiveClassListenerInterface *UpnpPpm::CreatePassivePcm(
+PassiveClassListenerInterface *UpnpPpm::create_passive_pcm(
     const string &application_id, unsigned int class_index) {
   UpnpPassivePcm *communication = new UpnpPassivePcm();
   return communication;
 }
 
-ActiveClassInterface *UpnpPpm::CreateActivePcm(const string &application_id,
+ActiveClassInterface *UpnpPpm::create_active_pcm(const string &application_id,
                                                unsigned int class_index) {
   UpnpActivePcm *communication = new UpnpActivePcm(
       PLT_DeviceHostReference(this), discovered_children_.back(), ctrl_point_,
@@ -301,13 +301,13 @@ ActiveClassInterface *UpnpPpm::CreateActivePcm(const string &application_id,
   return communication;
 }
 
-MediaCaptureClassListenerInterface *UpnpPpm::CreateMediaCapturePcm(
+MediaCaptureClassListenerInterface *UpnpPpm::create_mediacapture_pcm(
     const string &application_id, unsigned int class_index) {
   UpnpMediaCapturePcm *communication = new UpnpMediaCapturePcm();
   return communication;
 }
 
-OnDemandClassListenerInterface *UpnpPpm::CreateOnDemandPcm(
+OnDemandClassListenerInterface *UpnpPpm::create_ondemand_pcm(
     const string &application_id, unsigned int class_index) {
   UpnpOnDemandPcm *communication = new UpnpOnDemandPcm();
   return communication;

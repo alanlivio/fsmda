@@ -7,15 +7,15 @@ UpnpPassiveCcm::UpnpPassiveCcm() {}
 
 UpnpPassiveCcm::~UpnpPassiveCcm() {}
 
-int UpnpPassiveCcm::StartCommunicationService() {}
+int UpnpPassiveCcm::start_communication_service() {}
 
 int UpnpPassiveCcm::StopCommunicationService() {}
 
-bool UpnpPassiveCcm::IsCommunicationServiceStarted() {}
+bool UpnpPassiveCcm::is_communication_service_started() {}
 
-void UpnpPassiveCcm::Prepare(const string& position) {}
+void UpnpPassiveCcm::prepare(const string& position) {}
 
-void UpnpPassiveCcm::SendContent(char* content) {}
+void UpnpPassiveCcm::send_content(char* content) {}
 
 NPT_Result UpnpPassiveCcm::SetupServices() {}
 

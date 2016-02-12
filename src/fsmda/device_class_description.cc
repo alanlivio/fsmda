@@ -191,7 +191,7 @@ unsigned int DeviceClassDescription::min_devices() { return min_devices_; }
 
 unsigned int DeviceClassDescription::max_devices() { return max_devices_; }
 
-bool DeviceClassDescription::IsDeviceCompatible(
+bool DeviceClassDescription::is_device_compatible(
     DeviceDescription* device_desc) {
   if (!initialized_) {
     clog
@@ -211,9 +211,9 @@ bool DeviceClassDescription::IsDeviceCompatible(
   }
 }
 
-int DeviceClassDescription::InitializeByDeviceClass(DeviceClassType type) {
-  const char* rdf_content_aux = GetDeviceClassRdfDefaultContentByType(type);
-  if (ParseXmlContent(rdf_content_aux) == 0) {
+int DeviceClassDescription::initialize_by_device_class(DeviceClassType type) {
+  const char* rdf_content_aux = to_device_class_rdf_content(type);
+  if (parse_xml_content(rdf_content_aux) == 0) {
     rdf_content_ = rdf_content_aux;
     initialized_ = true;
     return 0;
@@ -222,9 +222,9 @@ int DeviceClassDescription::InitializeByDeviceClass(DeviceClassType type) {
   }
 }
 
-int DeviceClassDescription::InitializeByRdfContent(const char* content) {
+int DeviceClassDescription::initialize_by_rdf_content(const char* content) {
   // parse file
-  if (ParseXmlContent(content) == 0) {
+  if (parse_xml_content(content) == 0) {
     rdf_content_ = content;
     initialized_ = true;
     return 0;
@@ -233,7 +233,8 @@ int DeviceClassDescription::InitializeByRdfContent(const char* content) {
   }
 }
 
-int DeviceClassDescription::InitializeByRdfFile(const string& rdf_file_path) {
+int DeviceClassDescription::initialize_by_rdf_file(
+    const string& rdf_file_path) {
   std::ifstream t;
   t.open(rdf_file_path.c_str());
   std::stringstream contents;
@@ -241,7 +242,7 @@ int DeviceClassDescription::InitializeByRdfFile(const string& rdf_file_path) {
 
   //  clog << " DeviceClassDescription::InitializeByRdfFile:: contents ="
   //       << contents.str().c_str() << endl;
-  if (ParseXmlContent(contents.str().c_str()) == 0) {
+  if (parse_xml_content(contents.str().c_str()) == 0) {
     initialized_ = true;
     rdf_content_ = contents.str().c_str();
     return 0;
@@ -250,7 +251,7 @@ int DeviceClassDescription::InitializeByRdfFile(const string& rdf_file_path) {
   }
 }
 
-int DeviceClassDescription::ParseXmlContent(const char* rdf_content) {
+int DeviceClassDescription::parse_xml_content(const char* rdf_content) {
   int ret;
   unsigned int rdf_content_size;
   const char* aux;
@@ -282,7 +283,7 @@ int DeviceClassDescription::ParseXmlContent(const char* rdf_content) {
   nodes = xpathObj->nodesetval;
   assert(nodes->nodeTab[0]);
   aux                = (const char*)nodes->nodeTab[0]->children->content;
-  device_class_type_ = DeviceClassDescription::GetDeviceClassTypeByString(aux);
+  device_class_type_ = DeviceClassDescription::to_device_class_type(aux);
   clog << "DeviceClassDescription::ParseXmlContent::classType = " << aux
        << "(or " << device_class_type_ << ")" << endl;
   xmlXPathFreeObject(xpathObj);
@@ -317,7 +318,7 @@ int DeviceClassDescription::ParseXmlContent(const char* rdf_content) {
   assert(xpathObj != NULL);
   nodes = xpathObj->nodesetval;
   assert(nodes->nodeTab[0]);
-  pairing_protocol_ = DeviceClassDescription::GetPairingProtocolByString(
+  pairing_protocol_ = DeviceClassDescription::to_pairing_protocol(
       (const char*)nodes->nodeTab[0]->children->content);
   clog << "DeviceClassDescription::ParseXmlContent::pairingMethod = "
        << pairing_protocol_ << endl;
@@ -334,7 +335,7 @@ int DeviceClassDescription::ParseXmlContent(const char* rdf_content) {
 }
 
 DeviceClassDescription::DeviceClassType
-DeviceClassDescription::GetDeviceClassTypeByString(const string& str) {
+DeviceClassDescription::to_device_class_type(const string& str) {
   if (!str.compare(kBaseDeviceString))
     return kBaseDevice;
   else if (!str.compare(kPassiveDeviceString))
@@ -351,7 +352,7 @@ DeviceClassDescription::GetDeviceClassTypeByString(const string& str) {
 }
 
 DeviceClassDescription::PairingProtocol
-DeviceClassDescription::GetPairingProtocolByString(const string& str) {
+DeviceClassDescription::to_pairing_protocol(const string& str) {
   if (!str.compare(kUpnpPairingProcotolString))
     return kUpnpPairingProcotol;
   else if (!str.compare(kZeroconfPairingProtocolString))
@@ -361,7 +362,7 @@ DeviceClassDescription::GetPairingProtocolByString(const string& str) {
 }
 
 DeviceClassDescription::CommunicationProtocol
-DeviceClassDescription::GetCommunicationProtocoByString(const string& str) {
+DeviceClassDescription::to_communication_protocol(const string& str) {
   if (!str.compare(kUpnpCommunicationProcotolString))
     return kUpnpCommunicationProcotol;
   else if (!str.compare(kHTTPCommunicationProtocolString))
@@ -370,7 +371,7 @@ DeviceClassDescription::GetCommunicationProtocoByString(const string& str) {
     return kCommunicationProtocolInvalid;
 }
 
-const char* DeviceClassDescription::GetDeviceClassRdfDefaultContentByType(
+const char* DeviceClassDescription::to_device_class_rdf_content(
     DeviceClassDescription::DeviceClassType type) {
   switch (type) {
     case kActiveDevice:
@@ -393,7 +394,7 @@ const char* DeviceClassDescription::GetDeviceClassRdfDefaultContentByType(
   }
 }
 
-const char* DeviceClassDescription::GetPairingProtocolStringByEnum(
+const char* DeviceClassDescription::to_pairing_protocol_string(
     DeviceClassDescription::PairingProtocol type) {
   switch (type) {
     case kUpnpPairingProcotol:
@@ -407,7 +408,7 @@ const char* DeviceClassDescription::GetPairingProtocolStringByEnum(
   }
 }
 
-const char* DeviceClassDescription::GetCommunicationProtocolStringByEnum(
+const char* DeviceClassDescription::to_communication_protocol_string(
     DeviceClassDescription::CommunicationProtocol type) {
   switch (type) {
     case kUpnpCommunicationProcotol:
@@ -421,7 +422,7 @@ const char* DeviceClassDescription::GetCommunicationProtocolStringByEnum(
   }
 }
 
-const char* DeviceClassDescription::GetDeviceClassTypeStringByEnum(
+const char* DeviceClassDescription::to_device_class_string(
     DeviceClassDescription::DeviceClassType type) {
   switch (type) {
     case kBaseDevice:

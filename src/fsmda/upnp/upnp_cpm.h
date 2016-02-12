@@ -21,9 +21,7 @@
 using std::map;
 using std::string;
 
-
 class ChildClassHandler;
-
 
 class UpnpCpm : public PLT_DeviceHost,
                 public PLT_CtrlPointListener,
@@ -35,11 +33,11 @@ class UpnpCpm : public PLT_DeviceHost,
 
   // ParentPairingInterface overloaded methods
   // called byParentClassHandler
-  virtual void AddDeviceToClass(const string& application_id,
+  virtual void add_device_to_class(const string& application_id,
                                 const string& device_address,
                                 unsigned int class_index,
                                 const string& device_desc);
-  virtual void GetChildIndex(const string& application_id,
+  virtual void get_child_index(const string& application_id,
                              const string& device_address,
                              unsigned int class_index);
 
@@ -59,9 +57,9 @@ class UpnpCpm : public PLT_DeviceHost,
 
   // ParentPairingServiceInterface overloaded methods
   // called by ChildClassHandler
-  virtual int StartPairingService();
-  virtual int StopPairingService();
-  virtual bool IsPairingServiceStarted();
+  virtual int start_pairing_service();
+  virtual int stop_pairing_service();
+  virtual bool is_pairing_service_started();
   virtual int set_service_owner(ChildClassHandler* service_owner);
   ActiveClassListenerInterface* CreateActiveCcm(const string& application_id,
                                                 unsigned int class_index);

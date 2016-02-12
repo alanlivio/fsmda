@@ -29,7 +29,7 @@ UpnpActivePcm::~UpnpActivePcm() {
   device_host_.Detach();
 }
 
-void UpnpActivePcm::Prepare(const string &object_id, const string &object_src,
+void UpnpActivePcm::prepare(const string &object_id, const string &object_src,
                             vector<Property> properties, vector<Event> evts) {
   clog << "UpnpActivePcm::Prepare():: " << endl;
   PLT_Service *service;
@@ -53,8 +53,8 @@ void UpnpActivePcm::Prepare(const string &object_id, const string &object_src,
   invoke_action->SetArgumentValue("class_index", aux_string.str().c_str());
   invoke_action->SetArgumentValue("object_id", object_id.c_str());
   invoke_action->SetArgumentValue("properties",
-                                  Property::ToString(properties).c_str());
-  invoke_action->SetArgumentValue("events", Event::ToString(evts).c_str());
+                                  Property::to_string(properties).c_str());
+  invoke_action->SetArgumentValue("events", Event::to_string(evts).c_str());
 
   clog << "UpnpActivePcm::Prepare():: zip_directory=" << object_src << endl;
   zip_directory("/tmp/appdir.zip", object_src.c_str(), "/");
@@ -72,13 +72,13 @@ void UpnpActivePcm::Prepare(const string &object_id, const string &object_src,
   invoked_actions_.push_back(invoke_action);
 }
 
-void UpnpActivePcm::AddEvent(const string &object_id, Event evt) {}
+void UpnpActivePcm::add_event(const string &object_id, Event evt) {}
 
-void UpnpActivePcm::RemoveEvent(const string &object_id,
-                                const string &event_id) {}
+void UpnpActivePcm::remove_event(const string &object_id,
+                                 const string &event_id) {}
 
-void UpnpActivePcm::PostAction(const string &object_id, const string &event_id,
-                               const string &action) {
+void UpnpActivePcm::post_action(const string &object_id, const string &event_id,
+                                const string &action) {
   clog << "UpnpActivePcm::PostAction():: " << endl;
   PLT_Service *service;
   PLT_ActionReference invoke_action;
@@ -107,8 +107,8 @@ void UpnpActivePcm::PostAction(const string &object_id, const string &event_id,
   invoked_actions_.push_back(invoke_action);
 }
 
-void UpnpActivePcm::RequestPropertyValue(const string &object_id,
-                                         const string &property_name) {
+void UpnpActivePcm::request_property_value(const string &object_id,
+                                           const string &property_name) {
   clog << "UpnpActivePcm::PostAction():: " << endl;
   PLT_Service *service;
   PLT_ActionReference invoke_action;
@@ -140,10 +140,10 @@ void UpnpActivePcm::RequestPropertyValue(const string &object_id,
   invoked_actions_.push_back(invoke_action);
 }
 
-void UpnpActivePcm::SetPropertyValue(const string &object_id,
-                                     const string &property_name,
-                                     const string &property_value,
-                                     unsigned int property_duration) {
+void UpnpActivePcm::set_property_value(const string &object_id,
+                                       const string &property_name,
+                                       const string &property_value,
+                                       unsigned int property_duration) {
   clog << "UpnpActivePcm::SetPropertyValue():: " << endl;
   PLT_Service *service;
   PLT_ActionReference invoke_action;
@@ -192,7 +192,7 @@ void UpnpActivePcm::UpdateRemoteHostAndExecuteStoredActions(
   }
 }
 
-void UpnpActivePcm::RegistryActiveClassListener(
+void UpnpActivePcm::registry_active_class_listener(
     ActiveClassListenerInterface *hpe) {
   hpe_ = hpe;
 }

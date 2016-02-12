@@ -30,11 +30,11 @@ DeviceDescription::DeviceDescription()
 
 DeviceDescription::~DeviceDescription() {}
 
-int DeviceDescription::InitializeByDeviceClass(
+int DeviceDescription::initialize_by_device_class(
     DeviceClassDescription::DeviceClassType type) {
   const char* rdf_content_aux =
-      DeviceClassDescription::GetDeviceClassRdfDefaultContentByType(type);
-  if (ParseXmlContent(rdf_content_aux) == 0) {
+      DeviceClassDescription::to_device_class_rdf_content(type);
+  if (parse_xml_content(rdf_content_aux) == 0) {
     rdf_content_ = rdf_content_aux;
     initialized_ = true;
     return 0;
@@ -43,9 +43,9 @@ int DeviceDescription::InitializeByDeviceClass(
   }
 }
 
-int DeviceDescription::InitializeByRdfContent(const char* content) {
+int DeviceDescription::initialize_by_rdf_content(const char* content) {
   // parse file
-  if (ParseXmlContent(content) == 0) {
+  if (parse_xml_content(content) == 0) {
     rdf_content_ = content;
     initialized_ = true;
     return 0;
@@ -54,7 +54,7 @@ int DeviceDescription::InitializeByRdfContent(const char* content) {
   }
 }
 
-int DeviceDescription::InitializeByRdfFile(const string& rdf_file_path) {
+int DeviceDescription::initialize_by_rdf_file(const string& rdf_file_path) {
   std::ifstream t;
   t.open(rdf_file_path.c_str());
   std::stringstream contents;
@@ -62,7 +62,7 @@ int DeviceDescription::InitializeByRdfFile(const string& rdf_file_path) {
 
   //  clog << " DeviceClassDescription::InitializeByRdfFile:: contents ="
   //       << contents.str().c_str() << endl;
-  if (ParseXmlContent(contents.str().c_str()) == 0) {
+  if (parse_xml_content(contents.str().c_str()) == 0) {
     initialized_ = true;
     rdf_content_ = contents.str().c_str();
     return 0;
@@ -71,7 +71,7 @@ int DeviceDescription::InitializeByRdfFile(const string& rdf_file_path) {
   }
 }
 
-int DeviceDescription::ParseXmlContent(const char* rdf_content) {
+int DeviceDescription::parse_xml_content(const char* rdf_content) {
   int ret;
   unsigned int rdf_content_size;
   const char* aux;
@@ -103,7 +103,7 @@ int DeviceDescription::ParseXmlContent(const char* rdf_content) {
   nodes = xpathObj->nodesetval;
   assert(nodes->nodeTab[0]);
   aux                = (const char*)nodes->nodeTab[0]->children->content;
-  device_class_type_ = DeviceClassDescription::GetDeviceClassTypeByString(aux);
+  device_class_type_ = DeviceClassDescription::to_device_class_type(aux);
   clog << "DeviceDescription::ParseXmlContent::classType = " << aux << "(or "
        << device_class_type_ << ")" << endl;
   xmlXPathFreeObject(xpathObj);
@@ -114,7 +114,7 @@ int DeviceDescription::ParseXmlContent(const char* rdf_content) {
   assert(xpathObj != NULL);
   nodes = xpathObj->nodesetval;
   assert(nodes->nodeTab[0]);
-  pairing_protocol_ = DeviceClassDescription::GetPairingProtocolByString(
+  pairing_protocol_ = DeviceClassDescription::to_pairing_protocol(
       (const char*)nodes->nodeTab[0]->children->content);
   clog << "DeviceDescription::ParseXmlContent::pairingMethod = "
        << pairing_protocol_ << endl;

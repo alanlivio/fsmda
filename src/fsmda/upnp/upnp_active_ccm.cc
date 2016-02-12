@@ -30,15 +30,15 @@ UpnpActiveCcm::~UpnpActiveCcm() {
   remote_device_.Detach();
 }
 
-void UpnpActiveCcm::ReportPropertyValue(const string& object_id,
+void UpnpActiveCcm::report_property_value(const string& object_id,
                                         const string& name,
                                         const string& value) {}
 
-void UpnpActiveCcm::NotifyEventTransition(const string& object_id,
+void UpnpActiveCcm::notify_event_transition(const string& object_id,
                                           const string& event_id,
                                           const string& transition) {}
 
-void UpnpActiveCcm::NotifyError(const string& object_id,
+void UpnpActiveCcm::notify_error(const string& object_id,
                                 const string& message) {}
 
 NPT_Result UpnpActiveCcm::OnAction(PLT_ActionReference& action,
@@ -52,7 +52,7 @@ NPT_Result UpnpActiveCcm::OnAction(PLT_ActionReference& action,
     action->GetArgumentValue("property_name", property_name);
     clog << "UpnpActiveCcm::OnAction()::RequestPropertyValue("
          << property_name.GetChars() << ")" << endl;
-    player_->RequestPropertyValue(property_name.GetChars());
+    player_->request_roperty_value(property_name.GetChars());
   } else if (name.Compare("SetPropertyValue") == 0) {
     // handling RequestPropertyValue call
     NPT_String object_id;
@@ -65,7 +65,7 @@ NPT_Result UpnpActiveCcm::OnAction(PLT_ActionReference& action,
     action->GetArgumentValue("property_name", property_duration);
     clog << "UpnpActiveCcm::OnAction()::RequestPropertyValue("
          << property_name.GetChars() << ")" << endl;
-    player_->SetPropertyValue(property_name.GetChars(),
+    player_->set_property_value(property_name.GetChars(),
                               property_value.GetChars(), property_duration);
   }
   return NPT_SUCCESS;

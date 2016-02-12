@@ -5,14 +5,14 @@ UpnpOnDemandPcm::UpnpOnDemandPcm() {}
 
 UpnpOnDemandPcm::~UpnpOnDemandPcm() {}
 
-int UpnpOnDemandPcm::StartCommunicationService() {}
+int UpnpOnDemandPcm::start_communication_service() {}
 
-int UpnpOnDemandPcm::StopCommunicationService() {}
+int UpnpOnDemandPcm::stop_ommunication_service() {}
 
-bool UpnpOnDemandPcm::IsCommunicationServiceStarted() {}
+bool UpnpOnDemandPcm::is_communication_service_started() {}
 
-void UpnpOnDemandPcm::NotifyOnDemandContent(const string& action,
-                                            const string& location) {}
+void UpnpOnDemandPcm::notify_ondemand_content(const string& action,
+                                               const string& location) {}
 
 NPT_Result UpnpOnDemandPcm::SetupServices() {}
 

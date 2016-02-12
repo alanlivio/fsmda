@@ -15,8 +15,8 @@ void DeviceDescriptionMatchingHelper(
   DeviceDescription device_description;
   DeviceClassDescription device_class_description;
 
-  EXPECT_EQ(device_description.InitializeByRdfFile(device_rdf), 0);
-  EXPECT_EQ(device_class_description.InitializeByRdfFile(
+  EXPECT_EQ(device_description.initialize_by_rdf_file(device_rdf), 0);
+  EXPECT_EQ(device_class_description.initialize_by_rdf_file(
                 device_class_description_rdf),
             0);
 
@@ -24,7 +24,8 @@ void DeviceDescriptionMatchingHelper(
   EXPECT_EQ(device_class_description.device_class_type(),
             expected_device_class_type);
 
-  EXPECT_TRUE(device_class_description.IsDeviceCompatible(&device_description));
+  EXPECT_TRUE(
+      device_class_description.is_device_compatible(&device_description));
 }
 
 TEST(ClassHandling, PassiveDeviceDescriptionMatching) {

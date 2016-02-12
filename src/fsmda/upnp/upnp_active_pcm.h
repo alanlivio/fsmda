@@ -26,19 +26,19 @@ class UpnpActivePcm : public ActiveClassInterface,
 
   // ActiveClassInterface overloaded methods
   // called by HostHpe
-  virtual void Prepare(const string& object_id, const string& object_src,
+  virtual void prepare(const string& object_id, const string& object_src,
                        vector<Property> properties, vector<Event> evts);
-  virtual void AddEvent(const string& object_id, Event evt);
-  virtual void RemoveEvent(const string& object_id, const string& event_id);
-  virtual void PostAction(const string& object_id, const string& event_id,
+  virtual void add_event(const string& object_id, Event evt);
+  virtual void remove_event(const string& object_id, const string& event_id);
+  virtual void post_action(const string& object_id, const string& event_id,
                           const string& action);
-  virtual void RequestPropertyValue(const string& object_id,
+  virtual void request_property_value(const string& object_id,
                                     const string& property_name);
-  virtual void SetPropertyValue(const string& object_id,
+  virtual void set_property_value(const string& object_id,
                                 const string& property_name,
                                 const string& property_value,
                                 unsigned int property_duration);
-  virtual void RegistryActiveClassListener(ActiveClassListenerInterface* hpe);
+  virtual void registry_active_class_listener(ActiveClassListenerInterface* hpe);
 
   // PLT_CtrlPointListener overloaded methods
   virtual NPT_Result OnDeviceAdded(PLT_DeviceDataReference& device);

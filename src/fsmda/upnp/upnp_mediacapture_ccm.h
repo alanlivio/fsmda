@@ -20,12 +20,12 @@ class UpnpMediaCaptureCcm : public PLT_DeviceHost,
   virtual ~UpnpMediaCaptureCcm();
 
   // public CommunicationServiceInterface overload methods
-  virtual int StartCommunicationService();
-  virtual int StopCommunicationService();
-  virtual bool IsCommunicationServiceStarted();
+  virtual int start_communication_service();
+  virtual int stop_ommunication_service();
+  virtual bool is_communication_service_started();
 
   // MediaCaptureClassInterface overloaded methods
-  virtual void RequestContent(const string& resource_id,
+  virtual void request_content(const string& resource_id,
                               unsigned int device_index);
 
   // PLT_DeviceHost overloaded methods

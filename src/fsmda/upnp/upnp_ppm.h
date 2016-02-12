@@ -20,9 +20,7 @@ using std::string;
 using std::vector;
 using std::map;
 
-
 class ParentClassHandler;
-
 
 class DeviceClassDiscoverParams {
  public:
@@ -37,7 +35,6 @@ class DeviceClassDiscoverParams {
   DeviceClassDescription* device_class_description_;
 };
 
-
 class UpnpPpm : public PLT_DeviceHost,
                 public PLT_CtrlPointListener,
                 public ChildPairingInterface {
@@ -47,10 +44,10 @@ class UpnpPpm : public PLT_DeviceHost,
   ~UpnpPpm();
 
   // ChildPairingInterface overloaded methods
-  virtual void ClassAnnouncement(const string& application_id,
-                                 unsigned int class_index,
-                                 const string& class_desc,
-                                 const string& class_function);
+  virtual void class_announcement(const string& application_id,
+                                  unsigned int class_index,
+                                  const string& class_desc,
+                                  const string& class_function);
 
   // PLT_DeviceHost overloaded methods
   virtual NPT_Result SetupServices();
@@ -67,22 +64,22 @@ class UpnpPpm : public PLT_DeviceHost,
 
   // ParentPairingServiceInterface overloaded methods
   // called by ParentClassHandler
-  virtual int AddDeviceClassForDiscover(
+  virtual int add_device_class_for_discover(
       DeviceClassDiscoverParams* discover_params);
-  virtual int RemoveDeviceClassForDiscover(
+  virtual int remove_device_class_for_discover(
       DeviceClassDiscoverParams* discover_params);
-  virtual int StartPairingService();
-  virtual int StopPairingService();
+  virtual int start_pairing_service();
+  virtual int stop_pairing_service();
   virtual int set_service_owner(ParentClassHandler* service_owner);
-  virtual bool IsPairingServiceStarted();
+  virtual bool is_pairing_service_started();
   virtual unsigned int registred_children();
-  ActiveClassInterface* CreateActivePcm(const string& application_id,
+  ActiveClassInterface* create_active_pcm(const string& application_id,
                                         unsigned int class_index);
-  MediaCaptureClassListenerInterface* CreateMediaCapturePcm(
+  MediaCaptureClassListenerInterface* create_mediacapture_pcm(
       const string& application_id, unsigned int class_index);
-  OnDemandClassListenerInterface* CreateOnDemandPcm(
+  OnDemandClassListenerInterface* create_ondemand_pcm(
       const string& application_id, unsigned int class_index);
-  PassiveClassListenerInterface* CreatePassivePcm(const string& application_id,
+  PassiveClassListenerInterface* create_passive_pcm(const string& application_id,
                                                   unsigned int class_index);
 
  private:

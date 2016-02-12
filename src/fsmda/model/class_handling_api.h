@@ -11,9 +11,9 @@ class HpeClassHandlingInterface {
   virtual ~HpeClassHandlingInterface() {}
 
   // public pure virtual methods
-  virtual void getClassVariableValue(const string& name,
+  virtual void get_class_variable_value(const string& name,
                                      const string& value) = 0;
-  virtual void setClassVariableValue(const string& name,
+  virtual void set_class_variable_value(const string& name,
                                      const string& value) = 0;
 };
 
@@ -23,11 +23,11 @@ class ParentClassHandlingInterface {
   virtual ~ParentClassHandlingInterface() {}
 
   // public pure virtual methods
-  virtual void AddClass(const string& application_id,
+  virtual void add_class(const string& application_id,
                         unsigned int class_index) = 0;
-  virtual void RemoveClass(const string& application_id,
+  virtual void remove_class(const string& application_id,
                            unsigned int class_index) = 0;
-  virtual void AddClassDescription(const string& application_id,
+  virtual void add_class_description(const string& application_id,
                                    unsigned int class_index,
                                    const string& class_type,
                                    unsigned int max_devices,
@@ -35,7 +35,7 @@ class ParentClassHandlingInterface {
                                    const string& hardware_requirements,
                                    const string& software_requirements,
                                    const string& network_requirements) = 0;
-  virtual void SetClassHandlingHpe(const string& application_id,
+  virtual void set_class_handling_hpe(const string& application_id,
                                    HpeClassHandlingInterface* hpe) = 0;
 };
 

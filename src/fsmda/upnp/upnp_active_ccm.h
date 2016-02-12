@@ -28,13 +28,13 @@ class UpnpActiveCcm : public ActiveClassListenerInterface,
 
   // ActiveClassListenerInterface overloaded methods
   // called by RemotePlayer
-  virtual void ReportPropertyValue(const string& object_id, const string& name,
+  virtual void report_property_value(const string& object_id, const string& name,
                                    const string& value);
 
-  virtual void NotifyEventTransition(const string& object_id,
+  virtual void notify_event_transition(const string& object_id,
                                      const string& event_id,
                                      const string& transition);
-  virtual void NotifyError(const string& object_id, const string& message);
+  virtual void notify_error(const string& object_id, const string& message);
 
   // PLT_CtrlPointListener overloaded methods
   virtual NPT_Result OnDeviceAdded(PLT_DeviceDataReference& device);

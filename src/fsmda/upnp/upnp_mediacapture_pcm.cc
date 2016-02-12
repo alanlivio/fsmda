@@ -6,14 +6,14 @@ UpnpMediaCapturePcm::UpnpMediaCapturePcm() {}
 
 UpnpMediaCapturePcm::~UpnpMediaCapturePcm() {}
 
-void UpnpMediaCapturePcm::SendContent(char* content, const string& resource_id,
-                                      unsigned int child_index) {}
+void UpnpMediaCapturePcm::send_content(char* content, const string& resource_id,
+                                       unsigned int child_index) {}
 
-int UpnpMediaCapturePcm::StartCommunicationService() {}
+int UpnpMediaCapturePcm::start_communication_service() {}
 
-int UpnpMediaCapturePcm::StopCommunicationService() {}
+int UpnpMediaCapturePcm::stop_communication_service() {}
 
-bool UpnpMediaCapturePcm::IsCommunicationServiceStarted() {}
+bool UpnpMediaCapturePcm::is_communication_service_started() {}
 
 NPT_Result UpnpMediaCapturePcm::SetupServices() {}
 

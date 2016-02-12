@@ -3,7 +3,7 @@
 cmake_minimum_required(VERSION 2.8)
 include(ExternalProject)
 find_package(PkgConfig)
-#set(CMAKE_VERBOSE_MAKEFILE on)
+set(CMAKE_VERBOSE_MAKEFILE on)
 #set(CMAKE_CXX_FLAGS "-Wno-cpp")
 set(CMAKE_CXX_FLAGS "-Wno-cpp")
 
@@ -17,6 +17,7 @@ SET(PACKAGE_VERSION_MINOR "0")
 SET(VERSION "${PACKAGE_VERSION_MAJOR}.${PACKAGE_VERSION_MINOR}")
 SET(PACKAGE_VERSION ${VERSION})
 SET(PACKAGE_STRING "${PACKAGE_NAME} ${PACKAGE_VERSION}")
+set(CMAKE_BUILD_TYPE Debug)
 
 # dependecies
 #------------------------------------------------------------------

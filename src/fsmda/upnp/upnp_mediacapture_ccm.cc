@@ -7,14 +7,14 @@ UpnpMediaCaptureCcm::UpnpMediaCaptureCcm() {}
 
 UpnpMediaCaptureCcm::~UpnpMediaCaptureCcm() {}
 
-int UpnpMediaCaptureCcm::StartCommunicationService() {}
+int UpnpMediaCaptureCcm::start_communication_service() {}
 
-int UpnpMediaCaptureCcm::StopCommunicationService() {}
+int UpnpMediaCaptureCcm::stop_ommunication_service() {}
 
-bool UpnpMediaCaptureCcm::IsCommunicationServiceStarted() {}
+bool UpnpMediaCaptureCcm::is_communication_service_started() {}
 
-void UpnpMediaCaptureCcm::RequestContent(const string& resource_id,
-                                         unsigned int device_index) {}
+void UpnpMediaCaptureCcm::request_content(const string& resource_id,
+                                          unsigned int device_index) {}
 
 NPT_Result UpnpMediaCaptureCcm::SetupServices() {}
 

@@ -20,14 +20,16 @@ UpnpOnDemandCcm::UpnpOnDemandCcm()
 
 UpnpOnDemandCcm::~UpnpOnDemandCcm() {}
 
-void UpnpOnDemandCcm::NotifyError(const string& message,
-                                  const string& object_id) {}
+void UpnpOnDemandCcm::notify_error(const string& message,
+                                   const string& object_id) {}
 
-int UpnpOnDemandCcm::StartCommunicationService() { return 0; }
+int UpnpOnDemandCcm::start_communication_service() { return 0; }
 
-int UpnpOnDemandCcm::StopCommunicationService() { return 0; }
+int UpnpOnDemandCcm::stop_communication_service() { return 0; }
 
-bool UpnpOnDemandCcm::IsCommunicationServiceStarted() { return service_start_; }
+bool UpnpOnDemandCcm::is_communication_service_started() {
+  return service_start_;
+}
 
 NPT_Result UpnpOnDemandCcm::SetupServices() {}
 

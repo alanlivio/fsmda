@@ -14,15 +14,14 @@ using std::endl;
 ChildClassHandler::ChildClassHandler(
     const DeviceDescription& device_description)
     : upnp_cpm_(NULL), paired_(false) {
-  device_description_ = new DeviceDescription(device_description);
-  clog << "ChildClassHandler::ChildClassHandler(device_class_type="
-       << device_description_->device_class_type() << ")" << endl;
-  upnp_cpm_ = new UpnpCpm();
-  upnp_cpm_->set_service_owner(this);
+  device_description_  = new DeviceDescription(device_description);
   passive_player_      = NULL;
   active_player_       = NULL;
   ondemand_player_     = NULL;
   mediacapture_player_ = NULL;
+
+  upnp_cpm_ = new UpnpCpm();
+  upnp_cpm_->set_service_owner(this);
 }
 
 ChildClassHandler::~ChildClassHandler() {
@@ -30,28 +29,28 @@ ChildClassHandler::~ChildClassHandler() {
   delete upnp_cpm_;
 }
 
-int ChildClassHandler::StartPairing() {
-  clog << "ChildClassHandler::StartPairing()" << endl;
+int ChildClassHandler::start_pairing() {
+  clog << "ChildClassHandler::start_pairing()" << endl;
   if (device_description_->pairing_method() ==
       DeviceClassDescription::kUpnpPairingProcotol) {
-    return upnp_cpm_->StartPairingService();
+    return upnp_cpm_->start_pairing_service();
   } else {
     return -1;
   }
 }
 
-int ChildClassHandler::StopPairing() {
+int ChildClassHandler::stop_pairing() {
   if (device_description_->pairing_method() ==
       DeviceClassDescription::kUpnpPairingProcotol) {
-    return upnp_cpm_->StopPairingService();
+    return upnp_cpm_->stop_pairing_service();
   }
   return 0;
 }
 
-bool ChildClassHandler::IsPairingStarted() {
+bool ChildClassHandler::is_pairing_started() {
   if (device_description_->pairing_method() ==
       DeviceClassDescription::kUpnpPairingProcotol) {
-    return upnp_cpm_->IsPairingServiceStarted();
+    return upnp_cpm_->is_pairing_service_started();
   } else {
     return false;
   }

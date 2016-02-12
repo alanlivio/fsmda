@@ -61,13 +61,13 @@ UpnpCpm::UpnpCpm()
 }
 
 UpnpCpm::~UpnpCpm() {
-  StopPairingService();
+  stop_pairing_service();
   delete ppm_service_;
   ctrl_point_.Detach();
   device_host_.Detach();
 }
 
-void UpnpCpm::AddDeviceToClass(const string &application_id,
+void UpnpCpm::add_device_to_class(const string &application_id,
                                const string &device_address,
                                unsigned int class_index,
                                const string &device_desc) {
@@ -102,7 +102,7 @@ void UpnpCpm::AddDeviceToClass(const string &application_id,
          << ")" << endl;
 }
 
-void UpnpCpm::GetChildIndex(const string &application_id,
+void UpnpCpm::get_child_index(const string &application_id,
                             const string &device_address,
                             unsigned int class_index) {}
 
@@ -155,10 +155,10 @@ NPT_Result UpnpCpm::OnAction(PLT_ActionReference &action,
          << class_function.GetChars() << ")" << endl;
     if (child_class_handler_ != NULL) {
       DeviceClassDescription device_class_description;
-      device_class_description.InitializeByRdfContent(class_desc.GetChars());
-      bool paired = device_class_description.IsDeviceCompatible(
+      device_class_description.initialize_by_rdf_content(class_desc.GetChars());
+      bool paired = device_class_description.is_device_compatible(
           child_class_handler_->device_description());
-      AddDeviceToClass(
+      add_device_to_class(
           application_id.GetChars(),
           context.GetLocalAddress().GetIpAddress().ToString().GetChars(),
           class_index, class_desc.GetChars());
@@ -216,7 +216,7 @@ NPT_Result UpnpCpm::OnDeviceAdded(PLT_DeviceDataReference &device_data) {
   return NPT_SUCCESS;
 }
 
-int UpnpCpm::StartPairingService() {
+int UpnpCpm::start_pairing_service() {
   clog << "UpnpCpm::StartPairingService()" << endl;
   if (upnp_instance_ == NULL) {
     upnp_instance_ = UpnpFsmdaUtils::GetRunningInstance();
@@ -232,7 +232,7 @@ int UpnpCpm::StartPairingService() {
   }
 }
 
-int UpnpCpm::StopPairingService() {
+int UpnpCpm::stop_pairing_service() {
   if (upnp_instance_ != NULL) {
     RemoveService(ppm_service_);
     upnp_instance_->RemoveDevice(device_host_);
@@ -248,7 +248,7 @@ int UpnpCpm::set_service_owner(ChildClassHandler *service_owner) {
   child_class_handler_ = service_owner;
 }
 
-bool UpnpCpm::IsPairingServiceStarted() { return m_Started; }
+bool UpnpCpm::is_pairing_service_started() { return m_Started; }
 
 PassiveClassInterface *UpnpCpm::CreatePassiveCcm(const string &application_id,
                                                  unsigned int class_index) {

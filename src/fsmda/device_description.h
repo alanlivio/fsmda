@@ -1,13 +1,11 @@
 #ifndef FSMDA_DEVICE_DESCRIPTION_H_
 #define FSMDA_DEVICE_DESCRIPTION_H_
 
-
 #include <libxml/tree.h>
 #include <string>
 #include "fsmda/device_class_description.h"
 
 using std::string;
-
 
 class DeviceDescription {
  public:
@@ -20,13 +18,13 @@ class DeviceDescription {
   DeviceClassDescription::PairingProtocol pairing_method();
   const string rdf_content();
   bool initialized();
-  int InitializeByDeviceClass(DeviceClassDescription::DeviceClassType type);
-  int InitializeByRdfContent(const char* content);
-  int InitializeByRdfFile(const string& rdf_file_path);
+  int initialize_by_device_class(DeviceClassDescription::DeviceClassType type);
+  int initialize_by_rdf_content(const char* content);
+  int initialize_by_rdf_file(const string& rdf_file_path);
 
  private:
   // private methods
-  int ParseXmlContent(const char* rdf_conten);
+  int parse_xml_content(const char* rdf_content);
 
   // private fields
   bool initialized_;

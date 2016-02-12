@@ -1,7 +1,6 @@
 #ifndef FSMDA_CHILD_CLASS_HANDLER_H_
 #define FSMDA_CHILD_CLASS_HANDLER_H_
 
-
 #include <map>
 #include <string>
 #include "fsmda/model/active_objects_api.h"
@@ -16,18 +15,18 @@
 using std::string;
 using std::map;
 
-
-class ChildClassHandler {
- public:
+class ChildClassHandler
+{
+public:
   // public constructors & destructors
   ChildClassHandler(const DeviceDescription&);
   virtual ~ChildClassHandler();
 
   // public methods
   // called Remote Device
-  int StartPairing();
-  int StopPairing();
-  bool IsPairingStarted();
+  int start_pairing();
+  int stop_pairing();
+  bool is_pairing_started();
   bool paired();
   DeviceDescription* device_description();
   void set_passive_player(PassiveClassInterface* player);
@@ -43,7 +42,7 @@ class ChildClassHandler {
   OnDemandClassInterface* ondemand_player();
   MediaCaptureClassInterface* mediacapture_player();
 
- private:
+private:
   PassiveClassInterface* passive_player_;
   ActivePlayerInterface* active_player_;
   OnDemandClassInterface* ondemand_player_;
@@ -54,4 +53,4 @@ class ChildClassHandler {
   bool paired_;
 };
 
-#endif  // FSMDA_CHILD_CLASS_HANDLER_H_
+#endif // FSMDA_CHILD_CLASS_HANDLER_H_

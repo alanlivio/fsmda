@@ -10,7 +10,6 @@
 
 using std::string;
 
-
 class UpnpMediaCapturePcm : public PLT_DeviceHost,
                             public PLT_CtrlPointListener,
                             public MediaCaptureClassListenerInterface {
@@ -20,13 +19,13 @@ class UpnpMediaCapturePcm : public PLT_DeviceHost,
   virtual ~UpnpMediaCapturePcm();
 
   // public CommunicationServiceInterface overload methods
-  virtual int StartCommunicationService();
-  virtual int StopCommunicationService();
-  virtual bool IsCommunicationServiceStarted();
+  virtual int start_communication_service();
+  virtual int stop_communication_service();
+  virtual bool is_communication_service_started();
 
   // MediaCaptureClassListenerInterface overloaded methods
-  virtual void SendContent(char* content, const string& resource_id,
-                           unsigned int child_index);
+  virtual void send_content(char* content, const string& resource_id,
+                            unsigned int child_index);
 
   // PLT_DeviceHost overloaded methods
   virtual NPT_Result SetupServices();

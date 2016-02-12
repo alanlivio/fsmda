@@ -11,8 +11,8 @@ class OnDemandClassListenerInterface {
   virtual ~OnDemandClassListenerInterface() {}
 
   // public pure virtual methods
-  virtual void NotifyOnDemandContent(const string& action,
-                                     const string& location) = 0;
+  virtual void notify_ondemand_content(const string& action,
+                                       const string& location) = 0;
 };
 
 class OnDemandClassInterface {
@@ -20,7 +20,7 @@ class OnDemandClassInterface {
   // public constructors & destructors
   virtual ~OnDemandClassInterface() {}
   // public pure virtual methods
-  virtual void NotifyError(const string& message, const string& object_id) = 0;
+  virtual void notify_error(const string& message, const string& object_id) = 0;
 };
 
 #endif  // FSMDA_MODEL_ONDEMAND_OBJECTS_API_H_

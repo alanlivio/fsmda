@@ -18,13 +18,13 @@ class UpnpPassiveCcm : public PLT_DeviceHost,
   virtual ~UpnpPassiveCcm();
 
   // public CommunicationServiceInterface overload methods
-  virtual int StartCommunicationService();
+  virtual int start_communication_service();
   virtual int StopCommunicationService();
-  virtual bool IsCommunicationServiceStarted();
+  virtual bool is_communication_service_started();
 
   // PassiveCCMInterface overloaded methods
-  virtual void Prepare(const string& position);
-  virtual void SendContent(char* content);
+  virtual void prepare(const string& position);
+  virtual void send_content(char* content);
 
   // PLT_DeviceHost overloaded methods
   virtual NPT_Result SetupServices();

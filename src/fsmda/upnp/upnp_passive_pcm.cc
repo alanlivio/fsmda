@@ -6,14 +6,14 @@ UpnpPassivePcm::UpnpPassivePcm() {}
 
 UpnpPassivePcm::~UpnpPassivePcm() {}
 
-void UpnpPassivePcm::NotifyError(const string& message,
-                                 const string& object_id) {}
+void UpnpPassivePcm::notify_error(const string& message,
+                                  const string& object_id) {}
 
-int UpnpPassivePcm::StartCommunicationService() {}
+int UpnpPassivePcm::start_communication_service() {}
 
-int UpnpPassivePcm::StopCommunicationService() {}
+int UpnpPassivePcm::stop_communication_service() {}
 
-bool UpnpPassivePcm::IsCommunicationServiceStarted() {}
+bool UpnpPassivePcm::is_communication_service_started() {}
 
 NPT_Result UpnpPassivePcm::SetupServices() {}
 

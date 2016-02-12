@@ -1,37 +1,34 @@
 #ifndef FSMDA_DEVICE_CLASS_DESCRIPTION_H_
 #define FSMDA_DEVICE_CLASS_DESCRIPTION_H_
 
-
 #include <libxml/tree.h>
 #include <string>
 
 using std::string;
 
-
 class DeviceDescription;
-
 
 class DeviceClassDescription {
  public:
   //  public enums and constants
   enum DeviceClassType {
-    kInvalidDevice = -1,
-    kBaseDevice = 0,
-    kPassiveDevice = 1,
-    kActiveDevice = 2,
-    kHtmlDevice = 3,
-    kOnDemandDevice = 4,
+    kInvalidDevice      = -1,
+    kBaseDevice         = 0,
+    kPassiveDevice      = 1,
+    kActiveDevice       = 2,
+    kHtmlDevice         = 3,
+    kOnDemandDevice     = 4,
     kMediaCaptureDevice = 5
   };
   enum PairingProtocol {
-    kPairingProtocolInvalid = -1,
-    kUpnpPairingProcotol = 0,
+    kPairingProtocolInvalid  = -1,
+    kUpnpPairingProcotol     = 0,
     kZeroconfPairingProtocol = 1
   };
   enum CommunicationProtocol {
-    kCommunicationProtocolInvalid = -1,
-    kUpnpCommunicationProcotol = 0,
-    kHTTPCommunicationProtocol = 1,
+    kCommunicationProtocolInvalid     = -1,
+    kUpnpCommunicationProcotol        = 0,
+    kHTTPCommunicationProtocol        = 1,
     kAdHocSocketCommunicationProtocol = 2
   };
 
@@ -60,15 +57,13 @@ class DeviceClassDescription {
   static const char* kMediCaptureDeviceDefaultRdfContent;
 
   // public static methods
-  static DeviceClassType GetDeviceClassTypeByString(const string& str);
-  static PairingProtocol GetPairingProtocolByString(const string& str);
-  static CommunicationProtocol GetCommunicationProtocoByString(
-      const string& str);
-  static const char* GetDeviceClassRdfDefaultContentByType(
-      DeviceClassType type);
-  static const char* GetDeviceClassTypeStringByEnum(DeviceClassType type);
-  static const char* GetPairingProtocolStringByEnum(PairingProtocol type);
-  static const char* GetCommunicationProtocolStringByEnum(
+  static DeviceClassType to_device_class_type(const string& str);
+  static PairingProtocol to_pairing_protocol(const string& str);
+  static CommunicationProtocol to_communication_protocol(const string& str);
+  static const char* to_device_class_rdf_content(DeviceClassType type);
+  static const char* to_device_class_string(DeviceClassType type);
+  static const char* to_pairing_protocol_string(PairingProtocol type);
+  static const char* to_communication_protocol_string(
       CommunicationProtocol type);
 
   // public constructors & destructors
@@ -76,10 +71,10 @@ class DeviceClassDescription {
   virtual ~DeviceClassDescription();
 
   // public methods
-  bool IsDeviceCompatible(DeviceDescription* device_desc);
-  int InitializeByDeviceClass(DeviceClassType type);
-  int InitializeByRdfContent(const char* content);
-  int InitializeByRdfFile(const string& rdf_file_path);
+  bool is_device_compatible(DeviceDescription* device_desc);
+  int initialize_by_device_class(DeviceClassType type);
+  int initialize_by_rdf_content(const char* content);
+  int initialize_by_rdf_file(const string& rdf_file_path);
   DeviceClassType device_class_type();
   PairingProtocol pairing_protocol();
   CommunicationProtocol communication_protocol();
@@ -89,7 +84,7 @@ class DeviceClassDescription {
 
  private:
   // private methods
-  int ParseXmlContent(const char* rdf_conten);
+  int parse_xml_content(const char* rdf_content);
 
   // private fields
   unsigned int min_devices_;

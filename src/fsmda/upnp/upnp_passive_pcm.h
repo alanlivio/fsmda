@@ -20,12 +20,12 @@ class UpnpPassivePcm : public PLT_DeviceHost,
   virtual ~UpnpPassivePcm();
 
   // PassivePCMInterface overloaded methods
-  virtual void NotifyError(const string& message, const string& object_id);
+  virtual void notify_error(const string& message, const string& object_id);
 
   // public CommunicationServiceInterface overload methods
-  virtual int StartCommunicationService();
-  virtual int StopCommunicationService();
-  virtual bool IsCommunicationServiceStarted();
+  virtual int start_communication_service();
+  virtual int stop_communication_service();
+  virtual bool is_communication_service_started();
 
   // PLT_DeviceHost overloaded methods
   virtual NPT_Result SetupServices();

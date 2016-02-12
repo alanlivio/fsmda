@@ -11,8 +11,8 @@ class PassiveClassInterface {
   virtual ~PassiveClassInterface() {}
 
   // public pure virtual methods
-  virtual void Prepare(const string& position) = 0;
-  virtual void SendContent(char* content) = 0;
+  virtual void prepare(const string& position) = 0;
+  virtual void send_content(char* content) = 0;
 };
 
 class PassiveClassListenerInterface {
@@ -21,7 +21,7 @@ class PassiveClassListenerInterface {
   virtual ~PassiveClassListenerInterface() {}
 
   // public pure virtual methods
-  virtual void NotifyError(const string& message, const string& object_id) = 0;
+  virtual void notify_error(const string& message, const string& object_id) = 0;
 };
 
 #endif  // FSMDA_MODEL_PASSIVE_OBJECTS_API_H_

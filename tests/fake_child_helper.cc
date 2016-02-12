@@ -51,27 +51,28 @@ class MockActivePlayer : public ActivePlayerInterface {
  public:
   MockActivePlayer() { ccm = NULL; }
   ActivePlayerListenerInterface* ccm;
-  virtual void Prepare(const string& object_src, vector<Property> properties,
+  virtual void prepare(const string& object_src, vector<Property> properties,
                        vector<Event> events) {}
-  virtual void AddEvent(Event evt) {}
-  virtual void RemoveEvent(const string& event_id) {}
-  virtual void PostAction(const string& event_id, const string& action) {}
-  virtual void RequestPropertyValue(const string& property_name) {
+  virtual void add_event(Event evt) {}
+  virtual void remove_event(const string& event_id) {}
+  virtual void post_action(const string& event_id, const string& action) {}
+  virtual void request_roperty_value(const string& property_name) {
     cout << "MockActivePlayer::RequestPropertyValue()::" << endl;
     if (ccm != NULL)
-      ccm->ReportPropertyValue(property_name, "RequestPropertyValue return");
+      ccm->report_property_value(property_name, "RequestPropertyValue return");
     child_semaphore.SetValue(1);
   }
 
-  virtual void SetPropertyValue(const string& property_name,
-                                const string& property_value,
-                                unsigned int property_uration) {
+  virtual void set_property_value(const string& property_name,
+                                  const string& property_value,
+                                  unsigned int property_uration) {
     cout << "MockActivePlayer::SetPropertyValue()::" << endl;
     if (ccm != NULL)
-      ccm->ReportPropertyValue(property_name, "SetPropertyValue return");
+      ccm->report_property_value(property_name, "SetPropertyValue return");
     child_semaphore.SetValue(1);
   }
-  virtual void RegistryPlayerListener(ActivePlayerListenerInterface* listener) {
+  virtual void registry_player_listener(
+      ActivePlayerListenerInterface* listener) {
     ccm = listener;
   }
 };
@@ -93,12 +94,11 @@ int main(int argc, char** argv) {
 
   // configure child
   DeviceClassDescription::DeviceClassType device_class =
-      DeviceClassDescription::GetDeviceClassTypeByString(FLAGS_device_class);
+      DeviceClassDescription::to_device_class_type(FLAGS_device_class);
   DeviceDescription device_description;
   const char* rdf_content =
-      DeviceClassDescription::GetDeviceClassRdfDefaultContentByType(
-          device_class);
-  device_description.InitializeByRdfContent(rdf_content);
+      DeviceClassDescription::to_device_class_rdf_content(device_class);
+  device_description.initialize_by_rdf_content(rdf_content);
   MockChildClassHandler* child_class_handler;
   child_class_handler = new MockChildClassHandler(device_description);
   // Set Player if is a active device
@@ -107,7 +107,7 @@ int main(int argc, char** argv) {
   child_class_handler->set_active_player(active_player);
 
   // start child
-  child_class_handler->StartPairing();
+  child_class_handler->start_pairing();
 
   cout << "fake_child_helper:: wait for pairing..." << endl;
   gettimeofday(&start_time, NULL);
@@ -117,8 +117,8 @@ int main(int argc, char** argv) {
   if (FLAGS_profile_pairing) {
     gettimeofday(&end_time, NULL);
     cout << "fsmda_child profile_pairing "
-         << DeviceClassDescription::GetDeviceClassTypeStringByEnum(device_class)
-         << " " << CalculateElapsedTime(start_time, end_time) << " ms" << endl;
+         << DeviceClassDescription::to_device_class_string(device_class) << " "
+         << CalculateElapsedTime(start_time, end_time) << " ms" << endl;
   } else if (FLAGS_profile_variable) {
     cout << "waiting for SetPropertyValue" << endl;
     child_semaphore.SetValue(0);
@@ -130,22 +130,22 @@ int main(int argc, char** argv) {
     //         DeviceClassDescription::GetDeviceClassTypeStringByEnum(device_class)
     //         << " " << CalculateElapsedTime(start_time, end_time) << " ms" <<
     //         endl;
-    child_class_handler->StopPairing();
+    child_class_handler->stop_pairing();
     delete child_class_handler;
     gettimeofday(&start_time, NULL);
     child_class_handler = new MockChildClassHandler(device_description);
-    child_class_handler->StartPairing();
+    child_class_handler->start_pairing();
     cout << "fake_child_helper:: wait for second pairing..." << endl;
     child_semaphore.SetValue(0);
     child_semaphore.WaitWhileEquals(0, NPT_TIMEOUT_INFINITE);
     gettimeofday(&end_time, NULL);
     cout << "fsmda_child profile_bufferd_command "
-         << DeviceClassDescription::GetDeviceClassTypeStringByEnum(device_class)
+         << DeviceClassDescription::to_device_class_string(device_class)
          << " " << CalculateElapsedTime(start_time, end_time) << " ms" << endl;
   }
 
   // release child
-  child_class_handler->StopPairing();
+  child_class_handler->stop_pairing();
   delete child_class_handler;
 
   return 0;
