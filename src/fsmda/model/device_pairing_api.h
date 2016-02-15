@@ -8,7 +8,8 @@ using std::string;
 class ParentPairingInterface {
  public:
   // public constructors & destructors
-  virtual ~ParentPairingInterface() {}
+  virtual ~ParentPairingInterface() {
+  }
 
   // public pure virtual methods
   virtual void add_device_to_class(const string& application_id,
@@ -23,7 +24,8 @@ class ParentPairingInterface {
 class ChildPairingInterface {
  public:
   // public constructors & destructors
-  virtual ~ChildPairingInterface() {}
+  virtual ~ChildPairingInterface() {
+  }
 
   // public pure virtual methods
   virtual void class_announcement(const string& application_id,

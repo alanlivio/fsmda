@@ -8,7 +8,8 @@ using std::string;
 class HpeClassHandlingInterface {
  public:
   // public constructors & destructors
-  virtual ~HpeClassHandlingInterface() {}
+  virtual ~HpeClassHandlingInterface() {
+  }
 
   // public pure virtual methods
   virtual void get_class_variable_value(const string& name,
@@ -20,7 +21,8 @@ class HpeClassHandlingInterface {
 class ParentClassHandlingInterface {
  public:
   // public constructors & destructors
-  virtual ~ParentClassHandlingInterface() {}
+  virtual ~ParentClassHandlingInterface() {
+  }
 
   // public pure virtual methods
   virtual void add_class(const string& application_id,

@@ -11,7 +11,9 @@ class Property {
  public:
   string property_name_;
   string property_value_;
-  const string to_string() { return property_name_ + "=" + property_value_; }
+  const string to_string() {
+    return property_name_ + "=" + property_value_;
+  }
   static const string to_string(vector<Property> properties) {
     string res = "{";
     for (int i = 0; i < properties.size(); i++)
@@ -44,7 +46,8 @@ class Event {
 class ActivePlayerListenerInterface {
  public:
   // public constructors & destructors
-  virtual ~ActivePlayerListenerInterface() {}
+  virtual ~ActivePlayerListenerInterface() {
+  }
 
   // public pure virtual methods
   virtual void report_property_value(const string& name,
@@ -57,7 +60,8 @@ class ActivePlayerListenerInterface {
 class ActivePlayerInterface {
  public:
   // public constructors & destructors
-  virtual ~ActivePlayerInterface() {}
+  virtual ~ActivePlayerInterface() {
+  }
 
   // public pure virtual methods
   virtual void prepare(const string& object_src, vector<Property> properties,
@@ -80,7 +84,8 @@ class ActivePlayerInterface {
 class ActiveClassListenerInterface {
  public:
   // public constructors & destructors
-  virtual ~ActiveClassListenerInterface() {}
+  virtual ~ActiveClassListenerInterface() {
+  }
 
   // public pure virtual methods
   virtual void report_property_value(const string& object_id,
@@ -95,7 +100,8 @@ class ActiveClassListenerInterface {
 class ActiveClassInterface {
  public:
   // public constructors & destructors
-  virtual ~ActiveClassInterface() {}
+  virtual ~ActiveClassInterface() {
+  }
 
   // public pure virtual methods
   virtual void prepare(const string& object_id, const string& object_src,

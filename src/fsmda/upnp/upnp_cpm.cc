@@ -104,7 +104,8 @@ void UpnpCpm::add_device_to_class(const string &application_id,
 
 void UpnpCpm::get_child_index(const string &application_id,
                               const string &device_address,
-                              unsigned int class_index) {}
+                              unsigned int class_index) {
+}
 
 NPT_Result UpnpCpm::SetupServices() {
   clog << "UpnpCpm::SetupServices()" << endl;
@@ -174,7 +175,8 @@ NPT_Result UpnpCpm::OnAction(PLT_ActionReference &action,
 }
 
 NPT_Result UpnpCpm::OnEventNotify(PLT_Service *service,
-                                  NPT_List<PLT_StateVariable *> *vars) {}
+                                  NPT_List<PLT_StateVariable *> *vars) {
+}
 
 NPT_Result UpnpCpm::OnActionResponse(NPT_Result res,
                                      PLT_ActionReference &action,
@@ -193,7 +195,8 @@ NPT_Result UpnpCpm::OnActionResponse(NPT_Result res,
   }
 }
 
-NPT_Result UpnpCpm::OnDeviceRemoved(PLT_DeviceDataReference &device) {}
+NPT_Result UpnpCpm::OnDeviceRemoved(PLT_DeviceDataReference &device) {
+}
 
 NPT_Result UpnpCpm::OnDeviceAdded(PLT_DeviceDataReference &device_data) {
   if (!device_data->GetUUID().Compare(m_UUID))
@@ -248,7 +251,9 @@ int UpnpCpm::set_service_owner(ChildClassHandler *service_owner) {
   child_class_handler_ = service_owner;
 }
 
-bool UpnpCpm::is_pairing_service_started() { return m_Started; }
+bool UpnpCpm::is_pairing_service_started() {
+  return m_Started;
+}
 
 PassiveClassInterface *UpnpCpm::CreatePassiveCcm(const string &application_id,
                                                  unsigned int class_index) {

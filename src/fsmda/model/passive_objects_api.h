@@ -8,7 +8,8 @@ using std::string;
 class PassiveClassInterface {
  public:
   // public constructors & destructors
-  virtual ~PassiveClassInterface() {}
+  virtual ~PassiveClassInterface() {
+  }
 
   // public pure virtual methods
   virtual void prepare(const string& position) = 0;
@@ -18,7 +19,8 @@ class PassiveClassInterface {
 class PassiveClassListenerInterface {
  public:
   // public constructors & destructors
-  virtual ~PassiveClassListenerInterface() {}
+  virtual ~PassiveClassListenerInterface() {
+  }
 
   // public pure virtual methods
   virtual void notify_error(const string& message, const string& object_id) = 0;

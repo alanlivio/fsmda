@@ -101,8 +101,10 @@ class UpnpFsmdaUtils {
 
  private:
   // private constructors & destructors
-  UpnpFsmdaUtils() {}
-  ~UpnpFsmdaUtils() {}
+  UpnpFsmdaUtils() {
+  }
+  ~UpnpFsmdaUtils() {
+  }
 
   // private class fields
   static PLT_UPnP* upnp_singleton_;

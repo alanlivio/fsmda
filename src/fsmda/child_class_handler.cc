@@ -57,9 +57,13 @@ bool ChildClassHandler::is_pairing_started() {
   }
 }
 
-bool ChildClassHandler::paired() { return paired_; }
+bool ChildClassHandler::paired() {
+  return paired_;
+}
 
-void ChildClassHandler::set_paired(bool paired) { paired_ = paired; }
+void ChildClassHandler::set_paired(bool paired) {
+  paired_ = paired;
+}
 
 DeviceDescription* ChildClassHandler::device_description() {
   return device_description_;

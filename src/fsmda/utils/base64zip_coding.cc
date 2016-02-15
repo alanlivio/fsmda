@@ -17,7 +17,7 @@ using std::endl;
 using std::ofstream;
 using std::ios;
 
-bool isDirectory(const char *path) {
+bool is_directory(const char *path) {
   struct stat f_stat;
   stat(path, &f_stat);
   if (f_stat.st_mode & S_IFREG) {
@@ -44,12 +44,12 @@ bool getZipError(zip *file, string *strError) {
   return hasError;
 }
 
-static void printZipError(string function, string strError) {
+static void print_zip_error(string function, string strError) {
   clog << function << " Warning! libzip error: '";
   clog << strError << "'" << endl;
 }
 
-int zipwalker(void *zipfile, string initdir, string dirpath, string iUriD) {
+int zip_walker(void *zipfile, string initdir, string dirpath, string iUriD) {
   DIR *d;
   struct dirent *dir;
   FILE *fp;
@@ -86,21 +86,21 @@ int zipwalker(void *zipfile, string initdir, string dirpath, string iUriD) {
       continue;
     }
 
-    if (isDirectory(fullpath.c_str())) {
+    if (is_directory(fullpath.c_str())) {
       // \fixme We should not use that!
       chdir(fullpath.c_str());
 
       clog << "Directory ( " << relpath << " ) " << endl;
       if (zip_dir_add(file, relpath.c_str(), ZIP_FL_ENC_GUESS) < 0) {
         getZipError(file, &strError);
-        printZipError("zipwalker", strError);
+        print_zip_error("zipwalker", strError);
         ret = -1;
         break;
       }
 
-      if (zipwalker(file, fullpath, dirpath, iUriD) < 0) {
+      if (zip_walker(file, fullpath, dirpath, iUriD) < 0) {
         getZipError(file, &strError);
-        printZipError("zipwalker", strError);
+        print_zip_error("zipwalker", strError);
         ret = -1;
         break;
       }
@@ -241,7 +241,7 @@ int zip_directory(const string &zipfile_path, const string &directory_path,
   if ((zipFile = zip_open(zipfile_path.c_str(), ZIP_CREATE, &error_open)) ==
       NULL) {
     getZipError(zipFile, &strError);
-    printZipError("zip_directory - zip_walker", strError);
+    print_zip_error("zip_directory - zip_walker", strError);
     return 1;
   }
 
@@ -260,9 +260,9 @@ int zip_directory(const string &zipfile_path, const string &directory_path,
 
     // \fixme This should not be recursive! So, there would not
     // be a possibility of stack overflow.
-    if (zipwalker(zipFile, directory_path, partial_path, iUriD) < 0) {
+    if (zip_walker(zipFile, directory_path, partial_path, iUriD) < 0) {
       getZipError(zipFile, &strError);
-      printZipError("zip_directory - zip_walker", strError);
+      print_zip_error("zip_directory - zip_walker", strError);
       zip_discard(zipFile);
       return -1;
     }
@@ -293,7 +293,7 @@ static inline bool is_base64(unsigned char c) {
   return (isalnum(c) || (c == '+') || (c == '/'));
 }
 
-string getBase64FromFile(string file_path) {
+string to_base64_from_file(string file_path) {
   string sResult;
   FILE *readfile;
   char *buffer;
@@ -341,7 +341,7 @@ string getBase64FromFile(string file_path) {
   return sResult;
 }
 
-int writeFileFromBase64(string payload, char *file_path) {
+int write_file_from_base64(string payload, char *file_path) {
   int len = -1;
   string result;
 
@@ -414,8 +414,6 @@ std::string base64_encode(unsigned char const *bytes_to_encode,
 
 std::string base64_decode(std::string const &encoded_string) {
   int in_len = encoded_string.size();
-
-  // std::clog << ":: base64_decode.encoded_string.size()="<<in_len<<std::endl;
 
   int i   = 0;
   int j   = 0;

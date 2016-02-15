@@ -32,36 +32,41 @@ UpnpActiveCcm::~UpnpActiveCcm() {
 
 void UpnpActiveCcm::report_property_value(const string& object_id,
                                           const string& name,
-                                          const string& value) {}
+                                          const string& value) {
+}
 
 void UpnpActiveCcm::notify_event_transition(const string& object_id,
                                             const string& event_id,
-                                            const string& transition) {}
+                                            const string& transition) {
+}
 
 void UpnpActiveCcm::notify_error(const string& object_id,
-                                 const string& message) {}
+                                 const string& message) {
+}
 
 NPT_Result UpnpActiveCcm::OnAction(PLT_ActionReference& action,
                                    const PLT_HttpRequestContext& context) {
-  NPT_String name = action->GetActionDesc().GetName();
+  NPT_String name;
+  name = action->GetActionDesc().GetName();
   clog << "UpnpActiveCcm::OnAction()::name=" << name.GetChars() << endl;
 
   if (name.Compare("RequestPropertyValue") == 0) {
-    // handling RequestPropertyValue call
     NPT_String property_name;
+
+    // handling RequestPropertyValue call
     action->GetArgumentValue("property_name", property_name);
     clog << "UpnpActiveCcm::OnAction()::RequestPropertyValue("
          << property_name.GetChars() << ")" << endl;
     player_->request_roperty_value(property_name.GetChars());
+
   } else if (name.Compare("SetPropertyValue") == 0) {
-    // handling RequestPropertyValue call
-    NPT_String object_id;
-    action->GetArgumentValue("object_id", object_id);
-    NPT_String property_name;
-    action->GetArgumentValue("property_name", property_name);
-    NPT_String property_value;
-    action->GetArgumentValue("property_value", property_value);
+    NPT_String object_id, property_name, property_value;
     NPT_UInt32 property_duration;
+
+    // handling RequestPropertyValue call
+    action->GetArgumentValue("object_id", object_id);
+    action->GetArgumentValue("property_name", property_name);
+    action->GetArgumentValue("property_value", property_value);
     action->GetArgumentValue("property_name", property_duration);
     clog << "UpnpActiveCcm::OnAction()::RequestPropertyValue("
          << property_name.GetChars() << ")" << endl;
@@ -71,13 +76,17 @@ NPT_Result UpnpActiveCcm::OnAction(PLT_ActionReference& action,
   return NPT_SUCCESS;
 }
 
-NPT_Result UpnpActiveCcm::OnDeviceAdded(PLT_DeviceDataReference& device) {}
+NPT_Result UpnpActiveCcm::OnDeviceAdded(PLT_DeviceDataReference& device) {
+}
 
-NPT_Result UpnpActiveCcm::OnDeviceRemoved(PLT_DeviceDataReference& device) {}
+NPT_Result UpnpActiveCcm::OnDeviceRemoved(PLT_DeviceDataReference& device) {
+}
 
 NPT_Result UpnpActiveCcm::OnActionResponse(NPT_Result res,
                                            PLT_ActionReference& action,
-                                           void* userdata) {}
+                                           void* userdata) {
+}
 
 NPT_Result UpnpActiveCcm::OnEventNotify(PLT_Service* service,
-                                        NPT_List<PLT_StateVariable*>* vars) {}
+                                        NPT_List<PLT_StateVariable*>* vars) {
+}

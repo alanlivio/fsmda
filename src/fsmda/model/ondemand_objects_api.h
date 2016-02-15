@@ -8,7 +8,8 @@ using std::string;
 class OnDemandClassListenerInterface {
  public:
   // public constructors & destructors
-  virtual ~OnDemandClassListenerInterface() {}
+  virtual ~OnDemandClassListenerInterface() {
+  }
 
   // public pure virtual methods
   virtual void notify_ondemand_content(const string& action,
@@ -18,7 +19,8 @@ class OnDemandClassListenerInterface {
 class OnDemandClassInterface {
  public:
   // public constructors & destructors
-  virtual ~OnDemandClassInterface() {}
+  virtual ~OnDemandClassInterface() {
+  }
   // public pure virtual methods
   virtual void notify_error(const string& message, const string& object_id) = 0;
 };

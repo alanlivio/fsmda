@@ -8,7 +8,8 @@ using std::string;
 class MediaCaptureClassListenerInterface {
  public:
   // public constructors & destructors
-  virtual ~MediaCaptureClassListenerInterface() {}
+  virtual ~MediaCaptureClassListenerInterface() {
+  }
 
   // public pure virtual methods
   virtual void send_content(char* content, const string& resource_id,
@@ -18,7 +19,8 @@ class MediaCaptureClassListenerInterface {
 class MediaCaptureClassInterface {
  public:
   // public constructors & destructors
-  virtual ~MediaCaptureClassInterface() {}
+  virtual ~MediaCaptureClassInterface() {
+  }
 
   // public pure virtual methods
   virtual void request_content(const string& resource_id,

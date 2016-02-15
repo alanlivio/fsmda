@@ -32,11 +32,16 @@ UpnpActivePcm::~UpnpActivePcm() {
 void UpnpActivePcm::prepare(const string &object_id, const string &object_src,
                             vector<Property> properties, vector<Event> evts) {
   clog << "UpnpActivePcm::Prepare():: " << endl;
+
   PLT_Service *service;
   PLT_ActionReference invoke_action;
-  NPT_Result res = ctrl_point_->CreateAction(
-      remote_device_, UpnpFsmdaUtils::kActiveCcmServiceType, "Prepare",
-      invoke_action);
+  stringstream aux_string;
+  string zip_base64;
+  NPT_Result res;
+
+  res = ctrl_point_->CreateAction(remote_device_,
+                                  UpnpFsmdaUtils::kActiveCcmServiceType,
+                                  "Prepare", invoke_action);
   if (invoke_action.IsNull()) {
     clog << "UpnpActivePcm::Prepare():: InvokeAction=" << NPT_ResultText(res)
          << endl;
@@ -48,7 +53,6 @@ void UpnpActivePcm::prepare(const string &object_id, const string &object_src,
     return;
   }
   invoke_action->SetArgumentValue("application_id", application_id_.c_str());
-  stringstream aux_string;
   aux_string << class_index_;
   invoke_action->SetArgumentValue("class_index", aux_string.str().c_str());
   invoke_action->SetArgumentValue("object_id", object_id.c_str());
@@ -58,7 +62,7 @@ void UpnpActivePcm::prepare(const string &object_id, const string &object_src,
 
   clog << "UpnpActivePcm::Prepare():: zip_directory=" << object_src << endl;
   zip_directory("/tmp/appdir.zip", object_src.c_str(), "/");
-  string zip_base64 = getBase64FromFile("/tmp/appdir.zip");
+  zip_base64 = to_base64_from_file("/tmp/appdir.zip");
   res = invoke_action->SetArgumentValue("object_src", zip_base64.c_str());
   clog << "UpnpActivePcm::Prepare():: SetArgumentValues=" << NPT_ResultText(res)
        << endl;
@@ -72,19 +76,25 @@ void UpnpActivePcm::prepare(const string &object_id, const string &object_src,
   invoked_actions_.push_back(invoke_action);
 }
 
-void UpnpActivePcm::add_event(const string &object_id, Event evt) {}
+void UpnpActivePcm::add_event(const string &object_id, Event evt) {
+}
 
 void UpnpActivePcm::remove_event(const string &object_id,
-                                 const string &event_id) {}
+                                 const string &event_id) {
+}
 
 void UpnpActivePcm::post_action(const string &object_id, const string &event_id,
                                 const string &action) {
   clog << "UpnpActivePcm::PostAction():: " << endl;
+
   PLT_Service *service;
   PLT_ActionReference invoke_action;
-  NPT_Result res = ctrl_point_->CreateAction(
-      remote_device_, UpnpFsmdaUtils::kActiveCcmServiceType, "PostAction",
-      invoke_action);
+  stringstream aux_string;
+  NPT_Result res;
+
+  res = ctrl_point_->CreateAction(remote_device_,
+                                  UpnpFsmdaUtils::kActiveCcmServiceType,
+                                  "PostAction", invoke_action);
   if (invoke_action.IsNull()) {
     clog << "UpnpActivePcm::PostAction():: InvokeAction=" << NPT_ResultText(res)
          << endl;
@@ -96,7 +106,6 @@ void UpnpActivePcm::post_action(const string &object_id, const string &event_id,
     return;
   }
   invoke_action->SetArgumentValue("application_id", application_id_.c_str());
-  stringstream aux_string;
   aux_string << class_index_;
   invoke_action->SetArgumentValue("class_index", aux_string.str().c_str());
   res = ctrl_point_->InvokeAction(invoke_action, 0);
@@ -110,11 +119,15 @@ void UpnpActivePcm::post_action(const string &object_id, const string &event_id,
 void UpnpActivePcm::request_property_value(const string &object_id,
                                            const string &property_name) {
   clog << "UpnpActivePcm::PostAction():: " << endl;
+
   PLT_Service *service;
   PLT_ActionReference invoke_action;
-  NPT_Result res = ctrl_point_->CreateAction(
-      remote_device_, UpnpFsmdaUtils::kActiveCcmServiceType,
-      "RequestPropertyValue", invoke_action);
+  stringstream aux_string;
+  NPT_Result res;
+
+  res = ctrl_point_->CreateAction(remote_device_,
+                                  UpnpFsmdaUtils::kActiveCcmServiceType,
+                                  "RequestPropertyValue", invoke_action);
   if (invoke_action.IsNull()) {
     clog << "UpnpActivePcm::PostAction():: InvokeAction=" << NPT_ResultText(res)
          << endl;
@@ -126,7 +139,6 @@ void UpnpActivePcm::request_property_value(const string &object_id,
     return;
   }
   invoke_action->SetArgumentValue("application_id", application_id_.c_str());
-  stringstream aux_string;
   aux_string << class_index_;
   invoke_action->SetArgumentValue("class_index", aux_string.str().c_str());
   invoke_action->SetArgumentValue("object_id", application_id_.c_str());
@@ -147,9 +159,12 @@ void UpnpActivePcm::set_property_value(const string &object_id,
   clog << "UpnpActivePcm::SetPropertyValue():: " << endl;
   PLT_Service *service;
   PLT_ActionReference invoke_action;
-  NPT_Result res = ctrl_point_->CreateAction(
-      remote_device_, UpnpFsmdaUtils::kActiveCcmServiceType, "SetPropertyValue",
-      invoke_action);
+  NPT_Result res;
+  stringstream aux_string, aux_string2;
+
+  res = ctrl_point_->CreateAction(remote_device_,
+                                  UpnpFsmdaUtils::kActiveCcmServiceType,
+                                  "SetPropertyValue", invoke_action);
   if (invoke_action.IsNull()) {
     clog << "UpnpActivePcm::SetPropertyValue():: InvokeAction="
          << NPT_ResultText(res) << endl;
@@ -162,13 +177,11 @@ void UpnpActivePcm::set_property_value(const string &object_id,
     return;
   }
   invoke_action->SetArgumentValue("application_id", application_id_.c_str());
-  stringstream aux_string;
   aux_string << class_index_;
   invoke_action->SetArgumentValue("class_index", aux_string.str().c_str());
   invoke_action->SetArgumentValue("object_id", object_id.c_str());
   invoke_action->SetArgumentValue("property_name", property_name.c_str());
   invoke_action->SetArgumentValue("property_value", property_value.c_str());
-  stringstream aux_string2;
   aux_string2 << property_duration;
   invoke_action->SetArgumentValue("property_duration",
                                   aux_string2.str().c_str());
@@ -182,7 +195,8 @@ void UpnpActivePcm::set_property_value(const string &object_id,
 }
 
 NPT_Result UpnpActivePcm::OnAction(PLT_ActionReference &action,
-                                   const PLT_HttpRequestContext &context) {}
+                                   const PLT_HttpRequestContext &context) {
+}
 
 void UpnpActivePcm::UpdateRemoteHostAndExecuteStoredActions(
     PLT_DeviceDataReference &remote_device) {
@@ -197,21 +211,26 @@ void UpnpActivePcm::registry_active_class_listener(
   hpe_ = hpe;
 }
 
-NPT_Result UpnpActivePcm::OnDeviceAdded(PLT_DeviceDataReference &device) {}
+NPT_Result UpnpActivePcm::OnDeviceAdded(PLT_DeviceDataReference &device) {
+}
 
-NPT_Result UpnpActivePcm::OnDeviceRemoved(PLT_DeviceDataReference &device) {}
+NPT_Result UpnpActivePcm::OnDeviceRemoved(PLT_DeviceDataReference &device) {
+}
 
 NPT_Result UpnpActivePcm::OnActionResponse(NPT_Result res,
                                            PLT_ActionReference &action,
                                            void *userdata) {
   clog << "UpnpActivePcm::OnActionResponse()::" << endl;
-  NPT_String action_name = action->GetActionDesc().GetName();
-  NPT_String service_name =
-      action->GetActionDesc().GetService()->GetServiceType();
-  NPT_String application_id;
-  action->GetArgumentValue("application_id", application_id);
+
+  NPT_String action_name, service_name, application_id;
   NPT_Int32 class_index;
+
+  action_name  = action->GetActionDesc().GetName();
+  service_name = action->GetActionDesc().GetService()->GetServiceType();
+
+  action->GetArgumentValue("application_id", application_id);
   action->GetArgumentValue("class_index", class_index);
+
   clog << "UpnpActivePcm::OnActionResponse()::action_name="
        << action_name.GetChars() << ",service_name=" << service_name.GetChars()
        << ", application_id=" << application_id.GetChars()
@@ -227,4 +246,5 @@ NPT_Result UpnpActivePcm::OnActionResponse(NPT_Result res,
 }
 
 NPT_Result UpnpActivePcm::OnEventNotify(PLT_Service *service,
-                                        NPT_List<PLT_StateVariable *> *vars) {}
+                                        NPT_List<PLT_StateVariable *> *vars) {
+}

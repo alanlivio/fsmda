@@ -19,10 +19,13 @@ ParentClassHandler::ParentClassHandler() : number_of_registred_classes_(0) {
   upnp_ppm_->set_service_owner(this);
 }
 
-ParentClassHandler::~ParentClassHandler() { delete upnp_ppm_; }
+ParentClassHandler::~ParentClassHandler() {
+  delete upnp_ppm_;
+}
 
 void ParentClassHandler::add_class(const string& application_id,
-                                   unsigned int class_index) {}
+                                   unsigned int class_index) {
+}
 
 void ParentClassHandler::add_class_description(
     const string& application_id, unsigned int class_index,

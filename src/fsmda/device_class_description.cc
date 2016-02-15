@@ -164,9 +164,11 @@ DeviceClassDescription::DeviceClassDescription()
       rdf_content_(""),
       min_devices_(0),
       max_devices_(0),
-      initialized_(false) {}
+      initialized_(false) {
+}
 
-DeviceClassDescription::~DeviceClassDescription() {}
+DeviceClassDescription::~DeviceClassDescription() {
+}
 
 DeviceClassDescription::DeviceClassType
 DeviceClassDescription::device_class_type() {
@@ -183,11 +185,17 @@ DeviceClassDescription::communication_protocol() {
   return communication_protocol_;
 }
 
-const string& DeviceClassDescription::rdf_content() { return rdf_content_; }
+const string& DeviceClassDescription::rdf_content() {
+  return rdf_content_;
+}
 
-unsigned int DeviceClassDescription::min_devices() { return min_devices_; }
+unsigned int DeviceClassDescription::min_devices() {
+  return min_devices_;
+}
 
-unsigned int DeviceClassDescription::max_devices() { return max_devices_; }
+unsigned int DeviceClassDescription::max_devices() {
+  return max_devices_;
+}
 
 bool DeviceClassDescription::is_device_compatible(
     DeviceDescription* device_desc) {
@@ -221,7 +229,6 @@ int DeviceClassDescription::initialize_by_device_class(DeviceClassType type) {
 }
 
 int DeviceClassDescription::initialize_by_rdf_content(const char* content) {
-  // parse file
   if (parse_xml_content(content) == 0) {
     rdf_content_ = content;
     initialized_ = true;
@@ -233,13 +240,11 @@ int DeviceClassDescription::initialize_by_rdf_content(const char* content) {
 
 int DeviceClassDescription::initialize_by_rdf_file(
     const string& rdf_file_path) {
-  std::ifstream t;
-  t.open(rdf_file_path.c_str());
+  std::ifstream file;
+  file.open(rdf_file_path.c_str());
   std::stringstream contents;
-  contents << t.rdbuf();
+  contents << file.rdbuf();
 
-  //  clog << " DeviceClassDescription::InitializeByRdfFile:: contents ="
-  //       << contents.str().c_str() << endl;
   if (parse_xml_content(contents.str().c_str()) == 0) {
     initialized_ = true;
     rdf_content_ = contents.str().c_str();
@@ -258,8 +263,6 @@ int DeviceClassDescription::parse_xml_content(const char* rdf_content) {
   xmlNodeSetPtr nodes;
   xmlDocPtr xml_doc;
 
-  //  clog << " DeviceClassDescription::ParseXmlContent:: rdf_content ="
-  //       << rdf_content << endl;
   // initilize libxml
   xmlInitParser();
   rdf_content_size = strlen(rdf_content);

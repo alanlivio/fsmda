@@ -241,9 +241,6 @@ obj/
 Session.vim
 .netrwhist
 *~
-
-# Created by https://www.gitignore.io
-
 ### Qt ###
 # C++ objects and libs
 

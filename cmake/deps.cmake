@@ -1,7 +1,7 @@
 find_package(PkgConfig)
 
-# libplatinumkit
-pkg_check_modules(LIBPLATINUMKIT REQUIRED libplatinumkit)
+# libplatinum
+pkg_check_modules(LIBPLATINUM REQUIRED libplatinum)
 # libxml-2.0
 pkg_check_modules(LIBXML2 REQUIRED libxml-2.0)
 # libzip
