@@ -3,7 +3,7 @@
 cmake_minimum_required(VERSION 2.8)
 include(ExternalProject)
 find_package(PkgConfig)
-set(CMAKE_VERBOSE_MAKEFILE on)
+#set(CMAKE_VERBOSE_MAKEFILE on)
 #set(CMAKE_CXX_FLAGS "-Wno-cpp")
 set(CMAKE_CXX_FLAGS "-Wno-cpp")
 
@@ -44,14 +44,6 @@ if(NOT GLOG_FOUND)
   set(GLOG_INCLUDE_DIRS ${CMAKE_CURRENT_LIST_DIR}/external_deps/include)
   set(GLOG_LIBRARIES ${GFLAGS_LIBRARIES} ${CMAKE_CURRENT_LIST_DIR}/external_deps/lib/libglog.a)
   set(GLOG_LIBRARY_DIRS ${CMAKE_CURRENT_LIST_DIR}/external_deps/lib)
-endif()
-# gtest
-find_package(gtest QUIET)
-if(NOT GTEST_FOUND)
-  message(STATUS "Not found gtest. Will use external_deps/")
-  set(GTEST_INCLUDE_DIRS ${CMAKE_CURRENT_LIST_DIR}/external_deps/src/gtest/include/)
-  set(GTEST_LIBRARIES ${CMAKE_CURRENT_LIST_DIR}/external_deps/src/gtest-build/libgtest.a ${CMAKE_THREAD_LIBS_INIT})
-  set(GTEST_LIBRARY_DIRS ${CMAKE_CURRENT_LIST_DIR}/external_deps/src/gtest-build/)
 endif()
 
 # fsmda and programs
