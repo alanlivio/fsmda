@@ -5,10 +5,11 @@
 *.creator.user
 *cbp
 
+src/*.pc
 programs/*_program
 tests/*_test
 tests/*_helper
-tests/*_gtest
+tests/*_suit
 tests/testsuit
 third_party/
 external_deps/include/
